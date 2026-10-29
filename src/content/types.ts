@@ -49,6 +49,8 @@ export type Station = {
   sources: Source[];
   datePublished: string;
   dateModified: string;
+  /** 숫자 정정 기록(SEO·GEO 규칙 19). 정정하면 dateModified도 같은 날로 올린다. 비어 있으면 숨긴다. */
+  corrections?: { date: string; before: string; after: string; reason: string }[];
   /** 이 역을 가리키는 철도 소식(/news/). 비어 있으면 "최근 소식" 자리를 숨긴다. */
   news?: { href: string; title: string; date: string }[];
 };
