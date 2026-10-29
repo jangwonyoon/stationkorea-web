@@ -1,0 +1,16 @@
+# Vercel production 배포가 성공하면 바뀐 URL을 IndexNow로 알린다(CLAUDE.md SEO·GEO 규칙 16).
+name: IndexNow
+
+on:
+  deployment_status:
+
+jobs:
+  ping:
+    if: github.event.deployment_status.state == 'success' && github.event.deployment.environment == 'Production'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: node scripts/indexnow.mjs --days 7

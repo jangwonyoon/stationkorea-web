@@ -3,6 +3,12 @@
   "framework": "nextjs",
   "installCommand": "pnpm install --frozen-lockfile",
   "buildCommand": "pnpm build",
+  "headers": [
+    {
+      "source": "/station/:slug/article.md",
+      "headers": [{ "key": "Link", "value": "<https://www.stationkorea.com/station/:slug/>; rel=\"canonical\"" }]
+    }
+  ],
   "git": {
     "deploymentEnabled": {
       "main": true,
