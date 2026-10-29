@@ -3,6 +3,10 @@
   "framework": "nextjs",
   "installCommand": "pnpm install --frozen-lockfile",
   "buildCommand": "pnpm build && node scripts/indexnow.mjs",
+  "redirects": [
+    { "source": "/ig{/}?", "destination": "/?utm_source=instagram&utm_medium=profile", "permanent": false },
+    { "source": "/c{/}?", "destination": "/?utm_source=community", "permanent": false }
+  ],
   "headers": [
     {
       "source": "/station/:slug/article.md",
