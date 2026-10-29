@@ -9,16 +9,30 @@ const publisher = {
   sameAs: [site.instagram],
 };
 
-export function websiteJsonLd() {
-  return {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    name: site.name,
-    url: absoluteUrl("/"),
-    description: site.description,
-    inLanguage: "ko-KR",
-    publisher,
-  };
+/** 홈: WebSite + 질문 목록(ItemList). */
+export function homeJsonLd(list: Station[]) {
+  return [
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      name: site.name,
+      url: absoluteUrl("/"),
+      description: site.description,
+      inLanguage: "ko-KR",
+      publisher,
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "ItemList",
+      name: "역 해부 질문 목록",
+      itemListElement: list.map((s, i) => ({
+        "@type": "ListItem",
+        position: i + 1,
+        name: s.question,
+        url: absoluteUrl(stationPath(s)),
+      })),
+    },
+  ];
 }
 
 /** 역 기사: Article + FAQPage(Q&A와 1:1) + BreadcrumbList. */

@@ -1,4 +1,5 @@
 import { stationPath, stations } from "@/content/stations";
+import { markdownPath } from "@/lib/markdown";
 import { absoluteUrl, site } from "@/lib/site";
 
 export const dynamic = "force-static";
@@ -15,7 +16,10 @@ export function GET() {
     "- 3D 단면 영상과 썸네일 배경은 AI로 생성한 참고 시각화이며 실제 구조·치수와 다를 수 있다. 대본·숫자·출처는 사람이 썼다.",
     "",
     "## 역 기사",
-    ...stations.map((s) => `- [${s.question}](${absoluteUrl(stationPath(s))}): ${s.answer}`),
+    ...stations.map((s) => `- [${s.question}](${absoluteUrl(stationPath(s))}): ${s.answer} 마크다운: ${absoluteUrl(markdownPath(s))}`),
+    "",
+    "## 전문",
+    `- [모든 기사 전문](${absoluteUrl("/llms-full.txt")})`,
     "",
   ].join("\n");
   return new Response(body, { headers: { "Content-Type": "text/plain; charset=utf-8" } });

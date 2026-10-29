@@ -6,6 +6,7 @@ import { JsonLd } from "@/components/JsonLd";
 import { formatDate, SourceRefs, withTopic } from "@/components/SourceRefs";
 import { getNextStation, getStation, stationPath, stations } from "@/content/stations";
 import { stationJsonLd } from "@/lib/jsonld";
+import { markdownPath } from "@/lib/markdown";
 import { site } from "@/lib/site";
 
 type Props = { params: Promise<{ slug: string }> };
@@ -24,7 +25,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: s.seoTitle,
     description: s.answer,
     keywords: [s.name, ...s.lines, `${s.name} 환승`, "서울 지하철", "환승통로"],
-    alternates: { canonical: path },
+    alternates: { canonical: path, types: { "text/markdown": markdownPath(s) } },
     openGraph: {
       type: "article",
       url: path,
@@ -139,7 +140,7 @@ export default async function StationPage({ params }: Props) {
           </section>
         )}
 
-        {/* ⑧ 출처 전문 · 제작 문의 · AI 시각화 고지 (read_end 측정 지점) */}
+        {/* ⑧ 출처 전문 · 제작 문의 (read_end 측정 지점). AI 표시는 ② 단면 이미지 캡션에 둔다 */}
         <footer id="sources" className="order-8 border-t border-neutral-200 pt-6 text-sm lg:col-start-1">
           <h2 className="text-base font-bold">출처</h2>
           <ol className="mt-3 flex list-decimal flex-col gap-2 pl-5">
@@ -157,8 +158,6 @@ export default async function StationPage({ params }: Props) {
               </li>
             ))}
           </ol>
-          <h2 className="mt-6 text-base font-bold">AI 시각화 고지</h2>
-          <p className="mt-2 text-neutral-600 break-keep">{site.aiNotice}</p>
           <h2 className="mt-6 text-base font-bold">제작 문의</h2>
           <p className="mt-2 text-neutral-600 break-keep">
             역 한 곳의 해부 기사와 릴스를 함께 제작합니다. 인스타그램{" "}

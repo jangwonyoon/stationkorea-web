@@ -30,7 +30,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <main>{children}</main>
         <footer className="mt-16 border-t border-neutral-200">
           <div className="mx-auto max-w-6xl px-4 py-6 text-xs text-neutral-500 break-keep">
-            <p>숫자마다 기관·자료명·기준일을 출처로 적습니다. {site.aiNotice}</p>
+            <p>숫자마다 기관·자료명·기준일을 출처로 적습니다.</p>
           </div>
         </footer>
       </body>

@@ -3,7 +3,7 @@ import Link from "next/link";
 import { JsonLd } from "@/components/JsonLd";
 import { latestStations, stationPath, stations } from "@/content/stations";
 import type { Station } from "@/content/types";
-import { websiteJsonLd } from "@/lib/jsonld";
+import { homeJsonLd } from "@/lib/jsonld";
 import { site } from "@/lib/site";
 
 // 홈(E안): 역 이름이 아니라 질문 목록. 최신 기사 가로 1줄 + 3열 카드 + 노선 칩.
@@ -13,7 +13,7 @@ export default function Home() {
 
   return (
     <>
-      <JsonLd data={websiteJsonLd()} />
+      <JsonLd data={homeJsonLd(stations)} />
       <div className="mx-auto max-w-6xl px-4 py-8">
         <h1 className="text-2xl font-bold break-keep sm:text-3xl">매일 지나는 그 역, 왜 이렇게 생겼을까</h1>
         <p className="mt-2 text-neutral-700 break-keep">{site.description}</p>
