@@ -77,6 +77,15 @@ export default function AboutPage() {
           </p>
         </section>
 
+        <section aria-labelledby="privacy" className="mt-10">
+          <h2 id="privacy" className="text-xl font-bold">
+            방문 통계와 개인정보
+          </h2>
+          <p className="mt-3">
+            이 사이트는 쿠키를 쓰지 않는 Umami로 익명 방문 통계(페이지뷰, 유입 경로, 기기 종류, 다음 기사 클릭, 본문 끝 도달)를 셉니다. 이름·이메일 같은 개인 정보는 수집하지 않습니다. 재방문 여부를 알기 위해 브라우저 저장소(localStorage)에 첫 방문 시각과 유입 경로만 저장하며, 브라우저 설정에서 지울 수 있습니다.
+          </p>
+        </section>
+
         <section aria-labelledby="contact" className="mt-10">
           <h2 id="contact" className="text-xl font-bold">
             연락·제작 문의

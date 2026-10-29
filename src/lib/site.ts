@@ -6,6 +6,8 @@ export const site = {
   instagram: "https://www.instagram.com/maeil.geugil/",
   instagramHandle: "@maeil.geugil",
   email: "stationkorea.official@gmail.com",
+  // Umami Cloud(US) 웹사이트 ID. HTML에 그대로 노출되는 공개 값이다.
+  umamiWebsiteId: "82982143-23ab-4f87-b891-bc364d0b5ac3",
   // 바이라인·Article author(SEO·GEO 규칙 6·18). 저자 소개는 /about/#author.
   author: {
     name: "윤장원",
