@@ -61,14 +61,8 @@ export function stationJsonLd(s: Station) {
         publisher: { "@type": "Organization", name: src.org },
         ...(src.url ? { url: src.url } : {}),
       })),
-      video: {
-        "@type": "VideoObject",
-        name: s.question,
-        description: s.answer,
-        thumbnailUrl: absoluteUrl(s.reel.thumbnail),
-        uploadDate: s.reel.postedAt,
-        url: s.reel.url,
-      },
+      // 릴스는 페이지에서 재생하지 않고 인스타로 링크만 하므로 VideoObject를 넣지 않는다(Google 동영상 가이드).
+      sameAs: [s.reel.url],
     },
     {
       "@context": "https://schema.org",

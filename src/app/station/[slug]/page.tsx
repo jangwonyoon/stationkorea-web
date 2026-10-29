@@ -25,7 +25,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: s.seoTitle,
     description: s.answer,
     keywords: [s.name, ...s.lines, `${s.name} 환승`, "서울 지하철", "환승통로"],
-    alternates: { canonical: path, types: { "text/markdown": markdownPath(s) } },
+    // 페이지 alternates는 레이아웃 값을 덮어쓰므로 RSS도 다시 적는다.
+    alternates: { canonical: path, types: { "text/markdown": markdownPath(s), "application/rss+xml": "/rss.xml" } },
     openGraph: {
       type: "article",
       url: path,
