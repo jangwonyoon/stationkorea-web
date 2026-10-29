@@ -46,16 +46,21 @@ done
 
 - 로그아웃 또는 시크릿 창, 한국어, 한국 IP. 계정 기억(메모리)·개인화는 끈다.
 - "출처를 달아 줘", "검색해서" 같은 검색 강제 문구를 넣지 않는다. 사람이 묻는 그대로 묻는다([Graphite](https://graphite.io/five-percent/research/do-not-force-search-prompt-tracking)).
-- 질문마다 새 대화로 3회 실행한다.
+- 핵심 엔진은 질문마다 새 대화로 3회, 확장 엔진은 1회 실행한다.
 
 ### 엔진
 
-| 엔진 | 비고 |
-|---|---|
-| ChatGPT | 웹 검색이 자동으로 켜지는 기본 모드 |
-| Perplexity | 기본 모드 |
-| Google AI Mode | AI Overview가 뜨면 함께 기록 |
-| 네이버 | 통합검색의 AI 브리핑 + AI탭 |
+엔진별 출처 색인은 [seo-geo-strategy.md](./seo-geo-strategy.md) 매트릭스. 확장 엔진은 핵심 엔진과 다른 색인(Bing·Brave)을 쓰는 곳을 골랐다.
+
+| 구분 | 엔진 | 출처 색인 | 비고 |
+|---|---|---|---|
+| 핵심 | ChatGPT | 자체 + 외부(Microsoft 포함) | 웹 검색이 자동으로 켜지는 기본 모드 |
+| 핵심 | Perplexity | 자체 | 기본 모드 |
+| 핵심 | Google AI Mode | Google | AI Overview가 뜨면 함께 기록 |
+| 핵심 | 네이버 | 네이버 | 통합검색의 AI 브리핑 + AI탭 |
+| 확장 | Microsoft Copilot | Bing | Bing AI Performance 리포트와 대조 |
+| 확장 | Claude | Brave | 웹 검색 켠 상태 |
+| 확장 | Gemini | Google | 기본 모드 |
 
 ### 질문 12개
 
