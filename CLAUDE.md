@@ -6,6 +6,7 @@
 - 설계 문서(승인본): reel-studio `docs/designs/maeil-geugil-web.md` (PR #43 브랜치 `docs/maeil-geugil-web-design`). 로컬 사본: `~/.gstack/projects/jangwonyoon-reel-studio/diego-work-main-20261028-design-20261028-172015.md`
 - 와이어프레임: reel-studio `docs/designs/wireframes/` (gallery.html, `shot-F-*.png`가 확정안). 공개 페이지: https://claude.ai/code/artifact/dc314215-158a-4ea2-84c7-5ae7165a894e
 - 채널 문서: reel-studio `docs/formats/maeil-geugil.md`
+- GEO 테스트: [docs/geo-test.md](docs/geo-test.md)(절차·질문 12개·판정 기준), 결과는 [docs/geo-log.md](docs/geo-log.md)에 추가. 설계 문서의 "2·6·12주 질문 5개" 계획과 성공 기준을 이 문서가 대체한다. 기사를 추가하거나 제목을 바꾸면 질문 표를 같은 PR에서 고친다.
 
 ## 확정 결정
 - **1단계 범위**: 역 기사 3개(잠실·사당·건대입구) + 홈 + 제작 문의 페이지 + 측정. 2주 실험으로 "웹에서 읽는가"를 잰다. 주변 핫플 큐레이션·실시간 최단 루트·하차 칸 조회 도구는 만들지 않는다.
