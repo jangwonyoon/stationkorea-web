@@ -1,6 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import Link from "next/link";
+import Script from "next/script";
 import "./globals.css";
+import { Analytics } from "@/components/Analytics";
 import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -31,9 +33,26 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           </div>
         </header>
         <main>{children}</main>
+        {/* Umami(쿠키리스). data-domains로 production 도메인에서만 집계한다. */}
+        <Script
+          src="https://cloud.umami.is/script.js"
+          data-website-id={site.umamiWebsiteId}
+          data-domains="www.stationkorea.com"
+          strategy="afterInteractive"
+        />
+        <Analytics />
         <footer className="mt-16 border-t border-neutral-200">
           <div className="mx-auto max-w-6xl px-4 py-6 text-xs text-neutral-500 break-keep">
-            <p>숫자마다 기관·자료명·기준일을 출처로 적습니다.</p>
+            <p>
+              숫자마다 기관·자료명·기준일을 출처로 적습니다.{" "}
+              <Link href="/about/" className="underline">
+                소개·출처 정책
+              </Link>{" "}
+              · 문의{" "}
+              <a href={`mailto:${site.email}`} className="underline">
+                {site.email}
+              </a>
+            </p>
           </div>
         </footer>
       </body>

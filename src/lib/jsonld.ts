@@ -2,12 +2,33 @@ import type { Station } from "@/content/types";
 import { stationPath } from "@/content/stations";
 import { absoluteUrl, site } from "@/lib/site";
 
+// logo는 Claude Design에서 로고가 나오면 추가한다(SEO·GEO 규칙 6).
 const publisher = {
   "@type": "Organization",
   name: site.name,
-  url: site.url,
+  url: absoluteUrl("/"),
+  email: site.email,
   sameAs: [site.instagram],
 };
+
+const author = {
+  "@type": "Person",
+  name: site.author.name,
+  url: absoluteUrl(site.author.path),
+  description: site.author.bio,
+};
+
+/** /about/: AboutPage + 운영 주체·저자. */
+export function aboutJsonLd() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "AboutPage",
+    url: absoluteUrl("/about/"),
+    inLanguage: "ko-KR",
+    about: publisher,
+    mainEntity: author,
+  };
+}
 
 /** 홈: WebSite + 질문 목록(ItemList). */
 export function homeJsonLd(list: Station[]) {
@@ -48,7 +69,7 @@ export function stationJsonLd(s: Station) {
       datePublished: s.datePublished,
       dateModified: s.dateModified,
       inLanguage: "ko-KR",
-      author: publisher,
+      author,
       publisher,
       mainEntityOfPage: url,
       about: [

@@ -72,7 +72,11 @@ export default async function StationPage({ params }: Props) {
           <h1 className="mt-2 text-[22px] font-bold leading-snug break-keep sm:text-3xl">{s.question}</h1>
           <p className="mt-4 text-lg leading-relaxed break-keep">{s.answer}</p>
           <p className="mt-3 text-xs text-neutral-500">
-            <time dateTime={s.datePublished}>{formatDate(s.datePublished)}</time> 게시
+            글{" "}
+            <Link href={site.author.path} rel="author" className="underline-offset-2 hover:underline">
+              {site.author.name}
+            </Link>{" "}
+            · <time dateTime={s.datePublished}>{formatDate(s.datePublished)}</time> 게시
             {s.dateModified !== s.datePublished && (
               <>
                 {" "}
@@ -159,13 +163,32 @@ export default async function StationPage({ params }: Props) {
               </li>
             ))}
           </ol>
+          {s.corrections && s.corrections.length > 0 && (
+            <>
+              <h2 className="mt-6 text-base font-bold">정정 기록</h2>
+              <ul className="mt-2 flex flex-col gap-1 text-neutral-600">
+                {s.corrections.map((c) => (
+                  <li key={`${c.date}-${c.before}`} className="break-keep">
+                    <time dateTime={c.date}>{formatDate(c.date)}</time>: {c.before} → {c.after} ({c.reason})
+                  </li>
+                ))}
+              </ul>
+            </>
+          )}
           <h2 className="mt-6 text-base font-bold">제작 문의</h2>
           <p className="mt-2 text-neutral-600 break-keep">
-            역 한 곳의 해부 기사와 릴스를 함께 제작합니다. 인스타그램{" "}
+            역 한 곳의 해부 기사와 릴스를 함께 제작합니다. 이메일{" "}
+            <a href={`mailto:${site.email}`} className="underline">
+              {site.email}
+            </a>{" "}
+            또는 인스타그램{" "}
             <a href={site.instagram} className="underline">
               {site.instagramHandle}
             </a>{" "}
-            DM으로 문의해 주세요.
+            DM으로 문의해 주세요. 숫자가 틀렸다면 같은 주소로 알려 주세요.{" "}
+            <Link href="/about/" className="underline">
+              출처·정정 정책
+            </Link>
           </p>
         </footer>
 
@@ -223,7 +246,12 @@ export default async function StationPage({ params }: Props) {
             <h2 id="next" className="text-sm text-neutral-500">
               다음 질문
             </h2>
-            <Link href={stationPath(next)} className="mt-2 block rounded-lg border border-neutral-900 p-4 hover:bg-neutral-50">
+            <Link
+              href={stationPath(next)}
+              data-track="next_click"
+              data-to={stationPath(next)}
+              className="mt-2 block rounded-lg border border-neutral-900 p-4 hover:bg-neutral-50"
+            >
               <span className="block text-lg font-bold break-keep">
                 그럼 {withTopic(next.name.replace(/역$/, ""))} 왜?
               </span>
