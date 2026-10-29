@@ -43,7 +43,7 @@ GEO 대상은 생성형 AI 답변 전체다. 측정 절차는 [geo-test.md](./ge
 | P0 | 네이버 서치어드바이저 등록, sitemap·RSS 제출 | S | 대기(RSS는 `feat/search-console-ready`) |
 | P0 | Vercel Firewall·Bot Protection이 AI 봇을 막지 않는지 확인 | S | 대기 |
 | P0 | Search Console 생성형 AI 노출 설정 확인(Google이 소유자 제어 테스트 중[10]) | S | 대기 |
-| P1 | `/about/`, 저자 페이지, 바이라인, Article author Person+url | M | 결정 필요: 바이라인 이름(실명 또는 필명) |
+| P1 | `/about/`, 저자 페이지, 바이라인, Article author Person+url | M | 구현(실명 윤장원, 2026-10-29 결정). 정정 기록 표시 포함 |
 | P1 | Organization `logo` | S | 로고 이미지 필요(Claude Design) |
 | P1 | `.md` 대체본에 `Link rel=canonical` 헤더(`vercel.json` headers) | S | 대기 |
 | P1 | 기사 간 본문 내부 링크 2개 이상, 수정일·정정 기록 표시 | M | 대기 |
