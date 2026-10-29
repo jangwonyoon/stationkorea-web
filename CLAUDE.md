@@ -15,7 +15,7 @@
 - **SEO·GEO 최우선**: 본문·표·출처가 HTML에 있어야 한다. JSON-LD Article + FAQPage(Q&A와 1:1) + BreadcrumbList. robots.txt는 Googlebot·Yeti·Bingbot·GPTBot·OAI-SearchBot·PerplexityBot·ClaudeBot·Google-Extended 허용, `public/llms.txt`. canonical 지정, URL `/station/<역>/`. `<title>`은 역 이름·숫자·질문을 앞에. 숫자마다 기준일, 갱신 시 dateModified.
 - **개인정보 수집 없음**: 쿠키·외부 임베드 스크립트·폼 금지. 문의는 이메일 주소 표기. 측정은 Umami Cloud(쿠키리스) 커스텀 이벤트: `next_click`, `read_end`(페이지뷰당 최초 1회, 라우트 전환마다 초기화), `return_visit`(localStorage에 첫 방문 시각·유입원만). 유입원은 UTM(`utm_source=instagram|community`).
 - **출처**: 웹은 출처 전문(기관·자료명·기준일·URL). 조사 방법(CSV 파일 ID·내려받기 절차)은 적지 않는다.
-- **AI 고지**: 3D 단면 영상 클립과 썸네일 배경만 AI 생성. 대본·숫자·출처는 사람이 썼다.
+- **AI 고지**: 3D 단면 영상 클립과 썸네일 배경만 AI 생성. 대본·숫자·출처는 사람이 썼다. 웹에서는 별도 고지 블록을 두지 않고 단면 이미지 캡션에 "AI 시각화 참고 이미지." 한 줄만 둔다(사용자 결정 2026-10-29).
 - **디자인**: 비주얼은 사용자가 Claude Design으로 따로 확정한다. 그 전까지는 구조·시맨틱 HTML·반응형 배치만 만들고 색·서체에 공들이지 않는다.
 - **확장 여지(구조만 비워 둠)**: 노선 허브 `/line/<노선>/`, 철도 소식 `/news/<날짜-슬러그>/`(숫자가 바뀌는 소식만, NewsArticle). 역 페이지의 "최근 소식" 자리는 비어 있으면 숨긴다.
 
