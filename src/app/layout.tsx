@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: { default: `${site.name} — 서울 지하철 역, 왜 이렇게 생겼을까`, template: `%s | ${site.name}` },
   description: site.description,
-  alternates: { canonical: "/" },
+  alternates: { canonical: "/", types: { "application/rss+xml": "/rss.xml" } },
   openGraph: { type: "website", locale: "ko_KR", siteName: site.name, url: "/" },
 };
 
