@@ -246,7 +246,12 @@ export default async function StationPage({ params }: Props) {
             <h2 id="next" className="text-sm text-neutral-500">
               다음 질문
             </h2>
-            <Link href={stationPath(next)} className="mt-2 block rounded-lg border border-neutral-900 p-4 hover:bg-neutral-50">
+            <Link
+              href={stationPath(next)}
+              data-track="next_click"
+              data-to={stationPath(next)}
+              className="mt-2 block rounded-lg border border-neutral-900 p-4 hover:bg-neutral-50"
+            >
               <span className="block text-lg font-bold break-keep">
                 그럼 {withTopic(next.name.replace(/역$/, ""))} 왜?
               </span>
