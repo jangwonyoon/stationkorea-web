@@ -6,6 +6,7 @@
 - 설계 문서(승인본): reel-studio `docs/designs/maeil-geugil-web.md` (PR #43 브랜치 `docs/maeil-geugil-web-design`). 로컬 사본: `~/.gstack/projects/jangwonyoon-reel-studio/diego-work-main-20261028-design-20261028-172015.md`
 - 와이어프레임: reel-studio `docs/designs/wireframes/` (gallery.html, `shot-F-*.png`가 확정안). 공개 페이지: https://claude.ai/code/artifact/dc314215-158a-4ea2-84c7-5ae7165a894e
 - 채널 문서: reel-studio `docs/formats/maeil-geugil.md`
+- GEO 테스트: [docs/geo-test.md](docs/geo-test.md)(절차·질문 12개·판정 기준), 결과는 [docs/geo-log.md](docs/geo-log.md)에 추가. 설계 문서의 "2·6·12주 질문 5개" 계획과 성공 기준을 이 문서가 대체한다. 기사를 추가하거나 제목을 바꾸면 질문 표를 같은 PR에서 고친다.
 
 ## 확정 결정
 - **1단계 범위**: 역 기사 3개(잠실·사당·건대입구) + 홈 + 제작 문의 페이지 + 측정. 2주 실험으로 "웹에서 읽는가"를 잰다. 주변 핫플 큐레이션·실시간 최단 루트·하차 칸 조회 도구는 만들지 않는다.
@@ -14,6 +15,7 @@
 - **배포**: Vercel(Hobby로 시작, 제작 문의 페이지 공개 시 Pro 검토). 완전 정적(`output: "export"`).
 - **SEO·GEO 최우선**: 본문·표·출처가 HTML에 있어야 한다. JSON-LD Article + FAQPage(Q&A와 1:1) + BreadcrumbList. robots.txt는 Googlebot·Yeti·Bingbot·GPTBot·OAI-SearchBot·PerplexityBot·ClaudeBot·Google-Extended 허용, `public/llms.txt`. canonical 지정, URL `/station/<역>/`. `<title>`은 역 이름·숫자·질문을 앞에. 숫자마다 기준일, 갱신 시 dateModified.
 - **개인정보 수집 없음**: 쿠키·외부 임베드 스크립트·폼 금지. 문의는 이메일 주소 표기. 측정은 Umami Cloud(쿠키리스) 커스텀 이벤트: `next_click`, `read_end`(페이지뷰당 최초 1회, 라우트 전환마다 초기화), `return_visit`(localStorage에 첫 방문 시각·유입원만). 유입원은 UTM(`utm_source=instagram|community`).
+- **GA4·AdSense 도입 시점(사용자 결정 2026-10-29)**: 지금은 Umami만 쓴다. GA4는 2주 실험이 통과("웹에서 읽힌다")하고 2단계(자동 생성)를 시작할 때 개인정보처리방침 페이지와 함께 붙이고, 이때 위 "개인정보 수집 없음"을 고친다. AdSense는 기사 20~30개 이상·운영 3개월 이상·처리방침/문의/소개 페이지 완비·예상 수익이 Vercel Pro($20/월)를 넘을 때 신청하며, Pro 전환과 `ads.txt`를 같이 한다. 근거: GA4만 되는 연령·성별·관심사는 Google 로그인 사용자 기반이라 인스타 인앱 유입·소규모 트래픽에서는 거의 비어 있고, 유입원·AI 리퍼러·지역·기기는 Umami로 되며, 검색어는 Search Console·서치어드바이저에서 본다.
 - **출처**: 웹은 출처 전문(기관·자료명·기준일·URL). 조사 방법(CSV 파일 ID·내려받기 절차)은 적지 않는다.
 - **AI 고지**: 3D 단면 영상 클립과 썸네일 배경만 AI 생성. 대본·숫자·출처는 사람이 썼다. 웹에서는 별도 고지 블록을 두지 않고 단면 이미지 캡션에 "AI 시각화 참고 이미지." 한 줄만 둔다(사용자 결정 2026-10-29).
 - **디자인**: 비주얼은 사용자가 Claude Design으로 따로 확정한다. 그 전까지는 구조·시맨틱 HTML·반응형 배치만 만들고 색·서체에 공들이지 않는다.
