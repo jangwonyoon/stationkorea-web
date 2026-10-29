@@ -9,6 +9,8 @@ export const metadata: Metadata = {
   description: site.description,
   alternates: { canonical: "/", types: { "application/rss+xml": "/rss.xml" } },
   openGraph: { type: "website", locale: "ko_KR", siteName: site.name, url: "/" },
+  // 네이버 서치어드바이저 소유 확인(HTML 파일 public/naver*.html 과 함께 둔다). Google·Bing은 DNS·GSC 가져오기로 확인했다.
+  verification: { other: { "naver-site-verification": "d19249b28a182b5efb8ef5c7c5ba514253b9d0e1" } },
 };
 
 export const viewport: Viewport = { width: "device-width", initialScale: 1 };
