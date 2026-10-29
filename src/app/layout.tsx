@@ -9,7 +9,8 @@ export const metadata: Metadata = {
   description: site.description,
   alternates: { canonical: "/", types: { "application/rss+xml": "/rss.xml" } },
   openGraph: { type: "website", locale: "ko_KR", siteName: site.name, url: "/" },
-  // 네이버 서치어드바이저 소유 확인(HTML 파일 public/naver*.html 과 함께 둔다). Google·Bing은 DNS·GSC 가져오기로 확인했다.
+  // 네이버 서치어드바이저 소유 확인(메타 태그 방식, 2026-10-29 확인). 지우면 소유 확인이 풀린다.
+  // Vercel은 public/*.html을 확장자 없는 경로로 내보내므로 HTML 파일 방식은 쓰지 않는다. Google·Bing은 DNS·GSC 가져오기로 확인했다.
   verification: { other: { "naver-site-verification": "d19249b28a182b5efb8ef5c7c5ba514253b9d0e1" } },
 };
 
