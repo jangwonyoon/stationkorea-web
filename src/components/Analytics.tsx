@@ -39,7 +39,7 @@ const AI_REFERRERS: [RegExp, string][] = [
 function track(event: string, data?: Record<string, string | number>) {
   let tries = 0;
   const send = () => {
-    if (window.umami) window.umami.track(event, data);
+    if (window.umami) window.umami.track(event, { ...data, tpl: "v2" });
     else if (tries++ < 20) setTimeout(send, 500);
   };
   send();
