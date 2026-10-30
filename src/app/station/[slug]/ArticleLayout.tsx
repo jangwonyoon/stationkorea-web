@@ -48,7 +48,7 @@ export function ArticleLayout({ children }: { children: ReactNode }) {
 
   // 긴 레일도 키보드 포커스 중에는 자연스럽게 스크롤되어 모든 링크가 보인다.
   return (
-    <div ref={root} className={`relative page-grid [&>*]:col-span-4 md:[&>*]:col-span-6 md:[&>*]:col-start-2 xl:[&>*]:col-span-7 xl:[&>*]:col-start-1 ${ready ? "xl:[&>[data-rail]]:pointer-events-none xl:[&>[data-rail]]:absolute xl:[&>[data-rail]]:inset-x-0 xl:[&>[data-rail]]:top-0 xl:[&>[data-rail]]:bottom-(--rail-bottom) xl:[&>[data-rail]]:col-span-4 xl:[&>[data-rail]]:col-start-9 xl:[&>[data-rail]]:m-0 xl:[&>[data-rail]]:pt-(--rail-offset) xl:[&>[data-rail]>div]:pointer-events-auto xl:[&>[data-rail]>div]:sticky xl:[&>[data-rail]>div]:top-(--rail-top) xl:[&:has([data-rail]:focus-within)>[data-rail]>div]:static" : ""}`}>
+    <div ref={root} className={`relative page-grid [&>*]:col-span-4 md:[&>*]:col-span-6 md:[&>*]:col-start-2 xl:[&>*]:col-span-7 xl:[&>*]:col-start-1 ${ready ? "xl:[&>[data-rail]]:pointer-events-none xl:[&>[data-rail]]:absolute xl:[&>[data-rail]]:inset-x-0 xl:[&>[data-rail]]:top-0 xl:[&>[data-rail]]:bottom-(--rail-bottom) xl:[&>[data-rail]]:col-span-4 xl:[&>[data-rail]]:col-start-9 xl:[&>[data-rail]]:m-0 xl:[&>[data-rail]]:pt-(--rail-offset) xl:[&>[data-rail]>div]:pointer-events-auto xl:[&>[data-rail]>div]:sticky xl:[&>[data-rail]>div]:top-(--rail-top) xl:[&:has([data-rail]_:focus-visible)>[data-rail]>div]:static" : ""}`}>
       {children}
     </div>
   );
