@@ -57,12 +57,14 @@
 
 | 데이터 | 항목 | 갱신 | 라이선스 | 링크 |
 |---|---|---|---|---|
-| 백년가게(소상공인시장진흥공단) | 업체명, 주소, 연락처 | 수시, 2025-07-28 수정 | 이용허락 제한 없음 | https://www.data.go.kr/data/15102255/fileData.do |
-| 백년소공인 | 업체명, 주소, 업력 | 2026-08-30 등록 | 제한 없음 | https://www.data.go.kr/data/15132698/fileData.do |
+| 백년가게(소상공인시장진흥공단) | 업체명, 주소 | 자료 2022-07-13, 메타정보 2025-07-28 수정 | 이용허락 제한 없음 | https://www.data.go.kr/data/15102255/fileData.do |
+| 백년소공인 | 업체명, 주소 | 자료 2026-08-20, 메타정보 2026-08-30 등록 | 제한 없음 | https://www.data.go.kr/data/15132698/fileData.do |
 | 착한가격업소(행정안전부) | 업종, 업소명, 주소, 착한가격 메뉴·가격 | 분기 | 제한 없음 | https://www.data.go.kr/data/3045247/fileData.do |
-| 모범음식점(자치구별) | 업태, 업소명, 소재지, 주메뉴 | 수시 | 공공누리 1유형 | https://data.seoul.go.kr/dataList/OA-10217/A/1/datasetView.do |
+| 모범음식점(동작구) | 업소명, 소재지, 주메뉴, 지정연도 | 자료 갱신 2026-10-30 | 공공누리 1유형 | https://data.seoul.go.kr/dataList/OA-10602/S/1/datasetView.do |
+| 모범음식점(서초구) | 업소명, 소재지, 주메뉴, 지정연도 | 자료 갱신 2026-10-30 | 공공누리 1유형 | https://data.seoul.go.kr/dataList/OA-11064/S/1/datasetView.do |
+| 모범음식점(관악구) | 업소명, 소재지, 주메뉴, 지정연도 | 자료 갱신 2026-10-30 | 공공누리 1유형 | https://data.seoul.go.kr/dataList/OA-11526/S/1/datasetView.do |
 | 상가(상권)정보 | 상호, 주소, 업종, 위경도 | API | 제한 없음 | https://www.data.go.kr/data/15012005/openapi.do |
-| 서울교통공사 출구별 주변 주요시설 | 역, 출구번호, 시설명 | 확인 필요 | 확인 필요 | https://data.seoul.go.kr/dataList/OA-15993/S/1/datasetView.do |
+| 서울교통공사 출구별 주변 주요시설 | 역, 출구번호, 시설명 | 2024-12-02 제공 종료, 현행 배정 근거에서 제외 | 공공누리 1유형 | https://data.seoul.go.kr/dataList/OA-15993/S/1/datasetView.do |
 | 서울교통공사 혼잡도 | 요일·호선·역·방향·30분 단위 % | 분기 | 제한 없음 | https://www.data.go.kr/data/15071311/fileData.do |
 | 서울미래유산 | 데이터셋 존재 | 확인 필요 | 확인 필요 | https://data.seoul.go.kr/dataList/OA-15446/S/1/datasetView.do |
 | TourAPI(한국관광공사) | 관광지·음식점·이미지 | API | 데이터 제한 없음, 사진은 공공누리 1유형 또는 3유형(변경 금지) 혼재 | https://www.data.go.kr/data/15101578/openapi.do |
@@ -111,6 +113,8 @@
 
 ## 미결
 
-- 서울교통공사 출구별 주변시설·서울미래유산 데이터 라이선스 확인
+- 사당 장소 후보 8곳의 사람 검토·현재 영업 확인, 에디터 메모와 제외 결정
+- 사당역 14개 출구와 장소 연결의 현행 공식 근거 확인(전부 미배정), 도보 분 직접 측정
+- 서울미래유산 데이터 라이선스 확인 전 장소 후보에서 제외
 - 장소 사진 확보 방식(직접 촬영 범위)
 - 협찬·제작 지원을 받을 경우 표기 문구
