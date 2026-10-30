@@ -23,13 +23,22 @@ assert.deepEqual(splitNumber("3분22초"), [
 ]);
 const { StatTable } = load("StatTable.tsx");
 const html = renderToStaticMarkup(React.createElement(StatTable, {
-  stats: ["1m", "2m", "3m"].map((value) => ({ value, label: "설명", asOf: "2026년", sourceIds: ["known", "missing"] })),
+  stats: ["1m", "2m", "3m"].map((value) => ({ value, label: "설명", asOf: "2026년", sourceIds: ["known"] })),
   sources: [{ id: "known" }], accent: "2",
 }));
 assert.equal((html.match(/id="ref-known"/g) || []).length, 1);
 assert.equal((html.match(/href="#src-known"/g) || []).length, 3);
-assert(!html.includes("src-missing"));
+for (const [sourceIds, expected] of [
+  [[], /StatTable: "1m" requires at least one sourceId/],
+  [["missing"], /StatTable: "1m" references unknown sourceId "missing"/],
+  [["known", "missing"], /StatTable: "1m" references unknown sourceId "missing"/],
+]) {
+  assert.throws(() => renderToStaticMarkup(React.createElement(StatTable, {
+    stats: [{ value: "1m", label: "설명", asOf: "2026년", sourceIds }],
+    sources: [{ id: "known" }],
+  })), expected);
+}
 assert(!html.includes("출처 0"));
 assert.equal((html.match(/<th /g) || []).length, 3);
 assert.equal((html.match(/<td /g) || []).length, 6);
-console.log("StatTable: number round-trip, units, unique first citation, missing sources, semantic cells PASS");
+console.log("StatTable: number round-trip, units, unique first citation, empty/unknown sources rejected, semantic cells PASS");

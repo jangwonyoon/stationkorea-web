@@ -30,6 +30,11 @@ type Props = {
  * 각주 링크는 출처 목록 항목 `#src-<id>`로 가고, 출처 목록에서 돌아올 자리로 `id="ref-<id>"`를 가진다(표 안 첫 등장에만).
  */
 export function StatTable({ stats, sources, accent, caption = "숫자와 출처" }: Props) {
+  for (const stat of stats) {
+    if (stat.sourceIds.length === 0) {
+      throw new Error(`StatTable: "${stat.value}" requires at least one sourceId.`);
+    }
+  }
   const seen = new Set<string>();
 
   return (
@@ -41,7 +46,7 @@ export function StatTable({ stats, sources, accent, caption = "숫자와 출처"
         {stats.map((stat) => (
           <tr
             key={stat.value + stat.label}
-            className="grid auto-cols-auto items-start gap-x-4 border-b border-rule px-5 py-4 last:border-b-0 md:flex md:flex-col md:gap-2 md:border-b-0 md:border-l md:px-0.5 md:py-6 md:first:border-l-0 lg:px-5"
+            className="grid auto-cols-auto items-start gap-x-4 border-b border-rule px-5 py-4 last:border-b-0 md:flex md:flex-col md:gap-2 md:border-b-0 md:border-l md:px-0.5 md:py-6 md:first:border-l-0 xl:px-5"
           >
             <th scope="row" className="row-span-2 text-right text-num md:text-left">
               {splitNumber(stat.value).map((part, i) =>
@@ -59,7 +64,9 @@ export function StatTable({ stats, sources, accent, caption = "숫자와 출처"
               <span className="mr-1">{stat.asOf}</span>
               {stat.sourceIds.map((id) => {
                 const n = sources.findIndex((s) => s.id === id) + 1;
-                if (n === 0) return null;
+                if (n === 0) {
+                  throw new Error(`StatTable: "${stat.value}" references unknown sourceId "${id}".`);
+                }
                 const first = !seen.has(id);
                 seen.add(id);
                 return (
