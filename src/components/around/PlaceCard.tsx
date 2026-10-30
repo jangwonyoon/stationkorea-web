@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import type { Source } from "@/content/types";
 import { SourceRefs, formatDate } from "../SourceRefs";
 import { resolveSources } from "../blocks/BlockSources";
@@ -42,7 +43,7 @@ export function PlaceCard({ place, number, sourceId, sources, anchorIds, menuSou
       </dl>
       <p className="mt-3 bg-ground p-3 text-sm text-ink">자료 기준 {formatDate(place.asOf)}<SourceRefs ids={ids} sources={sources} anchorIds={anchorIds} /></p>
       {place.editorNote && <aside className="mt-3 border-t border-dashed border-rule pt-3"><p className="text-sm">에디터 메모</p><p className="mt-2 font-serif text-base leading-relaxed break-keep">{place.editorNote}</p></aside>}
-      <div className="mt-4 grid grid-cols-2 gap-2">{links.map(([label, url]) => <a key={label} href={url} rel="noopener" className="flex min-h-11 items-center justify-center border border-plate-ink px-2 text-label underline-offset-2 hover:underline focus-visible:outline-plate-ink">{label}<span className="sr-only">에서 {place.name} 검색</span> ↗</a>)}</div>
+      <div className="mt-4 grid grid-cols-2 gap-2">{links.map(([label, url]) => <Button key={label} asChild variant="outline" className="flex min-h-11 items-center justify-center border border-plate-ink bg-plate px-2 py-0 text-label text-plate-ink hover:bg-plate active:bg-plate underline-offset-2 hover:underline focus-visible:outline-plate-ink"><a href={url} rel="noopener">{label}<span className="sr-only">에서 {place.name} 검색</span> ↗</a></Button>)}</div>
     </article>
   );
 }

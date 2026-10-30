@@ -1,3 +1,4 @@
+import { Table, TableCaption, TableHeader, TableBody, TableRow, TableHead, TableCell } from "@/components/ui/table";
 import type { ComparisonRow, Source } from "@/content/types";
 
 import { BlockSources, RefMarks, resolveSources } from "./BlockSources";
@@ -27,39 +28,39 @@ export function CompareTable({ title, columns, rows, sources }: Props) {
   const notes = rows.filter((r) => r.note);
   return (
     <figure className="border-t-2 border-ink">
-      <table className="block w-full border-collapse md:table">
-        <caption className="block pt-3 text-left text-label md:table-caption">{title}</caption>
-        <thead className="sr-only md:not-sr-only md:table-header-group">
-          <tr>
-            <th scope="col" className="py-3 pr-4 text-left text-label">
+      <Table className="block w-full border-collapse md:table">
+        <TableCaption className="block pt-3 text-left text-label text-ink md:table-caption">{title}</TableCaption>
+        <TableHeader className="sr-only md:not-sr-only md:table-header-group">
+          <TableRow className="border-b-0">
+            <TableHead scope="col" className="py-3 pr-4 text-left text-label">
               구분
-            </th>
+            </TableHead>
             {columns.map((c) => (
-              <th key={c} scope="col" className="py-3 pr-4 text-left text-label">
+              <TableHead key={c} scope="col" className="py-3 pr-4 text-left text-label">
                 {c}
-              </th>
+              </TableHead>
             ))}
-          </tr>
-        </thead>
-        <tbody className="block md:table-row-group">
+          </TableRow>
+        </TableHeader>
+        <TableBody className="block md:table-row-group">
           {rows.map((r) => (
-            <tr key={r.label} className="block border-t border-rule py-3 md:table-row md:py-0">
-              <th scope="row" className="block text-left text-label md:table-cell md:py-3 md:pr-4">
+            <TableRow key={r.label} className="block border-t border-b-0 border-rule py-3 md:table-row md:py-0">
+              <TableHead scope="row" className="block text-left text-label md:table-cell md:py-3 md:pr-4">
                 {r.label}
                 <RefMarks ids={r.sourceIds} sources={sources} where={where} />
-              </th>
+              </TableHead>
               {r.values.map((v, i) => (
-                <td key={columns[i]} className="mt-1 flex gap-3 text-body md:mt-0 md:table-cell md:py-3 md:pr-4">
+                <TableCell key={columns[i]} className="mt-1 flex gap-3 text-body md:mt-0 md:table-cell md:py-3 md:pr-4">
                   <span aria-hidden="true" className="w-16 shrink-0 text-ink-3 md:hidden">
                     {columns[i]}
                   </span>
                   <span>{v}</span>
-                </td>
+                </TableCell>
               ))}
-            </tr>
+            </TableRow>
           ))}
-        </tbody>
-      </table>
+        </TableBody>
+      </Table>
       <figcaption className="border-t border-rule">
         {notes.length > 0 && (
           <ul className="mt-3 flex flex-col gap-1">

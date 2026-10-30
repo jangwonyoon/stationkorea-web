@@ -1,3 +1,4 @@
+import { Table, TableCaption, TableHeader, TableBody, TableRow, TableHead, TableCell } from "@/components/ui/table";
 import type { Source } from "@/content/types";
 import { SourceRefs } from "../SourceRefs";
 import { resolveSources } from "../blocks/BlockSources";
@@ -40,7 +41,7 @@ export function CongestionChart({ series, sourceId, sources, anchorIds }: Conges
             </svg>
             <p className="mt-2 text-caption">가장 높은 시간: {series.times.filter((_, i) => row.percentages[i] === peak).join(" · ")} · {peak}%. 검은 막대로 표시했습니다.</p>
             <details className="mt-2"><summary className="min-h-11 cursor-pointer py-3 text-label">{title} 시간대별 수치 표</summary>
-              <table className="w-full border-collapse text-sm tabular-nums"><caption className="py-3 text-left">{title} · 30분 평균 · {src.date} · {src.org}</caption><thead><tr><th scope="col" className="border-b border-rule py-2 text-left">시간</th><th scope="col" className="border-b border-rule py-2 text-right">열차 혼잡도 (%)</th></tr></thead><tbody>{series.times.map((t, i) => <tr key={t}><th scope="row" className="border-b border-rule py-2 text-left font-normal">{t}</th><td className="border-b border-rule py-2 text-right">{row.percentages[i]}</td></tr>)}</tbody></table>
+              <Table className="w-full border-collapse text-sm tabular-nums"><TableCaption className="py-3 text-left text-sm text-ink">{title} · 30분 평균 · {src.date} · {src.org}</TableCaption><TableHeader><TableRow><TableHead scope="col" className="border-b border-rule py-2 text-left">시간</TableHead><TableHead scope="col" className="border-b border-rule py-2 text-right">열차 혼잡도 (%)</TableHead></TableRow></TableHeader><TableBody>{series.times.map((t, i) => <TableRow key={t}><TableHead scope="row" className="border-b border-rule py-2 text-left font-normal">{t}</TableHead><TableCell className="border-b border-rule py-2 text-right">{row.percentages[i]}</TableCell></TableRow>)}</TableBody></Table>
             </details>
           </figure>;
         })}</div>

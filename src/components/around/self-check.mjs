@@ -2,9 +2,15 @@
 import assert from "node:assert/strict";
 import { createRequire } from "node:module";
 import { readFileSync } from "node:fs";
+import { resolve } from "node:path";
 const require = createRequire(import.meta.url);
 const ts = require("typescript");
-for (const ext of [".ts", ".tsx"]) require.extensions[ext] = (module, filename) => module._compile(ts.transpileModule(readFileSync(filename, "utf8"), { compilerOptions: { target: ts.ScriptTarget.ES2017, module: ts.ModuleKind.CommonJS, jsx: ts.JsxEmit.ReactJSX } }).outputText, filename);
+const Module = require("node:module");
+const originalResolve = Module._resolveFilename;
+Module._resolveFilename = function (name, ...args) {
+  return originalResolve.call(this, name.startsWith("@/") ? resolve("src", name.slice(2)) : name, ...args);
+};
+for (const ext of [".ts", ".tsx"]) require.extensions[ext] = (module, filename) => module._compile(ts.transpileModule(readFileSync(filename, "utf8"), { compilerOptions: { target: ts.ScriptTarget.ES2017, module: ts.ModuleKind.CommonJS, jsx: ts.JsxEmit.ReactJSX, esModuleInterop: true } }).outputText, filename);
 const { renderToStaticMarkup: render } = require("react-dom/server");
 const { PlaceCard } = require("./PlaceCard.tsx");
 const { ExitDiagram } = require("./ExitDiagram.tsx");
@@ -15,6 +21,9 @@ const source = { id: "test", org: "검증용 기관", title: "검증 자료", da
 const place = { id: "test-place", name: "검증용 장소", designation: { agency: source.org, name: "검증", year: null, source: { url: source.url, asOf: "2026-10-30" } }, menu: null, exit: null, walkMinutes: null, address: "검증 주소", maps: { naver: "https://map.naver.com/p/search/test", kakao: "https://map.kakao.com/link/search/test" }, asOf: "2026-10-30" };
 const card = (p) => render(PlaceCard({ place: p, number: 1, sourceId: "test", sources: [source] }));
 const html = card(place);
+assert.equal((html.match(/href="https:\/\/map\./g) || []).length, 2);
+assert(!html.includes("<button"));
+assert(html.includes('rel="noopener"'));
 for (const unknown of ["걸어서", "대표 메뉴", "년 지정", "번 출구"]) assert(!html.includes(unknown));
 assert.throws(() => card({ ...place, walkMinutes: 1 }));
 const complete = render(PlaceCard({ place: { ...place, exit: 1, walkMinutes: 3, designation: { ...place.designation, year: 2026 }, menu: { name: "검증 메뉴", priceWon: 1000, asOf: "2026-10-30" }, editorNote: "표시 검증용 메모" }, number: 1, sourceId: "test", sources: [source], walking: { asOf: "2026-10-30", sourceId: "test" } }));
@@ -29,6 +38,9 @@ assert(diagram([{ exit: 1, status: "verified", position: { x: 40, y: 40 } }]).in
 const series = { station: "검증", intervalMinutes: 30, description: "검증용 수치", times: ["06:00", "06:30"], rows: [{ day: "토요일", line: "2호선", direction: "외선", percentages: [0, 144.8] }, { day: "일요일", line: "2호선", direction: "외선", percentages: [12.5, 80] }] };
 const chart = (s, sourceId = "test") => render(CongestionChart({ series: s, sourceId, sources: [source] }));
 const c = chart(series);
+assert.equal((c.match(/scope="col"/g) || []).length, 4);
+assert.equal((c.match(/scope="row"/g) || []).length, 4);
+assert.equal((c.match(/<details/g) || []).length, 4);
 assert(c.includes("토요일 열차 혼잡도") && c.includes("일요일 열차 혼잡도"));
 for (const v of ["0", "144.8", "12.5", "80"]) assert(c.includes(`>${v}</td>`) && c.includes(` · ${v}%</title>`));
 assert.throws(() => chart(series, "missing"));

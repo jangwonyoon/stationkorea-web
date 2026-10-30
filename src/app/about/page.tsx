@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { Button } from "@/components/ui/button";
 import { JsonLd } from "@/components/JsonLd";
 import { stationPath, stations } from "@/content/stations";
 import { aboutJsonLd } from "@/lib/jsonld";
@@ -124,12 +125,12 @@ export default function AboutPage() {
                 또는 인스타그램 DM으로 문의해 주세요.
               </p>
               <div className="mt-4 flex flex-col gap-3 md:flex-row md:flex-wrap">
-                <a href={`mailto:${site.email}`} className="inline-flex min-h-11 min-w-11 max-w-full items-center justify-center border border-ink bg-plate px-4 py-3 text-label text-plate-ink break-all pressable active:text-ink">
+                <Button asChild className="max-w-full break-all"><a href={`mailto:${site.email}`}>
                   {site.email}
-                </a>
-                <a href={site.instagram} rel="noopener" className="inline-flex min-h-11 min-w-11 items-center justify-center border border-ink px-4 py-3 text-label pressable">
+                </a></Button>
+                <Button asChild variant="outline"><a href={site.instagram} rel="noopener">
                   인스타그램 {site.instagramHandle} ↗
-                </a>
+                </a></Button>
               </div>
             </section>
 
