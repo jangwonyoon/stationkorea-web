@@ -27,6 +27,10 @@
 - 기사 재료는 reel-studio의 `episodes/maeil-geugil/<편>/` 아래 `facts.md`(숫자·출처), `caption.txt`, `pin.txt`(하차 칸), `episode.json`(제목·permalink). 1단계는 손으로 옮기고, 자동 생성기는 3개 공개 뒤 2단계.
 - 게시된 편과 permalink: 잠실 https://www.instagram.com/reel/De8-ObmRYZk/ , 사당 https://www.instagram.com/reel/De_BAeuiU93/ , 건대입구 https://www.instagram.com/reel/DfBF0puToTl/
 - 이미지(단면 정지 이미지, 1200×630 OG, 9:16 릴스 썸네일)는 이 레포 `public/`에 커밋한다. 원본 렌더는 reel-studio 로컬 `compositions/maeil-geugil/<편>/renders/`에 있고 git에는 없다.
+- **철도 리서치 때 함께 확인할 곳(사용자 요청 2026-10-30)**: 역·노선을 조사할 때 아래 두 곳에 같은 주제 글이 있는지 먼저 본다. 둘 다 교통평론가 한우진 운영.
+  - [미래철도DB](https://frdb2.ivyro.net/index.html): 계획 노선 스펙표·진행 연표. 국토교통부 고시번호 같은 1차 출처를 찾는 색인으로 쓴다.
+  - [한우진의 교통평론](https://blog.naver.com/ianhan): 역 구조 해설. 우리가 무엇을 더할 수 있는지(공식 숫자·기준일·단면) 가늠하는 경쟁 기준이자, 네이버 AI 브리핑에서 인용되는 선점자.
+  - 두 곳의 숫자는 원 공공 출처에서 직접 확인한 뒤에만 쓰고, 사진·배선도·문장은 쓰지 않는다(ⓒ 표기). 인용이 필요하면 출처를 밝힌다.
 
 ## SEO·GEO 개발 규칙 (사용자 결정 2026-10-29, 모든 PR에 적용)
 
