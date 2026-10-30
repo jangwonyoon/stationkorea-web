@@ -22,7 +22,7 @@ export function GET() {
     `- [모든 기사 전문](${absoluteUrl("/llms-full.txt")})`,
     "",
     "## 소개",
-    `- [운영자·제작 방식·출처·정정 정책·AI 사용 범위](${absoluteUrl("/about/")}): 글 ${site.author.name}, 문의 ${site.email}`,
+    `- [운영자·출처·정정 정책·AI 사용 범위](${absoluteUrl("/about/")}): 글 ${site.author.name}, 문의 ${site.email}`,
     "",
   ].join("\n");
   return new Response(body, { headers: { "Content-Type": "text/plain; charset=utf-8" } });

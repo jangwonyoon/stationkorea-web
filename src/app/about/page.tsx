@@ -7,11 +7,11 @@ import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "소개·출처 정책",
-  description: `${site.name}은 서울 지하철 역 구조를 공식 숫자와 출처로 설명하는 웹 매거진입니다. 운영자, 제작 방식, 출처·정정 정책, AI 사용 범위, 연락처를 적습니다.`,
+  description: `${site.name}은 서울 지하철 역 구조를 공식 숫자와 출처로 설명하는 웹 매거진입니다. 운영자, 출처·정정 정책, AI 사용 범위, 연락처를 적습니다.`,
   alternates: { canonical: "/about/", types: { "application/rss+xml": "/rss.xml" } },
 };
 
-// 신뢰 신호 페이지(SEO·GEO 규칙 18). 운영 주체·제작 방식·출처 정책·정정 정책·AI 사용 범위·연락처.
+// 신뢰 신호 페이지(SEO·GEO 규칙 18). 운영 주체·출처 정책·정정 정책·AI 사용 범위·연락처.
 export default function AboutPage() {
   return (
     <>
@@ -35,20 +35,13 @@ export default function AboutPage() {
           </p>
         </section>
 
-        <section aria-labelledby="how" className="mt-10">
-          <h2 id="how" className="text-xl font-bold">
-            제작 방식
-          </h2>
-          <p className="mt-3">
-            기사 하나는 질문 하나에 답합니다. 숫자는 서울교통공사·서울 열린데이터광장·공공데이터포털 같은 공식 자료를 우선합니다. 공식 자료가 없는 구조·역사 설명은 전문지·보도·백과 자료를 쓰고 그 출처를 그대로 밝힙니다. 한 곳에서만 확인한 수치는 반올림하거나 범위를 좁혀 씁니다.
-          </p>
-        </section>
-
+        {/* 제작 공정(도구·절차·데이터 처리 방법)은 공개하지 않는다. 신뢰 신호로 원칙만 둔다(사용자 결정 2026-10-30). */}
         <section aria-labelledby="sources-policy" className="mt-10">
           <h2 id="sources-policy" className="text-xl font-bold">
             출처 정책
           </h2>
           <ul className="mt-3 list-disc pl-5">
+            <li>숫자는 공식 자료를 우선하고, 공식 자료가 없는 설명은 출처를 밝혀 씁니다.</li>
             <li>모든 숫자에 기준일을 붙이고, 기사 하단에 기관·자료명·기준일·URL을 전부 적습니다.</li>
             <li>출처가 붙은 숫자 카드 세 개를 갖추지 못한 기사는 발행하지 않습니다.</li>
             <li>공식 자료가 갱신되면 숫자를 고치고 기사의 갱신일을 올립니다. 내용이 바뀌지 않으면 날짜만 바꾸지 않습니다.</li>
