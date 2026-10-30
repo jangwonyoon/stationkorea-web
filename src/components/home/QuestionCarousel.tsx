@@ -61,7 +61,18 @@ export function QuestionCarousel({ children }: { children: ReactNode }) {
 
   return (
     <div className="mt-3" role="region" aria-label="최신 질문 캐러셀" aria-roledescription="캐러셀">
-      <ul ref={track} id={id} className="question-track scrollbar-none grid snap-x snap-mandatory scroll-p-2 grid-flow-col gap-4 overflow-x-auto p-2">
+      <ul ref={track} id={id} onFocus={(event) => {
+        const list = event.currentTarget;
+        const card = event.target.closest("li");
+        const first = list.firstElementChild as HTMLElement | null;
+        if (!card || card.parentElement !== list || !first) return;
+        const bounds = list.getBoundingClientRect();
+        const focused = card.getBoundingClientRect();
+        // A peek counts as visible to native focus scrolling; reserve the full 6px focus ring.
+        if (focused.left < bounds.left + 6 || focused.right > bounds.right - 6) {
+          list.scrollTo({ left: card.offsetLeft - first.offsetLeft, behavior: "instant" });
+        }
+      }} className="question-track scrollbar-none grid snap-x snap-mandatory scroll-p-2 grid-flow-col gap-4 overflow-x-auto p-2">
         {children}
       </ul>
       <span className="sr-only" aria-live="polite" aria-atomic="true">{announcement}</span>
