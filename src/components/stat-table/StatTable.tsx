@@ -1,3 +1,4 @@
+import { Table, TableCaption, TableHeader, TableBody, TableRow, TableHead, TableCell } from "@/components/ui/table";
 import type { LineId, Source, Stat } from "@/content/types";
 import { splitNumber } from "./split-number";
 
@@ -38,17 +39,18 @@ export function StatTable({ stats, sources, accent, caption = "숫자와 출처"
   const seen = new Set<string>();
 
   return (
-    <table
+    <Table
       className={`block w-full border-t-4 bg-plate text-plate-ink ${accent ? TOP_LINE[accent] : "border-accent"}`}
     >
-      <caption className="sr-only">{caption}</caption>
-      <tbody className="grid md:grid-cols-3">
+      <TableCaption className="sr-only">{caption}</TableCaption>
+      <TableHeader className="sr-only"><TableRow>{["숫자", "내용", "기준일·출처"].map((label) => <TableHead key={label} scope="col">{label}</TableHead>)}</TableRow></TableHeader>
+      <TableBody className="grid md:grid-cols-3">
         {stats.map((stat) => (
-          <tr
+          <TableRow
             key={stat.value + stat.label}
             className="grid auto-cols-auto items-start gap-x-4 border-b border-rule px-5 py-4 last:border-b-0 md:flex md:flex-col md:gap-2 md:border-b-0 md:border-l md:px-0.5 md:py-6 md:first:border-l-0 xl:px-5"
           >
-            <th scope="row" className="row-span-2 text-right text-num md:text-left">
+            <TableHead scope="row" className="row-span-2 text-right text-num md:text-left">
               {splitNumber(stat.value).map((part, i) =>
                 part.num ? (
                   <span key={i}>{part.text}</span>
@@ -58,9 +60,9 @@ export function StatTable({ stats, sources, accent, caption = "숫자와 출처"
                   </span>
                 ),
               )}
-            </th>
-            <td className="col-start-2 text-label">{stat.label}</td>
-            <td className="col-start-2 flex flex-wrap items-center text-caption text-plate-ink/75">
+            </TableHead>
+            <TableCell className="col-start-2 text-label">{stat.label}</TableCell>
+            <TableCell className="col-start-2 flex flex-wrap items-center text-caption text-plate-ink/75">
               <span className="mr-1">{stat.asOf}</span>
               {stat.sourceIds.map((id) => {
                 const n = sources.findIndex((s) => s.id === id) + 1;
@@ -83,10 +85,10 @@ export function StatTable({ stats, sources, accent, caption = "숫자와 출처"
                   </a>
                 );
               })}
-            </td>
-          </tr>
+            </TableCell>
+          </TableRow>
         ))}
-      </tbody>
-    </table>
+      </TableBody>
+    </Table>
   );
 }

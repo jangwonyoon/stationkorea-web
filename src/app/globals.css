@@ -297,11 +297,11 @@
   &::-webkit-scrollbar { display: none; }
 }
 
-@utility question-track {
-  grid-auto-columns: calc(100% - 3rem);
-  &:has(> :only-child) { grid-auto-columns: 100%; }
+@utility question-slide {
+  flex-basis: calc(100% - 3rem);
+  &:only-child { flex-basis: 100%; }
   @variant md {
-    grid-auto-columns: minmax(0, 1fr);
-    &:has(> :nth-child(4)) { grid-auto-columns: calc((100% - 2rem) / 3); }
+    flex-basis: calc((100% - 2rem) / 3);
+    &:only-child { flex-basis: 100%; }
   }
 }

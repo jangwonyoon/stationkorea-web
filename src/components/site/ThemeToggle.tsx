@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { Button } from "@/components/ui/button";
 
 export function ThemeToggle() {
   const [dark, setDark] = useState<boolean | null>(null);
@@ -16,13 +17,15 @@ export function ThemeToggle() {
   }, []);
 
   return (
-    <button
+    <Button
       type="button"
+      variant="ghost"
+      size="icon"
       hidden={dark === null}
       aria-label="다크 모드"
       aria-pressed={dark ?? false}
       title={dark ? "라이트 모드로 전환" : "다크 모드로 전환"}
-      className="size-11 shrink-0 rounded-plate text-xl text-ink hover:bg-slab active:bg-slab"
+      className="text-xl"
       onClick={() => {
         const next = !dark;
         document.documentElement.dataset.theme = next ? "dark" : "light";
@@ -30,6 +33,6 @@ export function ThemeToggle() {
       }}
     >
       <span aria-hidden="true">◐</span>
-    </button>
+    </Button>
   );
 }
