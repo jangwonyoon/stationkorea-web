@@ -124,7 +124,7 @@ export default function AboutPage() {
                 또는 인스타그램 DM으로 문의해 주세요.
               </p>
               <div className="mt-4 flex flex-col gap-3 md:flex-row md:flex-wrap">
-                <a href={`mailto:${site.email}`} className="inline-flex min-h-11 min-w-11 max-w-full items-center justify-center border border-ink bg-plate px-4 py-3 text-label text-plate-ink break-all pressable">
+                <a href={`mailto:${site.email}`} className="inline-flex min-h-11 min-w-11 max-w-full items-center justify-center border border-ink bg-plate px-4 py-3 text-label text-plate-ink break-all pressable active:text-ink">
                   {site.email}
                 </a>
                 <a href={site.instagram} rel="noopener" className="inline-flex min-h-11 min-w-11 items-center justify-center border border-ink px-4 py-3 text-label pressable">
