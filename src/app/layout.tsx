@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import Link from "next/link";
 import Script from "next/script";
 import "./globals.css";
+import { hahmlet, plexSansKr } from "./fonts";
 import { Analytics } from "@/components/Analytics";
 import { site } from "@/lib/site";
 
@@ -20,7 +21,7 @@ export const viewport: Viewport = { width: "device-width", initialScale: 1 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="ko">
+    <html lang="ko" className={`${hahmlet.variable} ${plexSansKr.variable}`}>
       <body className="antialiased">
         <header className="border-b border-neutral-200">
           <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
