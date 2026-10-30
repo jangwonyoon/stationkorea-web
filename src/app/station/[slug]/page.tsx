@@ -94,7 +94,7 @@ export default async function StationPage({ params }: Props) {
         </header>
         <figure className="mt-6">
           <div className="relative aspect-4/5 overflow-hidden bg-slab">
-            <Image src={s.crossSection.src} alt={s.crossSection.alt} fill priority sizes="(min-width: 1280px) 690px, (min-width: 768px) 75vw, calc(100vw - 40px)" className="object-cover" />
+            <Image src={s.crossSection.src} alt={s.crossSection.alt} fill priority sizes="(min-width: 1280px) 690px, (min-width: 768px) calc(75vw - 53px), calc(100vw - 40px)" className="object-cover" />
           </div>
           <figcaption className="mt-2 text-caption">{s.crossSection.caption} AI 시각화 참고 이미지.</figcaption>
         </figure>
