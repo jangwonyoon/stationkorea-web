@@ -5,13 +5,15 @@ export const sadang: Station = {
   slug: "sadang",
   no: 2,
   name: "사당역",
-  lines: ["2호선", "4호선"],
+  lines: ["2", "4"],
+  section: "transfer",
+  sign: { line: "2", prev: "방배", next: "낙성대", en: "Sadang" },
   question: "사당역, 환승 74m인데 왜 3분 넘게 걸릴까?",
   seoTitle: "사당역 2호선↔4호선 환승 74m인데 3분 22초, 왜 돌아가게 할까",
   answer:
     "사당역 2호선과 4호선의 최단 환승거리는 74m(서울교통공사, 2026-08-31 기준)지만, 좁은 계단에 출퇴근 환승객이 엉키지 않도록 방배 방면 통로에 펜스를 쳐 돌아가게 하고 간이 통로는 출근 시간에 셔터를 내리기 때문에, 공사 안내 기준 환승 시간은 방배 방면 3분 22초입니다.",
   teaser: "환승 74m인데 왜 3분 넘게 걸릴까?",
-  section: {
+  crossSection: {
     src: "/images/station/sadang-section.jpg",
     alt: "사당역 단면 그림. 위층 2호선 승강장과 아래층 4호선 승강장 사이를 잇는 계단에 74m, 3:22 표시가 붙어 있다.",
     caption: "지하 2층 2호선(초록) 상대식 승강장과 지하 3층 4호선(하늘색) 섬식 승강장을 잇는 계단.",
@@ -41,6 +43,14 @@ export const sadang: Station = {
     text: "4호선에서 2호선 방배 방면으로 갈 때는 총신대입구 방면 열차 10-4, 남태령 방면 열차 1-1에서 내리면 가장 빠릅니다. 2호선 낙성대 방면으로 갈 때는 총신대입구 방면 열차 4-2, 남태령 방면 열차 7-3. 끝 칸에서 내리면 최대 2분 47초를 더 걷습니다.",
     sourceIds: ["seoulmetro-transfer-info"],
   },
+  transfers: [
+    { ride: { line: "4", direction: "총신대입구 방면" }, to: { line: "2", direction: "방배 방면" }, car: "10-4", time: "3분 24초", sourceId: "seoulmetro-transfer-info" },
+    { ride: { line: "4", direction: "남태령 방면" }, to: { line: "2", direction: "방배 방면" }, car: "1-1", time: "3분 22초", sourceId: "seoulmetro-transfer-info" },
+    { ride: { line: "4", direction: "총신대입구 방면" }, to: { line: "2", direction: "낙성대 방면" }, car: "4-2", time: "1분 55초", sourceId: "seoulmetro-transfer-info" },
+    { ride: { line: "4", direction: "남태령 방면" }, to: { line: "2", direction: "낙성대 방면" }, car: "7-3", time: "1분 51초", sourceId: "seoulmetro-transfer-info" },
+    { ride: { line: "2", direction: "방배 방면" }, to: { line: "4", direction: "총신대입구·남태령 방면" }, car: "6-3", time: "3분 22~24초", sourceId: "seoulmetro-transfer-info" },
+    { ride: { line: "2", direction: "낙성대 방면" }, to: { line: "4", direction: "총신대입구·남태령 방면" }, car: "5-3", time: "1분 51~55초", sourceId: "seoulmetro-transfer-info" },
+  ],
   reel: {
     url: "https://www.instagram.com/reel/De_BAeuiU93/",
     thumbnail: "/images/station/sadang-reel.jpg",

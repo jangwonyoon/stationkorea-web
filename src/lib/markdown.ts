@@ -1,3 +1,4 @@
+import { lineName } from "@/content/lines";
 import type { Station } from "@/content/types";
 import { stationPath } from "@/content/stations";
 import { absoluteUrl, site } from "@/lib/site";
@@ -9,7 +10,7 @@ export function stationMarkdown(s: Station): string {
   return [
     `# ${s.question}`,
     "",
-    `${site.name} · 역 해부 ${String(s.no).padStart(2, "0")} · ${s.name} · ${s.lines.join("·")}`,
+    `${site.name} · 역 해부 ${String(s.no).padStart(2, "0")} · ${s.name} · ${s.lines.map(lineName).join("·")}`,
     `원문: ${absoluteUrl(stationPath(s))}`,
     `게시: ${s.datePublished.slice(0, 10)} · 숫자 갱신: ${s.dateModified.slice(0, 10)}`,
     "",

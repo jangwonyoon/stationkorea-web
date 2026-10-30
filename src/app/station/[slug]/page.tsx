@@ -4,6 +4,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { JsonLd } from "@/components/JsonLd";
 import { formatDate, SourceRefs, withTopic } from "@/components/SourceRefs";
+import { lineName } from "@/content/lines";
 import { getNextStation, getStation, stationPath, stations } from "@/content/stations";
 import { stationJsonLd } from "@/lib/jsonld";
 import { markdownPath } from "@/lib/markdown";
@@ -24,7 +25,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: s.seoTitle,
     description: s.answer,
-    keywords: [s.name, ...s.lines, `${s.name} 환승`, "서울 지하철", "환승통로"],
+    keywords: [s.name, ...s.lines.map(lineName), `${s.name} 환승`, "서울 지하철", "환승통로"],
     // 페이지 alternates는 레이아웃 값을 덮어쓰므로 RSS도 다시 적는다.
     alternates: { canonical: path, types: { "text/markdown": markdownPath(s), "application/rss+xml": "/rss.xml" } },
     openGraph: {
@@ -34,7 +35,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       description: s.answer,
       publishedTime: s.datePublished,
       modifiedTime: s.dateModified,
-      images: [{ url: s.ogImage, width: 1200, height: 630, alt: s.section.alt }],
+      images: [{ url: s.ogImage, width: 1200, height: 630, alt: s.crossSection.alt }],
     },
     twitter: { card: "summary_large_image", title: s.question, description: s.answer, images: [s.ogImage] },
   };
@@ -46,7 +47,7 @@ export default async function StationPage({ params }: Props) {
   const s = getStation((await params).slug);
   if (!s) notFound();
   const next = getNextStation(s.slug);
-  const lineLabel = s.lines.join("·");
+  const lineLabel = s.lines.map(lineName).join("·");
 
   return (
     <>
@@ -89,10 +90,10 @@ export default async function StationPage({ params }: Props) {
         {/* ② 3D 단면 이미지(고정 비율로 레이아웃 이동 없음) */}
         <figure className="order-2 lg:col-start-1 lg:max-w-xl">
           <div className="relative aspect-[4/5] w-full overflow-hidden rounded-lg bg-neutral-100">
-            <Image src={s.section.src} alt={s.section.alt} fill priority sizes="(min-width: 1024px) 36rem, 100vw" className="object-cover" />
+            <Image src={s.crossSection.src} alt={s.crossSection.alt} fill priority sizes="(min-width: 1024px) 36rem, 100vw" className="object-cover" />
           </div>
           <figcaption className="mt-2 text-sm text-neutral-600">
-            {s.section.caption} <span className="text-neutral-500">AI 시각화 참고 이미지.</span>
+            {s.crossSection.caption} <span className="text-neutral-500">AI 시각화 참고 이미지.</span>
           </figcaption>
         </figure>
 

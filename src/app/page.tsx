@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { JsonLd } from "@/components/JsonLd";
+import { lineName } from "@/content/lines";
 import { latestStations, stationPath, stations } from "@/content/stations";
 import type { Station } from "@/content/types";
 import { homeJsonLd } from "@/lib/jsonld";
@@ -39,7 +40,7 @@ export default function Home() {
           <ul className="flex flex-wrap gap-2">
             {lines.map((line) => (
               <li key={line} className="rounded-full border border-neutral-300 px-3 py-1 text-sm">
-                {line} <span className="text-neutral-500">{stations.filter((s) => s.lines.includes(line)).length}</span>
+                {lineName(line)} <span className="text-neutral-500">{stations.filter((s) => s.lines.includes(line)).length}</span>
               </li>
             ))}
           </ul>
@@ -71,7 +72,7 @@ function QuestionCard({ station: s, withImage = false }: { station: Station; wit
         </div>
       )}
       <span className="text-xs text-neutral-500">
-        역 해부 {String(s.no).padStart(2, "0")} · {s.name} · {s.lines.join("·")}
+        역 해부 {String(s.no).padStart(2, "0")} · {s.name} · {s.lines.map(lineName).join("·")}
       </span>
       <span className="mt-1 text-lg font-bold leading-snug break-keep">{s.question}</span>
       <span className="mt-2 line-clamp-3 text-sm text-neutral-600 break-keep">{s.answer}</span>
