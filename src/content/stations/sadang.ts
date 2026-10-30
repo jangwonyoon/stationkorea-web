@@ -55,13 +55,13 @@ export const sadang: Station = {
     title: "사당역 2호선과 4호선 비교",
     columns: ["2호선", "4호선"],
     rows: [
-      { label: "사당역 개통", values: ["1983년 12월 17일", "1985년 10월 18일"], sourceIds: ["wiki-sadang"], note: "기존 기사와 위키백과의 날짜를 재사용했습니다. 공식 원문은 이 표에서 재검증하지 않았습니다." },
-      { label: "승강장 형태", values: ["상대식", "섬식"], sourceIds: ["wiki-sadang", "redaily-2021-11"], note: "기존 기사에 인용된 2차 자료 기준입니다." },
+      { label: "사당역 개통", values: ["1983년 12월 17일", "1985년 10월 18일"], sourceIds: ["wiki-sadang"], note: "개통일은 위키백과 기준입니다." },
+      { label: "승강장 형태", values: ["상대식", "섬식"], sourceIds: ["wiki-sadang", "redaily-2021-11"], note: "승강장 형태는 위키백과·철도경제신문 기준입니다." },
       {
         label: "승강장 층",
         values: ["지하 2층", "지하 3층"],
         sourceIds: ["namu-sadang"],
-        note: "층수는 기존 기사의 나무위키 단독 인용이며, 원문 직접 열람은 확인하지 못했습니다.",
+        note: "층수는 나무위키 단독 자료입니다.",
       },
     ],
   },

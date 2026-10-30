@@ -100,7 +100,7 @@ export type TimelineItem = {
   org: string;
   /** 문서·발표 이름. */
   doc: string;
-  url?: string;
+  url: string;
   /** 이 항목 시점의 사업 단계. */
   stage?: ProjectStage;
   /** 한 문장 요약. */
