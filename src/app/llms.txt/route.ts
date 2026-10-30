@@ -1,6 +1,8 @@
 import { stationPath, stations } from "@/content/stations";
 import { markdownPath } from "@/lib/markdown";
 import { absoluteUrl, site } from "@/lib/site";
+import { linePath, publishedLines } from "@/app/line/data";
+import { lineName } from "@/content/lines";
 
 export const dynamic = "force-static";
 
@@ -20,6 +22,9 @@ export function GET() {
     "",
     "## 전문",
     `- [모든 기사 전문](${absoluteUrl("/llms-full.txt")})`,
+    "",
+    "## 노선별 질문",
+    ...publishedLines.map((id) => `- [${lineName(id)}](${absoluteUrl(linePath(id))}): 발행된 역 기사 모음`),
     "",
     "## 소개",
     `- [운영자·출처·정정 정책·AI 사용 범위](${absoluteUrl("/about/")}): 글 ${site.author.name}, 문의 ${site.email}`,
