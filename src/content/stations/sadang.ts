@@ -51,6 +51,20 @@ export const sadang: Station = {
     { ride: { line: "2", direction: "방배 방면" }, to: { line: "4", direction: "총신대입구·남태령 방면" }, car: "6-3", time: "3분 22~24초", sourceId: "seoulmetro-transfer-info" },
     { ride: { line: "2", direction: "낙성대 방면" }, to: { line: "4", direction: "총신대입구·남태령 방면" }, car: "5-3", time: "1분 51~55초", sourceId: "seoulmetro-transfer-info" },
   ],
+  comparison: {
+    title: "사당역 2호선과 4호선 비교",
+    columns: ["2호선", "4호선"],
+    rows: [
+      { label: "사당역 개통", values: ["1983년 12월 17일", "1985년 10월 18일"], sourceIds: ["wiki-sadang"], note: "개통일은 위키백과 기준입니다." },
+      { label: "승강장 형태", values: ["상대식", "섬식"], sourceIds: ["wiki-sadang", "redaily-2021-11"], note: "승강장 형태는 위키백과·철도경제신문 기준입니다." },
+      {
+        label: "승강장 층",
+        values: ["지하 2층", "지하 3층"],
+        sourceIds: ["namu-sadang"],
+        note: "층수는 나무위키 단독 자료입니다.",
+      },
+    ],
+  },
   reel: {
     url: "https://www.instagram.com/reel/De_BAeuiU93/",
     thumbnail: "/images/station/sadang-reel.jpg",
@@ -149,9 +163,16 @@ export const sadang: Station = {
       date: "2025-07-17",
       url: "https://www.hankyung.com/article/2025071752221",
     },
+    {
+      id: "namu-sadang",
+      org: "나무위키",
+      title: "사당역(기존 기사 층수 인용, 원문 미확인)",
+      date: "2026-10-30 기존 기사 인용 기준",
+      url: "https://namu.wiki/w/%EC%82%AC%EB%8B%B9%EC%97%AD",
+    },
   ],
   datePublished: "2026-10-29T09:00:00+09:00",
-  dateModified: "2026-10-30T12:00:00+09:00",
+  dateModified: "2026-10-30T15:45:00+09:00",
   corrections: [
     {
       date: "2026-10-30",

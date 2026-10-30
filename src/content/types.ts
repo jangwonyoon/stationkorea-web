@@ -51,6 +51,65 @@ export type Transfer = {
 /** 풀쿼트 숫자 하나. */
 export type PullQuote = { value: string; label: string; sourceIds: string[] };
 
+/** 비교표 한 행. "구분 | A | B"의 구분(label)과 열마다 값. 행 단위로 출처를 단다(SEO·GEO 규칙 2). */
+export type ComparisonRow = {
+  label: string;
+  /** columns와 같은 순서·같은 개수. */
+  values: string[];
+  sourceIds: string[];
+  /** 출처 성격 등 짧은 덧붙임. 예: "층수는 나무위키 단독 자료". */
+  note?: string;
+};
+
+/** 비교표(#갈아타다·#바뀌다). 첫 열 머리는 "구분"으로 고정, columns는 비교 대상(예: "2호선", "4호선"). */
+export type Comparison = {
+  /** 표 제목(<caption>). */
+  title: string;
+  columns: string[];
+  rows: ComparisonRow[];
+};
+
+/**
+ * 환승 스텝 한 단계. 내림 → 계단·통로 → 갈아탐.
+ * 시간·거리는 출처가 확인된 값만 `measure`에 넣는다. 확인 안 된 값은 넣지 않고, 없으면 화면에 표시하지 않는다.
+ */
+export type TransferStep = {
+  kind: "alight" | "walk" | "board";
+  /** 단계 설명. 예: "4호선 총신대입구 방면 열차 10-4에서 내립니다." */
+  text: string;
+  measure?: {
+    /** 사람이 읽는 시간. 예: "1분 2초". */
+    time?: string;
+    /** 사람이 읽는 거리. 예: "74m". */
+    distance?: string;
+    asOf: string;
+    sourceIds: string[];
+  };
+};
+
+/** 환승 경로 하나(예: "4호선 → 2호선 방배 방면"). */
+export type TransferRoute = { title: string; steps: TransferStep[] };
+
+/** 사업 진행 단계(신호등 4단계). 화면에는 색과 함께 단계 이름을 쓴다. */
+export type ProjectStage = "구상" | "계획" | "설계" | "시공";
+
+/** 진행 연표 한 항목. 화면 형식 "YYYY.M.D 기관 > 문서" + URL. */
+export type TimelineItem = {
+  /** ISO 날짜. 일까지 모르면 "YYYY-MM" 또는 "YYYY". */
+  date: string;
+  org: string;
+  /** 문서·발표 이름. */
+  doc: string;
+  url: string;
+  /** 이 항목 시점의 사업 단계. */
+  stage?: ProjectStage;
+  /** 한 문장 요약. */
+  summary?: string;
+};
+
+/** 진행 연표 하나(사업 단위). */
+export type Timeline = { title: string; items: TimelineItem[] };
+
 export type Station = {
   slug: string;
   /** 역 해부 일련번호(릴스 게시 순). */
@@ -84,6 +143,12 @@ export type Station = {
   dateModified: string;
   /** 숫자 정정 기록(SEO·GEO 규칙 19). 정정하면 dateModified도 같은 날로 올린다. 비어 있으면 숨긴다. */
   corrections?: { date: string; before: string; after: string; reason: string }[];
+  /** 비교표(#갈아타다·#바뀌다). 비어 있으면 숨긴다. sourceIds는 sources에 있어야 한다. */
+  comparison?: Comparison;
+  /** 환승 스텝(#갈아타다). 단계별 시간·거리가 확인된 역만 넣는다. 비어 있으면 숨긴다. */
+  transferRoutes?: TransferRoute[];
+  /** 진행 연표(#바뀌다). 비어 있으면 숨긴다. */
+  timelines?: Timeline[];
   /** 이 역을 가리키는 철도 소식(/news/). 비어 있으면 "최근 소식" 자리를 숨긴다. */
   news?: { href: string; title: string; date: string }[];
 };
