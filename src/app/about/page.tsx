@@ -6,10 +6,14 @@ import { stationPath, stations } from "@/content/stations";
 import { aboutJsonLd } from "@/lib/jsonld";
 import { site } from "@/lib/site";
 
+const title = "소개·출처 정책";
+const description = `${site.name}은 서울 지하철 역 구조를 공식 숫자와 출처로 설명하는 웹 매거진입니다. 운영자, 출처·정정 정책, AI 사용 범위, 연락처를 적습니다.`;
+
 export const metadata: Metadata = {
-  title: "소개·출처 정책",
-  description: `${site.name}은 서울 지하철 역 구조를 공식 숫자와 출처로 설명하는 웹 매거진입니다. 운영자, 출처·정정 정책, AI 사용 범위, 연락처를 적습니다.`,
+  title,
+  description,
   alternates: { canonical: "/about/", types: { "application/rss+xml": "/rss.xml" } },
+  openGraph: { title, description, url: "/about/", type: "website", locale: "ko_KR", siteName: site.name },
 };
 
 const sections = [
@@ -109,7 +113,7 @@ export default function AboutPage() {
                 방문 통계와 개인정보
               </h2>
               <p className="mt-4 text-ink-2">
-                쿠키 없이 익명 방문 통계(Umami)를 셉니다. 개인정보는 수집하지 않습니다. 집계 범위는 페이지뷰, 유입 경로, 기기 종류, 다음 기사 클릭, 본문 끝 도달입니다. 재방문 여부를 알기 위해 브라우저 저장소(localStorage)에 첫 방문 시각과 유입 경로만 저장하며, 브라우저 설정에서 지울 수 있습니다.
+                쿠키 없이 익명 방문 통계(Umami)를 셉니다. 개인정보는 수집하지 않습니다. 집계 범위는 페이지뷰, 유입 경로, 기기 종류, 다음 기사 클릭, 본문 끝 도달, 재방문, AI 링크 유입입니다. 재방문과 AI 링크 유입을 집계하기 위해 브라우저 저장소(localStorage·sessionStorage)에 첫 방문 시각, 유입 경로와 중복 집계 방지 표시를 저장하며, 브라우저 설정에서 지울 수 있습니다.
               </p>
             </section>
 
