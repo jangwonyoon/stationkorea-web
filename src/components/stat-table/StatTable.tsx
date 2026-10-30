@@ -77,7 +77,7 @@ export function StatTable({ stats, sources, accent, caption = "숫자와 출처"
                     aria-label={`출처 ${n}`}
                     className="group inline-flex size-11 items-center justify-center"
                   >
-                    <span className="inline-flex h-5 min-w-5 items-center justify-center border border-plate-ink px-1 text-label text-plate-ink group-hover:bg-slab group-active:bg-plate-ink group-active:text-plate">
+                    <span className="inline-flex h-5 min-w-5 items-center justify-center border border-plate-ink px-1 text-label text-plate-ink group-hover:bg-plate-ink group-hover:text-plate group-active:bg-plate-ink group-active:text-plate">
                       {n}
                     </span>
                   </a>

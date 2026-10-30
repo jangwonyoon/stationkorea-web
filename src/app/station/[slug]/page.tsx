@@ -52,7 +52,7 @@ export default async function StationPage({ params }: Props) {
   return (
     <>
       <JsonLd data={stationJsonLd(s)} />
-      <nav aria-label="현재 위치" className="mx-auto max-w-6xl px-4 pt-4 text-sm text-neutral-500">
+      <nav aria-label="현재 위치" className="mx-auto max-w-6xl px-4 pt-4 text-sm text-ink-3">
         <ol className="flex gap-1">
           <li>
             <Link href="/" className="hover:underline">
@@ -67,12 +67,12 @@ export default async function StationPage({ params }: Props) {
       <article className="mx-auto flex max-w-6xl flex-col gap-8 px-4 py-6 lg:grid lg:grid-cols-[minmax(0,1fr)_20rem] lg:gap-x-12">
         {/* ① 눈썹 + 질문 제목 + 한 문장 답 */}
         <header className="order-1 lg:col-start-1">
-          <p className="text-sm text-neutral-500">
+          <p className="text-sm text-ink-3">
             {site.name} · 역 해부 {String(s.no).padStart(2, "0")} · {lineLabel}
           </p>
           <h1 className="mt-2 text-[22px] font-bold leading-snug break-keep sm:text-3xl">{s.question}</h1>
           <p className="mt-4 text-lg leading-relaxed break-keep">{s.answer}</p>
-          <p className="mt-3 text-xs text-neutral-500">
+          <p className="mt-3 text-xs text-ink-3">
             글{" "}
             <Link href={site.author.path} rel="author" className="underline-offset-2 hover:underline">
               {site.author.name}
@@ -89,16 +89,16 @@ export default async function StationPage({ params }: Props) {
 
         {/* ② 3D 단면 이미지(고정 비율로 레이아웃 이동 없음) */}
         <figure className="order-2 lg:col-start-1 lg:max-w-xl">
-          <div className="relative aspect-[4/5] w-full overflow-hidden rounded-lg bg-neutral-100">
+          <div className="relative aspect-[4/5] w-full overflow-hidden rounded-lg bg-slab">
             <Image src={s.crossSection.src} alt={s.crossSection.alt} fill priority sizes="(min-width: 1024px) 36rem, 100vw" className="object-cover" />
           </div>
-          <figcaption className="mt-2 text-sm text-neutral-600">
-            {s.crossSection.caption} <span className="text-neutral-500">AI 시각화 참고 이미지.</span>
+          <figcaption className="mt-2 text-sm text-ink-2">
+            {s.crossSection.caption} <span className="text-ink-3">AI 시각화 참고 이미지.</span>
           </figcaption>
         </figure>
 
         {/* ④ 하차 칸 한 줄 */}
-        <section aria-labelledby="pin" className="order-4 rounded-lg border border-neutral-200 p-4 lg:col-start-1">
+        <section aria-labelledby="pin" className="order-4 rounded-lg border border-rule p-4 lg:col-start-1">
           <h2 id="pin" className="text-sm font-semibold">
             어디서 내리면 빠른가
           </h2>
@@ -137,7 +137,7 @@ export default async function StationPage({ params }: Props) {
                   <Link href={n.href} className="underline">
                     {n.title}
                   </Link>{" "}
-                  <time dateTime={n.date} className="text-sm text-neutral-500">
+                  <time dateTime={n.date} className="text-sm text-ink-3">
                     {formatDate(n.date)}
                   </time>
                 </li>
@@ -147,7 +147,7 @@ export default async function StationPage({ params }: Props) {
         )}
 
         {/* ⑧ 출처 전문 · 제작 문의 (read_end 측정 지점). AI 표시는 ② 단면 이미지 캡션에 둔다 */}
-        <footer id="sources" className="order-8 border-t border-neutral-200 pt-6 text-sm lg:col-start-1">
+        <footer id="sources" className="order-8 border-t border-rule pt-6 text-sm lg:col-start-1">
           <h2 className="text-base font-bold">출처</h2>
           <ol className="mt-3 flex list-decimal flex-col gap-2 pl-5">
             {s.sources.map((src) => (
@@ -156,7 +156,7 @@ export default async function StationPage({ params }: Props) {
                 {src.url && (
                   <>
                     {". "}
-                    <a href={src.url} rel="noopener" className="break-all text-neutral-600 underline">
+                    <a href={src.url} rel="noopener" className="break-all text-ink-2 underline">
                       {src.url}
                     </a>
                   </>
@@ -167,7 +167,7 @@ export default async function StationPage({ params }: Props) {
           {s.corrections && s.corrections.length > 0 && (
             <>
               <h2 className="mt-6 text-base font-bold">정정 기록</h2>
-              <ul className="mt-2 flex flex-col gap-1 text-neutral-600">
+              <ul className="mt-2 flex flex-col gap-1 text-ink-2">
                 {s.corrections.map((c) => (
                   <li key={`${c.date}-${c.before}`} className="break-keep">
                     <time dateTime={c.date}>{formatDate(c.date)}</time>: {c.before} → {c.after} ({c.reason})
@@ -177,7 +177,7 @@ export default async function StationPage({ params }: Props) {
             </>
           )}
           <h2 className="mt-6 text-base font-bold">제작 문의</h2>
-          <p className="mt-2 text-neutral-600 break-keep">
+          <p className="mt-2 text-ink-2 break-keep">
             역 한 곳의 해부 기사와 릴스를 함께 제작합니다. 이메일{" "}
             <a href={`mailto:${site.email}`} className="underline">
               {site.email}
@@ -213,12 +213,12 @@ export default async function StationPage({ params }: Props) {
               </thead>
               <tbody>
                 {s.stats.map((st) => (
-                  <tr key={st.value} className="flex flex-col rounded-lg border border-neutral-200 p-4">
+                  <tr key={st.value} className="flex flex-col rounded-lg border border-rule p-4">
                     <th scope="row" className="text-2xl font-bold">
                       {st.value}
                     </th>
                     <td className="mt-1 break-keep">{st.label}</td>
-                    <td className="mt-2 text-xs text-neutral-500">
+                    <td className="mt-2 text-xs text-ink-3">
                       {st.asOf}
                       <SourceRefs ids={st.sourceIds} sources={s.sources} />
                     </td>
@@ -233,30 +233,30 @@ export default async function StationPage({ params }: Props) {
             <h2 id="reel" className="sr-only">
               릴스 영상
             </h2>
-            <a href={s.reel.url} rel="noopener" className="flex items-center gap-4 rounded-lg border border-neutral-200 p-3 hover:bg-neutral-50">
+            <a href={s.reel.url} rel="noopener" className="flex items-center gap-4 rounded-lg border border-rule p-3 hover:bg-slab active:bg-slab">
               <Image src={s.reel.thumbnail} alt={`${s.name} 릴스 썸네일`} width={96} height={171} className="h-auto w-24 shrink-0 rounded" />
               <span>
                 <span className="block font-semibold">1분 영상으로 보기</span>
-                <span className="mt-1 block text-sm text-neutral-600">인스타그램 {site.instagramHandle} 릴스</span>
+                <span className="mt-1 block text-sm text-ink-2">인스타그램 {site.instagramHandle} 릴스</span>
               </span>
             </a>
           </section>
 
           {/* ⑦ 다음 기사: 역 이름이 아니라 다음 질문 */}
           <section aria-labelledby="next" className="order-7">
-            <h2 id="next" className="text-sm text-neutral-500">
+            <h2 id="next" className="text-sm text-ink-3">
               다음 질문
             </h2>
             <Link
               href={stationPath(next)}
               data-track="next_click"
               data-to={stationPath(next)}
-              className="mt-2 block rounded-lg border border-neutral-900 p-4 hover:bg-neutral-50"
+              className="mt-2 block rounded-lg border border-ink p-4 hover:bg-slab active:bg-slab"
             >
               <span className="block text-lg font-bold break-keep">
                 그럼 {withTopic(next.name.replace(/역$/, ""))} 왜?
               </span>
-              <span className="mt-1 block break-keep text-neutral-700">{next.teaser}</span>
+              <span className="mt-1 block break-keep text-ink-2">{next.teaser}</span>
             </Link>
           </section>
         </aside>

@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { site } from "@/lib/site";
 import { navItems } from "./nav";
+import { ThemeToggle } from "./ThemeToggle";
 
 // 얇은 헤더(48px): 제호 + 내비 3개(질문·노선·소개).
 // 점진 향상: 정적 HTML에서는 sticky로 항상 보인다. JS가 돌면 아래로 스크롤할 때 숨고 위로 스크롤하면 돌아온다.
@@ -31,31 +32,34 @@ export function SiteHeader() {
         hidden ? "-translate-y-full" : "translate-y-0"
       }`}
     >
-      <div className="page-wrap flex h-full items-center justify-between gap-4">
-        <Link href="/" className="inline-flex min-h-11 items-center font-serif text-lg font-bold text-ink">
+      <div className="page-wrap flex h-full items-center justify-between gap-1">
+        <Link href="/" className="inline-flex min-h-11 shrink-0 items-center font-serif text-lg font-bold text-ink">
           {site.name}
         </Link>
-        <nav aria-label="주 메뉴">
-          <ul className="flex items-center">
-            {navItems.map((item) => {
-              const current = item.match(pathname ?? "/", hash);
-              return (
-                <li key={item.label}>
-                  <Link
-                    href={item.href}
-                    onClick={() => setHash(item.href.includes("#") ? `#${item.href.split("#")[1]}` : "")}
-                    aria-current={current ?? undefined}
-                    className={`inline-flex min-h-11 min-w-11 items-center justify-center border-b-2 px-2 text-label text-ink ${
-                      current ? "border-ink" : "border-transparent"
-                    }`}
-                  >
-                    {item.label}
-                  </Link>
-                </li>
-              );
-            })}
-          </ul>
-        </nav>
+        <div className="flex items-center">
+          <nav aria-label="주 메뉴">
+            <ul className="flex items-center">
+              {navItems.map((item) => {
+                const current = item.match(pathname ?? "/", hash);
+                return (
+                  <li key={item.label}>
+                    <Link
+                      href={item.href}
+                      onClick={() => setHash(item.href.includes("#") ? `#${item.href.split("#")[1]}` : "")}
+                      aria-current={current ?? undefined}
+                      className={`inline-flex min-h-11 min-w-11 items-center justify-center border-b-2 px-2 text-label text-ink ${
+                        current ? "border-ink" : "border-transparent"
+                      }`}
+                    >
+                      {item.label}
+                    </Link>
+                  </li>
+                );
+              })}
+            </ul>
+          </nav>
+          <ThemeToggle />
+        </div>
       </div>
     </header>
   );
