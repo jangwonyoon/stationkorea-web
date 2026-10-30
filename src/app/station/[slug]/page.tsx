@@ -84,7 +84,7 @@ export default async function StationPage({ params }: Props) {
       <JsonLd data={jsonLd} />
       <article className="page-wrap pb-16">
         <div className="pt-1"><Breadcrumb items={breadcrumb} /></div>
-        <ArticleLayout>
+        <ArticleLayout key={s.slug}>
         <header className="mt-2">
           <p className="mb-3 text-label">#갈아타다 <span className="ml-3 text-ink-3">역 해부 {String(s.no).padStart(2, "0")}</span></p>
           <StationSign station={s} />
