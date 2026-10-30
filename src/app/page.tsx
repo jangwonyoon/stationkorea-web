@@ -17,7 +17,7 @@ export default function Home() {
       <JsonLd data={homeJsonLd(stations)} />
       <div className="mx-auto max-w-6xl px-4 py-8">
         <h1 className="text-2xl font-bold break-keep sm:text-3xl">매일 지나는 그 역, 왜 이렇게 생겼을까</h1>
-        <p className="mt-2 text-neutral-700 break-keep">{site.description}</p>
+        <p className="mt-2 text-ink-2 break-keep">{site.description}</p>
 
         <section aria-labelledby="latest" className="mt-8">
           <h2 id="latest" className="text-lg font-bold">
@@ -39,8 +39,8 @@ export default function Home() {
           </h2>
           <ul className="flex flex-wrap gap-2">
             {lines.map((line) => (
-              <li key={line} className="rounded-full border border-neutral-300 px-3 py-1 text-sm">
-                {lineName(line)} <span className="text-neutral-500">{stations.filter((s) => s.lines.includes(line)).length}</span>
+              <li key={line} className="rounded-full border border-rule px-3 py-1 text-sm">
+                {lineName(line)} <span className="text-ink-3">{stations.filter((s) => s.lines.includes(line)).length}</span>
               </li>
             ))}
           </ul>
@@ -65,17 +65,17 @@ export default function Home() {
 
 function QuestionCard({ station: s, withImage = false }: { station: Station; withImage?: boolean }) {
   return (
-    <Link href={stationPath(s)} className="flex h-full flex-col rounded-lg border border-neutral-200 p-4 hover:bg-neutral-50">
+    <Link href={stationPath(s)} className="flex h-full flex-col rounded-lg border border-rule p-4 hover:bg-slab active:bg-slab">
       {withImage && (
-        <div className="relative -mx-4 -mt-4 mb-3 aspect-[1200/630] overflow-hidden rounded-t-lg bg-neutral-100">
+        <div className="relative -mx-4 -mt-4 mb-3 aspect-[1200/630] overflow-hidden rounded-t-lg bg-slab">
           <Image src={s.ogImage} alt="" fill sizes="18rem" className="object-cover" />
         </div>
       )}
-      <span className="text-xs text-neutral-500">
+      <span className="text-xs text-ink-3">
         역 해부 {String(s.no).padStart(2, "0")} · {s.name} · {s.lines.map(lineName).join("·")}
       </span>
       <span className="mt-1 text-lg font-bold leading-snug break-keep">{s.question}</span>
-      <span className="mt-2 line-clamp-3 text-sm text-neutral-600 break-keep">{s.answer}</span>
+      <span className="mt-2 line-clamp-3 text-sm text-ink-2 break-keep">{s.answer}</span>
     </Link>
   );
 }
