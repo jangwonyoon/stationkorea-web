@@ -1,19 +1,307 @@
 @import "tailwindcss";
 
-/* 비주얼은 Claude Design에서 확정한다. 지금은 구조 확인용 최소 스타일만 둔다. */
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/*
+ * 디자인 토큰 — 시안 v1(docs/design/v1/README.md "토큰"). 컴포넌트는 Tailwind 유틸리티 클래스로만 쓴다.
+ * 모든 토큰은 @theme 변수라 bg-ground, text-ink, border-rule, bg-line-2, text-on-line-2 같은 클래스가 생긴다.
+ * 다크는 시스템 설정 또는 현재 탭의 data-theme으로 --color-* 값만 바꾼다. 흰 판(plate)·출구 노랑(exit)·노선색은 다크에서도 그대로.
+ * 브레이크포인트는 Tailwind 기본값을 시안 폭에 맞춰 쓴다: 기본 = 390(모바일), md = 768, xl = 1280.
+ */
+
+@theme static {
+  /* 색 */
+  --color-ground: #eceeee;
+  --color-slab: #e1e4e5;
+  --color-plate: #ffffff;
+  --color-rule: #b9bec2;
+  --color-ink: #191b1d;
+  --color-ink-2: #33383d;
+  --color-ink-3: #4a5056;
+  --color-exit: #ffcd00;
+  /* 흰 판·출구 노랑·노선색 채움 위의 먹 글자. 다크에서도 바뀌지 않는다. */
+  --color-plate-ink: #191b1d;
+  /* 기사 강조색 = 기준 노선색. 기사 루트에서 [--color-accent:var(--color-line-2)]처럼 덮어쓴다. */
+  --color-accent: var(--color-ink);
+
+  /* 노선색(서울 1~9호선) */
+  --color-line-1: #0052a4;
+  --color-line-2: #00a84d;
+  --color-line-3: #ef7c1c;
+  --color-line-4: #00a5de;
+  --color-line-5: #996cac;
+  --color-line-6: #cd7c2f;
+  --color-line-7: #747f00;
+  --color-line-8: #e6186c;
+  --color-line-9: #bdb092;
+
+  /* 노선색 채움 위 숫자색 */
+  --color-on-line-1: #ffffff;
+  --color-on-line-2: #ffffff;
+  --color-on-line-3: #191b1d;
+  --color-on-line-4: #191b1d;
+  --color-on-line-5: #ffffff;
+  --color-on-line-6: #191b1d;
+  --color-on-line-7: #ffffff;
+  --color-on-line-8: #ffffff;
+  --color-on-line-9: #191b1d;
+
+  /* 모서리: 기본 rounded-none(본문 블록·표·이미지·카드), rounded-plate(역명판·버튼·하차 칸 표지), rounded-full(원형 번호·역 점·핀만) */
+  --radius-plate: 2px;
+
+  /* 움직임: 역명판 띠 그리기 900ms, 진입 1회 */
+  --ease-band: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --animate-band-draw: band-draw 900ms var(--ease-band) both;
+
+  @keyframes band-draw {
+    from {
+      transform: scaleX(0);
+    }
+    to {
+      transform: scaleX(1);
+    }
+  }
 }
 
+/* next/font가 <html>에 붙이는 변수(src/app/fonts.ts). 값에 크기 보정된 대체 서체가 들어 있다. */
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: system-ui, -apple-system, "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", sans-serif;
+  --font-serif: var(--font-hahmlet);
+  --font-sans: var(--font-plex-sans-kr);
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
+/*
+ * 이슈 #24 인터페이스 계약의 CSS 변수 이름. 값은 @theme 변수를 가리킨다(정의는 한 곳).
+ * 간격 --s1~--s9는 Tailwind 기본 스케일(4px 단위)과 같다: 1·2·3·4·6·8·12·16·24.
+ */
+:root {
+  --ground: var(--color-ground);
+  --slab: var(--color-slab);
+  --plate: var(--color-plate);
+  --rule: var(--color-rule);
+  --ink: var(--color-ink);
+  --ink-2: var(--color-ink-2);
+  --ink-3: var(--color-ink-3);
+  --exit: var(--color-exit);
+  --accent: var(--color-accent);
+  --line-1: var(--color-line-1);
+  --line-2: var(--color-line-2);
+  --line-3: var(--color-line-3);
+  --line-4: var(--color-line-4);
+  --line-5: var(--color-line-5);
+  --line-6: var(--color-line-6);
+  --line-7: var(--color-line-7);
+  --line-8: var(--color-line-8);
+  --line-9: var(--color-line-9);
+  --on-line-1: var(--color-on-line-1);
+  --on-line-2: var(--color-on-line-2);
+  --on-line-3: var(--color-on-line-3);
+  --on-line-4: var(--color-on-line-4);
+  --on-line-5: var(--color-on-line-5);
+  --on-line-6: var(--color-on-line-6);
+  --on-line-7: var(--color-on-line-7);
+  --on-line-8: var(--color-on-line-8);
+  --on-line-9: var(--color-on-line-9);
+
+  --s1: calc(var(--spacing) * 1);
+  --s2: calc(var(--spacing) * 2);
+  --s3: calc(var(--spacing) * 3);
+  --s4: calc(var(--spacing) * 4);
+  --s5: calc(var(--spacing) * 6);
+  --s6: calc(var(--spacing) * 8);
+  --s7: calc(var(--spacing) * 12);
+  --s8: calc(var(--spacing) * 16);
+  --s9: calc(var(--spacing) * 24);
+
+  color-scheme: light dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --color-ground: #121416;
+    --color-slab: #1c1f22;
+    --color-rule: #3a4045;
+    --color-ink: #e8eaeb;
+    --color-ink-2: #c5cacd;
+    --color-ink-3: #a3a9ae;
+  }
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --color-ground: #121416;
+  --color-slab: #1c1f22;
+  --color-rule: #3a4045;
+  --color-ink: #e8eaeb;
+  --color-ink-2: #c5cacd;
+  --color-ink-3: #a3a9ae;
+}
+
+/* 타입 스케일. 모바일 값이 기본이고 md(768) 이상에서 데스크톱 값. */
+@utility text-display {
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: 40px;
+  line-height: 1.15;
+  @variant md {
+    font-size: 72px;
+    line-height: 1.1;
+  }
+}
+
+@utility text-h1 {
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: 28px;
+  line-height: 1.38;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+  @variant md {
+    font-size: 44px;
+    line-height: 1.3;
+  }
+}
+
+@utility text-h2 {
+  font-family: var(--font-serif);
+  font-weight: 600;
+  font-size: 22px;
+  line-height: 1.45;
+  @variant md {
+    font-size: 28px;
+    line-height: 1.4;
+  }
+}
+
+@utility text-lead {
   font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: 17px;
+  line-height: 1.7;
+  word-break: keep-all;
+  @variant md {
+    font-size: 20px;
+  }
+}
+
+@utility text-body {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 1.75;
+  word-break: keep-all;
+  @variant md {
+    font-size: 18px;
+    line-height: 1.8;
+  }
+}
+
+@utility text-num {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 40px;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  @variant md {
+    font-size: 52px;
+  }
+}
+
+/* 숫자 옆 단위: 숫자의 50%, 500, 같은 기준선. text-num 안의 <span>에 쓴다. */
+@utility text-num-unit {
+  font-size: 0.5em;
+  font-weight: 500;
+}
+
+@utility text-label {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+@utility text-caption {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--color-ink-3);
+  @variant md {
+    line-height: 1.6;
+  }
+}
+
+/* 그리드: page-wrap(가운데 정렬 + 바깥 여백) 안에 page-grid(열·간격).
+   390: 4열 · 여백 20 · 간격 12 / md 768: 8열 · 여백 32 · 간격 20 / xl 1280: 12열 · 최대 1200 · 여백 40 · 간격 24 */
+@utility page-wrap {
+  width: 100%;
+  max-width: calc(1200px + 2 * 40px);
+  margin-inline: auto;
+  padding-inline: calc(var(--spacing) * 5);
+  @variant md {
+    padding-inline: calc(var(--spacing) * 8);
+  }
+  @variant xl {
+    padding-inline: calc(var(--spacing) * 10);
+  }
+}
+
+@utility page-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  column-gap: calc(var(--spacing) * 3);
+  @variant md {
+    grid-template-columns: repeat(8, minmax(0, 1fr));
+    column-gap: calc(var(--spacing) * 5);
+  }
+  @variant xl {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: calc(var(--spacing) * 6);
+  }
+}
+
+/* 눌림 상태: 그림자 대신 바탕 slab + 1px 아래로. */
+@utility pressable {
+  &:active {
+    background-color: var(--color-slab);
+    transform: translateY(1px);
+  }
+}
+
+/* 포커스 링: 3px 먹 외곽선 + 3px 간격. 노선색 위에서도 같다. 기본 스타일이라 따로 클래스를 붙이지 않는다. */
+@utility focus-ring {
+  outline: 3px solid var(--color-ink);
+  outline-offset: 3px;
+}
+
+@layer base {
+  html,
+  body {
+    background-color: var(--color-ground);
+  }
+
+  body {
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+  }
+
+  :focus-visible {
+    @apply focus-ring;
+  }
+}
+
+/* Native swipe/snap remains usable before hydration and with JavaScript disabled. */
+@utility scrollbar-none {
+  scrollbar-width: none;
+  &::-webkit-scrollbar { display: none; }
+}
+
+@utility question-slide {
+  flex-basis: calc(100% - 3rem);
+  &:only-child { flex-basis: 100%; }
+  @variant md {
+    flex-basis: calc((100% - 2rem) / 3);
+    &:only-child { flex-basis: 100%; }
+  }
 }

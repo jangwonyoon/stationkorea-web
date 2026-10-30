@@ -9,10 +9,19 @@ export const stations: Station[] = [jamsil, sadang, konkukUniv].sort((a, b) => a
 for (const s of stations) {
   // 숫자 카드 3개 + 출처가 없는 기사는 발행하지 않는다(설계 문서 전제 1).
   const ids = new Set(s.sources.map((x) => x.id));
-  const refs = [...s.stats, s.pin, ...s.qna].flatMap((x) => x.sourceIds);
+  const refs = [
+    ...[...s.stats, s.pin, ...s.qna, ...(s.pullQuote ? [s.pullQuote] : [])].flatMap((x) => x.sourceIds),
+    ...s.transfers.map((t) => t.sourceId),
+  ];
   const missing = refs.filter((id) => !ids.has(id));
   if (s.stats.length !== 3 || missing.length > 0) {
     throw new Error(`${s.slug}: 숫자 카드 3개와 출처 연결이 필요합니다 (없는 출처: ${missing.join(", ")})`);
+  }
+  // 역명판 기준 노선과 하차 칸 행의 노선은 이 역의 노선이어야 한다.
+  const usedLines = [s.sign.line, ...s.transfers.flatMap((t) => [t.ride.line, t.to.line])];
+  const strayLines = usedLines.filter((id) => !s.lines.includes(id));
+  if (strayLines.length > 0) {
+    throw new Error(`${s.slug}: sign·transfers의 노선이 lines에 없습니다 (${[...new Set(strayLines)].join(", ")})`);
   }
 }
 

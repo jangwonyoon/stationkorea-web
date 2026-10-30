@@ -5,13 +5,15 @@ export const jamsil: Station = {
   slug: "jamsil",
   no: 1,
   name: "잠실역",
-  lines: ["2호선", "8호선"],
+  lines: ["2", "8"],
+  section: "transfer",
+  sign: { line: "2", prev: "잠실새내", next: "잠실나루", en: "Jamsil" },
   question: "잠실역, 2호선에서 8호선까지 왜 이렇게 멀까?",
   seoTitle: "잠실역 2호선↔8호선 환승 200m, 왜 이렇게 멀까",
   answer:
     "잠실역 2호선과 8호선 승강장이 약 200m 떨어진 것은, 1996년에 개통한 8호선이 1980년부터 있던 2호선 바로 아래 대신 곧은 승강장을 놓으려고 송파구청 쪽으로 비켜 자리 잡았기 때문입니다.",
   teaser: "2호선에서 8호선까지 왜 200m나 걸을까?",
-  section: {
+  crossSection: {
     src: "/images/station/jamsil-section.jpg",
     alt: "잠실역 단면 그림. 위층에 2호선 승강장, 아래로 송파대로 쪽으로 꺾여 나간 8호선 승강장과 두 노선을 잇는 계단·통로가 보인다.",
     caption: "잠실역사거리 아래 2호선(초록)과 송파대로 쪽으로 비켜 자리 잡은 8호선(분홍).",
@@ -41,6 +43,12 @@ export const jamsil: Station = {
     text: "2호선 잠실새내 방면이면 10-3, 잠실나루 방면이면 1-1에서 내리면 8호선까지 약 4분. 8호선에서는 몽촌토성 방면 6-4, 석촌 방면 1-1. 끝 칸에서 내리면 최대 2분 47초를 더 걷습니다.",
     sourceIds: ["seoulmetro-transfer-info"],
   },
+  transfers: [
+    { ride: { line: "2", direction: "잠실새내 방면" }, to: { line: "8", direction: "몽촌토성·석촌 방면" }, car: "10-3", time: "3분 58초~4분 1초", sourceId: "seoulmetro-transfer-info" },
+    { ride: { line: "2", direction: "잠실나루 방면" }, to: { line: "8", direction: "몽촌토성·석촌 방면" }, car: "1-1", time: "4분 1~11초", sourceId: "seoulmetro-transfer-info" },
+    { ride: { line: "8", direction: "몽촌토성 방면" }, to: { line: "2", direction: "잠실새내·잠실나루 방면" }, car: "6-4", time: "4분 1초", sourceId: "seoulmetro-transfer-info" },
+    { ride: { line: "8", direction: "석촌 방면" }, to: { line: "2", direction: "잠실새내·잠실나루 방면" }, car: "1-1", time: "3분 58초~4분 11초", sourceId: "seoulmetro-transfer-info" },
+  ],
   reel: {
     url: "https://www.instagram.com/reel/De8-ObmRYZk/",
     thumbnail: "/images/station/jamsil-reel.jpg",

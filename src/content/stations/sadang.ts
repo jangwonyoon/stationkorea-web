@@ -5,13 +5,15 @@ export const sadang: Station = {
   slug: "sadang",
   no: 2,
   name: "사당역",
-  lines: ["2호선", "4호선"],
+  lines: ["2", "4"],
+  section: "transfer",
+  sign: { line: "2", prev: "방배", next: "낙성대", en: "Sadang" },
   question: "사당역, 환승 74m인데 왜 3분 넘게 걸릴까?",
   seoTitle: "사당역 2호선↔4호선 환승 74m인데 3분 22초, 왜 돌아가게 할까",
   answer:
     "사당역 2호선과 4호선의 최단 환승거리는 74m(서울교통공사, 2026-08-31 기준)지만, 좁은 계단에 출퇴근 환승객이 엉키지 않도록 방배 방면 통로에 펜스를 쳐 돌아가게 하고 간이 통로는 출근 시간에 셔터를 내리기 때문에, 공사 안내 기준 환승 시간은 방배 방면 3분 22초입니다.",
   teaser: "환승 74m인데 왜 3분 넘게 걸릴까?",
-  section: {
+  crossSection: {
     src: "/images/station/sadang-section.jpg",
     alt: "사당역 단면 그림. 위층 2호선 승강장과 아래층 4호선 승강장 사이를 잇는 계단에 74m, 3:22 표시가 붙어 있다.",
     caption: "지하 2층 2호선(초록) 상대식 승강장과 지하 3층 4호선(하늘색) 섬식 승강장을 잇는 계단.",
@@ -38,8 +40,30 @@ export const sadang: Station = {
     },
   ],
   pin: {
-    text: "4호선 총신대입구 방면이면 10-4, 남태령 방면이면 1-1에서 내리면 2호선 방배 방면이 가장 빠릅니다. 2호선 낙성대 방면은 4-2, 7-3. 끝 칸에서 내리면 최대 2분 47초를 더 걷습니다.",
+    text: "4호선에서 2호선 방배 방면으로 갈 때는 총신대입구 방면 열차 10-4, 남태령 방면 열차 1-1에서 내리면 가장 빠릅니다. 2호선 낙성대 방면으로 갈 때는 총신대입구 방면 열차 4-2, 남태령 방면 열차 7-3. 끝 칸에서 내리면 최대 2분 47초를 더 걷습니다.",
     sourceIds: ["seoulmetro-transfer-info"],
+  },
+  transfers: [
+    { ride: { line: "4", direction: "총신대입구 방면" }, to: { line: "2", direction: "방배 방면" }, car: "10-4", time: "3분 24초", sourceId: "seoulmetro-transfer-info" },
+    { ride: { line: "4", direction: "남태령 방면" }, to: { line: "2", direction: "방배 방면" }, car: "1-1", time: "3분 22초", sourceId: "seoulmetro-transfer-info" },
+    { ride: { line: "4", direction: "총신대입구 방면" }, to: { line: "2", direction: "낙성대 방면" }, car: "4-2", time: "1분 55초", sourceId: "seoulmetro-transfer-info" },
+    { ride: { line: "4", direction: "남태령 방면" }, to: { line: "2", direction: "낙성대 방면" }, car: "7-3", time: "1분 51초", sourceId: "seoulmetro-transfer-info" },
+    { ride: { line: "2", direction: "방배 방면" }, to: { line: "4", direction: "총신대입구·남태령 방면" }, car: "6-3", time: "3분 22~24초", sourceId: "seoulmetro-transfer-info" },
+    { ride: { line: "2", direction: "낙성대 방면" }, to: { line: "4", direction: "총신대입구·남태령 방면" }, car: "5-3", time: "1분 51~55초", sourceId: "seoulmetro-transfer-info" },
+  ],
+  comparison: {
+    title: "사당역 2호선과 4호선 비교",
+    columns: ["2호선", "4호선"],
+    rows: [
+      { label: "사당역 개통", values: ["1983년 12월 17일", "1985년 10월 18일"], sourceIds: ["wiki-sadang"], note: "개통일은 위키백과 기준입니다." },
+      { label: "승강장 형태", values: ["상대식", "섬식"], sourceIds: ["wiki-sadang", "redaily-2021-11"], note: "승강장 형태는 위키백과·철도경제신문 기준입니다." },
+      {
+        label: "승강장 층",
+        values: ["지하 2층", "지하 3층"],
+        sourceIds: ["namu-sadang"],
+        note: "층수는 나무위키 단독 자료입니다.",
+      },
+    ],
   },
   reel: {
     url: "https://www.instagram.com/reel/De_BAeuiU93/",
@@ -60,7 +84,7 @@ export const sadang: Station = {
       question: "사당역에서 갈아탈 때 어디서 내리면 빠른가요?",
       answer: [
         "서울교통공사 환승 경로 안내 기준으로 2호선 방배 방면↔4호선은 3분 22초, 낙성대 방면↔4호선은 1분 51초입니다. 같은 역인데 방향에 따라 두 배 가까이 차이가 납니다.",
-        "4호선에서 내릴 때는 총신대입구 방면 10-4, 남태령 방면 1-1이 2호선 방배 방면으로 가장 빠르고, 낙성대 방면은 4-2, 7-3이 가깝습니다. 이 시간은 가장 좋은 칸에서 내려 막힘 없이 걸을 때 기준이라 출근길 체감은 더 깁니다.",
+        "4호선에서 내릴 때 2호선 방배 방면으로는 총신대입구 방면 열차 10-4(3분 24초), 남태령 방면 열차 1-1(3분 22초)이 가장 빠르고, 2호선 낙성대 방면으로는 총신대입구 방면 열차 4-2(1분 55초), 남태령 방면 열차 7-3(1분 51초)이 가장 빠릅니다. 2호선에서 4호선으로 갈 때는 방배 방면 열차 6-3, 낙성대 방면 열차 5-3에서 내립니다. 이 시간은 가장 좋은 칸에서 내려 막힘 없이 걸을 때 기준이라 출근길 체감은 더 깁니다.",
       ],
       sourceIds: ["seoulmetro-transfer-info"],
     },
@@ -139,7 +163,22 @@ export const sadang: Station = {
       date: "2025-07-17",
       url: "https://www.hankyung.com/article/2025071752221",
     },
+    {
+      id: "namu-sadang",
+      org: "나무위키",
+      title: "사당역(기존 기사 층수 인용, 원문 미확인)",
+      date: "2026-10-30 기존 기사 인용 기준",
+      url: "https://namu.wiki/w/%EC%82%AC%EB%8B%B9%EC%97%AD",
+    },
   ],
   datePublished: "2026-10-29T09:00:00+09:00",
-  dateModified: "2026-10-29T09:00:00+09:00",
+  dateModified: "2026-10-30T15:45:00+09:00",
+  corrections: [
+    {
+      date: "2026-10-30",
+      before: "2호선 낙성대 방면은 4-2, 7-3",
+      after: "2호선 낙성대 방면으로는 총신대입구 방면 열차 4-2, 남태령 방면 열차 7-3",
+      reason: "4호선 열차 방면 구분 누락, 서울교통공사 환승정보 원자료로 확인",
+    },
+  ],
 };

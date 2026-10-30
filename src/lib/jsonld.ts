@@ -1,3 +1,4 @@
+import { lineName, type LineId } from "@/content/lines";
 import type { Station } from "@/content/types";
 import { stationPath } from "@/content/stations";
 import { absoluteUrl, site } from "@/lib/site";
@@ -65,7 +66,7 @@ export function stationJsonLd(s: Station) {
       "@type": "Article",
       headline: s.question,
       description: s.answer,
-      image: [absoluteUrl(s.ogImage), absoluteUrl(s.section.src)],
+      image: [absoluteUrl(s.ogImage), absoluteUrl(s.crossSection.src)],
       datePublished: s.datePublished,
       dateModified: s.dateModified,
       inLanguage: "ko-KR",
@@ -74,7 +75,7 @@ export function stationJsonLd(s: Station) {
       mainEntityOfPage: url,
       about: [
         { "@type": "SubwayStation", name: s.name, containedInPlace: { "@type": "City", name: "서울" } },
-        ...s.lines.map((line) => ({ "@type": "Thing", name: `서울 지하철 ${line}` })),
+        ...s.lines.map((line) => ({ "@type": "Thing", name: `서울 지하철 ${lineName(line)}` })),
       ],
       citation: s.sources.map((src) => ({
         "@type": "CreativeWork",
@@ -100,6 +101,41 @@ export function stationJsonLd(s: Station) {
       itemListElement: [
         { "@type": "ListItem", position: 1, name: site.name, item: absoluteUrl("/") },
         { "@type": "ListItem", position: 2, name: s.name, item: url },
+      ],
+    },
+  ];
+}
+
+/** 노선 허브: 화면에 실린 역 기사만 나열한다. */
+export function lineJsonLd(line: LineId, list: Station[]) {
+  const url = absoluteUrl(`/line/${line}/`);
+  return [
+    {
+      "@context": "https://schema.org",
+      "@type": "CollectionPage",
+      name: lineName(line),
+      url,
+      inLanguage: "ko-KR",
+      mainEntity: { "@id": `${url}#questions` },
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "ItemList",
+      "@id": `${url}#questions`,
+      name: "이 노선의 질문",
+      itemListElement: list.map((station, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        name: station.question,
+        url: absoluteUrl(stationPath(station)),
+      })),
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: site.name, item: absoluteUrl("/") },
+        { "@type": "ListItem", position: 2, name: lineName(line), item: url },
       ],
     },
   ];

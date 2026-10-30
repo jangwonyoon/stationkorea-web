@@ -1,3 +1,4 @@
+import { lineName } from "@/content/lines";
 import { latestStations, stationPath } from "@/content/stations";
 import type { Station } from "@/content/types";
 import { absoluteUrl, site } from "@/lib/site";
@@ -13,7 +14,7 @@ function fullContent(s: Station): string {
   const refs = (ids: string[]) => ids.map((id) => `[${n(id)}]`).join("");
   return [
     `<p>${escape(s.answer)}</p>`,
-    `<figure><img src="${absoluteUrl(s.section.src)}" alt="${escape(s.section.alt)}"/><figcaption>${escape(s.section.caption)} AI 시각화 참고 이미지.</figcaption></figure>`,
+    `<figure><img src="${absoluteUrl(s.crossSection.src)}" alt="${escape(s.crossSection.alt)}"/><figcaption>${escape(s.crossSection.caption)} AI 시각화 참고 이미지.</figcaption></figure>`,
     "<h2>숫자</h2><table><thead><tr><th>숫자</th><th>내용</th><th>기준일</th><th>출처</th></tr></thead><tbody>",
     ...s.stats.map(
       (st) => `<tr><td>${escape(st.value)}</td><td>${escape(st.label)}</td><td>${escape(st.asOf)}</td><td>${refs(st.sourceIds)}</td></tr>`,
@@ -45,7 +46,7 @@ export function GET() {
       `<description>${escape(s.answer)}</description>`,
       `<content:encoded><![CDATA[${fullContent(s).replaceAll("]]>", "]]&gt;")}]]></content:encoded>`,
       `<pubDate>${new Date(s.datePublished).toUTCString()}</pubDate>`,
-      ...s.lines.map((line) => `<category>${escape(line)}</category>`),
+      ...s.lines.map((line) => `<category>${escape(lineName(line))}</category>`),
       "</item>",
     ].join("");
   });

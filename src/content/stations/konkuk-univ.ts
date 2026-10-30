@@ -5,13 +5,15 @@ export const konkukUniv: Station = {
   slug: "konkuk-univ",
   no: 3,
   name: "건대입구역",
-  lines: ["2호선", "7호선"],
+  lines: ["2", "7"],
+  section: "transfer",
+  sign: { line: "2", prev: "성수", next: "구의", en: "Konkuk Univ." },
   question: "건대입구역, 걸으면 77m인데 휠체어는 왜 1,400m일까?",
   seoTitle: "건대입구역 2호선↔7호선 환승 77m, 휠체어는 왜 1,404m일까",
   answer:
     "건대입구역은 2호선이 땅 위 약 15m 고가에, 7호선이 땅 밑 약 8m에 있어서, 걸으면 77m인 환승이 휠체어로는 지상으로 나와 횡단보도를 건너 다시 올라가는 1,404m, 18배가 됩니다(2022년 조사 기준).",
   teaser: "걸으면 77m인데 휠체어는 왜 1,400m일까?",
-  section: {
+  crossSection: {
     src: "/images/station/konkuk-univ-section.jpg",
     alt: "건대입구역 단면 그림. 위쪽 고가 2호선 승강장과 아래쪽 7호선 쪽을 잇는 계단에 77m, 휠체어 경로에 1400m 표시가 붙어 있다.",
     caption: "땅 위 고가 2호선(초록)과 땅 밑 7호선(올리브). 계단 경로 77m와 휠체어 경로 1,400m.",
@@ -38,9 +40,16 @@ export const konkukUniv: Station = {
     },
   ],
   pin: {
-    text: "7호선 자양 방면이면 1-1, 2호선 구의 방면이면 8-3에서 내리면 환승 3분 44초. 반대쪽 끝 칸에서 내리면 승강장 길이만큼 더 걸어 최대 2분 47초를 더 씁니다.",
+    text: "건대입구역에서 2호선 구의 방면 열차는 7호선 자양 방면으로 갈 때 8-3(3분 44초), 어린이대공원 방면으로 갈 때 7-3(5분 25초)에서 내립니다. 2호선 성수 방면 열차는 3-2(3분 49초~5분 35초), 7호선 자양 방면 열차는 1-1(3분 44~49초), 어린이대공원 방면 열차는 8-4(5분 25~35초)에서 내립니다(서울교통공사, 2026-09-01 기준). 반대쪽 끝 칸에서 내리면 승강장 길이만큼 더 걸어 최대 2분 47초를 더 씁니다.",
     sourceIds: ["seoulmetro-transfer-info"],
   },
+  transfers: [
+    { ride: { line: "2", direction: "구의 방면" }, to: { line: "7", direction: "자양 방면" }, car: "8-3", time: "3분 44초", sourceId: "seoulmetro-transfer-info" },
+    { ride: { line: "2", direction: "구의 방면" }, to: { line: "7", direction: "어린이대공원 방면" }, car: "7-3", time: "5분 25초", sourceId: "seoulmetro-transfer-info" },
+    { ride: { line: "2", direction: "성수 방면" }, to: { line: "7", direction: "자양·어린이대공원 방면" }, car: "3-2", time: "3분 49초~5분 35초", sourceId: "seoulmetro-transfer-info" },
+    { ride: { line: "7", direction: "자양 방면" }, to: { line: "2", direction: "구의·성수 방면" }, car: "1-1", time: "3분 44~49초", sourceId: "seoulmetro-transfer-info" },
+    { ride: { line: "7", direction: "어린이대공원 방면" }, to: { line: "2", direction: "구의·성수 방면" }, car: "8-4", time: "5분 25~35초", sourceId: "seoulmetro-transfer-info" },
+  ],
   reel: {
     url: "https://www.instagram.com/reel/DfBF0puToTl/",
     thumbnail: "/images/station/konkuk-univ-reel.jpg",
@@ -59,7 +68,7 @@ export const konkukUniv: Station = {
     {
       question: "건대입구역에서 갈아탈 때 어디서 내리면 빠른가요?",
       answer: [
-        "7호선 자양 방면 열차는 1-1, 2호선 구의 방면 열차는 8-3에서 내리면 환승에 3분 44초 걸립니다.",
+        "건대입구역에서 2호선 구의 방면 열차는 7호선 자양 방면으로 갈 때 8-3(3분 44초), 어린이대공원 방면으로 갈 때 7-3(5분 25초)에서 내립니다. 2호선 성수 방면 열차는 3-2(3분 49초~5분 35초), 7호선 자양 방면 열차는 1-1(3분 44~49초), 어린이대공원 방면 열차는 8-4(5분 25~35초)에서 내립니다(서울교통공사, 2026-09-01 기준).",
         "반대쪽 끝 칸에서 내리면 승강장 길이만큼 더 걸어 최대 2분 47초가 더 듭니다.",
       ],
       sourceIds: ["seoulmetro-transfer-info"],
@@ -119,5 +128,13 @@ export const konkukUniv: Station = {
     },
   ],
   datePublished: "2026-10-29T09:00:00+09:00",
-  dateModified: "2026-10-29T09:00:00+09:00",
+  dateModified: "2026-10-30T17:00:00+09:00",
+  corrections: [
+    {
+      date: "2026-10-30",
+      before: "7호선 자양 방면 1-1, 2호선 구의 방면 8-3에서 내리면 환승 3분 44초",
+      after: "2호선 구의 방면에서 7호선 자양 방면은 8-3(3분 44초), 어린이대공원 방면은 7-3(5분 25초). 2호선 성수 방면은 3-2(3분 49초~5분 35초). 7호선 자양 방면은 1-1(3분 44~49초), 어린이대공원 방면은 8-4(5분 25~35초)",
+      reason: "갈아탈 방면 구분과 반대 방면 칸·시간 누락을 서울교통공사 환승정보(2026-09-01 기준)로 정정",
+    },
+  ],
 };

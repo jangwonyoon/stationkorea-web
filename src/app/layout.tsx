@@ -1,8 +1,10 @@
 import type { Metadata, Viewport } from "next";
-import Link from "next/link";
 import Script from "next/script";
 import "./globals.css";
+import { hahmlet, plexSansKr } from "./fonts";
 import { Analytics } from "@/components/Analytics";
+import { SiteFooter } from "@/components/site/SiteFooter";
+import { SiteHeader } from "@/components/site/SiteHeader";
 import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -20,18 +22,9 @@ export const viewport: Viewport = { width: "device-width", initialScale: 1 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="ko">
+    <html lang="ko" className={`${hahmlet.variable} ${plexSansKr.variable}`}>
       <body className="antialiased">
-        <header className="border-b border-neutral-200">
-          <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
-            <Link href="/" className="font-bold">
-              {site.name}
-            </Link>
-            <a href={site.instagram} rel="noopener" className="text-sm text-neutral-600 hover:underline">
-              인스타그램 {site.instagramHandle}
-            </a>
-          </div>
-        </header>
+        <SiteHeader />
         <main>{children}</main>
         {/* Umami(쿠키리스). data-domains로 production 도메인에서만 집계한다. */}
         <Script
@@ -41,20 +34,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           strategy="afterInteractive"
         />
         <Analytics />
-        <footer className="mt-16 border-t border-neutral-200">
-          <div className="mx-auto max-w-6xl px-4 py-6 text-xs text-neutral-500 break-keep">
-            <p>
-              숫자마다 기관·자료명·기준일을 출처로 적습니다.{" "}
-              <Link href="/about/" className="underline">
-                소개·출처 정책
-              </Link>{" "}
-              · 문의{" "}
-              <a href={`mailto:${site.email}`} className="underline">
-                {site.email}
-              </a>
-            </p>
-          </div>
-        </footer>
+        <SiteFooter />
       </body>
     </html>
   );
