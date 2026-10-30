@@ -1,3 +1,4 @@
+import { lineName } from "@/content/lines";
 import type { Station } from "@/content/types";
 import { stationPath } from "@/content/stations";
 import { absoluteUrl, site } from "@/lib/site";
@@ -65,7 +66,7 @@ export function stationJsonLd(s: Station) {
       "@type": "Article",
       headline: s.question,
       description: s.answer,
-      image: [absoluteUrl(s.ogImage), absoluteUrl(s.section.src)],
+      image: [absoluteUrl(s.ogImage), absoluteUrl(s.crossSection.src)],
       datePublished: s.datePublished,
       dateModified: s.dateModified,
       inLanguage: "ko-KR",
@@ -74,7 +75,7 @@ export function stationJsonLd(s: Station) {
       mainEntityOfPage: url,
       about: [
         { "@type": "SubwayStation", name: s.name, containedInPlace: { "@type": "City", name: "서울" } },
-        ...s.lines.map((line) => ({ "@type": "Thing", name: `서울 지하철 ${line}` })),
+        ...s.lines.map((line) => ({ "@type": "Thing", name: `서울 지하철 ${lineName(line)}` })),
       ],
       citation: s.sources.map((src) => ({
         "@type": "CreativeWork",

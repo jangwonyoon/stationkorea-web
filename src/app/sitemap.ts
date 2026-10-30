@@ -13,7 +13,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: s.dateModified,
       changeFrequency: "monthly" as const,
       priority: 0.8,
-      images: [absoluteUrl(s.section.src)],
+      images: [absoluteUrl(s.crossSection.src)],
     })),
   ];
 }
