@@ -6,7 +6,7 @@ import { useEffect } from "react";
 // Umami(쿠키리스) 커스텀 이벤트. 개인 식별 정보는 보내지도 저장하지도 않는다.
 // - next_click: 다음 질문 카드 클릭, 페이지뷰당 최초 1회
 // - read_end: 출처 전문(#sources)이 화면에 들어옴, 페이지뷰당 최초 1회
-// - return_visit: 첫 방문 24시간 뒤~14일 안 재방문, 1회. localStorage에는 첫 방문 시각·유입원만 둔다
+// - return_visit: 첫 방문 24시간 뒤~14일 안 재방문, 1회. localStorage에는 첫 방문 시각·유입원·중복 집계 방지 표시를 둔다
 // - ai_referral: AI 답변엔진에서 들어온 세션, 세션당 1회(GEO 측정, docs/geo-test.md)
 // 페이지뷰·UTM·리퍼러는 Umami 스크립트가 자동 수집한다(클라이언트 라우트 전환 포함).
 
