@@ -21,7 +21,7 @@ export function Byline({ author, published, modified, layout = "line" }: BylineP
     {
       term: "글",
       value: (
-        <Link href={author.path} rel="author" className="font-semibold text-ink underline-offset-2 hover:underline">
+        <Link href={author.path} rel="author" className="inline-flex min-h-11 min-w-11 items-center font-semibold text-ink underline-offset-2 hover:underline">
           {author.name}
         </Link>
       ),
@@ -36,7 +36,7 @@ export function Byline({ author, published, modified, layout = "line" }: BylineP
     return (
       <dl className="flex flex-col gap-2 text-caption">
         {rows.map((r) => (
-          <div key={r.term} className="flex gap-6">
+          <div key={r.term} className="flex items-center gap-6">
             <dt className="w-10 shrink-0">{r.term}</dt>
             <dd className="text-ink">{r.value}</dd>
           </div>
@@ -48,7 +48,7 @@ export function Byline({ author, published, modified, layout = "line" }: BylineP
   return (
     <dl className="flex flex-wrap gap-x-4 gap-y-1 text-caption">
       {rows.map((r) => (
-        <div key={r.term} className="flex gap-1">
+        <div key={r.term} className="flex items-center gap-1">
           <dt>{r.term}</dt>
           <dd>{r.value}</dd>
         </div>

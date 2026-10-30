@@ -20,14 +20,14 @@ export function Credits({ station, author = site.author }: CreditsProps) {
   return (
     <div className="flex flex-col gap-3 border-t-2 border-ink pt-3">
       <dl className="flex flex-col gap-1 text-caption">
-        <div className="flex gap-3">
+        <div className="flex items-center gap-3">
           <dt className="w-20 shrink-0">숫자 출처</dt>
           <dd className="text-ink-2">
             {c.shownOrgs.join(", ")}
             {c.restCount > 0 && (
               <>
                 {" "}
-                <a href="#sources" className="underline underline-offset-2">
+                <a href="#sources" className="inline-flex min-h-11 min-w-11 items-center underline underline-offset-2">
                   외 {c.restCount}곳
                 </a>
               </>
@@ -42,10 +42,10 @@ export function Credits({ station, author = site.author }: CreditsProps) {
             </dd>
           </div>
         )}
-        <div className="flex gap-3">
+        <div className="flex items-center gap-3">
           <dt className="w-20 shrink-0">글</dt>
           <dd>
-            <Link href={author.path} rel="author" className="font-semibold text-ink underline-offset-2 hover:underline">
+            <Link href={author.path} rel="author" className="inline-flex min-h-11 min-w-11 items-center font-semibold text-ink underline-offset-2 hover:underline">
               {author.name}
             </Link>
           </dd>

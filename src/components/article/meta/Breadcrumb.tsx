@@ -9,7 +9,7 @@ export function Breadcrumb({ items }: { items: readonly { name: string; href?: s
           <li key={`${index}-${item.name}`} className="flex items-center gap-2">
             {index > 0 && <span aria-hidden="true">/</span>}
             {index === items.length - 1 ? <span aria-current="page">{item.name}</span> : item.href ? (
-              <Link href={item.href} className="inline-flex min-h-11 items-center underline-offset-2 hover:underline">{item.name}</Link>
+              <Link href={item.href} className="inline-flex min-h-11 min-w-11 items-center underline-offset-2 hover:underline">{item.name}</Link>
             ) : <span>{item.name}</span>}
           </li>
         ))}
