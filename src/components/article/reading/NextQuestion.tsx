@@ -8,7 +8,7 @@ import type { Station } from "@/content/types";
 export type NextQuestionProps = { next: Station; related: Station[] };
 
 export function NextQuestion({ next, related }: NextQuestionProps) {
-  const questions = related.filter((station, index) => station.slug !== next.slug && related.findIndex((item) => item.slug === station.slug) === index).slice(0, 2);
+  const questions = related.filter((station, index) => related.findIndex((item) => item.slug === station.slug) === index).slice(0, 2);
   return (
     <section aria-label="다음 궁금증">
       <Link href={stationPath(next)} data-track="next_click" data-to={stationPath(next)} className="pressable flex min-h-32 flex-col border border-ink bg-plate p-6 text-plate-ink active:text-ink">

@@ -32,10 +32,12 @@ for (const sourceIds of [[], ["missing"]]) {
   assert.throws(() => render(QnaBlock({ index: 0, qna: { ...s.qna[0], sourceIds }, sources: s.sources })));
   assert.throws(() => render(PullQuote({ value: "참고", label: "자료", sourceIds, sources: s.sources })));
 }
-const next = render(NextQuestion({ next: stations[2], related: [...stations, stations[0]] }));
+const next = render(NextQuestion({ next: stations[2], related: [stations[0], stations[2], stations[0]] }));
 assert(next.includes('data-track="next_click"'));
 assert(next.includes('data-to="/station/konkuk-univ/"'));
 assert.equal((next.match(/loading="lazy"/g) ?? []).length, 2);
 assert.equal((next.match(/href="\/station\/jamsil\/?"/g) ?? []).length, 1);
+assert.equal((next.match(/href="\/station\/konkuk-univ\/?"/g) ?? []).length, 2);
+assert(!next.includes('href="/station/sadang'));
 assert(next.includes("건대입구는"));
 console.log("C6 self-check PASS: invalid/empty sources fail, dates present, first-citation IDs unique, tracking contract, related deduplication and lazy images");
