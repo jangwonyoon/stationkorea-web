@@ -276,3 +276,18 @@
     @apply focus-ring;
   }
 }
+
+/* Native swipe/snap remains usable before hydration and with JavaScript disabled. */
+@utility scrollbar-none {
+  scrollbar-width: none;
+  &::-webkit-scrollbar { display: none; }
+}
+
+@utility question-track {
+  grid-auto-columns: calc(100% - 3rem);
+  &:has(> :only-child) { grid-auto-columns: 100%; }
+  @variant md {
+    grid-auto-columns: minmax(0, 1fr);
+    &:has(> :nth-child(4)) { grid-auto-columns: calc((100% - 2rem) / 3); }
+  }
+}

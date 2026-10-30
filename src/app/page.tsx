@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { QuestionCarousel } from "@/components/home/QuestionCarousel";
 import { JsonLd } from "@/components/JsonLd";
 import { lineName } from "@/content/lines";
 import { latestStations, stationPath, stations } from "@/content/stations";
@@ -23,13 +24,13 @@ export default function Home() {
           <h2 id="latest" className="text-lg font-bold">
             최신 질문
           </h2>
-          <ul className="-mx-4 mt-3 flex snap-x gap-4 overflow-x-auto px-4 pb-2">
+          <QuestionCarousel>
             {latest.map((s) => (
-              <li key={s.slug} className="w-72 shrink-0 snap-start">
+              <li key={s.slug} className="min-w-0 snap-start">
                 <QuestionCard station={s} withImage />
               </li>
             ))}
-          </ul>
+          </QuestionCarousel>
         </section>
 
         {/* 노선 허브(/line/<노선>/)가 생기면 칩을 링크로 바꾼다 */}
