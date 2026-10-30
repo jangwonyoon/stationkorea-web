@@ -8,7 +8,7 @@ export type BylineProps = {
   published: string;
   /** ISO 날짜(Article dateModified와 같은 값). 게시일과 날짜가 같으면 "갱신" 행을 생략한다. */
   modified?: string;
-  /** line = 첫 화면용 한 줄, table = 하단용 표. 둘 다 정의 목록(dl)이다. */
+  /** line = 첫 화면용(모바일 갱신일은 별도 줄), table = 하단용 표. 둘 다 정의 목록(dl)이다. */
   layout?: "line" | "table";
 };
 
@@ -48,7 +48,7 @@ export function Byline({ author, published, modified, layout = "line" }: BylineP
   return (
     <dl className="flex flex-wrap gap-x-4 gap-y-1 text-caption">
       {rows.map((r) => (
-        <div key={r.term} className="flex items-center gap-1">
+        <div key={r.term} className={`flex items-center gap-1${r.term === "갱신" ? " basis-full md:basis-auto" : ""}`}>
           <dt>{r.term}</dt>
           <dd>{r.value}</dd>
         </div>
