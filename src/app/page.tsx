@@ -46,7 +46,7 @@ export default function Home() {
             </Button>
           </div>
           <figure className="min-w-0 md:order-1">
-            <Link href={stationPath(cover)} aria-label={`${cover.question} 답 읽기`} className="pressable relative block aspect-4/5 overflow-hidden bg-slab">
+            <Link href={stationPath(cover)} aria-label={`${cover.question} 답 읽기`} className="pressable relative block aspect-4/5 overflow-hidden rounded-xl bg-slab">
               <Image src={cover.crossSection.src} alt={cover.crossSection.alt} fill priority sizes="(min-width: 1280px) 568px, (min-width: 768px) calc(50vw - 48px), calc(100vw - 40px)" className="object-cover" />
             </Link>
             <figcaption className="mt-2 text-caption">{cover.crossSection.caption} AI 시각화 참고 이미지.</figcaption>
@@ -72,8 +72,8 @@ export default function Home() {
           <QuestionCarousel>
             {latest.map((station) => (
               <li key={station.slug} className="min-w-0 snap-start">
-                <Link href={stationPath(station)} className="pressable flex h-full items-start gap-3 border-b border-rule py-4 hover:bg-slab">
-                  <div className="relative aspect-square w-20 shrink-0 overflow-hidden bg-slab">
+                <Link href={stationPath(station)} className="pressable flex h-full items-start gap-3 rounded-xl border border-rule p-4 hover:bg-slab">
+                  <div className="relative aspect-square w-20 shrink-0 overflow-hidden rounded-lg bg-slab">
                     <Image src={station.crossSection.src} alt={station.crossSection.alt} fill sizes="80px" className="object-cover" />
                   </div>
                   <div className="min-w-0">
@@ -96,7 +96,7 @@ export default function Home() {
             </ul>
             <p className="mt-4 text-caption">기사가 있는 노선부터 읽어보세요. 나머지 노선은 준비 중입니다.</p>
           </section>
-          <section aria-labelledby="channel" className="bg-slab p-6">
+          <section aria-labelledby="channel" className="rounded-xl bg-slab p-6">
             <h2 id="channel" className="text-h2">릴스에서 보고, 여기서 끝까지</h2>
             <p className="mt-4 text-body">{site.name}은 서울 지하철 역을 질문으로 읽는 매거진입니다. 인스타그램에서 본 역의 구조를 공식 숫자와 출처로 더 자세히 살펴보세요.</p>
             <Button asChild className="mt-6"><a href={site.instagram} target="_blank" rel="noopener noreferrer">인스타그램 <span aria-hidden="true">↗</span><span className="sr-only"> (새 창)</span></a></Button>
