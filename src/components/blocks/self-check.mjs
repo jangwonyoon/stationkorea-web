@@ -40,6 +40,11 @@ assert.equal((comparison.match(/scope="col"/g) || []).length, 3);
 assert.equal((comparison.match(/scope="row"/g) || []).length, 1);
 assert.equal((comparison.match(/<td /g) || []).length, 2);
 assert(comparison.includes('href="#src-s"'));
+for (const markup of [comparison, measured({ time: "1분", asOf: source.date, sourceIds: ["s"] })]) {
+  assert(markup.includes(source.date));
+  assert(markup.includes('aria-label="출처 1"'));
+  for (const value of [source.org, source.title, source.url]) assert(!markup.includes(value));
+}
 assert.equal(formatDot("2024-02-29"), "2024.2.29");
 assert.equal(formatDot("2025-07"), "2025.7");
 for (const date of ["", "2025-13", "2025-02-29", "2025-04-31"]) assert.throws(() => formatDot(date));

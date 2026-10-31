@@ -15,27 +15,19 @@ export function resolveSources(ids: string[], sources: Source[], where: string):
 }
 
 /**
- * 블록 안 출처 줄. 번호는 기사 하단 출처 전문 목록 순서와 같고, 기준일·URL을 같은 블록에 둔다(SEO·GEO 규칙 2).
+ * 블록 안에는 출처 번호와 자료에 적힌 날짜를 남기고, 기관·자료명·원문 URL은 하단 출처 목록에서 보여준다.
  */
 export function BlockSources({ ids, sources, where }: { ids: string[]; sources: Source[]; where: string }) {
   const list = resolveSources(ids, sources, where);
   if (list.length === 0) return null;
   return (
-    <ul className="mt-3 flex flex-col gap-1">
+    <ul className="mt-3 flex flex-wrap gap-x-3">
       {list.map(({ n, src }) => (
         <li key={src.id} className="text-caption break-keep">
-          <a href={`#src-${src.id}`} className="inline-flex min-h-11 min-w-11 items-center justify-center underline-offset-2 hover:underline">
+          <a href={`#src-${src.id}`} aria-label={`출처 ${n}`} className="inline-flex min-h-11 min-w-11 items-center justify-center underline-offset-2 hover:underline">
             [{n}]
           </a>{" "}
-          {src.org}, {src.title}, {src.date}
-          {src.url && (
-            <>
-              {". "}
-              <a href={src.url} rel="noopener" className="inline-flex min-h-11 items-center break-all underline">
-                {src.url}
-              </a>
-            </>
-          )}
+          {src.date}
         </li>
       ))}
     </ul>

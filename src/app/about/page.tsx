@@ -2,12 +2,17 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { JsonLd } from "@/components/JsonLd";
+import { PhotoStory } from "@/components/about/PhotoStory";
+import { TransitStory } from "@/components/about/TransitStory";
+import { aboutNetwork } from "@/content/about-photos";
+import { LineChip } from "@/components/line";
+import { readingMinutes } from "@/lib/reading-time";
 import { stationPath, stations } from "@/content/stations";
 import { aboutJsonLd } from "@/lib/jsonld";
 import { site } from "@/lib/site";
 
 const title = "소개·출처 정책";
-const description = `${site.name}은 서울 지하철 역 구조를 공식 숫자와 출처로 설명하는 웹 매거진입니다. 운영자, 출처·정정 정책, AI 사용 범위, 연락처를 적습니다.`;
+const description = `${site.name}은 익숙한 길과 동네에 질문을 던지는 웹매거진입니다. 갈아타다·걷다·보다·바뀌다, 네 가지 시선과 출처·정정 원칙을 소개합니다.`;
 
 export const metadata: Metadata = {
   title,
@@ -17,11 +22,11 @@ export const metadata: Metadata = {
 };
 
 const sections = [
-  ["author", "만드는 사람"],
   ["sources-policy", "출처 정책"],
   ["corrections", "정정 정책"],
   ["ai", "AI 사용 범위"],
   ["privacy", "방문 통계"],
+  ["author", "만드는 사람"],
   ["contact", "연락처"],
   ["articles", "지금까지의 질문"],
 ] as const;
@@ -31,41 +36,44 @@ export default function AboutPage() {
   return (
     <>
       <JsonLd data={aboutJsonLd()} />
-      <article className="page-wrap py-8 text-body md:py-12 xl:py-16">
-        <header className="page-grid items-end border-b-2 border-ink pb-8 md:pb-12">
-          <h1 className="col-span-4 text-h1 md:col-span-8 xl:col-span-8">{site.name} 소개</h1>
-          <p className="col-span-4 mt-4 text-ink-2 md:col-span-6 xl:col-span-4 xl:mt-0">
-            {site.name}은 매일 지나는 서울 지하철 역이 왜 그런 구조가 됐는지를 공식 숫자와 출처로 설명하는 웹 매거진입니다. 인스타그램{" "}
-            <a href={site.instagram} rel="noopener" className="inline-flex min-h-11 min-w-11 max-w-full items-center break-all underline underline-offset-4">
-              {site.instagramHandle}
-            </a>
-            의 릴스와 짝을 이룹니다.
+      <article>
+        <header className="page-wrap py-12 md:py-16">
+          <p className="text-label">매일 그 길 · 길과 동네를 읽는 매거진</p>
+          <h1 className="about-title mt-6 md:mt-8">
+            <span className="block">매일 지나던 길을,</span>
+            <span className="block">조금 다르게 읽다.</span>
+          </h1>
+          <p className="mt-6 max-w-xl text-body text-ink-2">
+            오가는 길부터 머무는 공간까지.<br />
+            익숙한 길에 질문을 놓습니다.
           </p>
+          <div className="mt-6 flex flex-wrap items-center gap-x-8 gap-y-2 md:mt-8">
+            <Button asChild variant="outline"><Link href="#transit-story-title">매거진 둘러보기 <span aria-hidden="true">↓</span></Link></Button>
+            <Link href="#sources-policy" className="inline-flex min-h-11 items-center text-label underline underline-offset-4">출처·정정 원칙 바로가기</Link>
+          </div>
         </header>
 
-        <div className="page-grid pt-8 md:pt-12">
+        <TransitStory />
+        <PhotoStory />
+
+        <div className="page-wrap pt-16 md:pt-24">
+          <p className="text-label">읽을 수 있는 근거</p>
+          <h2 className="mt-6 text-h1">질문은 가볍게.<br />답은 근거 있게.</h2>
+        </div>
+        <div className="page-wrap page-grid pt-8 pb-16 md:pt-12 md:pb-24">
           <nav aria-label="소개 목차" className="col-span-4 mb-12 md:col-span-8 xl:col-span-3 xl:mb-0">
             <ul className="flex flex-wrap gap-x-6 xl:sticky xl:top-6 xl:block xl:border-t xl:border-ink">
               {sections.map(([id, label]) => (
                 <li key={id} className="xl:border-b xl:border-rule">
-                  <a href={`#${id}`} className="inline-flex min-h-11 min-w-11 items-center text-label underline underline-offset-4 xl:flex xl:py-3 xl:no-underline">
+                  <Link href={`#${id}`} className="inline-flex min-h-11 min-w-11 items-center text-label underline underline-offset-4 xl:flex xl:py-3 xl:no-underline">
                     {label}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
           </nav>
 
-          <div className="col-span-4 min-w-0 space-y-16 md:col-span-6 md:col-start-2 md:space-y-24 xl:col-span-7 xl:col-start-5">
-            <section aria-labelledby="author">
-              <h2 id="author" className="scroll-mt-20 text-h2">
-                만드는 사람
-              </h2>
-              <p className="mt-4 text-ink-2">
-                <strong>{site.author.name}</strong>. {site.author.bio}
-              </p>
-            </section>
-
+          <div className="col-span-4 min-w-0 space-y-16 text-body md:col-span-6 md:col-start-2 md:space-y-24 xl:col-span-7 xl:col-start-5">
             {/* 제작 공정(도구·절차·데이터 처리 방법)은 공개하지 않는다. 신뢰 신호로 원칙만 둔다(사용자 결정 2026-10-30). */}
             <section aria-labelledby="sources-policy" className="border-t-2 border-ink pt-6">
               <h2 id="sources-policy" className="scroll-mt-20 text-h2">
@@ -76,6 +84,7 @@ export default function AboutPage() {
                 <li>모든 숫자에 기준일을 붙이고, 기사 하단에 기관·자료명·기준일·URL을 전부 적습니다.</li>
                 <li>출처가 붙은 숫자 카드 세 개를 갖추지 못한 기사는 발행하지 않습니다.</li>
                 <li>공식 자료가 갱신되면 숫자를 고치고 기사의 갱신일을 올립니다. 내용이 바뀌지 않으면 날짜만 바꾸지 않습니다.</li>
+                <li>소개에 사용한 노선도는 <a href={aboutNetwork.sourceUrl} className="inline-flex min-h-11 items-center underline underline-offset-4">서울교통공사가 제공한 2025년 국문 노선도</a>입니다. 공공누리 제1유형에 따라 활용했으며, 현재 운행 안내를 위한 지도가 아닙니다.</li>
               </ul>
             </section>
 
@@ -117,12 +126,21 @@ export default function AboutPage() {
               </p>
             </section>
 
-            <section aria-labelledby="contact" className="border-t-2 border-ink pt-6">
-              <h2 id="contact" className="scroll-mt-20 text-h2">
-                연락·제작 문의
+            <section aria-labelledby="author">
+              <h2 id="author" className="scroll-mt-20 text-h2">
+                만드는 사람
               </h2>
               <p className="mt-4 text-ink-2">
-                역 한 곳의 해부 기사와 릴스를 함께 제작합니다. 이메일{" "}
+                <strong>{site.author.name}</strong>. {site.author.bio}
+              </p>
+            </section>
+
+            <section aria-labelledby="contact" className="border-t-2 border-ink pt-6">
+              <h2 id="contact" className="scroll-mt-20 text-h2">
+                연락·문의
+              </h2>
+              <p className="mt-4 text-ink-2">
+                기사에 관한 제안과 문의는 이메일{" "}
                 <a href={`mailto:${site.email}`} className="inline-flex min-h-11 min-w-11 max-w-full items-center break-all underline underline-offset-4">
                   {site.email}
                 </a>{" "}
@@ -142,11 +160,13 @@ export default function AboutPage() {
               <h2 id="articles" className="scroll-mt-20 text-h2">
                 지금까지의 질문
               </h2>
-              <ul className="mt-4 list-disc space-y-4 pl-5 text-ink-2">
+              <ul className="mt-6 divide-y divide-rule border-y border-rule">
                 {stations.map((s) => (
                   <li key={s.slug}>
-                    <Link href={stationPath(s)} className="inline-flex min-h-11 min-w-11 max-w-full items-center break-keep underline underline-offset-4">
-                      {s.question}
+                    <Link href={stationPath(s)} className="pressable block py-6 underline-offset-4 hover:underline">
+                      <LineChip lines={s.lines} label={s.name} size="S" />
+                      <span className="mt-3 block font-serif text-xl font-semibold break-keep">{s.question}</span>
+                      <span className="mt-3 flex flex-wrap items-center justify-between gap-3 text-caption"><span>읽는 데 약 {readingMinutes(s)}분</span><span className="text-label text-ink underline">기사 읽기 <span aria-hidden="true">→</span></span></span>
                     </Link>
                   </li>
                 ))}

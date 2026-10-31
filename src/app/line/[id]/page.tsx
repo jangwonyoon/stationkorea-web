@@ -9,6 +9,7 @@ import { lineName } from "@/content/lines";
 import { stationPath } from "@/content/stations";
 import { lineJsonLd } from "@/lib/jsonld";
 import { site } from "@/lib/site";
+import { readingMinutes } from "@/lib/reading-time";
 import { linePath, lineStations, publishedLines } from "../data";
 
 export const dynamicParams = false;
@@ -65,9 +66,10 @@ export default async function LinePage({ params }: { params: Promise<{ id: strin
             <li key={station.slug} className="relative pb-8 pl-10 xl:pt-12 xl:pl-0">
               <span aria-hidden="true" className={`absolute top-0 bottom-0 left-3 w-2 xl:right-0 xl:bottom-auto xl:left-0 xl:h-3 xl:w-full ${LINE_BG[line]}`} />
               <span aria-hidden="true" className="absolute top-5 left-1 size-6 rounded-full border-3 border-ink bg-plate xl:top-0 xl:left-5" />
-              <Link href={stationPath(station)} className={`pressable block min-h-11 border-b border-rule pb-6 xl:h-full xl:border-t-2 xl:border-b-0 xl:bg-plate xl:p-6 xl:text-plate-ink xl:active:text-ink ${LINE_BORDER[line]}`}>
+              <Link href={stationPath(station)} className={`pressable block min-h-11 border-b border-rule pb-6 xl:h-full xl:rounded-xl xl:border-t-2 xl:border-b-0 xl:bg-plate xl:p-6 xl:text-plate-ink xl:active:text-ink ${LINE_BORDER[line]}`}>
                 <span className="flex flex-wrap items-center gap-3"><strong className="text-h2">{station.name}</strong><LineChip lines={station.lines.filter((id) => id !== line)} label="환승" size="S" /></span>
                 <span className="text-lead mt-3 block">{station.question}</span>
+                <span className="mt-2 block text-sm">읽는 데 약 {readingMinutes(station)}분</span>
                 <span className="text-label mt-4 inline-flex min-h-11 items-center underline underline-offset-4">답 읽기 →</span>
               </Link>
             </li>

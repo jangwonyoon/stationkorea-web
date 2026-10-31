@@ -7,7 +7,6 @@ import { JsonLd } from "@/components/JsonLd";
 import { firstCitations, formatDate, SourceRefs } from "@/components/SourceRefs";
 import { Breadcrumb } from "@/components/article/meta/Breadcrumb";
 import { Byline } from "@/components/article/meta/Byline";
-import { Credits } from "@/components/article/meta/Credits";
 import { Corrections } from "@/components/article/meta/Corrections";
 import { SourceList } from "@/components/article/meta/SourceList";
 import { NextQuestion, PullQuote, QnaBlock, ReelLink } from "@/components/article/reading";
@@ -21,6 +20,7 @@ import { lineName } from "@/content/lines";
 import { getNextStation, getStation, stationPath, stations } from "@/content/stations";
 import { stationJsonLd } from "@/lib/jsonld";
 import { markdownPath } from "@/lib/markdown";
+import { readingMinutes } from "@/lib/reading-time";
 import { absoluteUrl, site } from "@/lib/site";
 import { ArticleLayout } from "./ArticleLayout";
 
@@ -90,7 +90,7 @@ export default async function StationPage({ params }: Props) {
           <StationSign station={s} />
           <h1 className="mt-6 text-h1 break-keep">{s.question}</h1>
           <p id="article-answer" className="mt-4 text-lead">{s.answer}</p>
-          <div className="mt-2"><Byline author={site.author} published={s.datePublished} modified={s.dateModified} /></div>
+          <div className="mt-2"><Byline author={site.author} published={s.datePublished} modified={s.dateModified} readingMinutes={readingMinutes(s)} /></div>
         </header>
         <figure className="mt-6">
           <div className="relative aspect-4/5 overflow-hidden bg-slab">
@@ -98,7 +98,6 @@ export default async function StationPage({ params }: Props) {
           </div>
           <figcaption className="mt-2 text-caption">{s.crossSection.caption} AI 시각화 참고 이미지.</figcaption>
         </figure>
-        <div className="mt-8"><Credits station={s} /></div>
         <section data-rail="numbers" aria-label={`숫자로 보는 ${s.name}`} className="mt-8">
           <div className="xl:[&_tbody]:grid-cols-1 xl:[&_tr]:grid xl:[&_tr]:gap-y-0 xl:[&_tr]:border-l-0 xl:[&_tr]:border-b xl:[&_tr]:py-4 xl:[&_th]:text-right xl:[&_th]:text-4xl">
           <StatTable stats={s.stats} sources={s.sources} accent={s.sign.line} caption={`${s.name} 핵심 숫자와 기준일·출처`} />

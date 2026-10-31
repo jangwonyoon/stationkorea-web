@@ -26,7 +26,10 @@ const qna = render(QnaBlock({ index: 0, qna: s.qna[0], sources: s.sources, ancho
 const quote = render(PullQuote({ value: "참고", label: "자료", sourceIds: ids, sources: s.sources, anchorIds: repeated }));
 for (const id of ids) {
   assert.equal((qna + quote).split(`id="ref-${id}"`).length - 1, 1);
-  assert(quote.includes(s.sources.find(source => source.id === id).date));
+  const source = s.sources.find(source => source.id === id);
+  assert(quote.includes(source.date));
+  assert(!quote.includes(source.org));
+  assert(!quote.includes(source.title));
 }
 for (const sourceIds of [[], ["missing"]]) {
   assert.throws(() => render(QnaBlock({ index: 0, qna: { ...s.qna[0], sourceIds }, sources: s.sources })));
