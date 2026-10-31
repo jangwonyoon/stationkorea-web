@@ -10,6 +10,7 @@ import { latestStations, stationPath, stations } from "@/content/stations";
 import type { StationSection } from "@/content/types";
 import { homeJsonLd } from "@/lib/jsonld";
 import { site } from "@/lib/site";
+import { readingMinutes } from "@/lib/reading-time";
 
 const sections: { id: StationSection; name: string; description: string }[] = [
   { id: "transfer", name: "갈아타다", description: "역·환승 구조" },
@@ -38,6 +39,7 @@ export default function Home() {
         <section aria-labelledby="cover-question" className="mt-8 grid gap-8 md:mt-12 md:grid-cols-2 md:items-center xl:gap-16">
           <div className="md:order-2">
             <p className="text-label">이번 질문 · #{sections.find((section) => section.id === cover.section)?.name} · 역 해부 {String(cover.no).padStart(2, "0")}</p>
+            <p className="mt-2 text-caption">읽는 데 약 {readingMinutes(cover)}분</p>
             <div className="mt-3"><LineChip lines={cover.lines} label={cover.name} /></div>
             <h2 id="cover-question" className="mt-4 text-h1 break-keep">
               <Link href={stationPath(cover)} className="pressable block rounded-xl underline-offset-4 hover:underline">{cover.question}</Link>
@@ -80,6 +82,7 @@ export default function Home() {
                   </div>
                   <div className="min-w-0">
                     <LineChip lines={station.lines} label={station.name} size="S" />
+                    <p className="mt-2 text-caption">읽는 데 약 {readingMinutes(station)}분</p>
                     <h3 className="mt-3 font-serif text-lg font-semibold break-keep">{station.question}</h3>
                     <span className="mt-3 block text-label underline underline-offset-4">기사 읽기 <span aria-hidden="true">→</span></span>
                   </div>

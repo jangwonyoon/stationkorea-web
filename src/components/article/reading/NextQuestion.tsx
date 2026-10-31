@@ -4,6 +4,7 @@ import { withTopic } from "@/components/SourceRefs";
 import { LineChip } from "@/components/line";
 import { stationPath } from "@/content/stations";
 import type { Station } from "@/content/types";
+import { readingMinutes } from "@/lib/reading-time";
 
 export type NextQuestionProps = { next: Station; related: Station[] };
 
@@ -15,6 +16,7 @@ export function NextQuestion({ next, related }: NextQuestionProps) {
         <span className="text-label">다음 궁금증</span>
         <span className="mt-3 text-h2 break-words">그럼 {withTopic(next.name.replace(/역$/, ""))} 왜?</span>
         <span className="mt-2 text-body break-words">{next.teaser}</span>
+        <span className="mt-2 text-sm">읽는 데 약 {readingMinutes(next)}분</span>
         <span className="mt-4 flex items-center justify-between gap-3">
           <LineChip lines={next.lines} label={next.name} />
           <span aria-hidden="true" className="text-2xl">→</span>
@@ -31,6 +33,7 @@ export function NextQuestion({ next, related }: NextQuestionProps) {
                   <span className="min-w-0">
                     <span className="block text-body break-words">{station.question}</span>
                     <LineChip lines={station.lines} label={station.name} className="mt-3" />
+                    <span className="mt-2 block text-caption">읽는 데 약 {readingMinutes(station)}분</span>
                   </span>
                 </Link>
               </li>
