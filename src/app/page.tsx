@@ -46,9 +46,9 @@ export default function Home() {
             </Button>
           </div>
           <figure className="min-w-0 md:order-1">
-            <div className="relative aspect-4/5 overflow-hidden bg-slab">
+            <Link href={stationPath(cover)} aria-label={`${cover.question} 답 읽기`} className="pressable relative block aspect-4/5 overflow-hidden bg-slab">
               <Image src={cover.crossSection.src} alt={cover.crossSection.alt} fill priority sizes="(min-width: 1280px) 568px, (min-width: 768px) calc(50vw - 48px), calc(100vw - 40px)" className="object-cover" />
-            </div>
+            </Link>
             <figcaption className="mt-2 text-caption">{cover.crossSection.caption} AI 시각화 참고 이미지.</figcaption>
           </figure>
         </section>
