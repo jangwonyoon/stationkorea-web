@@ -8,12 +8,21 @@ import imageLoader from "../src/lib/image-loader.mjs";
 import { imageSources, imageWidths, imageUrl, widthsFor } from "../src/lib/static-images.mjs";
 
 assert.throws(() => imageLoader({ src: "/images/unknown.jpg", width: 180 }));
-assert.throws(() => imageLoader({ src: imageSources[0], width: 181 }));
+for (const width of [undefined, NaN, Infinity, 0, -1]) {
+  assert.throws(() => imageLoader({ src: imageSources[0], width }));
+}
+for (const [requested, generated] of [[88, 96], [181, 384], [400, 640], [2000, 1080]]) {
+  assert.equal(imageLoader({ src: imageSources[0], width: requested }), imageUrl(imageSources[0], generated));
+}
+assert.equal(imageLoader({ src: imageSources[1], width: 90 }), imageUrl(imageSources[1], 96));
+assert.equal(imageLoader({ src: imageSources[1], width: 400 }), imageUrl(imageSources[1], 180));
+assert.throws(() => imageUrl(imageSources[0], 181));
 for (const src of imageSources) {
   const original = await sharp(`public${src}`).metadata();
   for (const width of imageWidths) {
     if (!widthsFor(src).includes(width)) {
-      assert.throws(() => imageLoader({ src, width }));
+      assert.throws(() => imageUrl(src, width));
+      assert.equal(imageLoader({ src, width }), imageUrl(src, widthsFor(src).at(-1)));
       continue;
     }
     const url = imageLoader({ src, width });
