@@ -39,7 +39,9 @@ export default function Home() {
           <div className="md:order-2">
             <p className="text-label">이번 질문 · #{sections.find((section) => section.id === cover.section)?.name} · 역 해부 {String(cover.no).padStart(2, "0")}</p>
             <div className="mt-3"><LineChip lines={cover.lines} label={cover.name} /></div>
-            <h2 id="cover-question" className="mt-4 text-h1 break-keep">{cover.question}</h2>
+            <h2 id="cover-question" className="mt-4 text-h1 break-keep">
+              <Link href={stationPath(cover)} className="pressable block rounded-xl underline-offset-4 hover:underline">{cover.question}</Link>
+            </h2>
             <p className="mt-4 text-body text-ink-2">{cover.answer}</p>
             <Button asChild variant="outline" className="mt-6">
               <Link href={stationPath(cover)}>답 읽기 <span aria-hidden="true">→</span></Link>
@@ -79,6 +81,7 @@ export default function Home() {
                   <div className="min-w-0">
                     <LineChip lines={station.lines} label={station.name} size="S" />
                     <h3 className="mt-3 font-serif text-lg font-semibold break-keep">{station.question}</h3>
+                    <span className="mt-3 block text-label underline underline-offset-4">기사 읽기 <span aria-hidden="true">→</span></span>
                   </div>
                 </Link>
               </li>
