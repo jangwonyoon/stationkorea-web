@@ -12,9 +12,10 @@ export type ReadingSourcesProps = {
 export function ReadingSources({ sourceIds, sources, anchorIds }: ReadingSourcesProps) {
   const refs = resolveSources(sourceIds, sources, "읽기 블록");
   return (
-    <div className="mt-3 text-caption break-words">
-      <SourceRefs ids={sourceIds} sources={sources} anchorIds={anchorIds} />
-      {refs.map(({ src }) => <p key={src.id}>{src.org} · {src.title} · {src.date}</p>)}
+    <div className="mt-3 flex flex-wrap gap-x-3 text-caption">
+      {refs.map(({ src }) => <span key={src.id}>
+        <SourceRefs ids={[src.id]} sources={sources} anchorIds={anchorIds} /> {src.date}
+      </span>)}
     </div>
   );
 }
