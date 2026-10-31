@@ -10,6 +10,7 @@ import { latestStations, stationPath, stations } from "@/content/stations";
 import type { StationSection } from "@/content/types";
 import { homeJsonLd } from "@/lib/jsonld";
 import { site } from "@/lib/site";
+import { readingMinutes } from "@/lib/reading-time";
 
 const sections: { id: StationSection; name: string; description: string }[] = [
   { id: "transfer", name: "갈아타다", description: "역·환승 구조" },
@@ -39,6 +40,7 @@ export default function Home() {
           <div className="md:order-2">
             <p className="text-label">이번 질문 · #{sections.find((section) => section.id === cover.section)?.name} · 역 해부 {String(cover.no).padStart(2, "0")}</p>
             <div className="mt-3"><LineChip lines={cover.lines} label={cover.name} /></div>
+            <p className="mt-2 text-caption">읽는 데 약 {readingMinutes(cover)}분</p>
             <h2 id="cover-question" className="mt-4 text-h1 break-keep">{cover.question}</h2>
             <p className="mt-4 text-body text-ink-2">{cover.answer}</p>
             <Button asChild variant="outline" className="mt-6">
@@ -78,6 +80,7 @@ export default function Home() {
                   </div>
                   <div className="min-w-0">
                     <LineChip lines={station.lines} label={station.name} size="S" />
+                    <p className="mt-2 text-caption">읽는 데 약 {readingMinutes(station)}분</p>
                     <h3 className="mt-3 font-serif text-lg font-semibold break-keep">{station.question}</h3>
                   </div>
                 </Link>

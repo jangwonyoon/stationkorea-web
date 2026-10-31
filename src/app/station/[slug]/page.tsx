@@ -20,6 +20,7 @@ import { lineName } from "@/content/lines";
 import { getNextStation, getStation, stationPath, stations } from "@/content/stations";
 import { stationJsonLd } from "@/lib/jsonld";
 import { markdownPath } from "@/lib/markdown";
+import { readingMinutes } from "@/lib/reading-time";
 import { absoluteUrl, site } from "@/lib/site";
 import { ArticleLayout } from "./ArticleLayout";
 
@@ -89,7 +90,7 @@ export default async function StationPage({ params }: Props) {
           <StationSign station={s} />
           <h1 className="mt-6 text-h1 break-keep">{s.question}</h1>
           <p id="article-answer" className="mt-4 text-lead">{s.answer}</p>
-          <div className="mt-2"><Byline author={site.author} published={s.datePublished} modified={s.dateModified} /></div>
+          <div className="mt-2"><Byline author={site.author} published={s.datePublished} modified={s.dateModified} readingMinutes={readingMinutes(s)} /></div>
         </header>
         <figure className="mt-6">
           <div className="relative aspect-4/5 overflow-hidden bg-slab">

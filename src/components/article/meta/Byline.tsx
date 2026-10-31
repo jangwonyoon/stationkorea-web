@@ -8,6 +8,8 @@ export type BylineProps = {
   published: string;
   /** ISO 날짜(Article dateModified와 같은 값). 게시일과 날짜가 같으면 "갱신" 행을 생략한다. */
   modified?: string;
+  /** 본문 분량으로 계산한 예상 읽기 시간(분). */
+  readingMinutes?: number;
   /** line = 첫 화면용(모바일 갱신일은 별도 줄), table = 하단용 표. 둘 다 정의 목록(dl)이다. */
   layout?: "line" | "table";
 };
@@ -16,7 +18,7 @@ export type BylineProps = {
  * 바이라인(SEO·GEO 규칙 6·18). "글 A · 게시 B · 갱신 C" 같은 점 나열 대신 정의 목록으로 이름과 값을 짝짓는다.
  * 날짜는 <time dateTime>으로 JSON-LD의 datePublished·dateModified와 같은 값을 쓴다.
  */
-export function Byline({ author, published, modified, layout = "line" }: BylineProps) {
+export function Byline({ author, published, modified, readingMinutes, layout = "line" }: BylineProps) {
   const rows: { term: string; value: ReactNode }[] = [
     {
       term: "글",
@@ -28,6 +30,7 @@ export function Byline({ author, published, modified, layout = "line" }: BylineP
     },
     { term: "게시", value: <time dateTime={published}>{formatDate(published)}</time> },
   ];
+  if (readingMinutes !== undefined) rows.push({ term: "읽기", value: `약 ${readingMinutes}분` });
   if (modified && modified.slice(0, 10) !== published.slice(0, 10)) {
     rows.push({ term: "갱신", value: <time dateTime={modified}>{formatDate(modified)}</time> });
   }
