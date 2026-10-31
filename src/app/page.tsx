@@ -39,8 +39,8 @@ export default function Home() {
         <section aria-labelledby="cover-question" className="mt-8 grid gap-8 md:mt-12 md:grid-cols-2 md:items-center xl:gap-16">
           <div className="md:order-2">
             <p className="text-label">이번 질문 · #{sections.find((section) => section.id === cover.section)?.name} · 역 해부 {String(cover.no).padStart(2, "0")}</p>
-            <div className="mt-3"><LineChip lines={cover.lines} label={cover.name} /></div>
             <p className="mt-2 text-caption">읽는 데 약 {readingMinutes(cover)}분</p>
+            <div className="mt-3"><LineChip lines={cover.lines} label={cover.name} /></div>
             <h2 id="cover-question" className="mt-4 text-h1 break-keep">{cover.question}</h2>
             <p className="mt-4 text-body text-ink-2">{cover.answer}</p>
             <Button asChild variant="outline" className="mt-6">
