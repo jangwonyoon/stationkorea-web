@@ -11,7 +11,7 @@ export function SiteFooter() {
     <footer className="mt-16 bg-ink text-ground">
       <div className="page-wrap py-12">
         <p className="font-serif text-lg font-bold">{site.name}</p>
-        <p className="mt-2 text-body">서울 지하철 역이 왜 이렇게 생겼는지, 공식 숫자와 출처로 답합니다.</p>
+        <p className="mt-2 text-body">{site.description}</p>
 
         <nav aria-label="사이트 정보" className="mt-6 border-t border-ground pt-4">
           <ul className="grid grid-cols-2 gap-x-6 md:flex md:flex-wrap md:gap-x-8">

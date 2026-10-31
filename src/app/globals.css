@@ -305,3 +305,156 @@
     &:only-child { flex-basis: 100%; }
   }
 }
+
+/* 작은 화면과 감소 모션에서는 사진과 본문을 정적인 순서로 읽는다. */
+@utility about-chapter {
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) and (min-width: 64rem) and (min-height: 44rem) {
+      view-timeline-name: --about-chapter;
+      view-timeline-axis: block;
+    }
+  }
+}
+
+@utility about-story-copy {
+  @media (prefers-reduced-motion: no-preference) and (min-width: 64rem) and (min-height: 44rem) {
+    position: sticky;
+    top: clamp(6rem, 18svh, 10rem);
+  }
+}
+
+@utility about-chapter-rule {
+  transform-origin: left;
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) and (min-width: 64rem) and (min-height: 44rem) {
+      animation: var(--animate-about-rule);
+      animation-timeline: --about-chapter;
+      animation-range: entry 0% cover 65%;
+    }
+  }
+}
+
+@utility about-photo-reveal {
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) and (min-width: 64rem) and (min-height: 44rem) {
+      animation: var(--animate-about-photo);
+      animation-timeline: view();
+      animation-range: entry 0% entry 90%;
+    }
+  }
+}
+
+@utility about-change-photo {
+  max-width: 500px;
+}
+
+@utility about-chapter-title {
+  font-family: var(--font-serif);
+  font-weight: 600;
+  font-size: 36px;
+  line-height: 1.3;
+  letter-spacing: -0.025em;
+  word-break: keep-all;
+  @variant md { font-size: 42px; }
+  @variant xl { font-size: 56px; }
+}
+
+@theme {
+  --animate-about-rule: about-rule 1ms linear both;
+  --animate-about-photo: about-photo 1ms linear both;
+  @keyframes about-rule {
+    from { transform: scaleX(0.08); }
+    to { transform: scaleX(1); }
+  }
+  @keyframes about-photo {
+    from { clip-path: inset(6% 8% round 0.75rem); }
+    to { clip-path: inset(0 round 0.75rem); }
+  }
+}
+
+@utility about-title {
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: 44px;
+  line-height: 1.22;
+  letter-spacing: -0.025em;
+  word-break: keep-all;
+  @media (max-width: 360px) { font-size: 36px; }
+  @variant md { font-size: 72px; }
+  @variant xl { font-size: 96px; }
+}
+
+/* 소개의 차량 장면: 수단을 구별하는 레일과 차선, 원래 문서 흐름을 유지한다. */
+@utility transit-title {
+  font-family: var(--font-serif);
+  font-weight: 600;
+  font-size: 36px;
+  line-height: 1.28;
+  letter-spacing: -0.035em;
+  word-break: keep-all;
+  @variant md { font-size: 56px; }
+  @variant xl { font-size: 72px; }
+}
+
+@utility transit-rail-scene {
+  border-block: 1px solid var(--color-rule);
+}
+
+@utility transit-railway {
+  position: relative;
+  padding-bottom: 1rem;
+}
+
+@utility transit-train {
+  width: 54rem;
+  margin-left: calc(100% - 54rem);
+  position: relative;
+  z-index: 1;
+  @variant md {
+    width: 64rem;
+    margin-left: calc(100% - 64rem);
+  }
+  @variant xl {
+    width: max(100%, 84rem);
+    margin-left: -4rem;
+  }
+}
+
+@utility transit-track {
+  position: absolute;
+  inset-inline: 0;
+  bottom: 1.25rem;
+  height: 1.25rem;
+  border-top: 3px solid var(--color-ink-3);
+  border-bottom: 2px solid var(--color-rule);
+  background: repeating-linear-gradient(90deg, transparent 0 1.75rem, var(--color-rule) 1.75rem 2rem);
+  @variant md { bottom: 1.55rem; }
+  @variant xl { bottom: 2.125rem; }
+}
+
+@utility transit-road-scene { position: relative; }
+
+@utility transit-bus {
+  width: 100%;
+  max-width: 32rem;
+  position: relative;
+  z-index: 1;
+}
+
+@utility transit-road {
+  position: relative;
+  margin-top: -2rem;
+  height: 3.5rem;
+  border-top: 1px solid var(--color-rule);
+  border-bottom: 1px solid var(--color-rule);
+  background-color: var(--color-slab);
+  @variant md { margin-top: -2.5rem; }
+}
+
+@utility transit-road-markings {
+  position: absolute;
+  inset-inline: 0;
+  top: 1.5rem;
+  height: 2px;
+  background: repeating-linear-gradient(90deg, var(--color-ink-3) 0 2rem, transparent 2rem 4rem);
+}
