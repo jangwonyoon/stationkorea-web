@@ -9,7 +9,7 @@ import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
-  title: { default: `${site.name} — 서울 지하철 역, 왜 이렇게 생겼을까`, template: `%s | ${site.name}` },
+  title: { default: `${site.name} — 길과 동네를 읽는 웹매거진`, template: `%s | ${site.name}` },
   description: site.description,
   alternates: { canonical: "/", types: { "application/rss+xml": "/rss.xml" } },
   openGraph: { type: "website", locale: "ko_KR", siteName: site.name, url: "/" },
