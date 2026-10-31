@@ -43,18 +43,18 @@ export function SiteFooter() {
           </ul>
         </nav>
 
-        <dl className="mt-6 grid gap-2 text-label">
-          <div className="flex flex-wrap gap-x-2">
-            <dt>문의</dt>
-            <dd>
+        <dl className="mt-6 grid gap-4 text-label">
+          <div className="grid gap-1 md:flex md:items-baseline md:gap-6">
+            <dt className="md:w-20 md:shrink-0">문의</dt>
+            <dd className="min-w-0 text-sm font-normal leading-relaxed">
               <a href={`mailto:${site.email}`} className="inline-flex min-h-11 items-center break-all underline underline-offset-4 focus-visible:outline-ground">
                 {site.email}
               </a>
             </dd>
           </div>
-          <div className="flex flex-wrap gap-x-2">
-            <dt>방문 통계</dt>
-            <dd className="break-keep">
+          <div className="grid gap-1 md:flex md:items-baseline md:gap-6">
+            <dt className="md:w-20 md:shrink-0">방문 통계</dt>
+            <dd className="min-w-0 text-sm font-normal leading-relaxed break-keep">
               쿠키 없이 익명 방문 통계(Umami)를 셉니다. 개인정보는 수집하지 않습니다.{" "}
               <Link href="/about/#privacy" className={linkClass}>
                 자세히
