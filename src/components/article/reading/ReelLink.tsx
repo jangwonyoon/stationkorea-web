@@ -6,8 +6,8 @@ export type ReelLinkProps = { reel: Station["reel"]; title: string };
 
 export function ReelLink({ reel, title }: ReelLinkProps) {
   return (
-    <a href={reel.url} rel="noopener noreferrer" className="pressable flex min-h-11 items-center gap-4 border border-rule bg-plate p-3 text-plate-ink active:text-ink">
-      <Image src={reel.thumbnail} alt={`${title} 릴스 썸네일`} width={90} height={160} loading="lazy" className="h-40 w-auto shrink-0 object-cover" />
+    <a href={reel.url} rel="noopener noreferrer" className="pressable flex min-h-11 items-center gap-4 rounded-xl border border-rule bg-plate p-3 text-plate-ink active:text-ink">
+      <Image src={reel.thumbnail} alt={`${title} 릴스 썸네일`} width={90} height={160} loading="lazy" className="h-40 w-auto shrink-0 rounded-lg object-cover" />
       <span className="min-w-0">
         <span className="block text-label">릴스 보기</span>
         <span className="mt-2 block text-body break-words">{title}</span>
