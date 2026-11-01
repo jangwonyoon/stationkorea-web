@@ -140,7 +140,7 @@ export function articleJsonLd(article: MagazineArticle) {
 }
 
 /** 노선 허브: 화면에 실린 역 기사만 나열한다. */
-export function lineJsonLd(line: LineId, list: Station[]) {
+export function lineJsonLd(line: LineId, list: { href: string; title: string }[]) {
   const url = absoluteUrl(`/line/${line}/`);
   return [
     {
@@ -155,12 +155,12 @@ export function lineJsonLd(line: LineId, list: Station[]) {
       "@context": "https://schema.org",
       "@type": "ItemList",
       "@id": `${url}#questions`,
-      name: "이 노선의 질문",
-      itemListElement: list.map((station, index) => ({
+      name: "이 노선의 기사",
+      itemListElement: list.map((entry, index) => ({
         "@type": "ListItem",
         position: index + 1,
-        name: station.question,
-        url: absoluteUrl(stationPath(station)),
+        name: entry.title,
+        url: absoluteUrl(entry.href),
       })),
     },
     {
@@ -168,7 +168,8 @@ export function lineJsonLd(line: LineId, list: Station[]) {
       "@type": "BreadcrumbList",
       itemListElement: [
         { "@type": "ListItem", position: 1, name: site.name, item: absoluteUrl("/") },
-        { "@type": "ListItem", position: 2, name: lineName(line), item: url },
+        { "@type": "ListItem", position: 2, name: "노선", item: absoluteUrl("/line/") },
+        { "@type": "ListItem", position: 3, name: lineName(line), item: url },
       ],
     },
   ];
