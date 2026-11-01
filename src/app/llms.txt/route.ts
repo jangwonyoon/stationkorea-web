@@ -3,6 +3,8 @@ import { markdownPath } from "@/lib/markdown";
 import { absoluteUrl, site } from "@/lib/site";
 import { linePath, publishedLines } from "@/app/line/data";
 import { lineName } from "@/content/lines";
+import { articlePath, articles } from "@/content/articles";
+import { articleMarkdownPath } from "@/lib/markdown";
 
 export const dynamic = "force-static";
 
@@ -13,7 +15,7 @@ export function GET() {
     "",
     `> ${site.description} 갈아타다·걷다·보다·바뀌다, 네 가지 시선으로 교통·길·장소·변화를 살핀다. 숫자마다 기관·자료명·기준일을 출처로 적는다.`,
     "",
-    `현재 공개된 기사는 서울 지하철의 ${stations.map((s) => s.name).join("·")}을 다룬 ${stations.length}편이며, ‘갈아타다’에 속한다. 다른 섹션은 준비 중이다. 인스타그램 ${site.instagramHandle}에서도 매일 그 길을 만날 수 있다.`,
+    `현재 공개된 역 해부 기사는 ${stations.map((s) => s.name).join("·")} ${stations.length}편이다.${articles.length ? ` 독립 기사 ${articles.length}편도 읽을 수 있다.` : ""} 인스타그램 ${site.instagramHandle}에서도 매일 그 길을 만날 수 있다.`,
     "",
     "## 출처 정책",
     "- 숫자는 서울교통공사·서울 열린데이터광장·공공데이터포털 등 공식 자료를 우선하고, 기준일을 함께 적는다.",
@@ -21,6 +23,7 @@ export function GET() {
     "",
     "## 역 기사",
     ...stations.map((s) => `- [${s.question}](${absoluteUrl(stationPath(s))}): ${s.answer} 마크다운: ${absoluteUrl(markdownPath(s))}`),
+    ...(articles.length ? ["", "## 독립 기사", ...articles.map((article) => `- [${article.question}](${absoluteUrl(articlePath(article))}): ${article.answer} 마크다운: ${absoluteUrl(articleMarkdownPath(article))}`)] : []),
     "",
     "## 전문",
     `- [모든 기사 전문](${absoluteUrl("/llms-full.txt")})`,

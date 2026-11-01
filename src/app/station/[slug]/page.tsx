@@ -73,11 +73,15 @@ export default async function StationPage({ params }: Props) {
     })),
   } : node);
   const comparisonIds = s.comparison?.rows.flatMap((row) => row.sourceIds) ?? [];
-  const [, pinAnchors, transferAnchors, ...readingAnchors] = firstCitations([
-    s.stats.flatMap((stat) => stat.sourceIds), s.pin.sourceIds,
-    s.transfers.map((transfer) => transfer.sourceId),
+  const [, ...contentAnchors] = firstCitations([
+    s.stats.flatMap((stat) => stat.sourceIds),
     ...s.qna.flatMap((qna, index) => index === 0 ? [qna.sourceIds, comparisonIds, quote.sourceIds] : [qna.sourceIds]),
+    s.pin.sourceIds,
+    s.transfers.map((transfer) => transfer.sourceId),
   ]);
+  const pinAnchors = contentAnchors.at(-2) ?? [];
+  const transferAnchors = contentAnchors.at(-1) ?? [];
+  const readingAnchors = contentAnchors.slice(0, -2);
 
   return (
     <>
@@ -94,7 +98,7 @@ export default async function StationPage({ params }: Props) {
         </header>
         <figure className="mt-6">
           <div className="relative aspect-4/5 overflow-hidden bg-slab">
-            <Image src={s.crossSection.src} alt={s.crossSection.alt} fill priority sizes="(min-width: 1280px) 690px, (min-width: 768px) calc(75vw - 53px), calc(100vw - 40px)" className="object-cover" />
+            <Image src={s.crossSection.src} alt={s.crossSection.alt} fill priority fetchPriority="high" sizes="(min-width: 1280px) 690px, (min-width: 768px) calc(75vw - 53px), calc(100vw - 40px)" className="object-cover" />
           </div>
           <figcaption className="mt-2 text-caption">{s.crossSection.caption} AI 시각화 참고 이미지.</figcaption>
         </figure>
@@ -102,11 +106,6 @@ export default async function StationPage({ params }: Props) {
           <div className="xl:[&_tbody]:grid-cols-1 xl:[&_tr]:grid xl:[&_tr]:gap-y-0 xl:[&_tr]:border-l-0 xl:[&_tr]:border-b xl:[&_tr]:py-4 xl:[&_th]:text-right xl:[&_th]:text-4xl">
           <StatTable stats={s.stats} sources={s.sources} accent={s.sign.line} caption={`${s.name} 핵심 숫자와 기준일·출처`} />
           </div>
-        </section>
-        <section aria-labelledby="transfer-heading" className="mt-16">
-          <h2 id="transfer-heading" className="text-h2">어디서 내리면 빠른가</h2>
-          <p className="mt-4 text-body">{s.pin.text}<SourceRefs ids={s.pin.sourceIds} sources={s.sources} anchorIds={pinAnchors} /></p>
-          <div className="mt-6"><TransferDoors transfers={s.transfers} sources={s.sources} anchorIds={transferAnchors} /></div>
         </section>
         <div data-rail="reel" className="mt-8"><div><ReelLink reel={s.reel} title={s.question} /></div></div>
         <section aria-label="묻고 답하기">
@@ -123,6 +122,11 @@ export default async function StationPage({ params }: Props) {
               </>}
             </Fragment>
           ))}
+        </section>
+        <section aria-labelledby="transfer-heading" className="mt-16">
+          <h2 id="transfer-heading" className="text-h2">어디서 내리면 빠른가</h2>
+          <p className="mt-4 text-body">{s.pin.text}<SourceRefs ids={s.pin.sourceIds} sources={s.sources} anchorIds={pinAnchors} /></p>
+          <div className="mt-6"><TransferDoors transfers={s.transfers} sources={s.sources} anchorIds={transferAnchors} /></div>
         </section>
         {s.news && s.news.length > 0 && <section className="my-12" aria-labelledby="news-heading">
           <h2 id="news-heading" className="text-h2">최근 소식</h2>

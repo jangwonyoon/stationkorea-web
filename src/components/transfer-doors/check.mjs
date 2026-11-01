@@ -47,8 +47,12 @@ assert.equal((seven.match(/scope="col"/g) || []).length, 5);
 assert.equal((seven.match(/<td /g) || []).length, 8);
 assert.equal((seven.match(/scope="row"/g) || []).length, 2);
 assert(!render({ transfers: [], sources: [] }).includes("<table"));
-for (const text of [konkukUniv.pin.text, konkukUniv.qna[1].answer[0]]) {
-  for (const value of ["자양", "8-3", "3분 44초", "어린이대공원", "7-3", "5분 25초", "성수", "3-2", "2026-09-01"]) assert(text.includes(value), value);
+const konkuk = render({ ...konkukUniv, anchorIds: ["seoulmetro-transfer-info"] });
+for (const transfer of konkukUniv.transfers) {
+  for (const value of [transfer.ride.direction, transfer.to.direction, transfer.car, transfer.time]) assert(konkuk.includes(value), value);
 }
-assert.equal(konkukUniv.dateModified.slice(0, 10), konkukUniv.corrections[0].date);
+assert(konkuk.includes("2026-09-01 기준"));
+assert.equal(konkukUniv.qna.some((q) => q.question.includes("어디서 내리면 빠른가")), false);
+assert.match(konkukUniv.pin.text, /끝 칸에서 내리면 최대 2분 47초/);
+assert(konkukUniv.dateModified.slice(0, 10) >= konkukUniv.corrections[0].date);
 console.log("TransferDoors: six original rows, 60 cars, unique optional citations, source/car validation, unverified consist omitted, empty rows, corrected direction/time/date PASS");

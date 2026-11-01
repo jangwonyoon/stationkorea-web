@@ -1,4 +1,5 @@
 import type { Station } from "@/content/types";
+import type { MagazineArticle } from "@/content/articles";
 
 // 공백 제외 500자/분은 이 사이트의 추정 기준이며, 독자의 실제 속도를 측정한 값은 아니다.
 const CHARACTERS_PER_MINUTE = 500;
@@ -22,5 +23,10 @@ export function readingMinutes(station: Station): number {
     }
   }
   // shortcut: 현재 기사에 미노출인 단계·연표는 제외, 기사 렌더러가 해당 블록을 표시할 때 집계도 확장한다.
+  return Math.max(1, Math.ceil(Array.from(text.join("").replace(/\s/g, "")).length / CHARACTERS_PER_MINUTE));
+}
+
+export function articleReadingMinutes(article: MagazineArticle): number {
+  const text = [article.question, article.answer, ...article.body.flatMap((section) => [section.heading, ...section.paragraphs.map((paragraph) => paragraph.text)])];
   return Math.max(1, Math.ceil(Array.from(text.join("").replace(/\s/g, "")).length / CHARACTERS_PER_MINUTE));
 }
