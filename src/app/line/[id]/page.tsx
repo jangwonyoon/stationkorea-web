@@ -42,12 +42,12 @@ export default async function LinePage({ params }: { params: Promise<{ id: strin
       <JsonLd data={lineJsonLd(line, articles)} />
       <Breadcrumb items={[{ name: site.name, href: "/" }, { name: "노선", href: "/line/" }, { name: lineName(line) }]} />
       <nav aria-label="기사가 있는 노선" className="mt-6">
-        <ul className="flex flex-wrap gap-2">
+        <ul className="grid grid-cols-2 gap-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-7">
           {publishedLines.map((id) => (
             <li key={id}>
               <Link href={linePath(id)} aria-current={id === line ? "page" : undefined} className="pressable inline-flex min-h-11 items-center gap-2 border-b-2 border-transparent px-1 aria-[current=page]:border-ink">
                 <LineRoundel line={id} />
-                <span className="text-label">{lineName(id)}</span>
+                {/^[1-9]$/.test(id) && <span className="text-label">{lineName(id)}</span>}
               </Link>
             </li>
           ))}
