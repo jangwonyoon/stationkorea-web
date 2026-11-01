@@ -11,7 +11,7 @@ import { homeJsonLd } from "@/lib/jsonld";
 import { site } from "@/lib/site";
 
 export default function Home() {
-  const cover = articleEntries[0];
+  const cover = articleEntries.find(entry => entry.href === "/article/seongsu-branch/") ?? articleEntries[0];
   const recent = articleEntries.filter(entry => entry.href !== cover?.href).slice(0, 4);
   const visible = cover ? [cover, ...recent] : recent;
   const browse = [
@@ -32,7 +32,8 @@ export default function Home() {
           <Link href={cover.href} className="pressable group block rounded-xl border border-rule p-5 hover:border-ink hover:bg-slab md:px-7 md:py-8 lg:px-9">
             <div className="grid gap-5 md:grid-cols-2 md:items-center md:gap-10 lg:gap-14">
               <div className="min-w-0">
-                <p className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-ink-3"><span className="font-semibold text-ink">대표 기사</span><span>#{sections.find(section => section.id === cover.section)?.name}</span><span>읽는 데 약 {cover.minutes}분</span></p>
+                <p className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-ink-3"><span className="font-semibold text-ink">대표 기사</span><span>#{sections.find(section => section.id === cover.section)?.name}</span>{cover.series && <span className="rounded-xs border border-ink px-1.5 font-semibold text-ink">{cover.series.title}</span>}<span>읽는 데 약 {cover.minutes}분</span></p>
+                {cover.series && <p className="mt-2 text-sm leading-relaxed text-ink-2">{cover.series.description}</p>}
                 {(cover.place || cover.lines.length > 0) && <div className="mt-4"><ArticlePlace entry={cover} size="M" /></div>}
                 <h2 id="cover-question" className="mt-4 text-h1 break-keep underline-offset-4 group-hover:underline">{cover.title}</h2>
               </div>
