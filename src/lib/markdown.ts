@@ -22,11 +22,19 @@ export function stationMarkdown(s: Station): string {
     "|---|---|---|---|",
     ...s.stats.map((st) => `| ${st.value} | ${st.label} | ${st.asOf} | ${refs(st.sourceIds)} |`),
     "",
+    ...s.qna.flatMap((q) => [`## ${q.question}`, "", ...q.answer.map((p) => `${p}\n`), `출처: ${refs(q.sourceIds)}`, ""]),
     "## 어디서 내리면 빠른가",
     "",
     `${s.pin.text} ${refs(s.pin.sourceIds)}`,
     "",
-    ...s.qna.flatMap((q) => [`## ${q.question}`, "", ...q.answer.map((p) => `${p}\n`), `출처: ${refs(q.sourceIds)}`, ""]),
+    "| 타고 있는 열차 | 갈아탈 노선·방면 | 내릴 칸 | 소요 시간 | 기준일·출처 |",
+    "|---|---|---|---|---|",
+    ...s.transfers.map((t) => {
+      const source = s.sources.find((item) => item.id === t.sourceId);
+      if (!source) throw new Error(`stationMarkdown: transfer source missing: ${t.sourceId}`);
+      return `| ${lineName(t.ride.line)} ${t.ride.direction} | ${lineName(t.to.line)} ${t.to.direction} | ${t.car} | ${t.time} | ${source.date} [${n(t.sourceId)}] |`;
+    }),
+    "",
     "## 출처",
     "",
     ...s.sources.map((src, i) => `${i + 1}. ${src.org}, ${src.title}, ${src.date}${src.url ? `. ${src.url}` : ""}`),
