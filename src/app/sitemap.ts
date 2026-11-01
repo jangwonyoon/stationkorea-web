@@ -11,6 +11,7 @@ export const dynamic = "force-static";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
+    { url: absoluteUrl("/line/"), lastModified: articleEntries.map(entry => entry.modified).sort().at(-1), changeFrequency: "weekly", priority: 0.7 },
     { url: absoluteUrl("/articles/"), lastModified: articleEntries.map(e => e.modified).sort().at(-1), changeFrequency: "weekly", priority: 0.8 },
     ...publishedSections.map(section => ({ url: absoluteUrl(sectionPath(section.id)), lastModified: articleEntries.filter(e => e.section === section.id).map(e => e.modified).sort().at(-1), changeFrequency: "weekly" as const, priority: 0.7 })),
     { url: absoluteUrl("/"), lastModified: [latestStations()[0]?.dateModified, ...articles.map((article) => article.dateModified)].filter(Boolean).sort().at(-1), changeFrequency: "weekly", priority: 1 },
