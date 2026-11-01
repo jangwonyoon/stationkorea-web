@@ -3,6 +3,18 @@ import type { MagazineArticle } from "../articles";
 export const guriEscalator: MagazineArticle = {
   slug: "guri-escalator",
   section: "transfer",
+  station: {
+    name: "구리역",
+    lines: ["8", "gyeongui-jungang"],
+    sign: { line: "8", prev: "동구릉", next: "장자호수공원", en: "Guri" },
+    sourceIds: ["guide-map", "guide-transfer"],
+  },
+  transfers: [
+    { ride: { line: "8", direction: "동구릉 방면" }, to: { line: "gyeongui-jungang", direction: "양원 방면" }, car: "6-1", toCar: "6-1", time: "43초", sourceId: "guide-transfer", formation: { cars: 6, sourceId: "guide-formation" } },
+    { ride: { line: "8", direction: "동구릉 방면" }, to: { line: "gyeongui-jungang", direction: "도농 방면" }, car: "6-1", toCar: "1-1", time: "43초", sourceId: "guide-transfer", formation: { cars: 6, sourceId: "guide-formation" } },
+    { ride: { line: "8", direction: "장자호수공원 방면" }, to: { line: "gyeongui-jungang", direction: "양원 방면" }, car: "6-1", toCar: "6-1", time: "43초", sourceId: "guide-transfer", formation: { cars: 6, sourceId: "guide-formation" } },
+    { ride: { line: "8", direction: "장자호수공원 방면" }, to: { line: "gyeongui-jungang", direction: "도농 방면" }, car: "6-1", toCar: "6-1", time: "43초", sourceId: "guide-transfer", formation: { cars: 6, sourceId: "guide-formation" } },
+  ],
   question: "구리역에서 경의중앙선과 8호선은 어떻게 이어질까?",
   answer: "구리역에서는 고가의 경의중앙선과 지하의 8호선을 갈아타며, 경기도가 2026년 8월 확인한 환승통로 에스컬레이터는 길이 65m, 수직 높이 30m다.",
   answerSourceIds: ["G1", "G2", "G3"],
@@ -31,6 +43,9 @@ export const guriEscalator: MagazineArticle = {
     },
   ],
   sources: [
+    { id: "guide-formation", org: "경기도", title: "지하철 8호선 연장 별내선 개통 안내 — 6량 1편성", date: "2024-07-11 게시 · 2024-08-10 개통 안내", url: "https://gits.gg.go.kr/web/newboard/3386.do?idx=194416773&mode=view" },
+    { id: "guide-map", org: "서울교통공사", title: "수도권 지하철 노선도 — 역명·영문명·환승노선", date: "2025-09-29 자료", url: "https://data.seoul.go.kr/dataList/OA-22535/F/1/datasetView.do" },
+    { id: "guide-transfer", org: "서울교통공사", title: "서울 도시철도 환승정보", date: "2026-09-01 기준", url: "https://www.data.go.kr/data/15098252/fileData.do" },
     { id: "G1", org: "구리시", title: "BN3 정거장 관련 공식 답변", date: "2020년 계획 설명", url: "https://www.guri.go.kr/petitions/selectPolicyWebView.do?key=2456&pcyNo=2&searchArea=&searchCtgryCode=&searchOrder=NEW&type=ANSC" },
     { id: "G2", org: "구리시", title: "별내선 개통 공지", date: "2024-07-31 게시 · 2024-08-10 개통 안내", url: "https://www.guri.go.kr/www/selectBbsNttView.do?bbsNo=36&integrDeptCode=&key=380&nttNo=113614&pageIndex=40&searchCnd=all&searchCtgry=&searchKrwd=" },
     { id: "G3", org: "경기도", title: "8호선 별내선 구리역 환승통로 현장점검 보도자료", date: "2026-08-26 현장점검", url: "https://gnews.gg.go.kr/briefing/brief_gongbo_view.do?BS_CODE=S017&number=71298" },
@@ -40,5 +55,5 @@ export const guriEscalator: MagazineArticle = {
     { title: "사당역, 환승 74m인데 왜 3분 넘게 걸릴까?", href: "/station/sadang/" },
   ],
   datePublished: "2026-11-01T00:00:00+09:00",
-  dateModified: "2026-11-01T00:00:00+09:00",
+  dateModified: "2026-11-01T16:15:25+09:00",
 };

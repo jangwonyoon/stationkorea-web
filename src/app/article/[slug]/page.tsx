@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { StationSign } from "@/components/station-sign/StationSign";
+import { TransferDoors } from "@/components/transfer-doors/TransferDoors";
+import { articleGuideSourceIds } from "@/lib/article-guide";
 import { JsonLd } from "@/components/JsonLd";
 import { firstCitations, SourceRefs } from "@/components/SourceRefs";
 import { Breadcrumb } from "@/components/article/meta/Breadcrumb";
@@ -40,10 +43,12 @@ export default async function MagazineArticlePage({ params }: Props) {
   const article = getArticle((await params).slug);
   if (!article) notFound();
   const citations = firstCitations([
+    article.station?.sourceIds ?? [],
     article.answerSourceIds,
     ...article.body.flatMap((section) => section.paragraphs.map((paragraph) => paragraph.sourceIds)),
+    articleGuideSourceIds({ transfers: article.transfers }),
   ]);
-  let citationIndex = 1;
+  let citationIndex = 2;
   const sectionName = { transfer: "갈아타다", walk: "걷다", see: "보다", change: "바뀌다" }[article.section];
 
   return <>
@@ -53,8 +58,9 @@ export default async function MagazineArticlePage({ params }: Props) {
       <div className="mx-auto max-w-3xl">
         <header className="mt-8 border-t-2 border-ink pt-6">
           <p className="text-label">#{sectionName}</p>
+          {article.station && <div className="mt-4"><StationSign station={article.station} /><p className="mt-2 text-caption">역명·노선 안내<SourceRefs ids={article.station.sourceIds} sources={article.sources} anchorIds={citations[0]} /></p></div>}
           <h1 className="mt-4 text-h1 break-keep">{article.question}</h1>
-          <p className="mt-5 text-lead">{article.answer}<SourceRefs ids={article.answerSourceIds} sources={article.sources} anchorIds={citations[0]} /></p>
+          <p className="mt-5 text-lead">{article.answer}<SourceRefs ids={article.answerSourceIds} sources={article.sources} anchorIds={citations[1]} /></p>
           <div className="mt-4"><Byline author={site.author} published={article.datePublished} modified={article.dateModified} readingMinutes={articleReadingMinutes(article)} /></div>
         </header>
         {article.image && <figure className="mt-8">
@@ -72,6 +78,11 @@ export default async function MagazineArticlePage({ params }: Props) {
             </div>
           </section>)}
         </div>
+        {!!article.transfers?.length && <section className="mt-16" aria-labelledby="transfer-guide">
+          <h2 id="transfer-guide" className="mb-6 text-h2">어디서 내리면 빠른가</h2>
+          <p className="mb-6 text-caption">표의 시간은 자료 기준일의 경로별 참고값입니다. 실제 이동 시간은 보행 속도와 혼잡에 따라 달라집니다.</p>
+          <TransferDoors transfers={article.transfers} sources={article.sources} anchorIds={citations.at(-1)} legacyFormation={false} collapsible />
+        </section>}
         <nav aria-label="관련 기사" className="my-16 border-t-2 border-ink pt-4">
           <h2 className="text-h2">이어 읽기</h2>
           <ul className="mt-4 divide-y divide-rule">{article.related.map((related) => <li key={related.href}>
