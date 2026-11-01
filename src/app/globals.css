@@ -32,6 +32,15 @@
   --color-line-7: #747f00;
   --color-line-8: #e6186c;
   --color-line-9: #bdb092;
+  /* 이름 노선은 안내용 근사색. 공식 지정 hex로 사용하지 않는다. */
+  --color-line-gyeongui-jungang: #77c4a3;
+  --color-line-arex: #0090d2;
+  --color-line-seohae: #8fc31f;
+  --color-line-gimpo-goldline: #a17800;
+  --color-on-line-gyeongui-jungang: #191b1d;
+  --color-on-line-arex: #191b1d;
+  --color-on-line-seohae: #191b1d;
+  --color-on-line-gimpo-goldline: #ffffff;
 
   /* 노선색 채움 위 숫자색 */
   --color-on-line-1: #ffffff;

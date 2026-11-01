@@ -3,6 +3,16 @@ import type { MagazineArticle } from "../articles";
 export const seongsuBranch: MagazineArticle = {
   slug: "seongsu-branch",
   section: "transfer",
+  station: {
+    name: "성수역",
+    lines: ["2"],
+    sign: { line: "2", prev: "뚝섬", next: "건대입구", en: "Seongsu" },
+    sourceIds: ["guide-map", "guide-transfer"],
+  },
+  transfers: [
+    { ride: { line: "2", direction: "건대입구 방면" }, to: { line: "2", direction: "용답 방면 · 성수지선" }, car: "10-4", toCar: "1-1", time: "3분 32초", sourceId: "guide-transfer", formation: { cars: 10, sourceId: "guide-formation" } },
+    { ride: { line: "2", direction: "뚝섬 방면" }, to: { line: "2", direction: "용답 방면 · 성수지선" }, car: "모든 칸", toCar: "모든 칸", time: "5초", sourceId: "guide-transfer" },
+  ],
   question: "성수역 2호선은 왜 두 갈래로 나뉠까?",
   answer: "성수역은 1980년 열린 신설동 방면 구간과 1983년 열린 을지로입구 방면 구간이 갈라지는 곳이다. 지금은 같은 2호선 표시 아래 순환선 열차와 성수지선 열차가 서로 다른 길로 간다.",
   answerSourceIds: ["SE1", "SE2"],
@@ -35,6 +45,9 @@ export const seongsuBranch: MagazineArticle = {
     },
   ],
   sources: [
+    { id: "guide-formation", org: "서울특별시 도시철도과", title: "서울지하철 현황 및 이용안내 — 2호선 순환선 조성칸수", date: "2025-01-31 기준", url: "https://news.seoul.go.kr/traffic/archives/1551?listPage=1" },
+    { id: "guide-map", org: "서울교통공사", title: "수도권 지하철 노선도 — 역명·영문명·환승노선", date: "2025-09-29 자료", url: "https://data.seoul.go.kr/dataList/OA-22535/F/1/datasetView.do" },
+    { id: "guide-transfer", org: "서울교통공사", title: "서울 도시철도 환승정보", date: "2026-09-01 기준", url: "https://www.data.go.kr/data/15098252/fileData.do" },
     { id: "SE1", org: "서울역사박물관", title: "지하철 2호선 개통", date: "1983-12-17 기록 · 2018년 재수록", url: "https://museum.seoul.go.kr/archive/archiveNew/NR_archiveView.do?ctgryId=CTGRY766&fileId=H-TRNS-96101-768&fileSn=300&type=B&upperNodeId=CTGRY768" },
     { id: "SE2", org: "서울특별시", title: "충정로는 왜 충정로일까? 2호선 역명 따라 서울 역사 산책", date: "2026-09-23", url: "https://mediahub.seoul.go.kr/archives/2019486" },
   ],
@@ -43,5 +56,5 @@ export const seongsuBranch: MagazineArticle = {
     { title: "잠실역, 2호선에서 8호선까지 왜 이렇게 멀까?", href: "/station/jamsil/" },
   ],
   datePublished: "2026-11-01T00:00:00+09:00",
-  dateModified: "2026-11-01T00:00:00+09:00",
+  dateModified: "2026-11-01T16:15:25+09:00",
 };

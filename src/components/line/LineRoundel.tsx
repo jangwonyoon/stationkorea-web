@@ -27,7 +27,7 @@ const SIZE: Record<LineRoundelSize, string> = {
 };
 
 function colorClasses(line: LineId, size: LineRoundelSize, disabled: boolean): string {
-  if (size === "L") {
+  if (size === "L" && /^[1-9]$/.test(line)) {
     // 채움: 노선색 면 + 채움 위 숫자색. 비활성은 회색(선) 면 + 먹.
     return disabled ? "bg-rule text-ink" : `${LINE_BG[line]} ${LINE_TEXT_ON[line]}`;
   }
@@ -50,9 +50,9 @@ export function LineRoundel({ line, size = "M", href, disabled = false, classNam
       role={disabled ? "group" : "img"}
       aria-label={lineName(line)}
       aria-disabled={disabled || undefined}
-      className={cx(BASE, SIZE[size], colorClasses(line, size, disabled), !isLink && className)}
+      className={cx(BASE, (/^[1-9]$/.test(line) ? SIZE[size] : "min-h-7 border-2 px-2 py-1 text-xs"), colorClasses(line, size, disabled), !isLink && className)}
     >
-      {line}
+      {/^[1-9]$/.test(line) ? line : lineName(line)}
     </span>
   );
 
