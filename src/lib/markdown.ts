@@ -57,6 +57,7 @@ export function articleMarkdown(article: MagazineArticle): string {
   const reference = (ids: string[]) => ids.map((id) => `[${article.sources.findIndex((source) => source.id === id) + 1}]`).join("");
   return [
     `# ${article.question}`, "",
+    `글: [${site.author.name}](${absoluteUrl(site.author.path)})`,
     `원문: ${absoluteUrl(articlePath(article))}`,
     `게시: ${article.datePublished.slice(0, 10)} · 갱신: ${article.dateModified.slice(0, 10)}`,
     "", `${article.answer} ${reference(article.answerSourceIds)}`, "",
