@@ -6,6 +6,17 @@ export const dongjakExpress: MagazineArticle = {
   question: "9호선 급행 개편, 동작역에서 무엇을 확인해야 하나?",
   answer: "동작역에서 9호선 급행을 이용한다면 2026년 11월 16일부터 바뀔 예정인 평일 열차시각표를 방향과 시간대별로 확인해야 한다. 출근길 급행 운행 방식이 달라지지만 아직 시행 전 계획이다.",
   answerSourceIds: ["D1", "D2"],
+  station: {"name": "동작역", "lines": ["4", "9"], "sign": {"line": "4", "prev": "이촌", "next": "총신대입구", "en": "Dongjak"}, "sourceIds": ["station-sign-map", "station-sign-en"]},
+  transfers: [
+    {"ride": {"line": "4", "direction": "이촌 방면"}, "to": {"line": "9", "direction": "흑석 방면"}, "car": "8-4", "toCar": "6-4", "time": "8분 30초", "sourceId": "station-guide-route", "formation": {"cars": 10, "sourceId": "station-guide-formation"}},
+    {"ride": {"line": "4", "direction": "이촌 방면"}, "to": {"line": "9", "direction": "구반포 방면"}, "car": "8-4", "toCar": "6-4", "time": "8분 30초", "sourceId": "station-guide-route", "formation": {"cars": 10, "sourceId": "station-guide-formation"}},
+    {"ride": {"line": "4", "direction": "총신대입구 방면"}, "to": {"line": "9", "direction": "흑석 방면"}, "car": "2-4", "toCar": "6-4", "time": "8분 20초", "sourceId": "station-guide-route", "formation": {"cars": 10, "sourceId": "station-guide-formation"}},
+    {"ride": {"line": "4", "direction": "총신대입구 방면"}, "to": {"line": "9", "direction": "구반포 방면"}, "car": "2-4", "toCar": "6-4", "time": "8분 20초", "sourceId": "station-guide-route", "formation": {"cars": 10, "sourceId": "station-guide-formation"}},
+    {"ride": {"line": "9", "direction": "구반포 방면"}, "to": {"line": "4", "direction": "이촌 방면"}, "car": "6-4", "toCar": "2-4", "time": "8분 30초", "sourceId": "station-guide-route", "formation": {"cars": 6, "sourceId": "station-guide-formation"}},
+    {"ride": {"line": "9", "direction": "구반포 방면"}, "to": {"line": "4", "direction": "총신대입구 방면"}, "car": "6-4", "toCar": "8-4", "time": "8분 20초", "sourceId": "station-guide-route", "formation": {"cars": 6, "sourceId": "station-guide-formation"}},
+    {"ride": {"line": "9", "direction": "흑석 방면"}, "to": {"line": "4", "direction": "이촌 방면"}, "car": "6-4", "toCar": "2-4", "time": "8분 30초", "sourceId": "station-guide-route", "formation": {"cars": 6, "sourceId": "station-guide-formation"}},
+    {"ride": {"line": "9", "direction": "흑석 방면"}, "to": {"line": "4", "direction": "총신대입구 방면"}, "car": "6-4", "toCar": "8-4", "time": "8분 20초", "sourceId": "station-guide-route", "formation": {"cars": 6, "sourceId": "station-guide-formation"}},
+  ],
   body: [
     {
       heading: "이른 아침, 중앙보훈병원 방면부터 달라진다",
@@ -52,6 +63,11 @@ export const dongjakExpress: MagazineArticle = {
     },
   ],
   sources: [
+    {"id": "station-guide-formation", "org": "서울특별시", "title": "서울지하철 현황 및 이용안내 — 노선별 조성칸수", "date": "2025-01-31 기준", "url": "https://news.seoul.go.kr/traffic/archives/1551?listPage=1"},
+    {"id": "station-sign-map", "org": "서울교통공사", "title": "사이버스테이션 노선도 — 역명·노선·인접역", "date": "2026-11-01 확인", "url": "https://www.seoulmetro.co.kr/kr/cyberStation.do?menuIdx=538"},
+    {"id": "station-sign-en", "org": "서울특별시", "title": "2026 Seoul Tourist Map — 영문 역명", "date": "2026년판 · 2026-11-01 확인", "url": "https://english.seoul.go.kr/wp-content/uploads/2026/03/2026_touristmap_EN.pdf"},
+    {"id": "station-guide-route", "org": "서울교통공사", "title": "서울 도시철도 환승정보", "date": "2026-09-01 기준", "url": "https://www.data.go.kr/data/15098252/fileData.do"},
+
     { id: "D1", org: "서울특별시", title: "출퇴근길 더 빠르게! 9호선 급행 확대·급행버스 도입", date: "2026-10-14 발표", url: "https://mediahub.seoul.go.kr/archives/2019693" },
     { id: "D2", org: "서울시메트로9호선(주)", title: "평일 열차운행시각 변경 안내(’26. 11. 16.~)", date: "2026-10-26 공지", url: "https://www.metro9.co.kr/bbs/BBSMSTR_000000000001/view.do?nttId=B000000008610Di1xB1" },
     { id: "D3", org: "서울교통공사", title: "환승역거리 소요시간 정보", date: "2026-08-31 기준", url: "https://www.data.go.kr/data/15044419/fileData.do" },
@@ -62,5 +78,5 @@ export const dongjakExpress: MagazineArticle = {
     { title: "홍대입구역 환승 355m, 어느 노선 사이를 잰 걸까?", href: "/article/hongdae-transfer/" },
   ],
   datePublished: "2026-11-01T00:00:00+09:00",
-  dateModified: "2026-11-01T00:00:00+09:00",
+  dateModified: "2026-11-01T16:16:28+09:00",
 };

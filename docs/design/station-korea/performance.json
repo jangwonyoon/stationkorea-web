@@ -1,0 +1,763 @@
+{
+  "before": {
+    "measuredAt": "2026-11-01T08:50:44.866Z",
+    "head": "46c725b41735d94a55fd36feea03da5c17881f9f",
+    "environment": {
+      "node": "v22.22.3",
+      "chromium": "156.0.8078.4",
+      "playwright": "1.64.1",
+      "os": "darwin 24.6.0 arm64",
+      "cpu": "Apple M4 Pro"
+    },
+    "conditions": {
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "deviceScaleFactor": 1,
+      "colorScheme": "light",
+      "reducedMotion": "no-preference",
+      "cpuSlowdown": 4,
+      "cacheDisabled": true,
+      "networkLatencyMs": 150,
+      "downloadBitsPerSecond": 1600000,
+      "uploadBitsPerSecond": 750000,
+      "repetitions": 3,
+      "settleAfterLoadMs": 5000,
+      "scrollSteps": 12,
+      "scrollStepWaitMs": 250
+    },
+    "limitations": [
+      "Local Python static server without gzip/Brotli or CDN/TLS; absolute transfer and LCP are not production predictions.",
+      "Headless Chromium on shared host; CPU throttling is simulated. No field data or INP measurement.",
+      "Third-party requests are not blocked; totals and JavaScript totals include them, with origins recorded separately.",
+      "Initial LCP is sampled after load+5s before scripted scrolling; CLS uses maximum session window, not a raw sum."
+    ],
+    "runs": [
+      {
+        "route": "/",
+        "repetition": 1,
+        "status": 200,
+        "lcpMs": 3772,
+        "lcpElement": {
+          "startTime": 3772,
+          "size": 39672,
+          "tag": "P",
+          "text": "2022년 건대입구역 2·7호선 환승 연구 보도에서 교통약자 거리 1,404m는 실제 경로를 직접 잰 길이가 아니라 환승시간에 장애인 보행속도로 가정한 0.78m/s를 곱한 환산값입니다.",
+          "url": ""
+        },
+        "clsInitial": 0.0015482899140725293,
+        "clsAfterScroll": 0.0015482899140725293,
+        "transferBytesInitial": 1655195,
+        "transferBytes": 2168650,
+        "jsBytes": 435495,
+        "origins": {
+          "http://localhost:3232": 2163948,
+          "https://cloud.umami.is": 4702
+        },
+        "longTasksInitial": {
+          "count": 1,
+          "totalMs": 82,
+          "maxMs": 82
+        },
+        "longTasksScroll": {
+          "count": 0,
+          "totalMs": 0,
+          "maxMs": 0
+        },
+        "overflow": false,
+        "errors": [],
+        "failures": []
+      },
+      {
+        "route": "/",
+        "repetition": 2,
+        "status": 200,
+        "lcpMs": 3544,
+        "lcpElement": {
+          "startTime": 3544,
+          "size": 39672,
+          "tag": "P",
+          "text": "2022년 건대입구역 2·7호선 환승 연구 보도에서 교통약자 거리 1,404m는 실제 경로를 직접 잰 길이가 아니라 환승시간에 장애인 보행속도로 가정한 0.78m/s를 곱한 환산값입니다.",
+          "url": ""
+        },
+        "clsInitial": 0.0015482899140725293,
+        "clsAfterScroll": 0.0015482899140725293,
+        "transferBytesInitial": 1655194,
+        "transferBytes": 2168649,
+        "jsBytes": 435494,
+        "origins": {
+          "http://localhost:3232": 2163948,
+          "https://cloud.umami.is": 4701
+        },
+        "longTasksInitial": {
+          "count": 1,
+          "totalMs": 82,
+          "maxMs": 82
+        },
+        "longTasksScroll": {
+          "count": 0,
+          "totalMs": 0,
+          "maxMs": 0
+        },
+        "overflow": false,
+        "errors": [],
+        "failures": []
+      },
+      {
+        "route": "/",
+        "repetition": 3,
+        "status": 200,
+        "lcpMs": 3528,
+        "lcpElement": {
+          "startTime": 3528,
+          "size": 39672,
+          "tag": "P",
+          "text": "2022년 건대입구역 2·7호선 환승 연구 보도에서 교통약자 거리 1,404m는 실제 경로를 직접 잰 길이가 아니라 환승시간에 장애인 보행속도로 가정한 0.78m/s를 곱한 환산값입니다.",
+          "url": ""
+        },
+        "clsInitial": 0.0015482899140725293,
+        "clsAfterScroll": 0.0015482899140725293,
+        "transferBytesInitial": 1655195,
+        "transferBytes": 2168650,
+        "jsBytes": 435495,
+        "origins": {
+          "http://localhost:3232": 2163948,
+          "https://cloud.umami.is": 4702
+        },
+        "longTasksInitial": {
+          "count": 1,
+          "totalMs": 85,
+          "maxMs": 85
+        },
+        "longTasksScroll": {
+          "count": 0,
+          "totalMs": 0,
+          "maxMs": 0
+        },
+        "overflow": false,
+        "errors": [],
+        "failures": []
+      },
+      {
+        "route": "/articles/",
+        "repetition": 1,
+        "status": 200,
+        "lcpMs": 3440,
+        "lcpElement": {
+          "startTime": 3440,
+          "size": 26010,
+          "tag": "P",
+          "text": "구리역에서는 고가의 경의중앙선과 지하의 8호선을 갈아타며, 경기도가 2026년 8월 확인한 환승통로 에스컬레이터는 길이 65m, 수직 높이 30m다.",
+          "url": ""
+        },
+        "clsInitial": 0.0014610650462271045,
+        "clsAfterScroll": 0.0014610650462271045,
+        "transferBytesInitial": 1825507,
+        "transferBytes": 2483585,
+        "jsBytes": 435495,
+        "origins": {
+          "http://localhost:3232": 2478883,
+          "https://cloud.umami.is": 4702
+        },
+        "longTasksInitial": {
+          "count": 1,
+          "totalMs": 92,
+          "maxMs": 92
+        },
+        "longTasksScroll": {
+          "count": 0,
+          "totalMs": 0,
+          "maxMs": 0
+        },
+        "overflow": false,
+        "errors": [],
+        "failures": []
+      },
+      {
+        "route": "/articles/",
+        "repetition": 2,
+        "status": 200,
+        "lcpMs": 3440,
+        "lcpElement": {
+          "startTime": 3440,
+          "size": 26010,
+          "tag": "P",
+          "text": "구리역에서는 고가의 경의중앙선과 지하의 8호선을 갈아타며, 경기도가 2026년 8월 확인한 환승통로 에스컬레이터는 길이 65m, 수직 높이 30m다.",
+          "url": ""
+        },
+        "clsInitial": 0.0014610650462271045,
+        "clsAfterScroll": 0.0014610650462271045,
+        "transferBytesInitial": 1825507,
+        "transferBytes": 2483585,
+        "jsBytes": 435495,
+        "origins": {
+          "http://localhost:3232": 2478883,
+          "https://cloud.umami.is": 4702
+        },
+        "longTasksInitial": {
+          "count": 1,
+          "totalMs": 76,
+          "maxMs": 76
+        },
+        "longTasksScroll": {
+          "count": 0,
+          "totalMs": 0,
+          "maxMs": 0
+        },
+        "overflow": false,
+        "errors": [],
+        "failures": []
+      },
+      {
+        "route": "/articles/",
+        "repetition": 3,
+        "status": 200,
+        "lcpMs": 3448,
+        "lcpElement": {
+          "startTime": 3448,
+          "size": 26010,
+          "tag": "P",
+          "text": "구리역에서는 고가의 경의중앙선과 지하의 8호선을 갈아타며, 경기도가 2026년 8월 확인한 환승통로 에스컬레이터는 길이 65m, 수직 높이 30m다.",
+          "url": ""
+        },
+        "clsInitial": 0.0014610650462271045,
+        "clsAfterScroll": 0.0014610650462271045,
+        "transferBytesInitial": 1825516,
+        "transferBytes": 2483594,
+        "jsBytes": 435504,
+        "origins": {
+          "http://localhost:3232": 2478883,
+          "https://cloud.umami.is": 4711
+        },
+        "longTasksInitial": {
+          "count": 1,
+          "totalMs": 79,
+          "maxMs": 79
+        },
+        "longTasksScroll": {
+          "count": 0,
+          "totalMs": 0,
+          "maxMs": 0
+        },
+        "overflow": false,
+        "errors": [],
+        "failures": []
+      },
+      {
+        "route": "/station/sadang/",
+        "repetition": 1,
+        "status": 200,
+        "lcpMs": 4160,
+        "lcpElement": {
+          "startTime": 4160,
+          "size": 77000,
+          "tag": "IMG",
+          "text": "",
+          "url": "http://localhost:3232/images/station/generated/sadang-section-384.webp"
+        },
+        "clsInitial": 0.0014610650462271045,
+        "clsAfterScroll": 0.0014610650462271045,
+        "transferBytesInitial": 1803827,
+        "transferBytes": 1954910,
+        "jsBytes": 435504,
+        "origins": {
+          "http://localhost:3232": 1950199,
+          "https://cloud.umami.is": 4711
+        },
+        "longTasksInitial": {
+          "count": 1,
+          "totalMs": 83,
+          "maxMs": 83
+        },
+        "longTasksScroll": {
+          "count": 0,
+          "totalMs": 0,
+          "maxMs": 0
+        },
+        "overflow": false,
+        "errors": [],
+        "failures": []
+      },
+      {
+        "route": "/station/sadang/",
+        "repetition": 2,
+        "status": 200,
+        "lcpMs": 4268,
+        "lcpElement": {
+          "startTime": 4268,
+          "size": 77000,
+          "tag": "IMG",
+          "text": "",
+          "url": "http://localhost:3232/images/station/generated/sadang-section-384.webp"
+        },
+        "clsInitial": 0.0014610650462271045,
+        "clsAfterScroll": 0.0014610650462271045,
+        "transferBytesInitial": 1803817,
+        "transferBytes": 1954900,
+        "jsBytes": 435494,
+        "origins": {
+          "http://localhost:3232": 1950199,
+          "https://cloud.umami.is": 4701
+        },
+        "longTasksInitial": {
+          "count": 1,
+          "totalMs": 91,
+          "maxMs": 91
+        },
+        "longTasksScroll": {
+          "count": 0,
+          "totalMs": 0,
+          "maxMs": 0
+        },
+        "overflow": false,
+        "errors": [],
+        "failures": []
+      },
+      {
+        "route": "/station/sadang/",
+        "repetition": 3,
+        "status": 200,
+        "lcpMs": 4324,
+        "lcpElement": {
+          "startTime": 4324,
+          "size": 77000,
+          "tag": "IMG",
+          "text": "",
+          "url": "http://localhost:3232/images/station/generated/sadang-section-384.webp"
+        },
+        "clsInitial": 0.0014610650462271045,
+        "clsAfterScroll": 0.0014610650462271045,
+        "transferBytesInitial": 1803817,
+        "transferBytes": 1954900,
+        "jsBytes": 435494,
+        "origins": {
+          "http://localhost:3232": 1950199,
+          "https://cloud.umami.is": 4701
+        },
+        "longTasksInitial": {
+          "count": 1,
+          "totalMs": 101,
+          "maxMs": 101
+        },
+        "longTasksScroll": {
+          "count": 0,
+          "totalMs": 0,
+          "maxMs": 0
+        },
+        "overflow": false,
+        "errors": [],
+        "failures": []
+      }
+    ],
+    "medians": {
+      "/": {
+        "lcpMs": 3544,
+        "clsInitial": 0.0015482899140725293,
+        "clsAfterScroll": 0.0015482899140725293,
+        "transferBytesInitial": 1655195,
+        "transferBytes": 2168650,
+        "jsBytes": 435495
+      },
+      "/articles/": {
+        "lcpMs": 3440,
+        "clsInitial": 0.0014610650462271045,
+        "clsAfterScroll": 0.0014610650462271045,
+        "transferBytesInitial": 1825507,
+        "transferBytes": 2483585,
+        "jsBytes": 435495
+      },
+      "/station/sadang/": {
+        "lcpMs": 4268,
+        "clsInitial": 0.0014610650462271045,
+        "clsAfterScroll": 0.0014610650462271045,
+        "transferBytesInitial": 1803817,
+        "transferBytes": 1954900,
+        "jsBytes": 435494
+      }
+    }
+  },
+  "after": {
+    "measuredAt": "2026-11-01T09:08:08.687Z",
+    "head": "467f8210fc73376c9507f7a76abc39a95bc6536a",
+    "environment": {
+      "node": "v22.22.3",
+      "chromium": "156.0.8078.4",
+      "playwright": "1.64.1",
+      "os": "darwin 24.6.0 arm64",
+      "cpu": "Apple M4 Pro"
+    },
+    "conditions": {
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "deviceScaleFactor": 1,
+      "colorScheme": "light",
+      "reducedMotion": "no-preference",
+      "cpuSlowdown": 4,
+      "cacheDisabled": true,
+      "networkLatencyMs": 150,
+      "downloadBitsPerSecond": 1600000,
+      "uploadBitsPerSecond": 750000,
+      "repetitions": 3,
+      "settleAfterLoadMs": 5000,
+      "scrollSteps": 12,
+      "scrollStepWaitMs": 250
+    },
+    "limitations": [
+      "Local Python static server without gzip/Brotli or CDN/TLS; absolute transfer and LCP are not production predictions.",
+      "Headless Chromium on shared host; CPU throttling is simulated. No field data or INP measurement.",
+      "Third-party requests are not blocked; totals and JavaScript totals include them, with origins recorded separately.",
+      "Initial LCP is sampled after load+5s before scripted scrolling; CLS uses maximum session window, not a raw sum."
+    ],
+    "runs": [
+      {
+        "route": "/",
+        "repetition": 1,
+        "status": 200,
+        "lcpMs": 3680,
+        "lcpElement": {
+          "startTime": 3680,
+          "size": 33402,
+          "tag": "P",
+          "text": "구리역에서는 고가의 경의중앙선과 지하의 8호선을 갈아타며, 경기도가 2026년 8월 확인한 환승통로 에스컬레이터는 길이 65m, 수직 높이 30m다.",
+          "url": ""
+        },
+        "clsInitial": 0.016805795406834804,
+        "clsAfterScroll": 0.016805795406834804,
+        "transferBytesInitial": 1935697,
+        "transferBytes": 2143352,
+        "jsBytes": 432996,
+        "origins": {
+          "http://localhost:3250": 2138651,
+          "https://cloud.umami.is": 4701
+        },
+        "longTasksInitial": {
+          "count": 1,
+          "totalMs": 77,
+          "maxMs": 77
+        },
+        "longTasksScroll": {
+          "count": 0,
+          "totalMs": 0,
+          "maxMs": 0
+        },
+        "overflow": false,
+        "errors": [],
+        "failures": []
+      },
+      {
+        "route": "/",
+        "repetition": 2,
+        "status": 200,
+        "lcpMs": 3656,
+        "lcpElement": {
+          "startTime": 3656,
+          "size": 33402,
+          "tag": "P",
+          "text": "구리역에서는 고가의 경의중앙선과 지하의 8호선을 갈아타며, 경기도가 2026년 8월 확인한 환승통로 에스컬레이터는 길이 65m, 수직 높이 30m다.",
+          "url": ""
+        },
+        "clsInitial": 0.016805795406834804,
+        "clsAfterScroll": 0.016805795406834804,
+        "transferBytesInitial": 1935698,
+        "transferBytes": 2143353,
+        "jsBytes": 432997,
+        "origins": {
+          "http://localhost:3250": 2138651,
+          "https://cloud.umami.is": 4702
+        },
+        "longTasksInitial": {
+          "count": 1,
+          "totalMs": 77,
+          "maxMs": 77
+        },
+        "longTasksScroll": {
+          "count": 0,
+          "totalMs": 0,
+          "maxMs": 0
+        },
+        "overflow": false,
+        "errors": [],
+        "failures": []
+      },
+      {
+        "route": "/",
+        "repetition": 3,
+        "status": 200,
+        "lcpMs": 3644,
+        "lcpElement": {
+          "startTime": 3644,
+          "size": 33402,
+          "tag": "P",
+          "text": "구리역에서는 고가의 경의중앙선과 지하의 8호선을 갈아타며, 경기도가 2026년 8월 확인한 환승통로 에스컬레이터는 길이 65m, 수직 높이 30m다.",
+          "url": ""
+        },
+        "clsInitial": 0.016805795406834804,
+        "clsAfterScroll": 0.016805795406834804,
+        "transferBytesInitial": 1935697,
+        "transferBytes": 2143352,
+        "jsBytes": 432996,
+        "origins": {
+          "http://localhost:3250": 2138651,
+          "https://cloud.umami.is": 4701
+        },
+        "longTasksInitial": {
+          "count": 1,
+          "totalMs": 72,
+          "maxMs": 72
+        },
+        "longTasksScroll": {
+          "count": 0,
+          "totalMs": 0,
+          "maxMs": 0
+        },
+        "overflow": false,
+        "errors": [],
+        "failures": []
+      },
+      {
+        "route": "/articles/",
+        "repetition": 1,
+        "status": 200,
+        "lcpMs": 3748,
+        "lcpElement": {
+          "startTime": 3748,
+          "size": 22704,
+          "tag": "P",
+          "text": "구리역에서는 고가의 경의중앙선과 지하의 8호선을 갈아타며, 경기도가 2026년 8월 확인한 환승통로 에스컬레이터는 길이 65m, 수직 높이 30m다.",
+          "url": ""
+        },
+        "clsInitial": 0.0015075102846884702,
+        "clsAfterScroll": 0.0015075102846884702,
+        "transferBytesInitial": 2076475,
+        "transferBytes": 2619289,
+        "jsBytes": 436214,
+        "origins": {
+          "http://localhost:3250": 2614587,
+          "https://cloud.umami.is": 4702
+        },
+        "longTasksInitial": {
+          "count": 1,
+          "totalMs": 74,
+          "maxMs": 74
+        },
+        "longTasksScroll": {
+          "count": 0,
+          "totalMs": 0,
+          "maxMs": 0
+        },
+        "overflow": false,
+        "errors": [],
+        "failures": []
+      },
+      {
+        "route": "/articles/",
+        "repetition": 2,
+        "status": 200,
+        "lcpMs": 3764,
+        "lcpElement": {
+          "startTime": 3764,
+          "size": 22704,
+          "tag": "P",
+          "text": "구리역에서는 고가의 경의중앙선과 지하의 8호선을 갈아타며, 경기도가 2026년 8월 확인한 환승통로 에스컬레이터는 길이 65m, 수직 높이 30m다.",
+          "url": ""
+        },
+        "clsInitial": 0.0015075102846884702,
+        "clsAfterScroll": 0.0015075102846884702,
+        "transferBytesInitial": 2076475,
+        "transferBytes": 2619289,
+        "jsBytes": 436214,
+        "origins": {
+          "http://localhost:3250": 2614587,
+          "https://cloud.umami.is": 4702
+        },
+        "longTasksInitial": {
+          "count": 1,
+          "totalMs": 85,
+          "maxMs": 85
+        },
+        "longTasksScroll": {
+          "count": 0,
+          "totalMs": 0,
+          "maxMs": 0
+        },
+        "overflow": false,
+        "errors": [],
+        "failures": []
+      },
+      {
+        "route": "/articles/",
+        "repetition": 3,
+        "status": 200,
+        "lcpMs": 3748,
+        "lcpElement": {
+          "startTime": 3748,
+          "size": 22704,
+          "tag": "P",
+          "text": "구리역에서는 고가의 경의중앙선과 지하의 8호선을 갈아타며, 경기도가 2026년 8월 확인한 환승통로 에스컬레이터는 길이 65m, 수직 높이 30m다.",
+          "url": ""
+        },
+        "clsInitial": 0.0015075102846884702,
+        "clsAfterScroll": 0.0015075102846884702,
+        "transferBytesInitial": 2076474,
+        "transferBytes": 2619288,
+        "jsBytes": 436213,
+        "origins": {
+          "http://localhost:3250": 2614587,
+          "https://cloud.umami.is": 4701
+        },
+        "longTasksInitial": {
+          "count": 1,
+          "totalMs": 74,
+          "maxMs": 74
+        },
+        "longTasksScroll": {
+          "count": 0,
+          "totalMs": 0,
+          "maxMs": 0
+        },
+        "overflow": false,
+        "errors": [],
+        "failures": []
+      },
+      {
+        "route": "/station/sadang/",
+        "repetition": 1,
+        "status": 200,
+        "lcpMs": 4224,
+        "lcpElement": {
+          "startTime": 4224,
+          "size": 77000,
+          "tag": "IMG",
+          "text": "",
+          "url": "http://localhost:3250/images/station/generated/sadang-section-384.webp"
+        },
+        "clsInitial": 0.001570783508099606,
+        "clsAfterScroll": 0.001570783508099606,
+        "transferBytesInitial": 1860579,
+        "transferBytes": 2056688,
+        "jsBytes": 436602,
+        "origins": {
+          "http://localhost:3250": 2051977,
+          "https://cloud.umami.is": 4711
+        },
+        "longTasksInitial": {
+          "count": 1,
+          "totalMs": 77,
+          "maxMs": 77
+        },
+        "longTasksScroll": {
+          "count": 0,
+          "totalMs": 0,
+          "maxMs": 0
+        },
+        "overflow": false,
+        "errors": [],
+        "failures": []
+      },
+      {
+        "route": "/station/sadang/",
+        "repetition": 2,
+        "status": 200,
+        "lcpMs": 4196,
+        "lcpElement": {
+          "startTime": 4196,
+          "size": 77000,
+          "tag": "IMG",
+          "text": "",
+          "url": "http://localhost:3250/images/station/generated/sadang-section-384.webp"
+        },
+        "clsInitial": 0.001570783508099606,
+        "clsAfterScroll": 0.001570783508099606,
+        "transferBytesInitial": 1860570,
+        "transferBytes": 2056679,
+        "jsBytes": 436593,
+        "origins": {
+          "http://localhost:3250": 2051977,
+          "https://cloud.umami.is": 4702
+        },
+        "longTasksInitial": {
+          "count": 1,
+          "totalMs": 74,
+          "maxMs": 74
+        },
+        "longTasksScroll": {
+          "count": 0,
+          "totalMs": 0,
+          "maxMs": 0
+        },
+        "overflow": false,
+        "errors": [],
+        "failures": []
+      },
+      {
+        "route": "/station/sadang/",
+        "repetition": 3,
+        "status": 200,
+        "lcpMs": 4184,
+        "lcpElement": {
+          "startTime": 4184,
+          "size": 77000,
+          "tag": "IMG",
+          "text": "",
+          "url": "http://localhost:3250/images/station/generated/sadang-section-384.webp"
+        },
+        "clsInitial": 0.001570783508099606,
+        "clsAfterScroll": 0.001570783508099606,
+        "transferBytesInitial": 1855868,
+        "transferBytes": 2051977,
+        "jsBytes": 431891,
+        "origins": {
+          "http://localhost:3250": 2051977
+        },
+        "longTasksInitial": {
+          "count": 1,
+          "totalMs": 74,
+          "maxMs": 74
+        },
+        "longTasksScroll": {
+          "count": 0,
+          "totalMs": 0,
+          "maxMs": 0
+        },
+        "overflow": false,
+        "errors": [],
+        "failures": [
+          {
+            "type": "Script",
+            "errorText": "net::ERR_BLOCKED_BY_ORB",
+            "canceled": false
+          }
+        ]
+      }
+    ],
+    "medians": {
+      "/": {
+        "lcpMs": 3656,
+        "clsInitial": 0.016805795406834804,
+        "clsAfterScroll": 0.016805795406834804,
+        "transferBytesInitial": 1935697,
+        "transferBytes": 2143352,
+        "jsBytes": 432996
+      },
+      "/articles/": {
+        "lcpMs": 3748,
+        "clsInitial": 0.0015075102846884702,
+        "clsAfterScroll": 0.0015075102846884702,
+        "transferBytesInitial": 2076475,
+        "transferBytes": 2619289,
+        "jsBytes": 436214
+      },
+      "/station/sadang/": {
+        "lcpMs": 4196,
+        "clsInitial": 0.001570783508099606,
+        "clsAfterScroll": 0.001570783508099606,
+        "transferBytesInitial": 1860570,
+        "transferBytes": 2056679,
+        "jsBytes": 436593
+      }
+    }
+  }
+}

@@ -1,4 +1,5 @@
-import type { Source, StationSection } from "./types";
+import { articleGuideSourceIds, validateArticleGuide } from "../lib/article-guide";
+import type { Source, StationSection, StationSign, LineId, Transfer, ReelCover, Station } from "./types";
 import { guriEscalator } from "./articles/guri-escalator";
 import { expressTerminal } from "./articles/express-terminal";
 import { seongsuBranch } from "./articles/seongsu-branch";
@@ -15,9 +16,13 @@ export type MagazineArticle = {
   answer: string;
   answerSourceIds: string[];
   body: { heading: string; paragraphs: { text: string; sourceIds: string[] }[] }[];
+  station?: { name: string; lines: LineId[]; sign: StationSign; sourceIds: string[] };
+  transfers?: Transfer[];
   sources: Source[];
   related: { title: string; href: string }[];
   image?: { src: string; alt: string; caption: string; width: number; height: number };
+  cover?: ReelCover;
+  reel?: Station["reel"];
   datePublished: string;
   dateModified: string;
   corrections?: { date: string; before: string; after: string; reason: string }[];
@@ -27,8 +32,9 @@ export type MagazineArticle = {
 export const articles: MagazineArticle[] = [guriEscalator, expressTerminal, seongsuBranch, dongmyoWeekend, gimpoPlanChange, isuGuideTimes, hongdaeTransfer, dongjakExpress];
 
 for (const article of articles) {
+  validateArticleGuide(article);
   const sourceIds = new Set(article.sources.map((source) => source.id));
-  const citations = [article.answerSourceIds, ...article.body.flatMap((section) => section.paragraphs.map((paragraph) => paragraph.sourceIds))].flat();
+  const citations = [articleGuideSourceIds(article), article.answerSourceIds, ...article.body.flatMap((section) => section.paragraphs.map((paragraph) => paragraph.sourceIds))].flat();
   const missing = citations.filter((id) => !sourceIds.has(id));
   const uncited = article.sources.filter((source) => !citations.includes(source.id) || !source.url);
   if (!article.answerSourceIds.length || !article.body.length || article.related.length < 2 || missing.length || uncited.length) {

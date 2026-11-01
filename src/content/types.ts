@@ -41,11 +41,15 @@ export type StationSign = { line: LineId; prev: string; next: string; en: string
 export type Transfer = {
   ride: { line: LineId; direction: string };
   to: { line: LineId; direction: string };
-  /** 내릴 칸(호차-문). 예: "10-4". */
+  /** 내릴 칸(호차-문). 예: "10-4". 공식 원자료의 All은 "모든 칸". */
   car: string;
+  /** 원자료의 갈아탈 열차 승차 위치. */
+  toCar?: string;
   /** 사람이 읽는 소요 시간. 예: "3분 24초", "3분 22~24초". */
   time: string;
   sourceId: string;
+  /** 편성 근거가 있을 때만 칸 위치를 그린다. */
+  formation?: { cars: number; sourceId: string };
 };
 
 /** 풀쿼트 숫자 하나. */
@@ -110,6 +114,9 @@ export type TimelineItem = {
 /** 진행 연표 하나(사업 단위). */
 export type Timeline = { title: string; items: TimelineItem[] };
 
+/** 목록에 쓰는 선택적 릴스 표지. 본문 이미지와 구분하며 글자가 잘리지 않게 전체를 표시한다. */
+export type ReelCover = { src: string; alt: string; caption: string; width: number; height: number };
+
 export type Station = {
   slug: string;
   /** 역 해부 일련번호(릴스 게시 순). */
@@ -129,6 +136,7 @@ export type Station = {
   teaser: string;
   /** 3D 단면 이미지(4:5). v1의 `section` 필드가 섹션 구분으로 바뀌면서 이름을 옮겼다. */
   crossSection: { src: string; alt: string; caption: string };
+  cover?: ReelCover;
   ogImage: string;
   stats: [Stat, Stat, Stat];
   pullQuote?: PullQuote;

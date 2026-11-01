@@ -33,7 +33,7 @@ export function aboutJsonLd() {
 }
 
 /** 홈: WebSite + 질문 목록(ItemList). */
-export function homeJsonLd(list: Station[], articles: MagazineArticle[] = []) {
+export function homeJsonLd(items: { name: string; url: string }[]) {
   return [
     {
       "@context": "https://schema.org",
@@ -47,8 +47,8 @@ export function homeJsonLd(list: Station[], articles: MagazineArticle[] = []) {
     {
       "@context": "https://schema.org",
       "@type": "ItemList",
-      name: "역 해부 질문 목록",
-      itemListElement: [...list.map((s) => ({ name: s.question, url: absoluteUrl(stationPath(s)) })), ...articles.map((article) => ({ name: article.question, url: absoluteUrl(articlePath(article)) }))].map((item, i) => ({
+      name: "대표 기사와 최근 기사",
+      itemListElement: items.map(item => ({ ...item, url: absoluteUrl(item.url) })).map((item, i) => ({
         "@type": "ListItem",
         position: i + 1,
         ...item,
@@ -140,7 +140,7 @@ export function articleJsonLd(article: MagazineArticle) {
 }
 
 /** 노선 허브: 화면에 실린 역 기사만 나열한다. */
-export function lineJsonLd(line: LineId, list: Station[]) {
+export function lineJsonLd(line: LineId, list: { href: string; title: string }[]) {
   const url = absoluteUrl(`/line/${line}/`);
   return [
     {
@@ -155,12 +155,12 @@ export function lineJsonLd(line: LineId, list: Station[]) {
       "@context": "https://schema.org",
       "@type": "ItemList",
       "@id": `${url}#questions`,
-      name: "이 노선의 질문",
-      itemListElement: list.map((station, index) => ({
+      name: "이 노선의 기사",
+      itemListElement: list.map((entry, index) => ({
         "@type": "ListItem",
         position: index + 1,
-        name: station.question,
-        url: absoluteUrl(stationPath(station)),
+        name: entry.title,
+        url: absoluteUrl(entry.href),
       })),
     },
     {
@@ -168,8 +168,19 @@ export function lineJsonLd(line: LineId, list: Station[]) {
       "@type": "BreadcrumbList",
       itemListElement: [
         { "@type": "ListItem", position: 1, name: site.name, item: absoluteUrl("/") },
-        { "@type": "ListItem", position: 2, name: lineName(line), item: url },
+        { "@type": "ListItem", position: 2, name: "노선", item: absoluteUrl("/line/") },
+        { "@type": "ListItem", position: 3, name: lineName(line), item: url },
       ],
     },
   ];
+}
+
+/** 정적 기사 목록에 실제 표시된 항목만 설명한다. */
+export function archiveJsonLd(title: string, description: string, path: string, entries: { href: string; title: string }[]) {
+  return {
+    "@context": "https://schema.org", "@type": "CollectionPage", name: title,
+    description, url: absoluteUrl(path), inLanguage: "ko-KR",
+    mainEntity: { "@type": "ItemList", numberOfItems: entries.length,
+      itemListElement: entries.map((entry, index) => ({ "@type": "ListItem", position: index + 1, name: entry.title, url: absoluteUrl(entry.href) })) },
+  };
 }

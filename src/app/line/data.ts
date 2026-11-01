@@ -1,16 +1,16 @@
-import type { LineId } from "@/content/lines";
-import { stations } from "@/content/stations";
+import { LINES, type LineId } from "@/content/lines";
+import { articleEntries } from "@/lib/article-index";
 
-export const publishedLines = [...new Set(stations.flatMap((station) => station.lines))].sort();
+export const publishedLines = (Object.keys(LINES) as LineId[]).filter(id => articleEntries.some(entry => entry.lines.includes(id)));
 
 export function linePath(id: LineId) {
   return `/line/${id}/`;
 }
 
-export function lineStations(id: LineId) {
-  return stations.filter((station) => station.lines.includes(id));
+export function lineArticles(id: LineId) {
+  return articleEntries.filter(entry => entry.lines.includes(id));
 }
 
 export function lineLastModified(id: LineId) {
-  return lineStations(id).map((station) => station.dateModified).sort().at(-1);
+  return lineArticles(id).map(entry => entry.modified).sort().at(-1);
 }

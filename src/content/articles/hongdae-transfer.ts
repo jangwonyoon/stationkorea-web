@@ -3,9 +3,32 @@ import type { MagazineArticle } from "../articles";
 export const hongdaeTransfer: MagazineArticle = {
   slug: "hongdae-transfer",
   section: "transfer",
+  cover: {
+    src: "/images/station/hongdae-transfer-cover.jpg",
+    alt: "홍대입구역 릴스 표지. 2호선에서 공항철도까지 8분, 왜? 방향별 참고 시간은 기사에서 확인할 수 있다.",
+    caption: "홍대입구역 릴스 표지. 환승 참고 시간은 방향별로 다릅니다. AI 시각화 참고 이미지.",
+    width: 1080, height: 1920,
+  },
+  station: {
+    name: "홍대입구역",
+    lines: ["2", "arex", "gyeongui-jungang"],
+    sign: { line: "2", prev: "합정", next: "신촌", en: "Hongik Univ." },
+    sourceIds: ["guide-map", "H2"],
+  },
+  transfers: [
+    { ride: { line: "2", direction: "합정 방면" }, to: { line: "arex", direction: "공덕 방면" }, car: "6-3", toCar: "2-2", time: "11분 46초", sourceId: "H2", formation: { cars: 10, sourceId: "guide-formation" } },
+    { ride: { line: "2", direction: "신촌 방면" }, to: { line: "arex", direction: "공덕 방면" }, car: "3-2", toCar: "2-1", time: "8분 28초", sourceId: "H2", formation: { cars: 10, sourceId: "guide-formation" } },
+    { ride: { line: "2", direction: "신촌 방면" }, to: { line: "arex", direction: "디지털미디어시티 방면" }, car: "3-2", toCar: "5-3", time: "8분 31초", sourceId: "H2", formation: { cars: 10, sourceId: "guide-formation" } },
+    { ride: { line: "2", direction: "합정 방면" }, to: { line: "arex", direction: "디지털미디어시티 방면" }, car: "8-2", toCar: "1-1", time: "10분 57초", sourceId: "H2", formation: { cars: 10, sourceId: "guide-formation" } },
+  ],
   question: "홍대입구역 환승 355m, 어느 노선 사이를 잰 걸까?",
   answer: "서울교통공사가 2026년 8월 31일 기준으로 제시한 355m는 2호선과 공항철도 사이의 최단 환승거리다. 같은 자료에서 2호선과 경의중앙선 사이는 305m이므로 역 전체의 거리로 읽을 수 없다.",
   answerSourceIds: ["H1"],
+  reel: {
+    url: "https://www.instagram.com/reel/DfMsIvHRqjm/",
+    thumbnail: "/images/station/hongdae-transfer-cover.jpg",
+    postedAt: "2026-11-01T21:06:00+09:00",
+  },
   body: [
     {
       heading: "세 노선이 만나면 ‘환승거리’도 하나가 아니다",
@@ -35,6 +58,9 @@ export const hongdaeTransfer: MagazineArticle = {
     },
   ],
   sources: [
+    { id: "guide-formation", org: "서울특별시 도시철도과", title: "서울지하철 현황 및 이용안내 — 2호선 순환선 조성칸수", date: "2025-01-31 기준", url: "https://news.seoul.go.kr/traffic/archives/1551?listPage=1" },
+    { id: "guide-map", org: "서울교통공사", title: "수도권 지하철 노선도 — 역명·영문명·환승노선", date: "2025-09-29 자료", url: "https://data.seoul.go.kr/dataList/OA-22535/F/1/datasetView.do" },
+
     { id: "H1", org: "서울교통공사", title: "환승역거리 소요시간 정보", date: "2026-08-31 기준", url: "https://www.data.go.kr/data/15044419/fileData.do" },
     { id: "H2", org: "서울교통공사", title: "서울 도시철도 환승정보", date: "2026-09-01 기준", url: "https://www.data.go.kr/data/15098252/fileData.do" },
     { id: "H3", org: "유혁·이장호", title: "도시철도 환승편의성 개선방안 연구 — 공항철도 사례를 중심으로", date: "2017년 한국철도학회 추계학술대회", url: "https://railway.or.kr/Papers_Conference/201711/pdf/KSR2017A029.pdf" },
@@ -44,5 +70,5 @@ export const hongdaeTransfer: MagazineArticle = {
     { title: "고속터미널역의 15cm와 314m는 무엇을 잰 숫자일까?", href: "/article/express-terminal/" },
   ],
   datePublished: "2026-11-01T00:00:00+09:00",
-  dateModified: "2026-11-01T00:00:00+09:00",
+  dateModified: "2026-11-01T16:15:25+09:00",
 };

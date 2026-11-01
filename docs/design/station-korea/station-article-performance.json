@@ -1,0 +1,393 @@
+{
+  "before": {
+    "measuredAt": "2026-11-01T11:48:06.106Z",
+    "head": "a7bb20f75f9bbf83c128118b9f201e4d236a05d9",
+    "environment": {
+      "node": "v22.22.3",
+      "chromium": "156.0.8078.4",
+      "playwright": "1.64.1",
+      "os": "darwin 24.6.0 arm64",
+      "cpu": "Apple M4 Pro"
+    },
+    "conditions": {
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "deviceScaleFactor": 1,
+      "colorScheme": "light",
+      "reducedMotion": "no-preference",
+      "cpuSlowdown": 4,
+      "cacheDisabled": true,
+      "networkLatencyMs": 150,
+      "downloadBitsPerSecond": 1600000,
+      "uploadBitsPerSecond": 750000,
+      "repetitions": 3,
+      "settleAfterLoadMs": 5000,
+      "scrollSteps": 12,
+      "scrollStepWaitMs": 250
+    },
+    "medians": {
+      "/station/sadang/": {
+        "lcpMs": 4200,
+        "clsInitial": 0.001570783508099606,
+        "clsAfterScroll": 0.001570783508099606,
+        "transferBytesInitial": 1860567,
+        "transferBytes": 2056676,
+        "jsBytes": 436590
+      },
+      "/article/guri-escalator/": {
+        "lcpMs": 3840,
+        "clsInitial": 0.0015579942395377807,
+        "clsAfterScroll": 0.0015579942395377807,
+        "transferBytesInitial": 1564415,
+        "transferBytes": 1785841,
+        "jsBytes": 436213
+      }
+    },
+    "runs": [
+      {
+        "route": "/station/sadang/",
+        "repetition": 1,
+        "status": 200,
+        "lcpMs": 4240,
+        "clsInitial": 0.001570783508099606,
+        "clsAfterScroll": 0.001570783508099606,
+        "transferBytesInitial": 1860567,
+        "transferBytes": 2056676,
+        "jsBytes": 436590,
+        "longTasksInitial": {
+          "count": 1,
+          "totalMs": 77,
+          "maxMs": 77
+        },
+        "longTasksScroll": {
+          "count": 0,
+          "totalMs": 0,
+          "maxMs": 0
+        },
+        "overflow": false,
+        "errors": [],
+        "failures": []
+      },
+      {
+        "route": "/station/sadang/",
+        "repetition": 2,
+        "status": 200,
+        "lcpMs": 4176,
+        "clsInitial": 0.001570783508099606,
+        "clsAfterScroll": 0.001570783508099606,
+        "transferBytesInitial": 1860567,
+        "transferBytes": 2056676,
+        "jsBytes": 436590,
+        "longTasksInitial": {
+          "count": 1,
+          "totalMs": 74,
+          "maxMs": 74
+        },
+        "longTasksScroll": {
+          "count": 0,
+          "totalMs": 0,
+          "maxMs": 0
+        },
+        "overflow": false,
+        "errors": [],
+        "failures": []
+      },
+      {
+        "route": "/station/sadang/",
+        "repetition": 3,
+        "status": 200,
+        "lcpMs": 4200,
+        "clsInitial": 0.001570783508099606,
+        "clsAfterScroll": 0.001570783508099606,
+        "transferBytesInitial": 1860567,
+        "transferBytes": 2056676,
+        "jsBytes": 436590,
+        "longTasksInitial": {
+          "count": 1,
+          "totalMs": 77,
+          "maxMs": 77
+        },
+        "longTasksScroll": {
+          "count": 0,
+          "totalMs": 0,
+          "maxMs": 0
+        },
+        "overflow": false,
+        "errors": [],
+        "failures": []
+      },
+      {
+        "route": "/article/guri-escalator/",
+        "repetition": 1,
+        "status": 200,
+        "lcpMs": 3840,
+        "clsInitial": 0.0015579942395377807,
+        "clsAfterScroll": 0.0015579942395377807,
+        "transferBytesInitial": 1564416,
+        "transferBytes": 1785842,
+        "jsBytes": 436214,
+        "longTasksInitial": {
+          "count": 1,
+          "totalMs": 77,
+          "maxMs": 77
+        },
+        "longTasksScroll": {
+          "count": 0,
+          "totalMs": 0,
+          "maxMs": 0
+        },
+        "overflow": false,
+        "errors": [],
+        "failures": []
+      },
+      {
+        "route": "/article/guri-escalator/",
+        "repetition": 2,
+        "status": 200,
+        "lcpMs": 3840,
+        "clsInitial": 0.0015579942395377807,
+        "clsAfterScroll": 0.0015579942395377807,
+        "transferBytesInitial": 1564415,
+        "transferBytes": 1785841,
+        "jsBytes": 436213,
+        "longTasksInitial": {
+          "count": 1,
+          "totalMs": 77,
+          "maxMs": 77
+        },
+        "longTasksScroll": {
+          "count": 0,
+          "totalMs": 0,
+          "maxMs": 0
+        },
+        "overflow": false,
+        "errors": [],
+        "failures": []
+      },
+      {
+        "route": "/article/guri-escalator/",
+        "repetition": 3,
+        "status": 200,
+        "lcpMs": 3840,
+        "clsInitial": 0.0015579942395377807,
+        "clsAfterScroll": 0.0015579942395377807,
+        "transferBytesInitial": 1564415,
+        "transferBytes": 1785841,
+        "jsBytes": 436213,
+        "longTasksInitial": {
+          "count": 1,
+          "totalMs": 74,
+          "maxMs": 74
+        },
+        "longTasksScroll": {
+          "count": 0,
+          "totalMs": 0,
+          "maxMs": 0
+        },
+        "overflow": false,
+        "errors": [],
+        "failures": []
+      }
+    ]
+  },
+  "after": {
+    "measuredAt": "2026-11-01T11:51:26.296Z",
+    "head": "a7bb20f75f9bbf83c128118b9f201e4d236a05d9",
+    "environment": {
+      "node": "v22.22.3",
+      "chromium": "156.0.8078.4",
+      "playwright": "1.64.1",
+      "os": "darwin 24.6.0 arm64",
+      "cpu": "Apple M4 Pro"
+    },
+    "conditions": {
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "deviceScaleFactor": 1,
+      "colorScheme": "light",
+      "reducedMotion": "no-preference",
+      "cpuSlowdown": 4,
+      "cacheDisabled": true,
+      "networkLatencyMs": 150,
+      "downloadBitsPerSecond": 1600000,
+      "uploadBitsPerSecond": 750000,
+      "repetitions": 3,
+      "settleAfterLoadMs": 5000,
+      "scrollSteps": 12,
+      "scrollStepWaitMs": 250
+    },
+    "medians": {
+      "/station/sadang/": {
+        "lcpMs": 4212,
+        "clsInitial": 0.0014610650462271045,
+        "clsAfterScroll": 0.0014610650462271045,
+        "transferBytesInitial": 1864396,
+        "transferBytes": 2063831,
+        "jsBytes": 436592
+      },
+      "/article/guri-escalator/": {
+        "lcpMs": 3884,
+        "clsInitial": 0.0015912830534020534,
+        "clsAfterScroll": 0.0015912830534020534,
+        "transferBytesInitial": 1599868,
+        "transferBytes": 1821453,
+        "jsBytes": 436592
+      }
+    },
+    "runs": [
+      {
+        "route": "/station/sadang/",
+        "repetition": 1,
+        "status": 200,
+        "lcpMs": 4252,
+        "clsInitial": 0.001570783508099606,
+        "clsAfterScroll": 0.001570783508099606,
+        "transferBytesInitial": 1864396,
+        "transferBytes": 2063831,
+        "jsBytes": 436592,
+        "longTasksInitial": {
+          "count": 1,
+          "totalMs": 88,
+          "maxMs": 88
+        },
+        "longTasksScroll": {
+          "count": 0,
+          "totalMs": 0,
+          "maxMs": 0
+        },
+        "overflow": false,
+        "errors": [],
+        "failures": []
+      },
+      {
+        "route": "/station/sadang/",
+        "repetition": 2,
+        "status": 200,
+        "lcpMs": 4212,
+        "clsInitial": 0.0014610650462271045,
+        "clsAfterScroll": 0.0014610650462271045,
+        "transferBytesInitial": 1864396,
+        "transferBytes": 2063831,
+        "jsBytes": 436592,
+        "longTasksInitial": {
+          "count": 1,
+          "totalMs": 114,
+          "maxMs": 114
+        },
+        "longTasksScroll": {
+          "count": 0,
+          "totalMs": 0,
+          "maxMs": 0
+        },
+        "overflow": false,
+        "errors": [],
+        "failures": []
+      },
+      {
+        "route": "/station/sadang/",
+        "repetition": 3,
+        "status": 200,
+        "lcpMs": 4212,
+        "clsInitial": 0.0014610650462271045,
+        "clsAfterScroll": 0.0014610650462271045,
+        "transferBytesInitial": 1864396,
+        "transferBytes": 2063831,
+        "jsBytes": 436592,
+        "longTasksInitial": {
+          "count": 1,
+          "totalMs": 77,
+          "maxMs": 77
+        },
+        "longTasksScroll": {
+          "count": 0,
+          "totalMs": 0,
+          "maxMs": 0
+        },
+        "overflow": false,
+        "errors": [],
+        "failures": []
+      },
+      {
+        "route": "/article/guri-escalator/",
+        "repetition": 1,
+        "status": 200,
+        "lcpMs": 3884,
+        "clsInitial": 0.0015912830534020534,
+        "clsAfterScroll": 0.0015912830534020534,
+        "transferBytesInitial": 1599878,
+        "transferBytes": 1821463,
+        "jsBytes": 436602,
+        "longTasksInitial": {
+          "count": 1,
+          "totalMs": 77,
+          "maxMs": 77
+        },
+        "longTasksScroll": {
+          "count": 0,
+          "totalMs": 0,
+          "maxMs": 0
+        },
+        "overflow": false,
+        "errors": [],
+        "failures": []
+      },
+      {
+        "route": "/article/guri-escalator/",
+        "repetition": 2,
+        "status": 200,
+        "lcpMs": 3880,
+        "clsInitial": 0.0015912830534020534,
+        "clsAfterScroll": 0.0015912830534020534,
+        "transferBytesInitial": 1599868,
+        "transferBytes": 1821453,
+        "jsBytes": 436592,
+        "longTasksInitial": {
+          "count": 1,
+          "totalMs": 86,
+          "maxMs": 86
+        },
+        "longTasksScroll": {
+          "count": 0,
+          "totalMs": 0,
+          "maxMs": 0
+        },
+        "overflow": false,
+        "errors": [],
+        "failures": []
+      },
+      {
+        "route": "/article/guri-escalator/",
+        "repetition": 3,
+        "status": 200,
+        "lcpMs": 3920,
+        "clsInitial": 0.0015912830534020534,
+        "clsAfterScroll": 0.0015912830534020534,
+        "transferBytesInitial": 1599868,
+        "transferBytes": 1821453,
+        "jsBytes": 436592,
+        "longTasksInitial": {
+          "count": 1,
+          "totalMs": 91,
+          "maxMs": 91
+        },
+        "longTasksScroll": {
+          "count": 0,
+          "totalMs": 0,
+          "maxMs": 0
+        },
+        "overflow": false,
+        "errors": [],
+        "failures": []
+      }
+    ],
+    "workingTree": "#146 최종 PR의 앱 변경 내용. 측정 당시 미커밋 상태이며 이후 앱 변경 없음."
+  },
+  "limitations": [
+    "Local uncompressed HTTP, simulated CPU/network on shared host, includes prefetch and external analytics; not production metrics.",
+    "Before measurement overlapped part of independent browser review. Small timing differences are not a causal claim."
+  ]
+}

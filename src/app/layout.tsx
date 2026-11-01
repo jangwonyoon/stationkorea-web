@@ -5,6 +5,7 @@ import { hahmlet, plexSansKr } from "./fonts";
 import { Analytics } from "@/components/Analytics";
 import { SiteFooter } from "@/components/site/SiteFooter";
 import { SiteHeader } from "@/components/site/SiteHeader";
+import { sectionLinks } from "@/lib/article-index";
 import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -24,7 +25,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="ko" suppressHydrationWarning className={`${hahmlet.variable} ${plexSansKr.variable}`}>
       <body className="antialiased">
-        <SiteHeader />
+        <SiteHeader sections={sectionLinks} />
         <main>{children}</main>
         {/* Umami(쿠키리스). data-domains로 production 도메인에서만 집계한다. */}
         <Script

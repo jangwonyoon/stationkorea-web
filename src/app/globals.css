@@ -17,6 +17,9 @@
   --color-ink-2: #33383d;
   --color-ink-3: #4a5056;
   --color-exit: #ffcd00;
+  --color-footer: #191b1d;
+  --color-on-footer: #eceeee;
+  --color-footer-muted: #c5cacd;
   /* 흰 판·출구 노랑·노선색 채움 위의 먹 글자. 다크에서도 바뀌지 않는다. */
   --color-plate-ink: #191b1d;
   /* 기사 강조색 = 기준 노선색. 기사 루트에서 [--color-accent:var(--color-line-2)]처럼 덮어쓴다. */
@@ -32,6 +35,15 @@
   --color-line-7: #747f00;
   --color-line-8: #e6186c;
   --color-line-9: #bdb092;
+  /* 이름 노선은 안내용 근사색. 공식 지정 hex로 사용하지 않는다. */
+  --color-line-gyeongui-jungang: #77c4a3;
+  --color-line-arex: #0090d2;
+  --color-line-seohae: #8fc31f;
+  --color-line-gimpo-goldline: #a17800;
+  --color-on-line-gyeongui-jungang: #191b1d;
+  --color-on-line-arex: #191b1d;
+  --color-on-line-seohae: #191b1d;
+  --color-on-line-gimpo-goldline: #ffffff;
 
   /* 노선색 채움 위 숫자색 */
   --color-on-line-1: #ffffff;
@@ -46,6 +58,11 @@
 
   /* 모서리: rounded-xl(기사 카드·홈 표지), rounded-lg(카드 안 썸네일), rounded-none(본문 블록·표), rounded-plate(역명판·버튼·하차 칸 표지), rounded-full(원형 번호·역 점·핀만) */
   --radius-plate: 2px;
+  /* 기사 상세 시안의 데스크톱 제목. */
+  --text-article-title: 56px;
+  --text-article-title--line-height: 1.22;
+  --text-station-name: 64px;
+  --text-station-name--line-height: 1;
 
   /* 움직임: 역명판 띠 그리기 900ms, 진입 1회 */
   --ease-band: cubic-bezier(0.2, 0.7, 0.2, 1);
@@ -116,6 +133,7 @@
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     --color-ground: #121416;
+    --color-footer: #1c1f22;
     --color-slab: #1c1f22;
     --color-rule: #3a4045;
     --color-ink: #e8eaeb;
@@ -131,6 +149,7 @@
 :root[data-theme="dark"] {
   color-scheme: dark;
   --color-ground: #121416;
+  --color-footer: #1c1f22;
   --color-slab: #1c1f22;
   --color-rule: #3a4045;
   --color-ink: #e8eaeb;
@@ -457,4 +476,30 @@
   top: 1.5rem;
   height: 2px;
   background: repeating-linear-gradient(90deg, var(--color-ink-3) 0 2rem, transparent 2rem 4rem);
+}
+
+/* 지원하지 않는 브라우저는 기본 details 동작으로 즉시 전환한다. */
+@utility transfer-disclosure {
+  @supports (interpolate-size: allow-keywords) {
+    interpolate-size: allow-keywords;
+    &::details-content {
+      block-size: 0;
+      overflow: clip;
+      transition: block-size 220ms ease, content-visibility 220ms allow-discrete;
+    }
+    &[open]::details-content { block-size: auto; }
+    @media (prefers-reduced-motion: reduce) {
+      &::details-content { transition: none; }
+    }
+  }
+}
+
+/* 승인된 영문 주 표기. 한국어 본문·제목 서체는 기존 토큰을 유지한다. */
+@utility brand-wordmark {
+  font-family: var(--font-sans);
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+  @variant md { font-size: 16px; }
 }

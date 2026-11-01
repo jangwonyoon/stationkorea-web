@@ -22,7 +22,7 @@ import { stationJsonLd } from "@/lib/jsonld";
 import { markdownPath } from "@/lib/markdown";
 import { readingMinutes } from "@/lib/reading-time";
 import { absoluteUrl, site } from "@/lib/site";
-import { ArticleLayout } from "./ArticleLayout";
+import { ArticleLayout } from "@/components/article/ArticleLayout";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -49,7 +49,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       description: s.answer,
       publishedTime: s.datePublished,
       modifiedTime: s.dateModified,
-      images: [{ url: s.ogImage, width: 1200, height: 630, alt: s.crossSection.alt }],
+      images: [{ url: s.ogImage, width: 1200, height: 630, alt: s.question }],
     },
     twitter: { card: "summary_large_image", title: s.question, description: s.answer, images: [s.ogImage] },
   };
@@ -87,12 +87,15 @@ export default async function StationPage({ params }: Props) {
     <>
       <JsonLd data={jsonLd} />
       <article className="page-wrap pb-16">
-        <div className="pt-1"><Breadcrumb items={breadcrumb} /></div>
+        <div className="flex flex-wrap items-center justify-between gap-x-6 gap-y-2 py-3">
+          <Breadcrumb items={breadcrumb} />
+          <p className="text-label">#갈아타다 <span className="ml-3 text-ink-3">역 해부 {String(s.no).padStart(2, "0")}</span></p>
+        </div>
+        <StationSign station={s} transfers={s.transfers} />
+        <div className="mt-8 xl:mt-12">
         <ArticleLayout key={s.slug}>
-        <header className="mt-2">
-          <p className="mb-3 text-label">#갈아타다 <span className="ml-3 text-ink-3">역 해부 {String(s.no).padStart(2, "0")}</span></p>
-          <StationSign station={s} />
-          <h1 className="mt-6 text-h1 break-keep">{s.question}</h1>
+        <header>
+          <h1 className="text-h1 break-keep xl:text-article-title">{s.question}</h1>
           <p id="article-answer" className="mt-4 text-lead">{s.answer}</p>
           <div className="mt-2"><Byline author={site.author} published={s.datePublished} modified={s.dateModified} readingMinutes={readingMinutes(s)} /></div>
         </header>
@@ -145,6 +148,7 @@ export default async function StationPage({ params }: Props) {
           <p className="mt-3 text-caption"><Link href="/about/" className="inline-flex min-h-11 items-center underline">출처·정정 정책</Link></p>
         </section>
         </ArticleLayout>
+        </div>
       </article>
     </>
   );

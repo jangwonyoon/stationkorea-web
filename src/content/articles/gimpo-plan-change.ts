@@ -3,6 +3,18 @@ import type { MagazineArticle } from "../articles";
 export const gimpoPlanChange: MagazineArticle = {
   slug: "gimpo-plan-change",
   section: "transfer",
+  station: {
+    name: "김포공항역",
+    lines: ["seohae", "5", "9", "arex", "gimpo-goldline"],
+    sign: { line: "5", prev: "개화산", next: "송정", en: "Gimpo Int’l Airport" },
+    sourceIds: ["guide-map", "guide-transfer"],
+  },
+  transfers: [
+    { ride: { line: "seohae", direction: "능곡 방면" }, to: { line: "5", direction: "송정 방면" }, car: "3-3", toCar: "7-3", time: "3분 7초", sourceId: "guide-transfer" },
+    { ride: { line: "seohae", direction: "능곡 방면" }, to: { line: "5", direction: "개화산 방면" }, car: "3-3", toCar: "1-4", time: "3분 7초", sourceId: "guide-transfer" },
+    { ride: { line: "seohae", direction: "원종 방면" }, to: { line: "5", direction: "개화산 방면" }, car: "4-2", toCar: "1-4", time: "3분 7초", sourceId: "guide-transfer" },
+    { ride: { line: "seohae", direction: "원종 방면" }, to: { line: "5", direction: "송정 방면" }, car: "4-2", toCar: "7-3", time: "3분 7초", sourceId: "guide-transfer" },
+  ],
   question: "김포공항역 서해선은 왜 주차장 자리 계획에서 환승 중심 위치로 바뀌었을까?",
   answer: "국가철도공단은 2017년 김포공항역의 서해선 정거장을 공항 주차장 자리에 두려던 계획에서 김포도시철도와 9호선 사이로 바꿔 직접 환승을 가능하게 하려 했다고 밝혔다.",
   answerSourceIds: ["GP1"],
@@ -44,6 +56,8 @@ export const gimpoPlanChange: MagazineArticle = {
     },
   ],
   sources: [
+    { id: "guide-map", org: "서울교통공사", title: "수도권 지하철 노선도 — 역명·영문명·환승노선", date: "2025-09-29 자료", url: "https://data.seoul.go.kr/dataList/OA-22535/F/1/datasetView.do" },
+    { id: "guide-transfer", org: "서울교통공사", title: "서울 도시철도 환승정보", date: "2026-09-01 기준", url: "https://www.data.go.kr/data/15098252/fileData.do" },
     { id: "GP1", org: "국가철도공단(당시 한국철도시설공단)", title: "대곡~소사 DS01정거장 교통 허브화 설계 완료", date: "2017-12-08 발표", url: "https://www.kr.or.kr/boardCnts/view.do?boardID=52&boardSeq=1109549&page=106" },
     { id: "GP2", org: "국가철도공단", title: "수도권, 철도허브 역할 위해 올해 2조 7,380억 원 투입", date: "2023-07-24 발표 · 2023-07-01 개통", url: "https://www.kr.or.kr/boardCnts/view.do?boardID=52&boardSeq=1118317&page=68" },
   ],
@@ -52,5 +66,5 @@ export const gimpoPlanChange: MagazineArticle = {
     { title: "잠실역, 2호선에서 8호선까지 왜 이렇게 멀까?", href: "/station/jamsil/" },
   ],
   datePublished: "2026-11-01T00:00:00+09:00",
-  dateModified: "2026-11-01T00:00:00+09:00",
+  dateModified: "2026-11-01T16:15:25+09:00",
 };

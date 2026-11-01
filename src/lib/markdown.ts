@@ -57,12 +57,21 @@ export function articleMarkdown(article: MagazineArticle): string {
   const reference = (ids: string[]) => ids.map((id) => `[${article.sources.findIndex((source) => source.id === id) + 1}]`).join("");
   return [
     `# ${article.question}`, "",
+    `${site.name}`,
     `글: [${site.author.name}](${absoluteUrl(site.author.path)})`,
     `원문: ${absoluteUrl(articlePath(article))}`,
     `게시: ${article.datePublished.slice(0, 10)} · 갱신: ${article.dateModified.slice(0, 10)}`,
+    ...(article.station ? ["", `역명판: ${article.station.name} (${article.station.sign.en}) · ${article.station.lines.map(lineName).join("·")}`, `${lineName(article.station.sign.line)}: ${article.station.sign.prev} ← ${article.station.name} → ${article.station.sign.next} ${reference(article.station.sourceIds)}`] : []),
     "", `${article.answer} ${reference(article.answerSourceIds)}`, "",
     ...(article.image ? [`![${article.image.alt}](${absoluteUrl(article.image.src)})`, "", article.image.caption, ""] : []),
     ...article.body.flatMap((section) => [`## ${section.heading}`, "", ...section.paragraphs.flatMap((paragraph) => [`${paragraph.text} ${reference(paragraph.sourceIds)}`, ""])]),
+    ...(article.transfers?.length ? ["## 어디서 내리면 빠른가", "", "표의 시간은 자료 기준일의 경로별 참고값입니다. 실제 이동 시간은 보행 속도와 혼잡에 따라 달라집니다.", "", "| 타고 있는 열차 | 갈아탈 노선·방면 | 내릴 칸(호차-문) | 참고 시간 | 기준일·출처 |", "|---|---|---|---|---|", ...article.transfers.map((transfer) => {
+      const source = article.sources.find((item) => item.id === transfer.sourceId)!;
+      const formationSource = transfer.formation ? article.sources.find((item) => item.id === transfer.formation!.sourceId)! : undefined;
+      const formation = transfer.formation ? ` · ${transfer.formation.cars}칸 편성 (${formationSource!.org} · ${formationSource!.date}) ${reference([transfer.formation.sourceId])}` : "";
+      return `| ${lineName(transfer.ride.line)} ${transfer.ride.direction} | ${lineName(transfer.to.line)} ${transfer.to.direction}${transfer.toCar ? ` · 승차 위치 ${transfer.toCar}` : ""} | ${transfer.car}${formation} | ${transfer.time} | ${source.org} · ${source.date} ${reference([transfer.sourceId])} |`;
+    }), ""] : []),
+    ...(article.reel ? [`릴스 영상: ${article.reel.url}`, ""] : []),
     "## 이어 읽기", "", ...article.related.map((related) => `- [${related.title}](${absoluteUrl(related.href)})`), "",
     "## 출처", "", ...article.sources.map((source, index) => `${index + 1}. ${source.org}, ${source.title}, ${source.date}${source.url ? `. ${source.url}` : ""}`), "",
     ...(article.corrections?.length ? ["## 정정 기록", "", ...article.corrections.map((item) => `- ${item.date}: ${item.before} → ${item.after}. ${item.reason}`), ""] : []),
