@@ -27,7 +27,7 @@ export function PhotoStory() {
             <p className="mt-6 max-w-sm text-body text-ink-2">
               목적지 사이에는 수많은 길이 있습니다. 선로와 승강장, 길과 길이 만나는 구조를 살펴봅니다.
             </p>
-            <Link href="/#all" className="mt-6 inline-flex min-h-11 items-center text-label underline underline-offset-4">
+            <Link href="/section/transfer/" className="mt-6 inline-flex min-h-11 items-center text-label underline underline-offset-4">
               지금, 역 기사 읽기 <span aria-hidden="true" className="ml-2">→</span>
             </Link>
           </div>

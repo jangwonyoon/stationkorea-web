@@ -76,7 +76,7 @@ export default async function LinePage({ params }: { params: Promise<{ id: strin
           ))}
         </ol>
       </section>
-      <Link href="/#all" className="pressable text-label mt-8 flex min-h-11 items-center justify-between border-y border-ink py-3">모든 역의 질문 보기 <span aria-hidden="true">→</span></Link>
+      <Link href="/section/transfer/" className="pressable text-label mt-8 flex min-h-11 items-center justify-between border-y border-ink py-3">모든 역의 질문 보기 <span aria-hidden="true">→</span></Link>
     </div>
   );
 }

@@ -33,7 +33,7 @@ export function aboutJsonLd() {
 }
 
 /** 홈: WebSite + 질문 목록(ItemList). */
-export function homeJsonLd(list: Station[], articles: MagazineArticle[] = []) {
+export function homeJsonLd(items: { name: string; url: string }[]) {
   return [
     {
       "@context": "https://schema.org",
@@ -47,8 +47,8 @@ export function homeJsonLd(list: Station[], articles: MagazineArticle[] = []) {
     {
       "@context": "https://schema.org",
       "@type": "ItemList",
-      name: "역 해부 질문 목록",
-      itemListElement: [...list.map((s) => ({ name: s.question, url: absoluteUrl(stationPath(s)) })), ...articles.map((article) => ({ name: article.question, url: absoluteUrl(articlePath(article)) }))].map((item, i) => ({
+      name: "대표 기사와 최근 기사",
+      itemListElement: items.map(item => ({ ...item, url: absoluteUrl(item.url) })).map((item, i) => ({
         "@type": "ListItem",
         position: i + 1,
         ...item,
@@ -172,4 +172,14 @@ export function lineJsonLd(line: LineId, list: Station[]) {
       ],
     },
   ];
+}
+
+/** 정적 기사 목록에 실제 표시된 항목만 설명한다. */
+export function archiveJsonLd(title: string, description: string, path: string, entries: { href: string; title: string }[]) {
+  return {
+    "@context": "https://schema.org", "@type": "CollectionPage", name: title,
+    description, url: absoluteUrl(path), inLanguage: "ko-KR",
+    mainEntity: { "@type": "ItemList", numberOfItems: entries.length,
+      itemListElement: entries.map((entry, index) => ({ "@type": "ListItem", position: index + 1, name: entry.title, url: absoluteUrl(entry.href) })) },
+  };
 }
