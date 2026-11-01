@@ -4,6 +4,7 @@ import { expressTerminal } from "./articles/express-terminal";
 import { seongsuBranch } from "./articles/seongsu-branch";
 import { dongmyoWeekend } from "./articles/dongmyo-weekend";
 import { gimpoPlanChange } from "./articles/gimpo-plan-change";
+import { isuGuideTimes } from "./articles/isu-guide-times";
 
 export type MagazineArticle = {
   slug: string;
@@ -21,7 +22,7 @@ export type MagazineArticle = {
 };
 
 // 검증된 편만 등록한다. 릴스 게시 여부는 기사 발행 조건이 아니다.
-export const articles: MagazineArticle[] = [guriEscalator, expressTerminal, seongsuBranch, dongmyoWeekend, gimpoPlanChange];
+export const articles: MagazineArticle[] = [guriEscalator, expressTerminal, seongsuBranch, dongmyoWeekend, gimpoPlanChange, isuGuideTimes];
 
 for (const article of articles) {
   const sourceIds = new Set(article.sources.map((source) => source.id));
