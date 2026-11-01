@@ -1,6 +1,7 @@
 import { lineName, type LineId } from "@/content/lines";
 import type { Station } from "@/content/types";
 import { stationPath } from "@/content/stations";
+import { articlePath, type MagazineArticle } from "@/content/articles";
 import { absoluteUrl, site } from "@/lib/site";
 
 // logo는 Claude Design에서 로고가 나오면 추가한다(SEO·GEO 규칙 6).
@@ -32,7 +33,7 @@ export function aboutJsonLd() {
 }
 
 /** 홈: WebSite + 질문 목록(ItemList). */
-export function homeJsonLd(list: Station[]) {
+export function homeJsonLd(list: Station[], articles: MagazineArticle[] = []) {
   return [
     {
       "@context": "https://schema.org",
@@ -47,11 +48,10 @@ export function homeJsonLd(list: Station[]) {
       "@context": "https://schema.org",
       "@type": "ItemList",
       name: "역 해부 질문 목록",
-      itemListElement: list.map((s, i) => ({
+      itemListElement: [...list.map((s) => ({ name: s.question, url: absoluteUrl(stationPath(s)) })), ...articles.map((article) => ({ name: article.question, url: absoluteUrl(articlePath(article)) }))].map((item, i) => ({
         "@type": "ListItem",
         position: i + 1,
-        name: s.question,
-        url: absoluteUrl(stationPath(s)),
+        ...item,
       })),
     },
   ];
@@ -101,6 +101,39 @@ export function stationJsonLd(s: Station) {
       itemListElement: [
         { "@type": "ListItem", position: 1, name: site.name, item: absoluteUrl("/") },
         { "@type": "ListItem", position: 2, name: s.name, item: url },
+      ],
+    },
+  ];
+}
+
+export function articleJsonLd(article: MagazineArticle) {
+  const url = absoluteUrl(articlePath(article));
+  return [
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      headline: article.question,
+      description: article.answer,
+      datePublished: article.datePublished,
+      dateModified: article.dateModified,
+      inLanguage: "ko-KR",
+      author,
+      publisher,
+      mainEntityOfPage: url,
+      ...(article.image ? { image: [absoluteUrl(article.image.src)] } : {}),
+      citation: article.sources.map((source) => ({
+        "@type": "CreativeWork",
+        name: source.title,
+        publisher: { "@type": "Organization", name: source.org },
+        ...(source.url ? { url: source.url } : {}),
+      })),
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: site.name, item: absoluteUrl("/") },
+        { "@type": "ListItem", position: 2, name: article.question, item: url },
       ],
     },
   ];

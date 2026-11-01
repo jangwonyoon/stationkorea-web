@@ -11,6 +11,10 @@
     {
       "source": "/station/:slug/article.md",
       "headers": [{ "key": "Link", "value": "<https://www.stationkorea.com/station/:slug/>; rel=\"canonical\"" }]
+    },
+    {
+      "source": "/article/:slug/article.md",
+      "headers": [{ "key": "Link", "value": "<https://www.stationkorea.com/article/:slug/>; rel=\"canonical\"" }]
     }
   ],
   "git": {

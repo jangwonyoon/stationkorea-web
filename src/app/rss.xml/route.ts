@@ -2,6 +2,7 @@ import { lineName } from "@/content/lines";
 import { latestStations, stationPath } from "@/content/stations";
 import type { Station } from "@/content/types";
 import { absoluteUrl, site } from "@/lib/site";
+import { articlePath, articles, type MagazineArticle } from "@/content/articles";
 
 export const dynamic = "force-static";
 
@@ -41,19 +42,54 @@ function fullContent(s: Station): string {
   ].join("");
 }
 
+function fullArticleContent(article: MagazineArticle): string {
+  const reference = (ids: string[]) => ids.map((id) => `[${article.sources.findIndex((source) => source.id === id) + 1}]`).join("");
+  return [
+    `<p>${escape(article.answer)} ${reference(article.answerSourceIds)}</p>`,
+    ...(article.image ? [`<figure><img src="${absoluteUrl(article.image.src)}" alt="${escape(article.image.alt)}"/><figcaption>${escape(article.image.caption)}</figcaption></figure>`] : []),
+    ...article.body.flatMap((section) => [
+      `<h2>${escape(section.heading)}</h2>`,
+      ...section.paragraphs.map((paragraph) => `<p>${escape(paragraph.text)} ${reference(paragraph.sourceIds)}</p>`),
+    ]),
+    "<h2>이어 읽기</h2><ul>",
+    ...article.related.map((related) => `<li><a href="${absoluteUrl(related.href)}">${escape(related.title)}</a></li>`),
+    "</ul><h2>출처</h2><ol>",
+    ...article.sources.map((source) => `<li>${escape(`${source.org}, ${source.title}, ${source.date}`)}${source.url ? ` <a href="${escape(source.url)}">${escape(source.url)}</a>` : ""}</li>`),
+    "</ol>",
+    ...(article.corrections?.length ? ["<h2>정정 기록</h2><ul>", ...article.corrections.map((item) => `<li>${escape(item.date)}: ${escape(item.before)} → ${escape(item.after)}. ${escape(item.reason)}</li>`), "</ul>"] : []),
+  ].join("");
+}
+
 // /rss.xml — 네이버 서치어드바이저 RSS 제출용. 최신순.
 export function GET() {
-  const items = latestStations().map((s) => {
-    const url = absoluteUrl(stationPath(s));
+  const entries = [
+    ...latestStations().map((station) => ({
+      title: station.question,
+      answer: station.answer,
+      date: station.datePublished,
+      url: absoluteUrl(stationPath(station)),
+      content: fullContent(station),
+      categories: station.lines.map((line) => lineName(line)),
+    })),
+    ...articles.map((article) => ({
+      title: article.question,
+      answer: article.answer,
+      date: article.datePublished,
+      url: absoluteUrl(articlePath(article)),
+      content: fullArticleContent(article),
+      categories: [{ transfer: "갈아타다", walk: "걷다", see: "보다", change: "바뀌다" }[article.section]],
+    })),
+  ].sort((a, b) => b.date.localeCompare(a.date));
+  const items = entries.map((entry) => {
     return [
       "<item>",
-      `<title>${escape(s.question)}</title>`,
-      `<link>${url}</link>`,
-      `<guid isPermaLink="true">${url}</guid>`,
-      `<description>${escape(s.answer)}</description>`,
-      `<content:encoded><![CDATA[${fullContent(s).replaceAll("]]>", "]]&gt;")}]]></content:encoded>`,
-      `<pubDate>${new Date(s.datePublished).toUTCString()}</pubDate>`,
-      ...s.lines.map((line) => `<category>${escape(lineName(line))}</category>`),
+      `<title>${escape(entry.title)}</title>`,
+      `<link>${entry.url}</link>`,
+      `<guid isPermaLink="true">${entry.url}</guid>`,
+      `<description>${escape(entry.answer)}</description>`,
+      `<content:encoded><![CDATA[${entry.content.replaceAll("]]>", "]]&gt;")}]]></content:encoded>`,
+      `<pubDate>${new Date(entry.date).toUTCString()}</pubDate>`,
+      ...entry.categories.map((category) => `<category>${escape(category)}</category>`),
       "</item>",
     ].join("");
   });
