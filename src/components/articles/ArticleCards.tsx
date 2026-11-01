@@ -11,7 +11,7 @@ export function ArticleCards({ entries, variant = "list" }: { entries: ArticleEn
       <Link href={entry.href} className={`pressable group flex h-full gap-4 py-5 hover:bg-slab ${recent ? "md:flex-col md:rounded-xl md:border md:border-rule md:p-5 md:hover:border-ink" : "rounded-lg"}`}>
         <div className="flex min-w-0 flex-1 flex-col">
           <p className="flex flex-wrap items-center justify-between gap-x-3 gap-y-1 text-sm">
-            <span className="font-semibold">#{sections.find(section => section.id === entry.section)?.name}</span>
+            <span className="font-semibold">#{sections.find(section => section.id === entry.section)?.name}{entry.series && ` · ${entry.series.title}`}</span>
             <span className="text-ink-3">읽는 데 약 {entry.minutes}분</span>
           </p>
           <h3 className="mt-2 font-serif text-lg font-semibold leading-snug break-keep underline-offset-4 group-hover:underline md:text-xl">{entry.title}</h3>

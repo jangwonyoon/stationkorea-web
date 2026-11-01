@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { SeongsuDiagrams } from "@/components/article/SeongsuDiagrams";
 import { StationSign } from "@/components/station-sign/StationSign";
 import { ReelLink } from "@/components/article/reading/ReelLink";
 import { ArticleLayout } from "@/components/article/ArticleLayout";
@@ -49,7 +50,7 @@ export default async function MagazineArticlePage({ params }: Props) {
   const citations = firstCitations([
     article.station?.sourceIds ?? [],
     article.answerSourceIds,
-    ...article.body.flatMap((section) => section.paragraphs.map((paragraph) => paragraph.sourceIds)),
+    ...article.body.flatMap((section) => [...section.paragraphs.map((paragraph) => paragraph.sourceIds), ...(section.figure ? [section.figure.sourceIds] : [])]),
     articleGuideSourceIds({ transfers: article.transfers }),
   ]);
   let citationIndex = 2;
@@ -80,6 +81,10 @@ export default async function MagazineArticlePage({ params }: Props) {
       <div className="mt-8 xl:mt-12">
       <ArticleLayout key={article.slug}>
         <header>
+          {article.series && <div className="mb-5">
+            <p className="text-label"><span className="mr-3 text-ink-3">#{sectionName}</span><span className="border border-ink px-2 py-1">{article.series.title}</span></p>
+            <p className="mt-3 text-caption">{article.series.description}</p>
+          </div>}
           <h1 className="text-h1 break-keep xl:text-article-title">{article.question}</h1>
           <p className="mt-5 text-lead">{article.answer}<SourceRefs ids={article.answerSourceIds} sources={article.sources} anchorIds={citations[1]} /></p>
           <div className="mt-4"><Byline author={site.author} published={article.datePublished} modified={article.dateModified} readingMinutes={articleReadingMinutes(article)} /></div>
@@ -97,6 +102,19 @@ export default async function MagazineArticlePage({ params }: Props) {
                 return <p key={paragraph.text} className="text-body">{paragraph.text}<SourceRefs ids={paragraph.sourceIds} sources={article.sources} anchorIds={anchors} /></p>;
               })}
             </div>
+            {section.figure && <figure className="mt-8 border-t border-ink pt-4">
+              <p className="text-label">{section.figure.title}</p>
+              <SeongsuDiagrams kind={section.figure.kind} descriptions={section.figure.descriptions} />
+              <figcaption className="mt-4 text-caption">{section.figure.caption}<SourceRefs ids={section.figure.sourceIds} sources={article.sources} anchorIds={citations[citationIndex++]} /></figcaption>
+              {section.figure.kind === "seongsu-current" && <div className="mt-3 bg-slab p-4 text-sm leading-relaxed">
+                <p className="font-semibold">그림을 글로</p>
+                <ul className="mt-2 list-disc space-y-1 pl-5">{section.figure.descriptions.map((description) => <li key={description}>{description}</li>)}</ul>
+              </div>}
+            </figure>}
+            {section.scope && <dl className="mt-6 grid divide-y divide-rule border border-rule text-sm leading-relaxed md:grid-cols-2 md:divide-x md:divide-y-0">
+              <div className="p-4"><dt className="font-semibold">이 순서로 알 수 있는 것</dt><dd className="mt-2">{section.scope.known}</dd></div>
+              <div className="p-4"><dt className="font-semibold">이 자료로는 알 수 없는 것</dt><dd className="mt-2">{section.scope.unknown}</dd></div>
+            </dl>}
           </section>)}
         </div>
         {!!article.transfers?.length && <section className="mt-16" aria-labelledby="transfer-guide">

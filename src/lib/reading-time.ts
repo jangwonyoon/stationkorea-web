@@ -27,6 +27,6 @@ export function readingMinutes(station: Station): number {
 }
 
 export function articleReadingMinutes(article: MagazineArticle): number {
-  const text = [article.question, article.answer, ...(article.station ? [article.station.name, article.station.sign.en, article.station.sign.prev, article.station.sign.next] : []), ...(article.transfers ?? []).flatMap((transfer) => [transfer.ride.direction, transfer.to.direction, transfer.car, transfer.toCar ?? "", transfer.time]), ...article.body.flatMap((section) => [section.heading, ...section.paragraphs.map((paragraph) => paragraph.text)])];
+  const text = [article.question, article.answer, ...(article.series ? [article.series.title, article.series.description] : []), ...(article.station ? [article.station.name, article.station.sign.en, article.station.sign.prev, article.station.sign.next] : []), ...(article.transfers ?? []).flatMap((transfer) => [transfer.ride.direction, transfer.to.direction, transfer.car, transfer.toCar ?? "", transfer.time]), ...article.body.flatMap((section) => [section.heading, ...section.paragraphs.map((paragraph) => paragraph.text), ...(section.figure ? [section.figure.title, section.figure.caption, ...section.figure.descriptions] : []), ...(section.scope ? [section.scope.known, section.scope.unknown] : [])])];
   return Math.max(1, Math.ceil(Array.from(text.join("").replace(/\s/g, "")).length / CHARACTERS_PER_MINUTE));
 }

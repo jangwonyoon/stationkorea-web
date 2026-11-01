@@ -58,13 +58,19 @@ export function articleMarkdown(article: MagazineArticle): string {
   return [
     `# ${article.question}`, "",
     `${site.name}`,
+    ...(article.series ? [`연재: ${article.series.title}`, article.series.description] : []),
     `글: [${site.author.name}](${absoluteUrl(site.author.path)})`,
     `원문: ${absoluteUrl(articlePath(article))}`,
     `게시: ${article.datePublished.slice(0, 10)} · 갱신: ${article.dateModified.slice(0, 10)}`,
     ...(article.station ? ["", `역명판: ${article.station.name} (${article.station.sign.en}) · ${article.station.lines.map(lineName).join("·")}`, `${lineName(article.station.sign.line)}: ${article.station.sign.prev} ← ${article.station.name} → ${article.station.sign.next} ${reference(article.station.sourceIds)}`] : []),
     "", `${article.answer} ${reference(article.answerSourceIds)}`, "",
     ...(article.image ? [`![${article.image.alt}](${absoluteUrl(article.image.src)})`, "", article.image.caption, ""] : []),
-    ...article.body.flatMap((section) => [`## ${section.heading}`, "", ...section.paragraphs.flatMap((paragraph) => [`${paragraph.text} ${reference(paragraph.sourceIds)}`, ""])]),
+    ...article.body.flatMap((section) => [
+      `## ${section.heading}`, "",
+      ...section.paragraphs.flatMap((paragraph) => [`${paragraph.text} ${reference(paragraph.sourceIds)}`, ""]),
+      ...(section.figure ? [section.figure.title, "", ...section.figure.descriptions.map((text) => `- ${text}`), "", `${section.figure.caption} ${reference(section.figure.sourceIds)}`, ""] : []),
+      ...(section.scope ? [`알 수 있는 것: ${section.scope.known}`, `알 수 없는 것: ${section.scope.unknown}`, ""] : []),
+    ]),
     ...(article.transfers?.length ? ["## 어디서 내리면 빠른가", "", "표의 시간은 자료 기준일의 경로별 참고값입니다. 실제 이동 시간은 보행 속도와 혼잡에 따라 달라집니다.", "", "| 타고 있는 열차 | 갈아탈 노선·방면 | 내릴 칸(호차-문) | 참고 시간 | 기준일·출처 |", "|---|---|---|---|---|", ...article.transfers.map((transfer) => {
       const source = article.sources.find((item) => item.id === transfer.sourceId)!;
       const formationSource = transfer.formation ? article.sources.find((item) => item.id === transfer.formation!.sourceId)! : undefined;

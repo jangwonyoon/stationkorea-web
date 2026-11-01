@@ -1,4 +1,4 @@
-import { articles, articlePath } from "@/content/articles";
+import { articles, articlePath, type MagazineArticle } from "@/content/articles";
 import { stations, stationPath } from "@/content/stations";
 import { sections } from "@/content/sections";
 import type { LineId, StationSection } from "@/content/types";
@@ -9,6 +9,7 @@ export type ArticleEntry = {
   title: string;
   answer: string;
   section: StationSection;
+  series?: MagazineArticle["series"];
   published: string;
   modified: string;
   minutes: number;
@@ -20,7 +21,7 @@ export type ArticleEntry = {
 // 게시 시각이 같으면 등록 순서를 유지한다. 수정일로 최신 기사를 바꾸지 않는다.
 export const articleEntries: ArticleEntry[] = [
   ...articles.map(a => ({
-    href: articlePath(a), title: a.question, answer: a.answer, section: a.section,
+    href: articlePath(a), title: a.question, answer: a.answer, section: a.section, series: a.series,
     published: a.datePublished, modified: a.dateModified, minutes: articleReadingMinutes(a),
     place: a.station?.name, lines: a.station?.lines ?? [],
     image: a.cover ? { ...a.cover, kind: "reel-cover" as const } : a.image,

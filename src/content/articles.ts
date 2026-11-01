@@ -9,13 +9,22 @@ import { isuGuideTimes } from "./articles/isu-guide-times";
 import { hongdaeTransfer } from "./articles/hongdae-transfer";
 import { dongjakExpress } from "./articles/dongjak-express";
 
+export type ArticleFigure = {
+  kind: "seongsu-current" | "seongsu-history";
+  title: string;
+  caption: string;
+  descriptions: string[];
+  sourceIds: string[];
+};
+
 export type MagazineArticle = {
   slug: string;
   section: StationSection;
   question: string;
   answer: string;
   answerSourceIds: string[];
-  body: { heading: string; paragraphs: { text: string; sourceIds: string[] }[] }[];
+  series?: { title: string; description: string };
+  body: { heading: string; paragraphs: { text: string; sourceIds: string[] }[]; figure?: ArticleFigure; scope?: { known: string; unknown: string } }[];
   station?: { name: string; lines: LineId[]; sign: StationSign; sourceIds: string[] };
   transfers?: Transfer[];
   sources: Source[];
@@ -34,7 +43,7 @@ export const articles: MagazineArticle[] = [guriEscalator, expressTerminal, seon
 for (const article of articles) {
   validateArticleGuide(article);
   const sourceIds = new Set(article.sources.map((source) => source.id));
-  const citations = [articleGuideSourceIds(article), article.answerSourceIds, ...article.body.flatMap((section) => section.paragraphs.map((paragraph) => paragraph.sourceIds))].flat();
+  const citations = [articleGuideSourceIds(article), article.answerSourceIds, ...article.body.flatMap((section) => [...section.paragraphs.map((paragraph) => paragraph.sourceIds), section.figure?.sourceIds ?? []])].flat();
   const missing = citations.filter((id) => !sourceIds.has(id));
   const uncited = article.sources.filter((source) => !citations.includes(source.id) || !source.url);
   if (!article.answerSourceIds.length || !article.body.length || article.related.length < 2 || missing.length || uncited.length) {
