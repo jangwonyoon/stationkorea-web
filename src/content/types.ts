@@ -136,7 +136,7 @@ export type Station = {
   pin: { text: string; sourceIds: string[] };
   /** 하차 칸 행. sourceId는 sources에 있어야 한다. */
   transfers: Transfer[];
-  reel: { url: string; thumbnail: string; postedAt: string };
+  reel: { url: string; thumbnail: string; postedAt: string; notice?: string };
   qna: Qna[];
   sources: Source[];
   datePublished: string;
