@@ -17,6 +17,9 @@
   --color-ink-2: #33383d;
   --color-ink-3: #4a5056;
   --color-exit: #ffcd00;
+  --color-footer: #191b1d;
+  --color-on-footer: #eceeee;
+  --color-footer-muted: #c5cacd;
   /* 흰 판·출구 노랑·노선색 채움 위의 먹 글자. 다크에서도 바뀌지 않는다. */
   --color-plate-ink: #191b1d;
   /* 기사 강조색 = 기준 노선색. 기사 루트에서 [--color-accent:var(--color-line-2)]처럼 덮어쓴다. */
@@ -125,6 +128,7 @@
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     --color-ground: #121416;
+    --color-footer: #1c1f22;
     --color-slab: #1c1f22;
     --color-rule: #3a4045;
     --color-ink: #e8eaeb;
@@ -140,6 +144,7 @@
 :root[data-theme="dark"] {
   color-scheme: dark;
   --color-ground: #121416;
+  --color-footer: #1c1f22;
   --color-slab: #1c1f22;
   --color-rule: #3a4045;
   --color-ink: #e8eaeb;
@@ -482,4 +487,14 @@
       &::details-content { transition: none; }
     }
   }
+}
+
+/* 승인된 영문 주 표기. 한국어 본문·제목 서체는 기존 토큰을 유지한다. */
+@utility brand-wordmark {
+  font-family: var(--font-sans);
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+  @variant md { font-size: 16px; }
 }

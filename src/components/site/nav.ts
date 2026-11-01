@@ -20,7 +20,7 @@ export const navItems: NavItem[] = [
   },
   {
     label: "노선",
-    href: "/#lines",
+    href: "/line/",
     match: (p, hash) =>
       normalize(p).startsWith("/line/") || (normalize(p) === "/" && hash === "#lines") ? "location" : null,
   },

@@ -12,7 +12,7 @@ import { aboutJsonLd } from "@/lib/jsonld";
 import { site } from "@/lib/site";
 
 const title = "소개·출처 정책";
-const description = `${site.name}은 익숙한 길과 동네에 질문을 던지는 웹매거진입니다. 갈아타다·걷다·보다·바뀌다, 네 가지 시선과 출처·정정 원칙을 소개합니다.`;
+const description = `${site.name}. ${site.description} 갈아타다·걷다·보다·바뀌다, 네 가지 시선과 출처·정정 원칙을 소개합니다.`;
 
 export const metadata: Metadata = {
   title,
@@ -38,14 +38,14 @@ export default function AboutPage() {
       <JsonLd data={aboutJsonLd()} />
       <article>
         <header className="page-wrap py-12 md:py-16">
-          <p className="text-label">매일 그 길 · 길과 동네를 읽는 매거진</p>
+          <p className="text-label">{site.name} · 길과 동네를 읽는 매거진</p>
           <h1 className="about-title mt-6 md:mt-8">
             <span className="block">매일 지나던 길을,</span>
             <span className="block">조금 다르게 읽다.</span>
           </h1>
           <p className="mt-6 max-w-xl text-body text-ink-2">
-            오가는 길부터 머무는 공간까지.<br />
-            익숙한 길에 질문을 놓습니다.
+            {site.name}는 역과 교통에서 출발해 길과 동네, 도시의 구조와 생활·변화를 다룹니다.
+            기사는 영상 없이도 읽히도록 쓰며, 영상 채널 {site.channelName}과 연결됩니다.
           </p>
           <div className="mt-6 flex flex-wrap items-center gap-x-8 gap-y-2 md:mt-8">
             <Button asChild variant="outline"><Link href="#transit-story-title">매거진 둘러보기 <span aria-hidden="true">↓</span></Link></Button>
@@ -82,7 +82,7 @@ export default function AboutPage() {
               <ul className="mt-4 list-disc space-y-4 pl-5 text-ink-2">
                 <li>숫자는 공식 자료를 우선하고, 공식 자료가 없는 설명은 출처를 밝혀 씁니다.</li>
                 <li>모든 숫자에 기준일을 붙이고, 기사 하단에 기관·자료명·기준일·URL을 전부 적습니다.</li>
-                <li>출처가 붙은 숫자 카드 세 개를 갖추지 못한 기사는 발행하지 않습니다.</li>
+                <li>기사 형식에 맞춰 근거를 제시합니다. 영상이나 단면 이미지가 없어도 출처를 확인한 독립 기사를 발행합니다.</li>
                 <li>공식 자료가 갱신되면 숫자를 고치고 기사의 갱신일을 올립니다. 내용이 바뀌지 않으면 날짜만 바꾸지 않습니다.</li>
                 <li>소개에 사용한 노선도는 <a href={aboutNetwork.sourceUrl} className="inline-flex min-h-11 items-center underline underline-offset-4">서울교통공사가 제공한 2025년 국문 노선도</a>입니다. 공공누리 제1유형에 따라 활용했으며, 현재 운행 안내를 위한 지도가 아닙니다.</li>
               </ul>
