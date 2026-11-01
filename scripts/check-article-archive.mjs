@@ -7,13 +7,15 @@ assert.equal(new Set(all).size, all.length, '목록 중복');
 assert(all.includes('/station/konkuk-univ/') && all.includes('/article/dongjak-express/'), '두 기사 형식 보존');
 const home = read('index.html');
 const recent = home.split('id="new-articles"')[1].split('</section>')[0];
-assert.deepEqual(cards(recent), all.slice(1, 5), '대표를 제외한 홈 최근4와 전체 정렬 일치');
+const featuredHref = '/article/seongsu-branch/';
+const expectedRecent = all.filter(href => href !== featuredHref).slice(0, 4);
+assert.deepEqual(cards(recent), expectedRecent, '대표를 제외한 홈 최근4와 전체 정렬 일치');
 const featured = home.split('aria-labelledby="cover-question"')[1].split('</section>')[0];
-assert.deepEqual(cards(featured), all.slice(0, 1), '전체 기사 중 최신 글을 대표로 선택, 링크 하나');
+assert.deepEqual(cards(featured), [featuredHref], '성수 시범을 대표로 선택, 링크 하나');
 assert(!featured.includes('<img'), '이미지 없는 현재 대표 기사도 노출');
 assert(!cards(recent).includes(cards(featured)[0]), '대표와 최근 목록 중복 없음');
 const homeSchema = [...home.matchAll(/<script type="application\/ld\+json">(.*?)<\/script>/g)].flatMap(m => JSON.parse(m[1])).find(x => x['@type'] === 'ItemList');
-assert.deepEqual(homeSchema.itemListElement.map(x => new URL(x.url).pathname), all.slice(0, 5), '홈 JSON-LD는 실제 대표와 최근 기사만 포함');
+assert.deepEqual(homeSchema.itemListElement.map(x => new URL(x.url).pathname), [featuredHref, ...expectedRecent], '홈 JSON-LD는 실제 대표와 최근 기사만 포함');
 const groups = ['transfer','walk','change'];
 const union = [];
 for (const id of groups) {
