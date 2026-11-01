@@ -10,7 +10,8 @@ import { latestStations, stationPath, stations } from "@/content/stations";
 import type { StationSection } from "@/content/types";
 import { homeJsonLd } from "@/lib/jsonld";
 import { site } from "@/lib/site";
-import { readingMinutes } from "@/lib/reading-time";
+import { articleReadingMinutes, readingMinutes } from "@/lib/reading-time";
+import { articlePath, articles } from "@/content/articles";
 
 const sections: { id: StationSection; name: string; description: string }[] = [
   { id: "transfer", name: "갈아타다", description: "역·환승 구조" },
@@ -25,7 +26,7 @@ export default function Home() {
 
   return (
     <>
-      <JsonLd data={homeJsonLd(stations)} />
+      <JsonLd data={homeJsonLd(stations, articles)} />
       <div className="page-wrap py-8 md:py-12">
         <header className="grid gap-6 border-b-2 border-ink pb-8 xl:grid-cols-2 xl:items-end">
           <p className="text-display">{site.name}</p>
@@ -60,11 +61,11 @@ export default function Home() {
         <nav aria-label="매거진 섹션" className="mt-16 md:mt-24">
           <ul className="grid grid-cols-2 gap-4 md:grid-cols-4">
             {sections.map((section) => {
-              const available = stations.some((station) => station.section === section.id);
+              const available = stations.some((station) => station.section === section.id) || articles.some((article) => article.section === section.id);
               const content = <><span className="text-h2">#{section.name}</span><span className="mt-2 text-caption">{section.description}</span><span className="mt-4 text-label">{available ? "질문 보기 →" : "준비 중"}</span></>;
               return (
                 <li key={section.id}>
-                  {available ? <a href="#all" className="pressable flex h-full flex-col border-t-2 border-ink p-4 hover:bg-slab">{content}</a> : <span aria-disabled="true" className="flex h-full flex-col border-t border-rule p-4 text-ink-3">{content}</span>}
+                  {available ? <a href={stations.some((station) => station.section === section.id) ? "#all" : "#new-articles"} className="pressable flex h-full flex-col border-t-2 border-ink p-4 hover:bg-slab">{content}</a> : <span aria-disabled="true" className="flex h-full flex-col border-t border-rule p-4 text-ink-3">{content}</span>}
                 </li>
               );
             })}
@@ -92,6 +93,20 @@ export default function Home() {
           </QuestionCarousel>
         </section>
 
+        {articles.length > 0 && <section id="new-articles" aria-labelledby="new-articles-heading" className="mt-16 scroll-mt-16 md:mt-24">
+          <h2 id="new-articles-heading" className="border-b-2 border-ink pb-4 text-h2">새로 쓴 기사</h2>
+          <ul className="mt-6 grid gap-4 md:grid-cols-2">
+            {[...articles].sort((a, b) => b.datePublished.localeCompare(a.datePublished)).map((article) => <li key={article.slug}>
+              <Link href={articlePath(article)} className="pressable block h-full rounded-xl border border-rule p-5 hover:bg-slab">
+                <p className="text-label">#{sections.find((section) => section.id === article.section)?.name} · 읽는 데 약 {articleReadingMinutes(article)}분</p>
+                <h3 className="mt-3 font-serif text-xl font-semibold break-keep">{article.question}</h3>
+                <p className="mt-3 line-clamp-3 text-body text-ink-2">{article.answer}</p>
+                <span className="mt-4 block text-label underline underline-offset-4">기사 읽기 <span aria-hidden="true">→</span></span>
+              </Link>
+            </li>)}
+          </ul>
+        </section>}
+
         <div className="mt-16 grid gap-16 md:mt-24 md:grid-cols-2 md:gap-12">
           <section aria-labelledby="lines">
             <h2 id="lines" className="scroll-mt-16 border-b-2 border-ink pb-4 text-h2">노선별로 보기</h2>
@@ -103,8 +118,8 @@ export default function Home() {
             <p className="mt-4 text-caption">기사가 있는 노선부터 읽어보세요. 나머지 노선은 준비 중입니다.</p>
           </section>
           <section aria-labelledby="channel" className="rounded-xl bg-slab p-6">
-            <h2 id="channel" className="text-h2">릴스에서 보고, 여기서 끝까지</h2>
-            <p className="mt-4 text-body">{site.name}은 서울 지하철 역을 질문으로 읽는 매거진입니다. 인스타그램에서 본 역의 구조를 공식 숫자와 출처로 더 자세히 살펴보세요.</p>
+            <h2 id="channel" className="text-h2">한 편의 기사에서 시작하는 질문</h2>
+            <p className="mt-4 text-body">{site.name}은 익숙한 길과 공간을 질문으로 읽는 매거진입니다. 서울 지하철에서 시작해 이동과 동네의 구조를 출처와 함께 설명합니다.</p>
             <Button asChild className="mt-6"><a href={site.instagram} target="_blank" rel="noopener noreferrer">인스타그램 <span aria-hidden="true">↗</span><span className="sr-only"> (새 창)</span></a></Button>
           </section>
         </div>

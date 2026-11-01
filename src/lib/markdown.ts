@@ -2,6 +2,7 @@ import { lineName } from "@/content/lines";
 import type { Station } from "@/content/types";
 import { stationPath } from "@/content/stations";
 import { absoluteUrl, site } from "@/lib/site";
+import { articlePath, type MagazineArticle } from "@/content/articles";
 
 // AI 답변엔진용 기사 마크다운. HTML과 같은 콘텐츠에서 만들어 어긋나지 않게 한다.
 export function stationMarkdown(s: Station): string {
@@ -46,4 +47,23 @@ export function stationMarkdown(s: Station): string {
 
 export function markdownPath(s: Pick<Station, "slug">): string {
   return `${stationPath(s)}article.md`;
+}
+
+export function articleMarkdownPath(article: Pick<MagazineArticle, "slug">): string {
+  return `${articlePath(article)}article.md`;
+}
+
+export function articleMarkdown(article: MagazineArticle): string {
+  const reference = (ids: string[]) => ids.map((id) => `[${article.sources.findIndex((source) => source.id === id) + 1}]`).join("");
+  return [
+    `# ${article.question}`, "",
+    `원문: ${absoluteUrl(articlePath(article))}`,
+    `게시: ${article.datePublished.slice(0, 10)} · 갱신: ${article.dateModified.slice(0, 10)}`,
+    "", `${article.answer} ${reference(article.answerSourceIds)}`, "",
+    ...(article.image ? [`![${article.image.alt}](${absoluteUrl(article.image.src)})`, "", article.image.caption, ""] : []),
+    ...article.body.flatMap((section) => [`## ${section.heading}`, "", ...section.paragraphs.flatMap((paragraph) => [`${paragraph.text} ${reference(paragraph.sourceIds)}`, ""])]),
+    "## 이어 읽기", "", ...article.related.map((related) => `- [${related.title}](${absoluteUrl(related.href)})`), "",
+    "## 출처", "", ...article.sources.map((source, index) => `${index + 1}. ${source.org}, ${source.title}, ${source.date}${source.url ? `. ${source.url}` : ""}`), "",
+    ...(article.corrections?.length ? ["## 정정 기록", "", ...article.corrections.map((item) => `- ${item.date}: ${item.before} → ${item.after}. ${item.reason}`), ""] : []),
+  ].join("\n");
 }
