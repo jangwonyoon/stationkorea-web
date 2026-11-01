@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { StationSign } from "@/components/station-sign/StationSign";
+import { ArticleLayout } from "@/components/article/ArticleLayout";
 import { TransferDoors } from "@/components/transfer-doors/TransferDoors";
 import { articleGuideSourceIds } from "@/lib/article-guide";
 import { JsonLd } from "@/components/JsonLd";
@@ -12,10 +13,12 @@ import { Byline } from "@/components/article/meta/Byline";
 import { Corrections } from "@/components/article/meta/Corrections";
 import { SourceList } from "@/components/article/meta/SourceList";
 import { articlePath, articles, getArticle } from "@/content/articles";
+import { lineName } from "@/content/lines";
+import { linePath } from "@/app/line/data";
 import { articleJsonLd } from "@/lib/jsonld";
 import { articleMarkdownPath } from "@/lib/markdown";
 import { articleReadingMinutes } from "@/lib/reading-time";
-import { site } from "@/lib/site";
+import { absoluteUrl, site } from "@/lib/site";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -50,21 +53,38 @@ export default async function MagazineArticlePage({ params }: Props) {
   ]);
   let citationIndex = 2;
   const sectionName = { transfer: "갈아타다", walk: "걷다", see: "보다", change: "바뀌다" }[article.section];
+  const breadcrumb = [
+    { name: site.name, href: "/" },
+    ...(article.station ? [
+      { name: lineName(article.station.sign.line), href: linePath(article.station.sign.line) },
+      { name: article.station.name },
+    ] : [{ name: article.question }]),
+  ];
+  const jsonLd = articleJsonLd(article).map((node) => node["@type"] === "BreadcrumbList" ? {
+    ...node,
+    itemListElement: breadcrumb.map((item, index) => ({
+      "@type": "ListItem", position: index + 1, name: item.name,
+      item: absoluteUrl(item.href ?? articlePath(article)),
+    })),
+  } : node);
 
   return <>
-    <JsonLd data={articleJsonLd(article)} />
+    <JsonLd data={jsonLd} />
     <article className="page-wrap pb-16">
-      <div className="pt-1"><Breadcrumb items={[{ name: site.name, href: "/" }, { name: article.question }]} /></div>
-      <div className="mx-auto max-w-3xl">
-        <header className="mt-8 border-t-2 border-ink pt-6">
-          <p className="text-label">#{sectionName}</p>
-          {article.station && <div className="mt-4"><StationSign station={article.station} /><p className="mt-2 text-caption">역명·노선 안내<SourceRefs ids={article.station.sourceIds} sources={article.sources} anchorIds={citations[0]} /></p></div>}
-          <h1 className="mt-4 text-h1 break-keep">{article.question}</h1>
+      <div className="flex flex-wrap items-center justify-between gap-x-6 gap-y-2 py-3">
+        <Breadcrumb items={breadcrumb} />
+        <p className="text-label">#{sectionName}</p>
+      </div>
+      {article.station && <div><StationSign station={article.station} transfers={article.transfers} /><p className="mt-2 text-caption">역명·노선 안내<SourceRefs ids={article.station.sourceIds} sources={article.sources} anchorIds={citations[0]} /></p></div>}
+      <div className="mt-8 xl:mt-12">
+      <ArticleLayout key={article.slug}>
+        <header>
+          <h1 className="text-h1 break-keep xl:text-article-title">{article.question}</h1>
           <p className="mt-5 text-lead">{article.answer}<SourceRefs ids={article.answerSourceIds} sources={article.sources} anchorIds={citations[1]} /></p>
           <div className="mt-4"><Byline author={site.author} published={article.datePublished} modified={article.dateModified} readingMinutes={articleReadingMinutes(article)} /></div>
         </header>
         {article.image && <figure className="mt-8">
-          <Image src={article.image.src} alt={article.image.alt} width={article.image.width} height={article.image.height} priority sizes="(min-width: 768px) 768px, calc(100vw - 40px)" className="h-auto w-full rounded-xl" />
+          <Image src={article.image.src} alt={article.image.alt} width={article.image.width} height={article.image.height} priority sizes="(min-width: 1280px) 690px, (min-width: 768px) calc(75vw - 53px), calc(100vw - 40px)" className="h-auto w-full rounded-xl" />
           <figcaption className="mt-2 text-caption">{article.image.caption}</figcaption>
         </figure>}
         <div className="mt-12 space-y-16">
@@ -83,15 +103,16 @@ export default async function MagazineArticlePage({ params }: Props) {
           <p className="mb-6 text-caption">표의 시간은 자료 기준일의 경로별 참고값입니다. 실제 이동 시간은 보행 속도와 혼잡에 따라 달라집니다.</p>
           <TransferDoors transfers={article.transfers} sources={article.sources} anchorIds={citations.at(-1)} legacyFormation={false} collapsible />
         </section>}
-        <nav aria-label="관련 기사" className="my-16 border-t-2 border-ink pt-4">
+        <div data-rail="next" className="my-16"><div><nav aria-label="관련 기사" className="border-t-2 border-ink pt-4">
           <h2 className="text-h2">이어 읽기</h2>
           <ul className="mt-4 divide-y divide-rule">{article.related.map((related) => <li key={related.href}>
-            <Link href={related.href} className="pressable block py-4 text-body underline underline-offset-4 hover:bg-slab">{related.title} <span aria-hidden="true">→</span></Link>
+              <Link href={related.href} className="pressable flex items-start justify-between gap-3 py-4 text-body underline underline-offset-4 hover:bg-slab"><span>{related.title}</span><span aria-hidden="true" className="shrink-0">→</span></Link>
           </li>)}</ul>
-        </nav>
+        </nav></div></div>
         <SourceList sources={article.sources} />
         {article.corrections?.length ? <div className="mt-12"><Corrections items={article.corrections} /></div> : null}
         <p className="mt-8 text-caption">내용에 오류가 있으면 <Link href="/about/#corrections" className="underline">정정 정책과 연락처</Link>를 확인해 주세요.</p>
+      </ArticleLayout>
       </div>
     </article>
   </>;

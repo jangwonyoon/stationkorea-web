@@ -58,6 +58,11 @@
 
   /* 모서리: rounded-xl(기사 카드·홈 표지), rounded-lg(카드 안 썸네일), rounded-none(본문 블록·표), rounded-plate(역명판·버튼·하차 칸 표지), rounded-full(원형 번호·역 점·핀만) */
   --radius-plate: 2px;
+  /* 기사 상세 시안의 데스크톱 제목. */
+  --text-article-title: 56px;
+  --text-article-title--line-height: 1.22;
+  --text-station-name: 64px;
+  --text-station-name--line-height: 1;
 
   /* 움직임: 역명판 띠 그리기 900ms, 진입 1회 */
   --ease-band: cubic-bezier(0.2, 0.7, 0.2, 1);
