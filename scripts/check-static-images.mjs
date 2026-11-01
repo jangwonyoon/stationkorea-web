@@ -32,6 +32,9 @@ for (const src of ["/images/about/change-day.jpg", "/images/about/change-evening
 }
 for (const src of imageSources) {
   const original = await sharp(`public${src}`).metadata();
+  if (src.endsWith("-cover.jpg")) {
+    assert.equal(imageLoader({ src, width: 400 }), imageUrl(src, 640), "표지 개발 검사 폭을 실제 생성 이미지로 연결");
+  }
   for (const width of new Set([...imageWidths, ...widthsFor(src)])) {
     if (!widthsFor(src).includes(width)) {
       assert.throws(() => imageUrl(src, width));

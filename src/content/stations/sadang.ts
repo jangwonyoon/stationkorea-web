@@ -7,6 +7,12 @@ export const sadang: Station = {
   name: "사당역",
   lines: ["2", "4"],
   section: "transfer",
+  cover: {
+    src: "/images/station/sadang-cover.jpg",
+    alt: "사당역 릴스 표지. 환승 74m인데 왜 3분 넘게?",
+    caption: "사당역 2·4호선 환승을 다룬 릴스 표지. AI 시각화 참고 이미지.",
+    width: 1080, height: 1920,
+  },
   sign: { line: "2", prev: "방배", next: "낙성대", en: "Sadang" },
   question: "사당역, 환승 74m인데 왜 3분 넘게 걸릴까?",
   seoTitle: "사당역 2호선↔4호선 환승 74m인데 3분 22초, 왜 돌아가게 할까",

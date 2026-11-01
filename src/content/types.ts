@@ -114,6 +114,9 @@ export type TimelineItem = {
 /** 진행 연표 하나(사업 단위). */
 export type Timeline = { title: string; items: TimelineItem[] };
 
+/** 목록에 쓰는 선택적 릴스 표지. 본문 이미지와 구분하며 글자가 잘리지 않게 전체를 표시한다. */
+export type ReelCover = { src: string; alt: string; caption: string; width: number; height: number };
+
 export type Station = {
   slug: string;
   /** 역 해부 일련번호(릴스 게시 순). */
@@ -133,6 +136,7 @@ export type Station = {
   teaser: string;
   /** 3D 단면 이미지(4:5). v1의 `section` 필드가 섹션 구분으로 바뀌면서 이름을 옮겼다. */
   crossSection: { src: string; alt: string; caption: string };
+  cover?: ReelCover;
   ogImage: string;
   stats: [Stat, Stat, Stat];
   pullQuote?: PullQuote;

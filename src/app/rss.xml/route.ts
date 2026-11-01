@@ -51,6 +51,7 @@ function fullArticleContent(article: MagazineArticle): string {
       `<h2>${escape(section.heading)}</h2>`,
       ...section.paragraphs.map((paragraph) => `<p>${escape(paragraph.text)} ${reference(paragraph.sourceIds)}</p>`),
     ]),
+    ...(article.reel ? [`<p><a href="${escape(article.reel.url)}">인스타그램 ${site.instagramHandle} 릴스로 보기</a></p>`] : []),
     "<h2>이어 읽기</h2><ul>",
     ...article.related.map((related) => `<li><a href="${absoluteUrl(related.href)}">${escape(related.title)}</a></li>`),
     "</ul><h2>출처</h2><ol>",
