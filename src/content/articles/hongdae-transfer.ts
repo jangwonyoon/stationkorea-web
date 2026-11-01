@@ -3,6 +3,12 @@ import type { MagazineArticle } from "../articles";
 export const hongdaeTransfer: MagazineArticle = {
   slug: "hongdae-transfer",
   section: "transfer",
+  cover: {
+    src: "/images/station/hongdae-transfer-cover.jpg",
+    alt: "홍대입구역 릴스 표지. 2호선에서 공항철도까지 8분, 왜? 방향별 참고 시간은 기사에서 확인할 수 있다.",
+    caption: "홍대입구역 릴스 표지. 환승 참고 시간은 방향별로 다릅니다. AI 시각화 참고 이미지.",
+    width: 1080, height: 1920,
+  },
   station: {
     name: "홍대입구역",
     lines: ["2", "arex", "gyeongui-jungang"],
@@ -18,6 +24,11 @@ export const hongdaeTransfer: MagazineArticle = {
   question: "홍대입구역 환승 355m, 어느 노선 사이를 잰 걸까?",
   answer: "서울교통공사가 2026년 8월 31일 기준으로 제시한 355m는 2호선과 공항철도 사이의 최단 환승거리다. 같은 자료에서 2호선과 경의중앙선 사이는 305m이므로 역 전체의 거리로 읽을 수 없다.",
   answerSourceIds: ["H1"],
+  reel: {
+    url: "https://www.instagram.com/reel/DfMsIvHRqjm/",
+    thumbnail: "/images/station/hongdae-transfer-cover.jpg",
+    postedAt: "2026-11-01T21:06:00+09:00",
+  },
   body: [
     {
       heading: "세 노선이 만나면 ‘환승거리’도 하나가 아니다",

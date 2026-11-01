@@ -7,6 +7,12 @@ export const jamsil: Station = {
   name: "잠실역",
   lines: ["2", "8"],
   section: "transfer",
+  cover: {
+    src: "/images/station/jamsil-cover.jpg",
+    alt: "잠실역 릴스 표지. 2호선에서 8호선 환승, 왜 200m?",
+    caption: "잠실역 2·8호선 환승을 다룬 릴스 표지. AI 시각화 참고 이미지.",
+    width: 1080, height: 1920,
+  },
   sign: { line: "2", prev: "잠실새내", next: "잠실나루", en: "Jamsil" },
   question: "잠실역, 2호선에서 8호선까지 왜 이렇게 멀까?",
   seoTitle: "잠실역 2호선↔8호선 환승 200m, 왜 이렇게 멀까",

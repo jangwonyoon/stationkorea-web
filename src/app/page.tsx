@@ -40,10 +40,10 @@ export default function Home() {
                 <p className="text-body text-ink-2">{cover.answer}</p>
                 <span className="mt-5 flex min-h-11 items-center justify-between gap-3 border-t border-rule pt-3 text-label">기사 읽기 <span aria-hidden="true">→</span></span>
                 {cover.image && <figure className="mt-5">
-                  <div className="relative mx-auto aspect-4/5 w-full max-w-xs overflow-hidden rounded-lg bg-slab">
-                    <Image src={cover.image.src} alt={cover.image.alt} fill priority sizes="(min-width: 768px) 320px, calc(100vw - 82px)" className="object-contain" />
+                  <div className={`relative mx-auto w-full overflow-hidden rounded-lg bg-slab ${cover.image.kind === "reel-cover" ? "aspect-9/16 max-w-56" : "aspect-4/5 max-w-xs"}`}>
+                    <Image src={cover.image.src} alt={cover.image.alt} fill priority sizes={cover.image.kind === "reel-cover" ? "224px" : "(min-width: 768px) 320px, calc(100vw - 82px)"} className="object-contain" />
                   </div>
-                  <figcaption className="mt-2 text-caption">{cover.image.caption}{cover.href.startsWith("/station/") ? " AI 시각화 참고 이미지." : ""}</figcaption>
+                  <figcaption className="mt-2 text-caption">{cover.image.caption}{cover.image.kind === "cross-section" ? " AI 시각화 참고 이미지." : ""}</figcaption>
                 </figure>}
               </div>
             </div>

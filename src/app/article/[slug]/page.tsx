@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { StationSign } from "@/components/station-sign/StationSign";
+import { ReelLink } from "@/components/article/reading/ReelLink";
 import { ArticleLayout } from "@/components/article/ArticleLayout";
 import { TransferDoors } from "@/components/transfer-doors/TransferDoors";
 import { articleGuideSourceIds } from "@/lib/article-guide";
@@ -103,6 +104,7 @@ export default async function MagazineArticlePage({ params }: Props) {
           <p className="mb-6 text-caption">표의 시간은 자료 기준일의 경로별 참고값입니다. 실제 이동 시간은 보행 속도와 혼잡에 따라 달라집니다.</p>
           <TransferDoors transfers={article.transfers} sources={article.sources} anchorIds={citations.at(-1)} legacyFormation={false} collapsible />
         </section>}
+        {article.reel && <div data-rail="reel" className="mt-12"><div><ReelLink reel={article.reel} title={article.question} /></div></div>}
         <div data-rail="next" className="my-16"><div><nav aria-label="관련 기사" className="border-t-2 border-ink pt-4">
           <h2 className="text-h2">이어 읽기</h2>
           <ul className="mt-4 divide-y divide-rule">{article.related.map((related) => <li key={related.href}>

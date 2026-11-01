@@ -71,6 +71,7 @@ export function articleMarkdown(article: MagazineArticle): string {
       const formation = transfer.formation ? ` · ${transfer.formation.cars}칸 편성 (${formationSource!.org} · ${formationSource!.date}) ${reference([transfer.formation.sourceId])}` : "";
       return `| ${lineName(transfer.ride.line)} ${transfer.ride.direction} | ${lineName(transfer.to.line)} ${transfer.to.direction}${transfer.toCar ? ` · 승차 위치 ${transfer.toCar}` : ""} | ${transfer.car}${formation} | ${transfer.time} | ${source.org} · ${source.date} ${reference([transfer.sourceId])} |`;
     }), ""] : []),
+    ...(article.reel ? [`릴스 영상: ${article.reel.url}`, ""] : []),
     "## 이어 읽기", "", ...article.related.map((related) => `- [${related.title}](${absoluteUrl(related.href)})`), "",
     "## 출처", "", ...article.sources.map((source, index) => `${index + 1}. ${source.org}, ${source.title}, ${source.date}${source.url ? `. ${source.url}` : ""}`), "",
     ...(article.corrections?.length ? ["## 정정 기록", "", ...article.corrections.map((item) => `- ${item.date}: ${item.before} → ${item.after}. ${item.reason}`), ""] : []),

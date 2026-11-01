@@ -30,4 +30,19 @@ assert.deepEqual(union.sort(), [...all].sort(), '섹션 누락·중복 없음');
 assert(!existsSync('out/section/see/index.html'));
 assert(!read('sitemap.xml').includes('/section/see/'));
 assert(home.includes('id="all"') && home.includes('id="lines"'), '기존 앵커 보존');
+const archive = read('articles/index.html');
+assert(archive.includes('환승 참고 시간은 방향별로 다릅니다.'), '릴스 제목의 시간 조건을 alt 외 화면 텍스트에도 표시');
+for (const slug of ['jamsil', 'sadang', 'konkuk-univ', 'express-terminal', 'hongdae-transfer']) {
+  assert(archive.includes(`/generated/${slug}-cover-`), `${slug}: 목록에 확인된 릴스 표지`);
+}
+for (const slug of ['jamsil', 'sadang', 'konkuk-univ']) {
+  assert(read(`station/${slug}/index.html`).includes(`/generated/${slug}-section-`), `${slug}: 본문 단면 보존`);
+}
+const hongdae = read('article/hongdae-transfer/index.html');
+const reel = 'https://www.instagram.com/reel/DfMsIvHRqjm/';
+assert(hongdae.includes(`href="${reel}"`) && hongdae.includes('data-rail="reel"'), '홍대 재게시 릴스를 공통 보조 정보에 연결');
+assert(hongdae.includes('dateTime="2026-11-01T21:06:00+09:00"'), '릴스 게시일은 기사 발행일과 구분');
+assert(read('article/hongdae-transfer/article.md').includes(reel), '마크다운 영상 링크 일치');
+assert(read('rss.xml').includes(reel), 'RSS 영상 링크 일치');
+assert(!hongdae.includes('VideoObject') && !hongdae.includes('<iframe'), '외부 링크를 재생 가능한 영상으로 마크업하지 않음');
 console.log(`Archive checks passed: ${all.length} articles, latest 4, 3 sections, canonical/JSON-LD/sitemap`);

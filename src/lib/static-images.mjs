@@ -7,6 +7,7 @@ export const imageSources = [
   ...["jamsil", "konkuk-univ", "sadang"].flatMap((station) =>
     ["section", "reel"].map((kind) => `/images/station/${station}-${kind}.jpg`),
   ),
+  ...["jamsil", "sadang", "konkuk-univ", "hongdae-transfer", "express-terminal"].map((slug) => `/images/station/${slug}-cover.jpg`),
   ...["rail", "street", "space", "network", "change-day", "change-evening"].map((name) => `/images/about/${name}.jpg`),
 ];
 

@@ -7,6 +7,12 @@ export const konkukUniv: Station = {
   name: "건대입구역",
   lines: ["2", "7"],
   section: "transfer",
+  cover: {
+    src: "/images/station/konkuk-univ-cover.jpg",
+    alt: "건대입구역 릴스 표지. 엘리베이터 환승은 왜 1,400m? 2022년 조사 기준.",
+    caption: "건대입구역 릴스 표지. 거리는 2022년 조사 기준. AI 시각화 참고 이미지.",
+    width: 1080, height: 1920,
+  },
   sign: { line: "2", prev: "성수", next: "구의", en: "Konkuk Univ." },
   question: "건대입구역 1,404m는 어떻게 계산됐을까?",
   seoTitle: "건대입구역 2·7호선 교통약자 환승거리 1,404m의 계산법",

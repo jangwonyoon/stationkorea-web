@@ -3,6 +3,12 @@ import type { MagazineArticle } from "../articles";
 export const expressTerminal: MagazineArticle = {
   slug: "express-terminal",
   section: "transfer",
+  cover: {
+    src: "/images/station/express-terminal-cover.jpg",
+    alt: "고속터미널역 릴스 표지. 7호선에서 9호선 환승, 왜 이렇게 멀까?",
+    caption: "고속터미널역 7·9호선 환승을 다룬 릴스 표지. AI 시각화 참고 이미지.",
+    width: 1080, height: 1920,
+  },
   question: "고속터미널역의 15cm와 314m는 무엇을 잰 숫자일까?",
   answer: "고속터미널역의 15cm는 2009년 준공한 9호선 공사에서 기존 3호선 터널과 공사 구간이 가장 가까웠던 간격이고, 314m는 2026년 8월 31일 기준 7호선과 9호선의 최단 환승거리다.",
   answerSourceIds: ["E1", "E2"],
