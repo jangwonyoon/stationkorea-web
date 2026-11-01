@@ -20,10 +20,17 @@ function fullContent(s: Station): string {
       (st) => `<tr><td>${escape(st.value)}</td><td>${escape(st.label)}</td><td>${escape(st.asOf)}</td><td>${refs(st.sourceIds)}</td></tr>`,
     ),
     "</tbody></table>",
-    `<h2>어디서 내리면 빠른가</h2><p>${escape(s.pin.text)} ${refs(s.pin.sourceIds)}</p>`,
     ...s.qna.map(
       (q) => `<h2>${escape(q.question)}</h2>${q.answer.map((p) => `<p>${escape(p)}</p>`).join("")}<p>출처: ${refs(q.sourceIds)}</p>`,
     ),
+    `<h2>어디서 내리면 빠른가</h2><p>${escape(s.pin.text)} ${refs(s.pin.sourceIds)}</p>`,
+    "<table><thead><tr><th>타고 있는 열차</th><th>갈아탈 노선·방면</th><th>내릴 칸</th><th>소요 시간</th><th>기준일·출처</th></tr></thead><tbody>",
+    ...s.transfers.map((t) => {
+      const source = s.sources.find((item) => item.id === t.sourceId);
+      if (!source) throw new Error(`RSS: transfer source missing: ${t.sourceId}`);
+      return `<tr><td>${escape(`${lineName(t.ride.line)} ${t.ride.direction}`)}</td><td>${escape(`${lineName(t.to.line)} ${t.to.direction}`)}</td><td>${escape(t.car)}</td><td>${escape(t.time)}</td><td>${escape(source.date)} ${refs([t.sourceId])}</td></tr>`;
+    }),
+    "</tbody></table>",
     "<h2>출처</h2><ol>",
     ...s.sources.map(
       (src) =>
