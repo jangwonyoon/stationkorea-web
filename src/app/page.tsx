@@ -1,91 +1,95 @@
 import Image from "next/image";
 import Link from "next/link";
-import { linePath, publishedLines } from "@/app/line/data";
+import { publishedLines } from "@/app/line/data";
 import { ArticleCards } from "@/components/articles/ArticleCards";
+import { ArticlePlace } from "@/components/articles/ArticlePlace";
 import { articleEntries, sectionLinks } from "@/lib/article-index";
 import { sections, sectionPath } from "@/content/sections";
 import { JsonLd } from "@/components/JsonLd";
-import { LineChip, LineRoundel } from "@/components/line";
-import { Button } from "@/components/ui/button";
-import { LINES, type LineId } from "@/content/lines";
-import { latestStations, stationPath } from "@/content/stations";
+import { LineRoundel } from "@/components/line";
 import { homeJsonLd } from "@/lib/jsonld";
 import { site } from "@/lib/site";
-import { readingMinutes } from "@/lib/reading-time";
 
 export default function Home() {
-  const latest = latestStations();
-  const cover = latest[0];
-  const recent = articleEntries.slice(0, 4);
+  const cover = articleEntries[0];
+  const recent = articleEntries.filter(entry => entry.href !== cover?.href).slice(0, 4);
+  const visible = cover ? [cover, ...recent] : recent;
+  const browse = [
+    { name: "전체 기사", description: "발행 순서대로 모두 보기", count: articleEntries.length, href: "/articles/" },
+    ...sectionLinks.map(section => ({ ...section, href: sectionPath(section.id) })),
+  ];
 
   return (
     <>
-      <JsonLd data={homeJsonLd([{ name: cover.question, url: stationPath(cover) }, ...recent.map(entry => ({ name: entry.title, url: entry.href }))])} />
-      <div className="page-wrap py-8 md:py-12">
-        <header className="grid gap-6 border-b-2 border-ink pb-8 xl:grid-cols-2 xl:items-end">
-          <p className="text-display">{site.name}</p>
-          <div>
-            <h1 className="text-lead">매일 지나는 그 역, 왜 이렇게 생겼을까</h1>
-            <p className="mt-2 text-body">{site.description}</p>
-            <p className="mt-3 text-caption">{site.instagramHandle} 공식 웹사이트</p>
-          </div>
+      <JsonLd data={homeJsonLd(visible.map(entry => ({ name: entry.title, url: entry.href })))} />
+      <div className="page-wrap py-6 md:py-9 lg:py-12">
+        <header className="grid gap-3 border-b-2 border-ink pb-6 md:grid-cols-2 md:items-end md:gap-10 lg:gap-16">
+          <h1 className="font-serif text-2xl font-bold leading-snug break-keep md:text-3xl lg:text-4xl">{site.tagline}</h1>
+          <p className="text-base leading-relaxed text-ink-2 lg:text-lg">{site.description}</p>
         </header>
 
-        <section aria-labelledby="cover-question" className="mt-8 grid gap-8 md:mt-12 md:grid-cols-2 md:items-center xl:gap-16">
-          <div className="md:order-2">
-            <p className="text-label">이번 질문 · #{sections.find((section) => section.id === cover.section)?.name} · 역 해부 {String(cover.no).padStart(2, "0")}</p>
-            <p className="mt-2 text-caption">읽는 데 약 {readingMinutes(cover)}분</p>
-            <div className="mt-3"><LineChip lines={cover.lines} label={cover.name} /></div>
-            <h2 id="cover-question" className="mt-4 text-h1 break-keep">
-              <Link href={stationPath(cover)} className="pressable block rounded-xl underline-offset-4 hover:underline">{cover.question}</Link>
-            </h2>
-            <p className="mt-4 text-body text-ink-2">{cover.answer}</p>
-            <Button asChild variant="outline" className="mt-6">
-              <Link href={stationPath(cover)}>답 읽기 <span aria-hidden="true">→</span></Link>
-            </Button>
+        {cover && <section aria-labelledby="cover-question" className="mt-4">
+          <Link href={cover.href} className="pressable group block rounded-xl border border-rule p-5 hover:border-ink hover:bg-slab md:px-7 md:py-8 lg:px-9">
+            <div className="grid gap-5 md:grid-cols-2 md:items-center md:gap-10 lg:gap-14">
+              <div className="min-w-0">
+                <p className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-ink-3"><span className="font-semibold text-ink">대표 기사</span><span>#{sections.find(section => section.id === cover.section)?.name}</span><span>읽는 데 약 {cover.minutes}분</span></p>
+                {(cover.place || cover.lines.length > 0) && <div className="mt-4"><ArticlePlace entry={cover} size="M" /></div>}
+                <h2 id="cover-question" className="mt-4 text-h1 break-keep underline-offset-4 group-hover:underline">{cover.title}</h2>
+              </div>
+              <div className="min-w-0">
+                <p className="text-body text-ink-2">{cover.answer}</p>
+                <span className="mt-5 flex min-h-11 items-center justify-between gap-3 border-t border-rule pt-3 text-label">기사 읽기 <span aria-hidden="true">→</span></span>
+                {cover.image && <figure className="mt-5">
+                  <div className="relative mx-auto aspect-4/5 w-full max-w-xs overflow-hidden rounded-lg bg-slab">
+                    <Image src={cover.image.src} alt={cover.image.alt} fill priority sizes="(min-width: 768px) 320px, calc(100vw - 82px)" className="object-contain" />
+                  </div>
+                  <figcaption className="mt-2 text-caption">{cover.image.caption}{cover.href.startsWith("/station/") ? " AI 시각화 참고 이미지." : ""}</figcaption>
+                </figure>}
+              </div>
+            </div>
+          </Link>
+        </section>}
+
+        <section id="new-articles" aria-labelledby="all" className="mt-12 scroll-mt-16">
+          <div className="flex flex-wrap items-center justify-between gap-x-6 gap-y-2 border-b-2 border-ink pb-3">
+            <h2 id="all" className="scroll-mt-16 text-h2">최근 기사</h2>
+            <Link href="/articles/" className="inline-flex min-h-11 items-center text-label underline underline-offset-4">전체 기사 {articleEntries.length}편 <span aria-hidden="true" className="ml-2">→</span></Link>
           </div>
-          <figure className="min-w-0 md:order-1">
-            <Link href={stationPath(cover)} aria-label={`${cover.question} 답 읽기`} className="pressable relative block aspect-4/5 overflow-hidden rounded-xl bg-slab">
-              <Image src={cover.crossSection.src} alt={cover.crossSection.alt} fill priority sizes="(min-width: 1280px) 568px, (min-width: 768px) calc(50vw - 48px), calc(100vw - 40px)" className="object-cover" />
-            </Link>
-            <figcaption className="mt-2 text-caption">{cover.crossSection.caption} AI 시각화 참고 이미지.</figcaption>
-          </figure>
+          <ArticleCards entries={recent} variant="recent" />
         </section>
 
-        <nav aria-label="매거진 섹션" className="mt-16 md:mt-24">
-          <ul className="grid grid-cols-2 gap-4 md:grid-cols-4">
-            {sectionLinks.map((section) => {
-              const available = section.count > 0;
-              const content = <><span className="text-h2">#{section.name}</span><span className="mt-2 text-caption">{section.description}</span><span className="mt-4 text-label">{available ? `기사 ${section.count}편 →` : "준비 중"}</span></>;
-              return (
-                <li key={section.id}>
-                  {available ? <Link href={sectionPath(section.id)} className="pressable flex h-full flex-col border-t-2 border-ink p-4 hover:bg-slab">{content}</Link> : <span aria-disabled="true" className="flex h-full flex-col border-t border-rule p-4 text-ink-3">{content}</span>}
-                </li>
-              );
-            })}
-          </ul>
-        </nav>
-
-        <section id="new-articles" aria-labelledby="all" className="mt-16 scroll-mt-16 md:mt-24">
-          <h2 id="all" className="scroll-mt-16 border-b-2 border-ink pb-4 text-h2">최근 기사</h2>
-          <ArticleCards entries={recent} />
-          <Button asChild variant="outline" className="mt-6"><Link href="/articles/">전체 기사 {articleEntries.length}편 보기 <span aria-hidden="true">→</span></Link></Button>
-        </section>
-
-        <div className="mt-16 grid gap-16 md:mt-24 md:grid-cols-2 md:gap-12">
-          <section aria-labelledby="lines">
-            <h2 id="lines" className="scroll-mt-16 border-b-2 border-ink pb-4 text-h2">노선별로 보기</h2>
-            <ul className="mt-6 flex flex-wrap gap-4">
-              {(Object.keys(LINES) as LineId[]).map((line) => (
-                <li key={line}><LineRoundel line={line} size="L" href={publishedLines.includes(line) ? linePath(line) : undefined} disabled={!publishedLines.includes(line)} /></li>
-              ))}
+        <section aria-labelledby="browse-title" className="mt-12">
+          <h2 id="browse-title" className="border-b-2 border-ink pb-3 text-h2">기사 둘러보기</h2>
+          <nav aria-label="매거진 섹션" className="mt-3">
+            <ul className="grid md:grid-cols-2 md:gap-5 lg:grid-cols-5">
+              {browse.map(section => {
+                const content = <><span className="font-semibold md:text-lg">{section.name}</span><span className="text-sm text-ink-3 md:mt-2">{section.description}</span><span className="ml-auto text-label md:mt-auto md:ml-0 md:pt-6">{section.count ? `${section.count}편 →` : "준비 중"}</span></>;
+                return <li key={section.href} className={`min-w-0 ${section.href === "/articles/" ? "md:col-span-2 lg:col-span-1" : ""}`}>
+                  {section.count ? <Link href={section.href} className="pressable flex h-full flex-wrap items-center gap-x-3 gap-y-1 border-b border-rule py-4 hover:bg-slab md:flex-col md:items-start md:border-t-2 md:border-b-0 md:border-t-ink">{content}</Link> : <span aria-disabled="true" className="flex h-full flex-wrap items-center gap-x-3 gap-y-1 border-b border-rule py-4 text-ink-3 md:flex-col md:items-start md:border-t md:border-b-0 md:border-dashed">{content}</span>}
+                </li>;
+              })}
             </ul>
-            <p className="mt-4 text-caption">기사가 있는 노선부터 읽어보세요. 나머지 노선은 준비 중입니다.</p>
+          </nav>
+        </section>
+
+        <section aria-labelledby="lines" className="mt-12">
+          <h2 id="lines" className="scroll-mt-16 border-b-2 border-ink pb-3 text-h2">노선으로 찾기</h2>
+          <Link href="/line/" className="pressable mt-4 block rounded-xl border border-rule p-4 hover:border-ink hover:bg-slab">
+            <span className="flex flex-wrap items-center gap-1.5">{publishedLines.map(line => <LineRoundel key={line} line={line} size="M" />)}</span>
+            <span className="mt-3 flex flex-wrap items-center justify-between gap-3"><span className="text-sm text-ink-2">기사가 있는 노선 {publishedLines.length}개</span><span className="text-label">노선 목록 <span aria-hidden="true">→</span></span></span>
+          </Link>
+        </section>
+
+        <div className="mt-12 grid gap-4 md:grid-cols-2">
+          <section aria-labelledby="principles-title" className="rounded-xl bg-slab p-5 md:p-6">
+            <p className="text-label text-ink-3">{site.name}</p>
+            <h2 id="principles-title" className="mt-3 font-serif text-lg font-semibold leading-relaxed">숫자마다 출처와 기준일을 붙이고, 틀린 내용은 고친 날짜와 함께 바로잡습니다.</h2>
+            <Link href="/about/#sources-policy" className="mt-3 inline-flex min-h-11 items-center text-label underline underline-offset-4">소개와 원칙 보기 <span aria-hidden="true" className="ml-2">→</span></Link>
           </section>
-          <section aria-labelledby="channel" className="rounded-xl bg-slab p-6">
-            <h2 id="channel" className="text-h2">한 편의 기사에서 시작하는 질문</h2>
-            <p className="mt-4 text-body">{site.name}은 익숙한 길과 공간을 질문으로 읽는 매거진입니다. 서울 지하철에서 시작해 이동과 동네의 구조를 출처와 함께 설명합니다.</p>
-            <Button asChild className="mt-6"><a href={site.instagram} target="_blank" rel="noopener noreferrer">인스타그램 <span aria-hidden="true">↗</span><span className="sr-only"> (새 창)</span></a></Button>
+          <section aria-labelledby="channel-title" className="rounded-xl bg-slab p-5 md:p-6">
+            <p className="text-label text-ink-3">영상 채널</p>
+            <h2 id="channel-title" className="mt-3 font-serif text-lg font-semibold leading-relaxed">역과 길에 던지는 질문을 짧은 영상으로 만납니다.</h2>
+            <a href={site.instagram} target="_blank" rel="noopener noreferrer" className="mt-3 inline-flex min-h-11 items-center text-label underline underline-offset-4">영상으로 만나는 {site.channelName} <span aria-hidden="true" className="ml-2">↗</span><span className="sr-only"> (새 창)</span></a>
           </section>
         </div>
       </div>
