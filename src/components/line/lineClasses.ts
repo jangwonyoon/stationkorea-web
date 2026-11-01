@@ -18,6 +18,10 @@ export const LINE_BG: Record<LineId, string> = {
   "7": "bg-line-7",
   "8": "bg-line-8",
   "9": "bg-line-9",
+  "gyeongui-jungang": "bg-line-gyeongui-jungang",
+  "arex": "bg-line-arex",
+  "seohae": "bg-line-seohae",
+  "gimpo-goldline": "bg-line-gimpo-goldline",
 };
 
 /** 노선색 채움 위 글자색. */
@@ -31,6 +35,10 @@ export const LINE_TEXT_ON: Record<LineId, string> = {
   "7": "text-on-line-7",
   "8": "text-on-line-8",
   "9": "text-on-line-9",
+  "gyeongui-jungang": "text-on-line-gyeongui-jungang",
+  "arex": "text-on-line-arex",
+  "seohae": "text-on-line-seohae",
+  "gimpo-goldline": "text-on-line-gimpo-goldline",
 };
 
 /** 노선색 선. */
@@ -44,4 +52,8 @@ export const LINE_BORDER: Record<LineId, string> = {
   "7": "border-line-7",
   "8": "border-line-8",
   "9": "border-line-9",
+  "gyeongui-jungang": "border-line-gyeongui-jungang",
+  "arex": "border-line-arex",
+  "seohae": "border-line-seohae",
+  "gimpo-goldline": "border-line-gimpo-goldline",
 };

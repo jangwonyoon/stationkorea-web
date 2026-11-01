@@ -1,0 +1,16 @@
+import assert from 'node:assert/strict';
+import { validateArticleGuide, articleGuideSourceIds } from '../src/lib/article-guide.ts';
+const source = { id: 's', org: '공식', title: '안내', url: 'https://example.com', date: '2026-11-01 기준' };
+const article = { slug: 'fixture', sources: [source], station: { name: '역', lines: ['2','7'], sign: { line: '2', en: 'Station', prev: '이전', next: '다음' }, sourceIds: ['s'] }, transfers: [{ ride: { line: '2', direction: '이전 방면' }, to: { line: '7', direction: '다음 방면' }, car: '10-4', time: '3분', sourceId: 's' }] };
+assert.doesNotThrow(() => validateArticleGuide(article));
+assert.doesNotThrow(() => validateArticleGuide({ ...article, transfers: [{ ...article.transfers[0], car: '모든 칸' }] }));
+assert.doesNotThrow(() => validateArticleGuide({ slug: 'city', sources: [] }));
+assert.throws(() => validateArticleGuide({ ...article, sources: [] }), /출처/);
+assert.throws(() => validateArticleGuide({ ...article, transfers: [{ ...article.transfers[0], toCar: '1-5' }] }), /승차/);
+assert.throws(() => validateArticleGuide({ ...article, sources: [source, source] }), /중복/);
+assert.throws(() => validateArticleGuide({ ...article, station: { ...article.station, sign: { ...article.station.sign, line: '9' } } }), /역명판/);
+for (const car of ['0-1','11-1','1-5','-1','1']) assert.throws(() => validateArticleGuide({ ...article, transfers: [{ ...article.transfers[0], car }] }), /호차/);
+assert.throws(() => validateArticleGuide({ ...article, transfers: [{ ...article.transfers[0], formation: { cars: 4, sourceId: 's' } }] }), /편성/);
+assert.throws(() => validateArticleGuide({ ...article, transfers: [{ ...article.transfers[0], formation: { cars: 10, sourceId: 'missing' } }] }), /출처/);
+assert.deepEqual(articleGuideSourceIds({ station: article.station }), ['s']);
+console.log('Article guide source, line and formation validation passed.');

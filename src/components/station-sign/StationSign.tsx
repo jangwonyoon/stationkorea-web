@@ -19,8 +19,8 @@ export function StationSign({ station }: StationSignProps) {
       className="rounded-plate bg-plate pt-2 pb-1 text-plate-ink xl:pt-6 xl:pb-4"
     >
       <div aria-hidden="true">
-        <div className="flex h-11 items-center gap-2 px-3 xl:justify-center xl:gap-4">
-          <span className="flex shrink-0 gap-1">
+        <div className="flex min-h-11 flex-wrap items-center gap-2 px-3 xl:justify-center xl:gap-4">
+          <span className="flex max-w-full flex-wrap gap-1">
             {orderedLines.map((line) => <LineRoundel key={line} line={line} size="L" />)}
           </span>
           <span className="min-w-0">

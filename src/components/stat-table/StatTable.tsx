@@ -2,18 +2,7 @@ import { Table, TableCaption, TableHeader, TableBody, TableRow, TableHead, Table
 import type { LineId, Source, Stat } from "@/content/types";
 import { splitNumber } from "./split-number";
 
-/** 윗선 4px 노선색. 클래스 이름을 문자열 조합으로 만들면 Tailwind가 생성하지 않으므로 정적 맵으로 고른다. */
-const TOP_LINE: Record<LineId, string> = {
-  "1": "border-line-1",
-  "2": "border-line-2",
-  "3": "border-line-3",
-  "4": "border-line-4",
-  "5": "border-line-5",
-  "6": "border-line-6",
-  "7": "border-line-7",
-  "8": "border-line-8",
-  "9": "border-line-9",
-};
+import { LINE_BORDER } from "@/components/line/lineClasses";
 
 type Props = {
   stats: Stat[];
@@ -40,7 +29,7 @@ export function StatTable({ stats, sources, accent, caption = "숫자와 출처"
 
   return (
     <Table
-      className={`block w-full border-t-4 bg-plate text-plate-ink ${accent ? TOP_LINE[accent] : "border-accent"}`}
+      className={`block w-full border-t-4 bg-plate text-plate-ink ${accent ? LINE_BORDER[accent] : "border-accent"}`}
     >
       <TableCaption className="sr-only">{caption}</TableCaption>
       <TableHeader className="sr-only"><TableRow>{["숫자", "내용", "기준일·출처"].map((label) => <TableHead key={label} scope="col">{label}</TableHead>)}</TableRow></TableHeader>
