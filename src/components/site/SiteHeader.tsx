@@ -54,8 +54,8 @@ export function SiteHeader({ sections }: { sections: SectionLink[] }) {
         hidden && !menuOpen ? "-translate-y-full" : "translate-y-0"
       }`}
     >
-      <div className="page-wrap relative flex h-full items-center justify-between gap-1">
-        <Link href="/" className="inline-flex min-h-11 shrink-0 items-center font-serif text-lg font-bold text-ink">
+      <div className="page-wrap relative flex h-full items-center justify-between gap-1 pr-1 md:pr-6">
+        <Link href="/" className="inline-flex min-h-11 shrink-0 items-center brand-wordmark text-ink">
           {site.name}
         </Link>
         <div className="flex items-center">
@@ -66,10 +66,10 @@ export function SiteHeader({ sections }: { sections: SectionLink[] }) {
                 return (
                   <li key={item.label}>
                     {item.label === "기사" ? <details ref={menu} onToggle={event => setMenuOpen(event.currentTarget.open)} onBlur={event => { if (!event.currentTarget.contains(event.relatedTarget)) closeMenu(); }}>
-                      <summary aria-current={current ?? undefined} className={`${buttonVariants({ variant: "ghost" })} cursor-pointer list-none border-b-2 px-2 ${current ? "border-ink" : "border-transparent"}`}>기사 <span aria-hidden="true">⌄</span></summary>
-                      <ul aria-label="기사 탐색" className="absolute right-0 top-full z-50 mt-1 w-64 max-w-full rounded-xl border border-rule bg-ground p-2">
-                        <li><Link href="/articles/" onClick={closeMenu} aria-current={pathname === "/articles/" || pathname === "/articles" ? "page" : undefined} className={`pressable flex min-h-11 items-center justify-between rounded-lg px-3 text-label hover:bg-slab ${pathname?.replace(/\/$/, "") === "/articles" ? "bg-slab" : ""}`}>전체 기사 <span className="text-caption">{sections.reduce((sum, section) => sum + section.count, 0)}</span></Link></li>
-                        {sections.map(section => <li key={section.id}>{section.count ? <Link href={sectionPath(section.id)} onClick={closeMenu} aria-current={pathname?.replace(/\/$/, "") === sectionPath(section.id).replace(/\/$/, "") ? "page" : undefined} className={`pressable flex min-h-11 items-center justify-between rounded-lg px-3 text-label hover:bg-slab ${pathname?.replace(/\/$/, "") === sectionPath(section.id).replace(/\/$/, "") ? "bg-slab" : ""}`}>{section.name}<span className="text-caption">{section.count}</span></Link> : <span aria-disabled="true" className="flex min-h-11 items-center justify-between px-3 text-label text-ink-3">{section.name}<span className="text-caption">준비 중</span></span>}</li>)}
+                      <summary aria-current={current ?? undefined} className={`${buttonVariants({ variant: "ghost" })} cursor-pointer list-none gap-1 border-b-2 px-1 ${current ? "border-ink" : "border-transparent"}`}>기사 <span aria-hidden="true">⌄</span></summary>
+                      <ul aria-label="기사 탐색" className="absolute inset-x-0 top-full z-50 border-b-2 border-ink bg-ground px-5 pb-4 pt-2 md:left-auto md:right-16 md:mt-1 md:w-90 md:max-w-full md:rounded-lg md:border md:p-2">
+                        <li><Link href="/articles/" onClick={closeMenu} aria-current={pathname === "/articles/" || pathname === "/articles" ? "page" : undefined} className={`pressable flex min-h-13 items-center justify-between gap-3 rounded-lg border-b border-rule px-2 text-label hover:bg-slab ${pathname?.replace(/\/$/, "") === "/articles" ? "bg-slab" : ""}`}>전체 기사 <span className="text-caption">{sections.reduce((sum, section) => sum + section.count, 0)}</span></Link></li>
+                        {sections.map(section => <li key={section.id}>{section.count ? <Link href={sectionPath(section.id)} onClick={closeMenu} aria-current={pathname?.replace(/\/$/, "") === sectionPath(section.id).replace(/\/$/, "") ? "page" : undefined} className={`pressable flex min-h-13 items-center justify-between gap-3 rounded-lg border-b border-rule px-2 text-label hover:bg-slab ${pathname?.replace(/\/$/, "") === sectionPath(section.id).replace(/\/$/, "") ? "bg-slab" : ""}`}><span><span className="block">{section.name}</span><span className="mt-1 block text-xs font-normal text-ink-3">{section.description}</span></span><span className="shrink-0 text-caption">{section.count}편</span></Link> : <span aria-disabled="true" className="flex min-h-13 items-center justify-between gap-3 border-b border-dashed border-rule px-2 text-label text-ink-3"><span><span className="block">{section.name}</span><span className="mt-1 block text-xs font-normal">{section.description}</span></span><span className="shrink-0 rounded-plate border border-dashed border-rule px-1 text-xs">준비 중</span></span>}</li>)}
                       </ul>
                     </details> : <Link
                       href={item.href}
