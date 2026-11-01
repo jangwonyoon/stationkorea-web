@@ -12,10 +12,11 @@ export type TransferDoorsProps = {
   anchorIds?: readonly string[];
   /** 기존 역 기사만 유지하는 2·4호선 편성 표시. 신규 기사는 행별 근거가 필요하다. */
   legacyFormation?: boolean;
+  collapsible?: boolean;
 };
 
 /** 원자료 순서를 유지하며 탑승 노선 → 갈아탈 방면별로 묶는다. */
-export function TransferDoors({ transfers, sources, anchorIds = [], legacyFormation = true }: TransferDoorsProps) {
+export function TransferDoors({ transfers, sources, anchorIds = [], legacyFormation = true, collapsible = false }: TransferDoorsProps) {
   const groups = [...new Set(transfers.map((t) => t.ride.line))].flatMap((line) =>
     [...new Set(transfers.filter((t) => t.ride.line === line).map((t) => `${t.to.line}:${t.to.direction}`))].map((target) =>
       transfers.filter((t) => t.ride.line === line && `${t.to.line}:${t.to.direction}` === target),
@@ -27,9 +28,11 @@ export function TransferDoors({ transfers, sources, anchorIds = [], legacyFormat
 
   return (
     <div className="flex flex-col gap-8">
-      {groups.map((group) => (
+      {groups.map((group, groupIndex) => {
+        const label = `${lineName(group[0].ride.line)}에서 ${lineName(group[0].to.line)} ${group[0].to.direction}으로`;
+        const table = (
         <Table key={`${group[0].ride.line}:${group[0].to.line}:${group[0].to.direction}`} className="block w-full border-t-2 border-ink text-left">
-          <TableCaption className="flex items-center gap-2 py-3 text-label text-ink">
+          <TableCaption className={collapsible ? "sr-only" : "flex items-center gap-2 py-3 text-label text-ink"}>
             {lineName(group[0].ride.line)}에서 <LineRoundel line={group[0].to.line} size="S" /> {group[0].to.direction}으로
           </TableCaption>
           <TableHeader className="sr-only"><TableRow><TableHead scope="col">타고 있는 열차</TableHead><TableHead scope="col">내릴 칸(호차-문)</TableHead><TableHead scope="col">소요 시간</TableHead><TableHead scope="col">기준일·출처</TableHead><TableHead scope="col">칸 위치 안내</TableHead></TableRow></TableHeader>
@@ -76,7 +79,15 @@ export function TransferDoors({ transfers, sources, anchorIds = [], legacyFormat
             })}
           </TableBody>
         </Table>
-      ))}
+        );
+        return collapsible ? <details key={label} open={groupIndex === 0} className="transfer-disclosure group rounded-xl border border-rule px-4 md:px-6">
+          <summary className="pressable flex min-h-16 cursor-pointer list-none items-center justify-between gap-3 py-4 text-label">
+            <span>{label}</span>
+            <span aria-hidden="true" className="shrink-0"><span className="group-open:hidden">펼치기 +</span><span className="hidden group-open:inline">접기 −</span></span>
+          </summary>
+          <div className="pb-5">{table}</div>
+        </details> : table;
+      })}
     </div>
   );
 }

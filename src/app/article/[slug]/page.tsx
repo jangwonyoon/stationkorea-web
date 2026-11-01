@@ -81,7 +81,7 @@ export default async function MagazineArticlePage({ params }: Props) {
         {!!article.transfers?.length && <section className="mt-16" aria-labelledby="transfer-guide">
           <h2 id="transfer-guide" className="mb-6 text-h2">어디서 내리면 빠른가</h2>
           <p className="mb-6 text-caption">표의 시간은 자료 기준일의 경로별 참고값입니다. 실제 이동 시간은 보행 속도와 혼잡에 따라 달라집니다.</p>
-          <TransferDoors transfers={article.transfers} sources={article.sources} anchorIds={citations.at(-1)} legacyFormation={false} />
+          <TransferDoors transfers={article.transfers} sources={article.sources} anchorIds={citations.at(-1)} legacyFormation={false} collapsible />
         </section>}
         <nav aria-label="관련 기사" className="my-16 border-t-2 border-ink pt-4">
           <h2 className="text-h2">이어 읽기</h2>
