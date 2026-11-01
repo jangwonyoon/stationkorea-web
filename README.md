@@ -5,6 +5,7 @@
 - 웹사이트: [STATION KOREA](https://www.stationkorea.com). `stationkorea.com`은 www 주소로 연결된다.
 - 영상 채널: [매일 그 길](https://www.instagram.com/maeil.geugil/) · @maeil.geugil
 - 기사는 영상 없이도 읽을 수 있다. 서울 지하철 기사에서 출발하지만 지역·교통수단을 매거진 전체의 제한으로 두지 않는다.
+- 이동·공간과 연결되는 생활·랜드마크·도시 변화를 다룬다. 무관한 생활 정보나 개발 호재 홍보로 주제를 넓히지 않는다.
 - 모든 수치는 출처·기준일과 함께 제시하고, 사실 정정에는 변경 기록을 남긴다.
 
 ## 개발
