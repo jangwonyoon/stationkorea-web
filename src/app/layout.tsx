@@ -22,7 +22,7 @@ export const viewport: Viewport = { width: "device-width", initialScale: 1 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="ko" className={`${hahmlet.variable} ${plexSansKr.variable}`}>
+    <html lang="ko" suppressHydrationWarning className={`${hahmlet.variable} ${plexSansKr.variable}`}>
       <body className="antialiased">
         <SiteHeader />
         <main>{children}</main>
