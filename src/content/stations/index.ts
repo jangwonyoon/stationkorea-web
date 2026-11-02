@@ -11,8 +11,12 @@ for (const s of stations) {
   const ids = new Set(s.sources.map((x) => x.id));
   const refs = [
     ...[...s.stats, s.pin, ...s.qna, ...(s.pullQuote ? [s.pullQuote] : [])].flatMap((x) => x.sourceIds),
+    ...(s.body ?? []).flatMap((section) => section.paragraphs.flatMap((paragraph) => paragraph.sourceIds)),
     ...s.transfers.map((t) => t.sourceId),
   ];
+  if (s.body && (!s.body.length || s.body.some((section) => !section.heading.trim() || !section.paragraphs.length || section.paragraphs.some((paragraph) => !paragraph.text.trim() || !paragraph.sourceIds.length)))) {
+    throw new Error(`${s.slug}: 해설 본문과 문단별 출처가 필요합니다`);
+  }
   const missing = refs.filter((id) => !ids.has(id));
   if (s.stats.length !== 3 || missing.length > 0) {
     throw new Error(`${s.slug}: 숫자 카드 3개와 출처 연결이 필요합니다 (없는 출처: ${missing.join(", ")})`);

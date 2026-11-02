@@ -8,6 +8,8 @@ export function readingMinutes(station: Station): number {
   const text = [
     station.question,
     station.answer,
+    ...(station.series ? [station.series.title, station.series.description] : []),
+    ...(station.body ?? []).flatMap((section) => [section.heading, ...section.paragraphs.map((paragraph) => paragraph.text)]),
     station.crossSection.caption,
     ...station.stats.flatMap((stat) => [stat.value, stat.label]),
     station.pin.text,
