@@ -1,7 +1,9 @@
 import type { MagazineArticle } from "../articles";
+import { stationPhotos } from "../station-photos";
 
 export const dongmyoWeekend: MagazineArticle = {
   slug: "dongmyo-weekend",
+  image: stationPhotos["dongmyo-weekend"],
   section: "walk",
   question: "동묘앞역은 왜 토·휴일 승하차가 더 많을까?",
   answer: "서울교통공사가 집계한 2026년 상반기 1호선 동묘앞역의 토·휴일 하루 평균 승하차는 28,785명으로 평일보다 9,112명(46.3%) 많았고, 공사는 인근 벼룩시장 방문 수요를 배경으로 분석했다.",
@@ -60,5 +62,5 @@ export const dongmyoWeekend: MagazineArticle = {
     { title: "건대입구역, 엘리베이터가 있어도 환승은 왜 따로 살펴야 할까?", href: "/station/konkuk-univ/" },
   ],
   datePublished: "2026-11-01T00:00:00+09:00",
-  dateModified: "2026-11-01T16:16:28+09:00",
+  dateModified: "2026-11-02T22:24:34+09:00",
 };

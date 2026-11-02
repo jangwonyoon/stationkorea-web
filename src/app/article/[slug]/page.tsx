@@ -6,6 +6,7 @@ import { SeongsuDiagrams } from "@/components/article/SeongsuDiagrams";
 import { StationSign } from "@/components/station-sign/StationSign";
 import { ReelLink } from "@/components/article/reading/ReelLink";
 import { ArticleLayout } from "@/components/article/ArticleLayout";
+import { StationPhotoCaption } from "@/components/article/StationPhotoCaption";
 import { TransferDoors } from "@/components/transfer-doors/TransferDoors";
 import { articleGuideSourceIds } from "@/lib/article-guide";
 import { JsonLd } from "@/components/JsonLd";
@@ -38,7 +39,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     openGraph: {
       type: "article", url: path, title: article.question, description: article.answer,
       publishedTime: article.datePublished, modifiedTime: article.dateModified,
-      ...(article.image ? { images: [{ url: article.image.src, alt: article.image.alt }] } : {}),
+      ...(article.image ? { images: [{ url: article.image.src, width: article.image.width, height: article.image.height, alt: article.image.alt }] } : {}),
     },
     twitter: { card: article.image ? "summary_large_image" : "summary", title: article.question, description: article.answer },
   };
@@ -91,7 +92,7 @@ export default async function MagazineArticlePage({ params }: Props) {
         </header>
         {article.image && <figure className="mt-8">
           <Image src={article.image.src} alt={article.image.alt} width={article.image.width} height={article.image.height} priority sizes="(min-width: 1280px) 690px, (min-width: 768px) calc(75vw - 53px), calc(100vw - 40px)" className="h-auto w-full rounded-xl" />
-          <figcaption className="mt-2 text-caption">{article.image.caption}</figcaption>
+          <StationPhotoCaption photo={article.image} />
         </figure>}
         <div className="mt-12 space-y-16">
           {article.body.map((section) => <section key={section.heading}>

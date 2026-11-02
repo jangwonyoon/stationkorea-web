@@ -1,7 +1,9 @@
 import type { MagazineArticle } from "../articles";
+import { stationPhotos } from "../station-photos";
 
 export const expressTerminal: MagazineArticle = {
   slug: "express-terminal",
+  image: stationPhotos["express-terminal"],
   section: "transfer",
   cover: {
     src: "/images/station/express-terminal-cover.jpg",
@@ -81,5 +83,5 @@ export const expressTerminal: MagazineArticle = {
     { title: "잠실역, 2호선에서 8호선까지 왜 이렇게 멀까?", href: "/station/jamsil/" },
   ],
   datePublished: "2026-11-01T00:00:00+09:00",
-  dateModified: "2026-11-01T16:16:28+09:00",
+  dateModified: "2026-11-02T22:24:34+09:00",
 };

@@ -1,7 +1,9 @@
 import type { MagazineArticle } from "../articles";
+import { stationPhotos } from "../station-photos";
 
 export const hongdaeTransfer: MagazineArticle = {
   slug: "hongdae-transfer",
+  image: stationPhotos["hongdae-transfer"],
   section: "transfer",
   cover: {
     src: "/images/station/hongdae-transfer-cover.jpg",
@@ -70,5 +72,5 @@ export const hongdaeTransfer: MagazineArticle = {
     { title: "고속터미널역의 15cm와 314m는 무엇을 잰 숫자일까?", href: "/article/express-terminal/" },
   ],
   datePublished: "2026-11-01T00:00:00+09:00",
-  dateModified: "2026-11-01T16:15:25+09:00",
+  dateModified: "2026-11-02T22:24:34+09:00",
 };

@@ -1,7 +1,9 @@
 import type { MagazineArticle } from "../articles";
+import { stationPhotos } from "../station-photos";
 
 export const guriEscalator: MagazineArticle = {
   slug: "guri-escalator",
+  image: stationPhotos["guri-escalator"],
   section: "transfer",
   station: {
     name: "구리역",
@@ -55,7 +57,7 @@ export const guriEscalator: MagazineArticle = {
     { title: "사당역에서 2호선으로 갈아탈 때, 왜 방면부터 확인해야 할까?", href: "/station/sadang/" },
   ],
   datePublished: "2026-11-01T00:00:00+09:00",
-  dateModified: "2026-11-02T20:44:02+09:00",
+  dateModified: "2026-11-02T22:24:34+09:00",
   corrections: [
     {
       date: "2026-11-02",

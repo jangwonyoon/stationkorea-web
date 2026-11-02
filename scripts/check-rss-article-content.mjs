@@ -29,6 +29,7 @@ if (process.argv[2]) {
 }
 const seongsu = articles.find((article) => article.slug === "seongsu-branch");
 const seongsuContent = content(items(feed).find((item) => item.includes("/article/seongsu-branch/")));
+assert(seongsuContent.includes(seongsu.image.src) && seongsuContent.includes(seongsu.image.source), "역 사진과 출처가 RSS에 함께 표시된다");
 for (const text of [seongsu.series.title, seongsu.series.description, ...seongsu.body.flatMap((section) => [
   ...(section.figure ? [section.figure.title, ...section.figure.descriptions, section.figure.caption] : []),
   ...(section.scope ? [section.scope.known, section.scope.unknown] : []),
@@ -41,6 +42,7 @@ const unsafe = '<tag attr="value">& ]]>';
 const escaped = "&lt;tag attr=&quot;value&quot;&gt;&amp; ]]&gt;";
 const fixture = {
   ...structuredClone(seongsu),
+  image: undefined,
   question: unsafe,
   answer: unsafe,
   answerSourceIds: ["route"],

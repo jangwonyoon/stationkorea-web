@@ -8,6 +8,7 @@ export const imageSources = [
     ["section", "reel"].map((kind) => `/images/station/${station}-${kind}.jpg`),
   ),
   ...["jamsil", "sadang", "konkuk-univ", "hongdae-transfer", "express-terminal"].map((slug) => `/images/station/${slug}-cover.jpg`),
+  ...["seongsu", "guri", "express-terminal", "dongmyo", "gimpo", "isu", "hongdae", "dongjak", "jamsil", "sadang", "konkuk-univ"].map((slug) => `/images/station/${slug}-photo.jpg`),
   ...["rail", "street", "space", "network", "change-day", "change-evening"].map((name) => `/images/about/${name}.jpg`),
 ];
 

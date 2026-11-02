@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { stationPhotos } from "@/content/station-photos";
 import { notFound } from "next/navigation";
 import { ArticleArchive } from "@/components/articles/ArticleArchive";
 import { articleEntries, publishedSections } from "@/lib/article-index";
@@ -10,7 +11,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { section: id } = await params;
   const section = publishedSections.find(s => s.id === id);
   if (!section) return {};
-  return { title: section.name, description: section.description, alternates: { canonical: sectionPath(section.id) }, openGraph: { type: "website", title: section.name, description: section.description, url: sectionPath(section.id) } };
+  const image = articleEntries.find(entry => entry.section === section.id && entry.image)?.image?.src ?? stationPhotos["seongsu-branch"].src;
+  return { title: section.name, description: section.description, alternates: { canonical: sectionPath(section.id) }, openGraph: { type: "website", title: section.name, description: section.description, url: sectionPath(section.id), images: [image] }, twitter: { card: "summary_large_image", images: [image] } };
 }
 export default async function SectionPage({ params }: Props) {
   const { section: id } = await params;

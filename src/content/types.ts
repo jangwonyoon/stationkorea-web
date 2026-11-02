@@ -1,5 +1,6 @@
 // 역 기사(F안) 콘텐츠 형식. 2단계에서 reel-studio 발행 스킬이 이 형식으로 초안을 만든다.
 import type { LineId } from "./lines";
+import type { StationPhoto } from "./station-photos";
 
 export type { LineId } from "./lines";
 
@@ -136,6 +137,7 @@ export type Station = {
   teaser: string;
   /** 선택적 본문 설명 이미지(4:5). 원고와 맞는 자산이 없으면 생략한다. */
   crossSection?: { src: string; alt: string; caption: string; aiGenerated?: boolean };
+  photo?: StationPhoto;
   cover?: ReelCover;
   ogImage: string;
   stats: [Stat, Stat, Stat];

@@ -4,6 +4,7 @@ import { Breadcrumb } from "@/components/article/meta/Breadcrumb";
 import { LineRoundel } from "@/components/line";
 import { JsonLd } from "@/components/JsonLd";
 import { lineName } from "@/content/lines";
+import { stationPhotos } from "@/content/station-photos";
 import { archiveJsonLd } from "@/lib/jsonld";
 import { site } from "@/lib/site";
 import { publishedLines, linePath, lineArticles } from "./data";
@@ -12,7 +13,7 @@ const title = "노선으로 찾기";
 const description = "기사가 있는 노선에서 역과 길, 동네의 이야기를 찾아보세요.";
 export const metadata: Metadata = {
   title, description, alternates: { canonical: "/line/" },
-  openGraph: { title, description, type: "website", url: "/line/" },
+  openGraph: { title, description, type: "website", url: "/line/", images: [stationPhotos["seongsu-branch"].src] },
 };
 
 export default function LinesPage() {

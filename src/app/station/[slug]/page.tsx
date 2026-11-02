@@ -23,6 +23,7 @@ import { markdownPath } from "@/lib/markdown";
 import { readingMinutes } from "@/lib/reading-time";
 import { absoluteUrl, site } from "@/lib/site";
 import { ArticleLayout } from "@/components/article/ArticleLayout";
+import { StationPhotoCaption } from "@/components/article/StationPhotoCaption";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -49,9 +50,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       description: s.answer,
       publishedTime: s.datePublished,
       modifiedTime: s.dateModified,
-      images: [{ url: s.ogImage, width: 1200, height: 630, alt: s.question }],
+      images: [{ url: s.photo?.src ?? s.ogImage, width: s.photo?.width ?? 1200, height: s.photo?.height ?? 630, alt: s.photo?.alt ?? s.question }],
     },
-    twitter: { card: "summary_large_image", title: s.question, description: s.answer, images: [s.ogImage] },
+    twitter: { card: "summary_large_image", title: s.question, description: s.answer, images: [s.photo?.src ?? s.ogImage] },
   };
 }
 
@@ -116,6 +117,10 @@ export default async function StationPage({ params }: Props) {
           <p id="article-answer" className="mt-4 text-lead">{s.answer}</p>
           <div className="mt-2"><Byline author={site.author} published={s.datePublished} modified={s.dateModified} readingMinutes={readingMinutes(s)} /></div>
         </header>
+        {s.photo && <figure className="mt-8">
+          <Image src={s.photo.src} alt={s.photo.alt} width={s.photo.width} height={s.photo.height} priority sizes="(min-width: 1280px) 690px, (min-width: 768px) calc(75vw - 53px), calc(100vw - 40px)" className="h-auto w-full rounded-xl" />
+          <StationPhotoCaption photo={s.photo} />
+        </figure>}
         {!s.body && illustration}
         <section data-rail="numbers" aria-label={`숫자로 보는 ${s.name}`} className="mt-8">
           <div className="xl:[&_tbody]:grid-cols-1 xl:[&_tr]:grid xl:[&_tr]:gap-y-0 xl:[&_tr]:border-l-0 xl:[&_tr]:border-b xl:[&_tr]:py-4 xl:[&_th]:text-right xl:[&_th]:text-4xl">

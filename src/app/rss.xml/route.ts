@@ -3,6 +3,7 @@ import { latestStations, stationPath } from "@/content/stations";
 import type { Station } from "@/content/types";
 import { absoluteUrl, site } from "@/lib/site";
 import { articlePath, articles, type MagazineArticle } from "@/content/articles";
+import { stationPhotoCredit } from "@/content/station-photos";
 
 export const dynamic = "force-static";
 
@@ -17,6 +18,7 @@ function fullContent(s: Station): string {
   return [
     ...(s.series ? [`<p>연재: ${escape(s.series.title)}</p><p>${escape(s.series.description)}</p>`] : []),
     `<p>${escape(s.answer)}</p>`,
+    ...(s.photo ? [`<figure><img src="${absoluteUrl(s.photo.src)}" alt="${escape(s.photo.alt)}"/><figcaption>${escape(s.photo.caption)} ${escape(stationPhotoCredit(s.photo))}</figcaption></figure>`] : []),
     ...(!s.body ? [illustration] : []),
     "<h2>숫자</h2><table><thead><tr><th>숫자</th><th>내용</th><th>기준일</th><th>출처</th></tr></thead><tbody>",
     ...s.stats.map(
@@ -52,7 +54,7 @@ function fullArticleContent(article: MagazineArticle): string {
   return [
     ...(article.series ? [`<p>연재: ${escape(article.series.title)}</p><p>${escape(article.series.description)}</p>`] : []),
     `<p>${escape(article.answer)} ${reference(article.answerSourceIds)}</p>`,
-    ...(article.image ? [`<figure><img src="${absoluteUrl(article.image.src)}" alt="${escape(article.image.alt)}"/><figcaption>${escape(article.image.caption)}</figcaption></figure>`] : []),
+    ...(article.image ? [`<figure><img src="${absoluteUrl(article.image.src)}" alt="${escape(article.image.alt)}"/><figcaption>${escape(article.image.caption)} ${escape(stationPhotoCredit(article.image))}</figcaption></figure>`] : []),
     ...article.body.flatMap((section) => [
       `<h2>${escape(section.heading)}</h2>`,
       ...section.paragraphs.map((paragraph) => `<p>${escape(paragraph.text)} ${reference(paragraph.sourceIds)}</p>`),
