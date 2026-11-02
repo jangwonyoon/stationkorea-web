@@ -1,8 +1,10 @@
 import type { Station } from "../types";
+import { stationPhotos } from "../station-photos";
 
 // 원천: reel-studio episodes/maeil-geugil/jamsil-transfer (facts.md·caption.txt·pin.txt·episode.json)
 export const jamsil: Station = {
   slug: "jamsil",
+  photo: stationPhotos["jamsil"],
   no: 1,
   name: "잠실역",
   lines: ["2", "8"],
@@ -140,5 +142,5 @@ export const jamsil: Station = {
     },
   ],
   datePublished: "2026-10-29T09:00:00+09:00",
-  dateModified: "2026-11-01T14:03:09+09:00",
+  dateModified: "2026-11-02T22:24:34+09:00",
 };

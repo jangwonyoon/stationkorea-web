@@ -39,11 +39,11 @@ for (const oldStation of stations.filter(item => item.slug !== station.slug)) {
 }
 const entry = articleEntries.find(item => item.href === "/station/konkuk-univ/");
 assert.deepEqual(entry.series, station.series);
-assert.equal(entry.image.src, station.crossSection.src, "corrected illustration replaces old reel cover");
+assert.equal(entry.image.src, station.photo.src, "station photo replaces the old reel cover in article lists");
 assert.equal(station.crossSection.aiGenerated, false);
 assert(!rss.includes("AI 시각화 참고 이미지."), "numeric illustration is not AI generation");
-assert(html.indexOf('aria-label="해설 본문"') < html.indexOf("<figure"));
-assert(html.indexOf("</figure>") < html.indexOf('id="transfer-heading"'));
+assert(html.indexOf('aria-label="해설 본문"') < html.indexOf(station.crossSection.caption));
+assert(html.indexOf(station.crossSection.caption) < html.indexOf('id="transfer-heading"'));
 assert(!html.includes('aria-label="묻고 답하기"'));
 assert.equal(station.transfers.length, 5);
 assert(station.corrections.length >= 2);

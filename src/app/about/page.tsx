@@ -10,6 +10,7 @@ import { readingMinutes } from "@/lib/reading-time";
 import { stationPath, stations } from "@/content/stations";
 import { aboutJsonLd } from "@/lib/jsonld";
 import { site } from "@/lib/site";
+import { stationPhotos } from "@/content/station-photos";
 
 const title = "소개·출처 정책";
 const description = `${site.name}. ${site.description} 갈아타다·걷다·보다·바뀌다, 네 가지 시선과 출처·정정 원칙을 소개합니다.`;
@@ -18,7 +19,7 @@ export const metadata: Metadata = {
   title,
   description,
   alternates: { canonical: "/about/", types: { "application/rss+xml": "/rss.xml" } },
-  openGraph: { title, description, url: "/about/", type: "website", locale: "ko_KR", siteName: site.name },
+  openGraph: { title, description, url: "/about/", type: "website", locale: "ko_KR", siteName: site.name, images: [stationPhotos["seongsu-branch"].src] },
 };
 
 const sections = [

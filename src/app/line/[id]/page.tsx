@@ -6,6 +6,7 @@ import { Breadcrumb } from "@/components/article/meta/Breadcrumb";
 import { LineRoundel } from "@/components/line";
 import { LINE_BG, LINE_BORDER } from "@/components/line/lineClasses";
 import { lineName } from "@/content/lines";
+import { stationPhotos } from "@/content/station-photos";
 import { lineJsonLd } from "@/lib/jsonld";
 import { site } from "@/lib/site";
 import { linePath, lineArticles, publishedLines } from "../data";
@@ -26,11 +27,13 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
   const line = publishedLine((await params).id);
   const title = `${lineName(line)} 기사`;
   const description = `${site.name}에 발행된 ${lineName(line)} 관련 기사를 모았습니다. 역과 길, 동네의 이야기를 읽습니다.`;
+  const image = lineArticles(line).find(entry => entry.image)?.image?.src ?? stationPhotos["seongsu-branch"].src;
   return {
     title,
     description,
     alternates: { canonical: linePath(line) },
-    openGraph: { title, description, url: linePath(line), type: "website" },
+    openGraph: { title, description, url: linePath(line), type: "website", images: [image] },
+    twitter: { card: "summary_large_image", images: [image] },
   };
 }
 

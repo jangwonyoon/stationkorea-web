@@ -1,7 +1,9 @@
 import type { MagazineArticle } from "../articles";
+import { stationPhotos } from "../station-photos";
 
 export const seongsuBranch: MagazineArticle = {
   slug: "seongsu-branch",
+  image: stationPhotos["seongsu-branch"],
   section: "transfer",
   series: {
     title: "역을 파헤치다",
@@ -96,5 +98,5 @@ export const seongsuBranch: MagazineArticle = {
     { title: "잠실역, 2호선에서 8호선까지 왜 이렇게 멀까?", href: "/station/jamsil/" },
   ],
   datePublished: "2026-11-01T00:00:00+09:00",
-  dateModified: "2026-11-02T00:27:31+09:00",
+  dateModified: "2026-11-02T22:24:34+09:00",
 };

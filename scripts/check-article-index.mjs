@@ -51,7 +51,7 @@ for (const article of articles) {
   assert.equal(entry.minutes, articleReadingMinutes(article));
   assert.equal(entry.place, article.station?.name);
   assert.deepEqual(entry.lines, article.station?.lines ?? []);
-  assert.deepEqual(entry.image, article.cover ? { ...article.cover, kind: "reel-cover" } : article.image);
+  assert.deepEqual(entry.image, article.image ?? (article.cover ? { ...article.cover, kind: "reel-cover" } : undefined));
 }
 for (const station of stations) {
   const entry = articleEntries.find(item => item.href === stationPath(station));
@@ -62,11 +62,11 @@ for (const station of stations) {
   assert.equal(entry.minutes, readingMinutes(station));
   assert.equal(entry.place, station.name);
   assert.deepEqual(entry.lines, station.lines);
-  assert.deepEqual(entry.image, station.cover ? { ...station.cover, kind: "reel-cover" } : station.crossSection ? { ...station.crossSection, kind: "cross-section" } : undefined);
+  assert.deepEqual(entry.image, station.photo ?? (station.cover ? { ...station.cover, kind: "reel-cover" } : station.crossSection ? { ...station.crossSection, kind: "cross-section" } : undefined));
 }
-assert.equal(articleEntries.find(entry => entry.href === stationPath(stations[1])).image, undefined, "이미지 없는 역 대표·목록 허용");
+assert.equal(articleEntries.find(entry => entry.href === stationPath(stations[1])).image, stations[1].photo, "실사 사진은 릴스 표지보다 우선");
 assert.equal(articleEntries.find(entry => entry.href === articlePath(plainArticle)).image, undefined, "이미지 없는 대표·목록 허용");
-assert.equal(articleEntries.find(entry => entry.href === articlePath(coverArticle)).image.src, fixtureCover.src, "릴스 표지는 본문 이미지보다 우선");
+assert.equal(articleEntries.find(entry => entry.href === articlePath(coverArticle)).image.src, fixtureImage.src, "실사 사진은 릴스 표지보다 우선");
 assert.equal(articleEntries.find(entry => entry.href === articlePath(bodyArticle)).image.src, fixtureImage.src, "표지가 없으면 기존 본문 이미지 사용");
 assert.deepEqual(articleEntries.find(entry => entry.href === articlePath(plainArticle)).lines, []);
 assert(articleEntries.findIndex(entry => entry.href === articlePath(plainArticle)) > articleEntries.findIndex(entry => entry.href === articlePath(articles[0])), "동일 게시일 등록 순서 보존, 수정일로 끌어올리지 않음");

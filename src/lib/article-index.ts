@@ -15,7 +15,7 @@ export type ArticleEntry = {
   minutes: number;
   place?: string;
   lines: LineId[];
-  image?: { src: string; alt: string; caption: string; width?: number; height?: number; kind?: "reel-cover" | "cross-section" };
+  image?: { src: string; alt: string; caption: string; width?: number; height?: number; artist?: string; kind?: "reel-cover" | "cross-section" };
 };
 
 // 게시 시각이 같으면 등록 순서를 유지한다. 수정일로 최신 기사를 바꾸지 않는다.
@@ -24,13 +24,13 @@ export const articleEntries: ArticleEntry[] = [
     href: articlePath(a), title: a.question, answer: a.answer, section: a.section, series: a.series,
     published: a.datePublished, modified: a.dateModified, minutes: articleReadingMinutes(a),
     place: a.station?.name, lines: a.station?.lines ?? [],
-    image: a.cover ? { ...a.cover, kind: "reel-cover" as const } : a.image,
+    image: a.image ?? (a.cover ? { ...a.cover, kind: "reel-cover" as const } : undefined),
   })),
   ...stations.map(s => ({
     href: stationPath(s), title: s.question, answer: s.answer, section: s.section, series: s.series,
     published: s.datePublished, modified: s.dateModified, minutes: readingMinutes(s),
     place: s.name, lines: s.lines,
-    image: s.cover ? { ...s.cover, kind: "reel-cover" as const } : s.crossSection ? { ...s.crossSection, kind: "cross-section" as const } : undefined,
+    image: s.photo ?? (s.cover ? { ...s.cover, kind: "reel-cover" as const } : s.crossSection ? { ...s.crossSection, kind: "cross-section" as const } : undefined),
   })),
 ].sort((a, b) => b.published.localeCompare(a.published));
 
