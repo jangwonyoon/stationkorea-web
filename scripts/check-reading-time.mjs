@@ -8,6 +8,8 @@ const empty = { ...jamsil, question: "", answer: "", crossSection: { ...jamsil.c
 assert.equal(readingMinutes(empty), 1);
 assert.equal(readingMinutes({ ...empty, answer: "가".repeat(500) }), 1);
 assert.equal(readingMinutes({ ...empty, answer: "가".repeat(501) }), 2);
+assert.equal(readingMinutes({ ...empty, body: [{ heading: "해설", paragraphs: [{ text: "가".repeat(500), sourceIds: [] }] }] }), 2);
+assert.equal(readingMinutes({ ...empty, series: { title: "연재", description: "가".repeat(500) } }), 2);
 assert.equal(readingMinutes({ ...empty, answer: " 가\n\t".repeat(500) }), 1);
 assert.equal(readingMinutes({ ...empty, qna: [{ question: "질문", answer: ["가".repeat(500)], sourceIds: [] }] }), 2);
 assert.equal(readingMinutes({ ...empty, answer: "가".repeat(500), sources: [{ ...jamsil.sources[0], url: `https://example.com/${"a".repeat(5000)}` }] }), 1);

@@ -66,7 +66,7 @@ export function stationJsonLd(s: Station) {
       "@type": "Article",
       headline: s.question,
       description: s.answer,
-      image: [absoluteUrl(s.ogImage), absoluteUrl(s.crossSection.src)],
+      image: [absoluteUrl(s.ogImage), ...(s.crossSection ? [absoluteUrl(s.crossSection.src)] : [])],
       datePublished: s.datePublished,
       dateModified: s.dateModified,
       inLanguage: "ko-KR",
@@ -86,7 +86,7 @@ export function stationJsonLd(s: Station) {
       // 릴스는 페이지에서 재생하지 않고 인스타로 링크만 하므로 VideoObject를 넣지 않는다(Google 동영상 가이드).
       sameAs: [s.reel.url],
     },
-    {
+    ...(s.qna.length ? [{
       "@context": "https://schema.org",
       "@type": "FAQPage",
       mainEntity: s.qna.map((q) => ({
@@ -94,7 +94,7 @@ export function stationJsonLd(s: Station) {
         name: q.question,
         acceptedAnswer: { "@type": "Answer", text: q.answer.join(" ") },
       })),
-    },
+    }] : []),
     {
       "@context": "https://schema.org",
       "@type": "BreadcrumbList",

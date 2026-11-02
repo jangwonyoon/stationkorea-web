@@ -13,7 +13,7 @@ for (const slug of slugs) {
   const html = await readFile(`out/station/${slug}/index.html`, "utf8");
   const markdown = await readFile(`out/station/${slug}/article.md`, "utf8");
   const order = [
-    html.indexOf('aria-label="묻고 답하기"'),
+    html.indexOf(html.includes('aria-label="해설 본문"') ? 'aria-label="해설 본문"' : 'aria-label="묻고 답하기"'),
     html.indexOf('id="transfer-heading"'),
     html.indexOf('data-rail="next"'),
     html.indexOf('id="sources"'),
@@ -30,8 +30,10 @@ for (const slug of slugs) {
   }
   assert.equal((html.match(/id="ref-seoulmetro-transfer-info"/g) ?? []).length, 1, `${slug}: unique first citation anchor`);
 
-  const item = rss.slice(rss.indexOf(`<link>https://www.stationkorea.com/station/${slug}/</link>`));
-  assert(item.indexOf("묻고 답하기") < item.indexOf("어디서 내리면 빠른가") && item.indexOf("어디서 내리면 빠른가") < item.indexOf("<h2>출처</h2>"), `${slug}: RSS order`);
+  const item = rss.split("<item>").find((entry) => entry.includes(`<link>https://www.stationkorea.com/station/${slug}/</link>`));
+  assert(item, `${slug}: RSS item exists`);
+  const sections = [item.indexOf("<h2>", item.indexOf("</table>")), item.indexOf("<h2>어디서 내리면 빠른가</h2>"), item.indexOf("<h2>출처</h2>")];
+  assert(sections.every((position) => position >= 0) && sections[0] < sections[1] && sections[1] < sections[2], `${slug}: RSS body → guide → sources`);
 }
 
 console.log("Article transfer order, duplicate Q&A, source anchors and RSS/Markdown synchronization PASS");

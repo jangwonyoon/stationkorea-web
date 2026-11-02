@@ -13,17 +13,21 @@ const escape = (s: string) =>
 function fullContent(s: Station): string {
   const n = (id: string) => s.sources.findIndex((x) => x.id === id) + 1;
   const refs = (ids: string[]) => ids.map((id) => `[${n(id)}]`).join("");
+  const illustration = s.crossSection ? `<figure><img src="${absoluteUrl(s.crossSection.src)}" alt="${escape(s.crossSection.alt)}"/><figcaption>${escape(s.crossSection.caption)}${s.crossSection.aiGenerated !== false ? " AI 시각화 참고 이미지." : ""}</figcaption></figure>` : "";
   return [
+    ...(s.series ? [`<p>연재: ${escape(s.series.title)}</p><p>${escape(s.series.description)}</p>`] : []),
     `<p>${escape(s.answer)}</p>`,
-    `<figure><img src="${absoluteUrl(s.crossSection.src)}" alt="${escape(s.crossSection.alt)}"/><figcaption>${escape(s.crossSection.caption)} AI 시각화 참고 이미지.</figcaption></figure>`,
+    ...(!s.body ? [illustration] : []),
     "<h2>숫자</h2><table><thead><tr><th>숫자</th><th>내용</th><th>기준일</th><th>출처</th></tr></thead><tbody>",
     ...s.stats.map(
       (st) => `<tr><td>${escape(st.value)}</td><td>${escape(st.label)}</td><td>${escape(st.asOf)}</td><td>${refs(st.sourceIds)}</td></tr>`,
     ),
     "</tbody></table>",
+    ...(s.body ?? []).flatMap((section) => [`<h2>${escape(section.heading)}</h2>`, ...section.paragraphs.map((paragraph) => `<p>${escape(paragraph.text)} ${refs(paragraph.sourceIds)}</p>`)]),
     ...s.qna.map(
       (q) => `<h2>${escape(q.question)}</h2>${q.answer.map((p) => `<p>${escape(p)}</p>`).join("")}<p>출처: ${refs(q.sourceIds)}</p>`,
     ),
+    ...(s.body ? [illustration] : []),
     `<h2>어디서 내리면 빠른가</h2><p>${escape(s.pin.text)} ${refs(s.pin.sourceIds)}</p>`,
     "<table><thead><tr><th>타고 있는 열차</th><th>갈아탈 노선·방면</th><th>내릴 칸</th><th>소요 시간</th><th>기준일·출처</th></tr></thead><tbody>",
     ...s.transfers.map((t) => {
@@ -38,6 +42,7 @@ function fullContent(s: Station): string {
         `<li>${escape(`${src.org}, ${src.title}, ${src.date}`)}${src.url ? ` <a href="${escape(src.url)}">${escape(src.url)}</a>` : ""}</li>`,
     ),
     "</ol>",
+    ...(s.corrections?.length ? ["<h2>정정 기록</h2><ul>", ...s.corrections.map((item) => `<li>${escape(item.date)}: ${escape(item.before)} → ${escape(item.after)}. ${escape(item.reason)}</li>`), "</ul>"] : []),
     `<p><a href="${s.reel.url}">인스타그램 ${site.instagramHandle} 릴스로 보기</a></p>`,
   ].join("");
 }
@@ -45,12 +50,28 @@ function fullContent(s: Station): string {
 function fullArticleContent(article: MagazineArticle): string {
   const reference = (ids: string[]) => ids.map((id) => `[${article.sources.findIndex((source) => source.id === id) + 1}]`).join("");
   return [
+    ...(article.series ? [`<p>연재: ${escape(article.series.title)}</p><p>${escape(article.series.description)}</p>`] : []),
     `<p>${escape(article.answer)} ${reference(article.answerSourceIds)}</p>`,
     ...(article.image ? [`<figure><img src="${absoluteUrl(article.image.src)}" alt="${escape(article.image.alt)}"/><figcaption>${escape(article.image.caption)}</figcaption></figure>`] : []),
     ...article.body.flatMap((section) => [
       `<h2>${escape(section.heading)}</h2>`,
       ...section.paragraphs.map((paragraph) => `<p>${escape(paragraph.text)} ${reference(paragraph.sourceIds)}</p>`),
+      ...(section.figure ? [`<figure><p>${escape(section.figure.title)}</p><ul>${section.figure.descriptions.map((description) => `<li>${escape(description)}</li>`).join("")}</ul><figcaption>${escape(section.figure.caption)} ${reference(section.figure.sourceIds)}</figcaption></figure>`] : []),
+      ...(section.scope ? [`<dl><dt>이 순서로 알 수 있는 것</dt><dd>${escape(section.scope.known)}</dd><dt>이 자료로는 알 수 없는 것</dt><dd>${escape(section.scope.unknown)}</dd></dl>`] : []),
     ]),
+    ...(article.transfers?.length ? [
+      "<h2>어디서 내리면 빠른가</h2><p>표의 시간은 자료 기준일의 경로별 참고값입니다. 실제 이동 시간은 보행 속도와 혼잡에 따라 달라집니다.</p>",
+      "<table><thead><tr><th>타고 있는 열차</th><th>갈아탈 노선·방면</th><th>내릴 칸(호차-문)</th><th>참고 시간</th><th>기준일·출처</th></tr></thead><tbody>",
+      ...article.transfers.map((transfer) => {
+        const source = article.sources.find((item) => item.id === transfer.sourceId);
+        if (!source) throw new Error(`RSS: transfer source missing: ${transfer.sourceId}`);
+        const formationSource = transfer.formation ? article.sources.find((item) => item.id === transfer.formation!.sourceId) : undefined;
+        if (transfer.formation && !formationSource) throw new Error(`RSS: formation source missing: ${transfer.formation.sourceId}`);
+        const formation = transfer.formation && formationSource ? ` · ${transfer.formation.cars}칸 편성 (${escape(`${formationSource.org} · ${formationSource.date}`)}) ${reference([transfer.formation.sourceId])}` : "";
+        return `<tr><td>${escape(`${lineName(transfer.ride.line)} ${transfer.ride.direction}`)}</td><td>${escape(`${lineName(transfer.to.line)} ${transfer.to.direction}`)}${transfer.toCar ? ` · 승차 위치 ${escape(transfer.toCar)}` : ""}</td><td>${escape(transfer.car)}${formation}</td><td>${escape(transfer.time)}</td><td>${escape(`${source.org} · ${source.date}`)} ${reference([transfer.sourceId])}</td></tr>`;
+      }),
+      "</tbody></table>",
+    ] : []),
     ...(article.reel ? [`<p><a href="${escape(article.reel.url)}">인스타그램 ${site.instagramHandle} 릴스로 보기</a></p>`] : []),
     "<h2>이어 읽기</h2><ul>",
     ...article.related.map((related) => `<li><a href="${absoluteUrl(related.href)}">${escape(related.title)}</a></li>`),

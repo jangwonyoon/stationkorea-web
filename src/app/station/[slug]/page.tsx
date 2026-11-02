@@ -75,13 +75,26 @@ export default async function StationPage({ params }: Props) {
   const comparisonIds = s.comparison?.rows.flatMap((row) => row.sourceIds) ?? [];
   const [, ...contentAnchors] = firstCitations([
     s.stats.flatMap((stat) => stat.sourceIds),
+    ...(s.body ?? []).flatMap((section) => section.paragraphs.map((paragraph) => paragraph.sourceIds)),
     ...s.qna.flatMap((qna, index) => index === 0 ? [qna.sourceIds, comparisonIds, quote.sourceIds] : [qna.sourceIds]),
     s.pin.sourceIds,
     s.transfers.map((transfer) => transfer.sourceId),
   ]);
   const pinAnchors = contentAnchors.at(-2) ?? [];
   const transferAnchors = contentAnchors.at(-1) ?? [];
-  const readingAnchors = contentAnchors.slice(0, -2);
+  const bodyCount = (s.body ?? []).reduce((count, section) => count + section.paragraphs.length, 0);
+  const bodyAnchors = contentAnchors.slice(0, bodyCount);
+  const readingAnchors = contentAnchors.slice(bodyCount, -2);
+  let paragraphIndex = 0;
+
+  const illustration = s.crossSection && (
+    <figure className="mt-6">
+      <div className="relative aspect-4/5 overflow-hidden bg-slab">
+        <Image src={s.crossSection.src} alt={s.crossSection.alt} fill priority={!s.body} fetchPriority={s.body ? "auto" : "high"} sizes="(min-width: 1280px) 690px, (min-width: 768px) calc(75vw - 53px), calc(100vw - 40px)" className="object-cover" />
+      </div>
+      <figcaption className="mt-2 text-caption">{s.crossSection.caption}{s.crossSection.aiGenerated !== false && " AI 시각화 참고 이미지."}</figcaption>
+    </figure>
+  );
 
   return (
     <>
@@ -95,23 +108,30 @@ export default async function StationPage({ params }: Props) {
         <div className="mt-8 xl:mt-12">
         <ArticleLayout key={s.slug}>
         <header>
+          {s.series && <div className="mb-5">
+            <p className="text-label"><span className="border border-ink px-2 py-1">{s.series.title}</span></p>
+            <p className="mt-3 text-caption">{s.series.description}</p>
+          </div>}
           <h1 className="text-h1 break-keep xl:text-article-title">{s.question}</h1>
           <p id="article-answer" className="mt-4 text-lead">{s.answer}</p>
           <div className="mt-2"><Byline author={site.author} published={s.datePublished} modified={s.dateModified} readingMinutes={readingMinutes(s)} /></div>
         </header>
-        <figure className="mt-6">
-          <div className="relative aspect-4/5 overflow-hidden bg-slab">
-            <Image src={s.crossSection.src} alt={s.crossSection.alt} fill priority fetchPriority="high" sizes="(min-width: 1280px) 690px, (min-width: 768px) calc(75vw - 53px), calc(100vw - 40px)" className="object-cover" />
-          </div>
-          <figcaption className="mt-2 text-caption">{s.crossSection.caption} AI 시각화 참고 이미지.</figcaption>
-        </figure>
+        {!s.body && illustration}
         <section data-rail="numbers" aria-label={`숫자로 보는 ${s.name}`} className="mt-8">
           <div className="xl:[&_tbody]:grid-cols-1 xl:[&_tr]:grid xl:[&_tr]:gap-y-0 xl:[&_tr]:border-l-0 xl:[&_tr]:border-b xl:[&_tr]:py-4 xl:[&_th]:text-right xl:[&_th]:text-4xl">
           <StatTable stats={s.stats} sources={s.sources} accent={s.sign.line} caption={`${s.name} 핵심 숫자와 기준일·출처`} />
           </div>
         </section>
         <div data-rail="reel" className="mt-8"><div><ReelLink reel={s.reel} title={s.question} /></div></div>
-        <section aria-label="묻고 답하기">
+        {s.body && <section aria-label="해설 본문" className="mt-12 space-y-16">
+          {s.body.map((section) => <section key={section.heading}>
+            <h2 className="text-h2">{section.heading}</h2>
+            <div className="mt-6 space-y-5">{section.paragraphs.map((paragraph) => <p key={paragraph.text} className="text-body">
+              {paragraph.text}<SourceRefs ids={paragraph.sourceIds} sources={s.sources} anchorIds={bodyAnchors[paragraphIndex++]} />
+            </p>)}</div>
+          </section>)}
+        </section>}
+        {!!s.qna.length && <section aria-label="묻고 답하기">
           {s.qna.map((qna, index) => (
             <Fragment key={qna.question}>
               <QnaBlock index={index} qna={qna} sources={s.sources} anchorIds={readingAnchors[index === 0 ? 0 : index + 2]} />
@@ -125,7 +145,8 @@ export default async function StationPage({ params }: Props) {
               </>}
             </Fragment>
           ))}
-        </section>
+        </section>}
+        {s.body && illustration}
         <section aria-labelledby="transfer-heading" className="mt-16">
           <h2 id="transfer-heading" className="text-h2">어디서 내리면 빠른가</h2>
           <p className="mt-4 text-body">{s.pin.text}<SourceRefs ids={s.pin.sourceIds} sources={s.sources} anchorIds={pinAnchors} /></p>

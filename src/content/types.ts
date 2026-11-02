@@ -126,7 +126,7 @@ export type Station = {
   lines: LineId[];
   section: StationSection;
   sign: StationSign;
-  /** H1. 릴스 제목과 같은 질문. */
+  /** H1. 영상 없이 읽히는 기사 고유의 질문. */
   question: string;
   /** <title>. 역 이름·숫자·질문을 앞에 둔다. */
   seoTitle: string;
@@ -134,8 +134,8 @@ export type Station = {
   answer: string;
   /** 다음 기사 카드에 쓰는 짧은 질문("그럼 사당은 왜?" 뒤에 붙는 문장). */
   teaser: string;
-  /** 3D 단면 이미지(4:5). v1의 `section` 필드가 섹션 구분으로 바뀌면서 이름을 옮겼다. */
-  crossSection: { src: string; alt: string; caption: string };
+  /** 선택적 본문 설명 이미지(4:5). 원고와 맞는 자산이 없으면 생략한다. */
+  crossSection?: { src: string; alt: string; caption: string; aiGenerated?: boolean };
   cover?: ReelCover;
   ogImage: string;
   stats: [Stat, Stat, Stat];
@@ -145,6 +145,9 @@ export type Station = {
   /** 하차 칸 행. sourceId는 sources에 있어야 한다. */
   transfers: Transfer[];
   reel: { url: string; thumbnail: string; postedAt: string; notice?: string };
+  series?: { title: string; description: string };
+  /** 해설 본문. Q&A는 실제로 남길 질문만 별도로 둔다. */
+  body?: { heading: string; paragraphs: { text: string; sourceIds: string[] }[] }[];
   qna: Qna[];
   sources: Source[];
   datePublished: string;
