@@ -45,12 +45,28 @@ function fullContent(s: Station): string {
 function fullArticleContent(article: MagazineArticle): string {
   const reference = (ids: string[]) => ids.map((id) => `[${article.sources.findIndex((source) => source.id === id) + 1}]`).join("");
   return [
+    ...(article.series ? [`<p>연재: ${escape(article.series.title)}</p><p>${escape(article.series.description)}</p>`] : []),
     `<p>${escape(article.answer)} ${reference(article.answerSourceIds)}</p>`,
     ...(article.image ? [`<figure><img src="${absoluteUrl(article.image.src)}" alt="${escape(article.image.alt)}"/><figcaption>${escape(article.image.caption)}</figcaption></figure>`] : []),
     ...article.body.flatMap((section) => [
       `<h2>${escape(section.heading)}</h2>`,
       ...section.paragraphs.map((paragraph) => `<p>${escape(paragraph.text)} ${reference(paragraph.sourceIds)}</p>`),
+      ...(section.figure ? [`<figure><p>${escape(section.figure.title)}</p><ul>${section.figure.descriptions.map((description) => `<li>${escape(description)}</li>`).join("")}</ul><figcaption>${escape(section.figure.caption)} ${reference(section.figure.sourceIds)}</figcaption></figure>`] : []),
+      ...(section.scope ? [`<dl><dt>이 순서로 알 수 있는 것</dt><dd>${escape(section.scope.known)}</dd><dt>이 자료로는 알 수 없는 것</dt><dd>${escape(section.scope.unknown)}</dd></dl>`] : []),
     ]),
+    ...(article.transfers?.length ? [
+      "<h2>어디서 내리면 빠른가</h2><p>표의 시간은 자료 기준일의 경로별 참고값입니다. 실제 이동 시간은 보행 속도와 혼잡에 따라 달라집니다.</p>",
+      "<table><thead><tr><th>타고 있는 열차</th><th>갈아탈 노선·방면</th><th>내릴 칸(호차-문)</th><th>참고 시간</th><th>기준일·출처</th></tr></thead><tbody>",
+      ...article.transfers.map((transfer) => {
+        const source = article.sources.find((item) => item.id === transfer.sourceId);
+        if (!source) throw new Error(`RSS: transfer source missing: ${transfer.sourceId}`);
+        const formationSource = transfer.formation ? article.sources.find((item) => item.id === transfer.formation!.sourceId) : undefined;
+        if (transfer.formation && !formationSource) throw new Error(`RSS: formation source missing: ${transfer.formation.sourceId}`);
+        const formation = transfer.formation && formationSource ? ` · ${transfer.formation.cars}칸 편성 (${escape(`${formationSource.org} · ${formationSource.date}`)}) ${reference([transfer.formation.sourceId])}` : "";
+        return `<tr><td>${escape(`${lineName(transfer.ride.line)} ${transfer.ride.direction}`)}</td><td>${escape(`${lineName(transfer.to.line)} ${transfer.to.direction}`)}${transfer.toCar ? ` · 승차 위치 ${escape(transfer.toCar)}` : ""}</td><td>${escape(transfer.car)}${formation}</td><td>${escape(transfer.time)}</td><td>${escape(`${source.org} · ${source.date}`)} ${reference([transfer.sourceId])}</td></tr>`;
+      }),
+      "</tbody></table>",
+    ] : []),
     ...(article.reel ? [`<p><a href="${escape(article.reel.url)}">인스타그램 ${site.instagramHandle} 릴스로 보기</a></p>`] : []),
     "<h2>이어 읽기</h2><ul>",
     ...article.related.map((related) => `<li><a href="${absoluteUrl(related.href)}">${escape(related.title)}</a></li>`),
