@@ -57,7 +57,7 @@ export const dongmyoWeekend: MagazineArticle = {
   ],
   related: [
     { title: "구리역에서 경의중앙선과 8호선은 어떻게 이어질까?", href: "/article/guri-escalator/" },
-    { title: "건대입구역 1,404m는 어떻게 계산됐을까?", href: "/station/konkuk-univ/" },
+    { title: "건대입구역, 엘리베이터가 있어도 환승은 왜 따로 살펴야 할까?", href: "/station/konkuk-univ/" },
   ],
   datePublished: "2026-11-01T00:00:00+09:00",
   dateModified: "2026-11-01T16:16:28+09:00",

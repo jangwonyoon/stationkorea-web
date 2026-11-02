@@ -92,7 +92,7 @@ export const seongsuBranch: MagazineArticle = {
     { id: "SE3", org: "서울교통공사", title: "서울 도시철도 열차운행시각표 — 성수지선 출발역·도착역", date: "2026-09-01 기준", url: "https://www.data.go.kr/data/15098251/fileData.do" },
   ],
   related: [
-    { title: "건대입구역 1,404m는 어떻게 계산됐을까?", href: "/station/konkuk-univ/" },
+    { title: "건대입구역, 엘리베이터가 있어도 환승은 왜 따로 살펴야 할까?", href: "/station/konkuk-univ/" },
     { title: "잠실역, 2호선에서 8호선까지 왜 이렇게 멀까?", href: "/station/jamsil/" },
   ],
   datePublished: "2026-11-01T00:00:00+09:00",
