@@ -13,7 +13,7 @@ const escape = (s: string) =>
 function fullContent(s: Station): string {
   const n = (id: string) => s.sources.findIndex((x) => x.id === id) + 1;
   const refs = (ids: string[]) => ids.map((id) => `[${n(id)}]`).join("");
-  const illustration = `<figure><img src="${absoluteUrl(s.crossSection.src)}" alt="${escape(s.crossSection.alt)}"/><figcaption>${escape(s.crossSection.caption)}${s.crossSection.aiGenerated !== false ? " AI 시각화 참고 이미지." : ""}</figcaption></figure>`;
+  const illustration = s.crossSection ? `<figure><img src="${absoluteUrl(s.crossSection.src)}" alt="${escape(s.crossSection.alt)}"/><figcaption>${escape(s.crossSection.caption)}${s.crossSection.aiGenerated !== false ? " AI 시각화 참고 이미지." : ""}</figcaption></figure>` : "";
   return [
     ...(s.series ? [`<p>연재: ${escape(s.series.title)}</p><p>${escape(s.series.description)}</p>`] : []),
     `<p>${escape(s.answer)}</p>`,

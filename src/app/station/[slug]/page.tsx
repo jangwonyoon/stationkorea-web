@@ -87,7 +87,7 @@ export default async function StationPage({ params }: Props) {
   const readingAnchors = contentAnchors.slice(bodyCount, -2);
   let paragraphIndex = 0;
 
-  const illustration = (
+  const illustration = s.crossSection && (
     <figure className="mt-6">
       <div className="relative aspect-4/5 overflow-hidden bg-slab">
         <Image src={s.crossSection.src} alt={s.crossSection.alt} fill priority={!s.body} fetchPriority={s.body ? "auto" : "high"} sizes="(min-width: 1280px) 690px, (min-width: 768px) calc(75vw - 53px), calc(100vw - 40px)" className="object-cover" />

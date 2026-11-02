@@ -29,7 +29,7 @@ export function NextQuestion({ next, related }: NextQuestionProps) {
             {questions.map((station) => (
               <li key={station.slug}>
                 <Link href={stationPath(station)} className="pressable flex min-h-11 items-center gap-4 py-4">
-                  <Image src={station.crossSection.src} alt={station.crossSection.alt} width={88} height={88} loading="lazy" className="size-22 shrink-0 rounded-lg object-cover" />
+                  {station.crossSection && <Image src={station.crossSection.src} alt={station.crossSection.alt} width={88} height={88} loading="lazy" className="size-22 shrink-0 rounded-lg object-cover" />}
                   <span className="min-w-0">
                     <span className="block text-body break-words">{station.question}</span>
                     <LineChip lines={station.lines} label={station.name} className="mt-3" />

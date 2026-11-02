@@ -34,7 +34,8 @@ assert.equal(station.qna.length, 0);
 assert(!stationJsonLd(station).some(item => item["@type"] === "FAQPage"), "prose is not an invisible FAQ");
 for (const oldStation of stations.filter(item => item.slug !== station.slug)) {
   const faq = stationJsonLd(oldStation).find(item => item["@type"] === "FAQPage");
-  assert.deepEqual(faq.mainEntity.map(q => q.name), oldStation.qna.map(q => q.question));
+  if (oldStation.qna.length) assert.deepEqual(faq.mainEntity.map(q => q.name), oldStation.qna.map(q => q.question));
+  else assert.equal(faq, undefined, "empty Q&A has no FAQ markup");
 }
 const entry = articleEntries.find(item => item.href === "/station/konkuk-univ/");
 assert.deepEqual(entry.series, station.series);

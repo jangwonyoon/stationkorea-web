@@ -134,8 +134,8 @@ export type Station = {
   answer: string;
   /** 다음 기사 카드에 쓰는 짧은 질문("그럼 사당은 왜?" 뒤에 붙는 문장). */
   teaser: string;
-  /** 3D 단면 이미지(4:5). v1의 `section` 필드가 섹션 구분으로 바뀌면서 이름을 옮겼다. */
-  crossSection: { src: string; alt: string; caption: string; aiGenerated?: boolean };
+  /** 선택적 본문 설명 이미지(4:5). 원고와 맞는 자산이 없으면 생략한다. */
+  crossSection?: { src: string; alt: string; caption: string; aiGenerated?: boolean };
   cover?: ReelCover;
   ogImage: string;
   stats: [Stat, Stat, Stat];
