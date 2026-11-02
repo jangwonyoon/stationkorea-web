@@ -30,7 +30,7 @@ export const articleEntries: ArticleEntry[] = [
     href: stationPath(s), title: s.question, answer: s.answer, section: s.section, series: s.series,
     published: s.datePublished, modified: s.dateModified, minutes: readingMinutes(s),
     place: s.name, lines: s.lines,
-    image: s.cover ? { ...s.cover, kind: "reel-cover" as const } : { ...s.crossSection, kind: "cross-section" as const },
+    image: s.cover ? { ...s.cover, kind: "reel-cover" as const } : s.crossSection ? { ...s.crossSection, kind: "cross-section" as const } : undefined,
   })),
 ].sort((a, b) => b.published.localeCompare(a.published));
 

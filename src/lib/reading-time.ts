@@ -10,7 +10,7 @@ export function readingMinutes(station: Station): number {
     station.answer,
     ...(station.series ? [station.series.title, station.series.description] : []),
     ...(station.body ?? []).flatMap((section) => [section.heading, ...section.paragraphs.map((paragraph) => paragraph.text)]),
-    station.crossSection.caption,
+    station.crossSection?.caption ?? "",
     ...station.stats.flatMap((stat) => [stat.value, stat.label]),
     station.pin.text,
     ...station.transfers.flatMap((transfer) => [transfer.ride.direction, transfer.to.direction, transfer.car, transfer.time]),

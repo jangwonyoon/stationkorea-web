@@ -52,7 +52,7 @@ export const guriEscalator: MagazineArticle = {
   ],
   related: [
     { title: "잠실역, 2호선에서 8호선까지 왜 이렇게 멀까?", href: "/station/jamsil/" },
-    { title: "사당역, 환승 74m인데 왜 3분 넘게 걸릴까?", href: "/station/sadang/" },
+    { title: "사당역에서 2호선으로 갈아탈 때, 왜 방면부터 확인해야 할까?", href: "/station/sadang/" },
   ],
   datePublished: "2026-11-01T00:00:00+09:00",
   dateModified: "2026-11-02T20:44:02+09:00",

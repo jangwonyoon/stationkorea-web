@@ -26,7 +26,7 @@ export function stationMarkdown(s: Station): string {
     "",
     ...(s.body ?? []).flatMap((section) => [`## ${section.heading}`, "", ...section.paragraphs.flatMap((paragraph) => [`${paragraph.text} ${refs(paragraph.sourceIds)}`, ""])]),
     ...s.qna.flatMap((q) => [`## ${q.question}`, "", ...q.answer.map((p) => `${p}\n`), `출처: ${refs(q.sourceIds)}`, ""]),
-    ...(s.body ? [`![${s.crossSection.alt}](${absoluteUrl(s.crossSection.src)})`, "", s.crossSection.caption, ""] : []),
+    ...(s.body && s.crossSection ? [`![${s.crossSection.alt}](${absoluteUrl(s.crossSection.src)})`, "", s.crossSection.caption, ""] : []),
     "## 어디서 내리면 빠른가",
     "",
     `${s.pin.text} ${refs(s.pin.sourceIds)}`,
