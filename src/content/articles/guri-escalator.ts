@@ -48,12 +48,20 @@ export const guriEscalator: MagazineArticle = {
     { id: "guide-transfer", org: "서울교통공사", title: "서울 도시철도 환승정보", date: "2026-09-01 기준", url: "https://www.data.go.kr/data/15098252/fileData.do" },
     { id: "G1", org: "구리시", title: "BN3 정거장 관련 공식 답변", date: "2020년 계획 설명", url: "https://www.guri.go.kr/petitions/selectPolicyWebView.do?key=2456&pcyNo=2&searchArea=&searchCtgryCode=&searchOrder=NEW&type=ANSC" },
     { id: "G2", org: "구리시", title: "별내선 개통 공지", date: "2024-07-31 게시 · 2024-08-10 개통 안내", url: "https://www.guri.go.kr/www/selectBbsNttView.do?bbsNo=36&integrDeptCode=&key=380&nttNo=113614&pageIndex=40&searchCnd=all&searchCtgry=&searchKrwd=" },
-    { id: "G3", org: "경기도", title: "8호선 별내선 구리역 환승통로 현장점검 보도자료", date: "2026-08-26 현장점검", url: "https://gnews.gg.go.kr/briefing/brief_gongbo_view.do?BS_CODE=S017&number=71298" },
+    { id: "G3", org: "경기도", title: "8호선 별내선 구리역 환승통로 현장점검 보도자료", date: "2026-08-26 발표 · 2026-08-25 현장점검", url: "https://gnews.gg.go.kr/briefing/brief_gongbo_view.do?BS_CODE=S017&number=71298" },
   ],
   related: [
     { title: "잠실역, 2호선에서 8호선까지 왜 이렇게 멀까?", href: "/station/jamsil/" },
     { title: "사당역, 환승 74m인데 왜 3분 넘게 걸릴까?", href: "/station/sadang/" },
   ],
   datePublished: "2026-11-01T00:00:00+09:00",
-  dateModified: "2026-11-01T16:15:25+09:00",
+  dateModified: "2026-11-02T20:44:02+09:00",
+  corrections: [
+    {
+      date: "2026-11-02",
+      before: "2026-08-26 현장점검",
+      after: "2026-08-26 발표 · 2026-08-25 현장점검",
+      reason: "경기도 보도자료의 발표일을 현장점검일로 잘못 표기했다. 원문에 명시된 25일 오후 점검과 26일 발표를 구분했다.",
+    },
+  ],
 };
