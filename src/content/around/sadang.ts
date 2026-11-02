@@ -38,7 +38,7 @@ export const sadangSources = {
   }
 } satisfies Record<string, AroundSource>;
 
-// 후보 검토·현장 도보 측정 전 초안. 현재 영업 여부나 추천 순위를 뜻하지 않는다.
+// 미발행 자료 후보. #41의 후보·출구 검증 전 공개 소비자에 연결하지 않는다. 도보 시간은 직접 측정할 때만 채운다.
 export const sadangReview = { candidates: "pending", walkingMeasurement: "pending", exitMapping: "pending" } as const;
 
 export const sadangPlaces: Place[] = [

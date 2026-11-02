@@ -7,6 +7,12 @@ export const jamsil: Station = {
   name: "잠실역",
   lines: ["2", "8"],
   section: "transfer",
+  cover: {
+    src: "/images/station/jamsil-cover.jpg",
+    alt: "잠실역 릴스 표지. 2호선에서 8호선 환승, 왜 200m?",
+    caption: "잠실역 2·8호선 환승을 다룬 릴스 표지. AI 시각화 참고 이미지.",
+    width: 1080, height: 1920,
+  },
   sign: { line: "2", prev: "잠실새내", next: "잠실나루", en: "Jamsil" },
   question: "잠실역, 2호선에서 8호선까지 왜 이렇게 멀까?",
   seoTitle: "잠실역 2호선↔8호선 환승 200m, 왜 이렇게 멀까",
@@ -40,7 +46,7 @@ export const jamsil: Station = {
     },
   ],
   pin: {
-    text: "2호선 잠실새내 방면이면 10-3, 잠실나루 방면이면 1-1에서 내리면 8호선까지 약 4분. 8호선에서는 몽촌토성 방면 6-4, 석촌 방면 1-1. 끝 칸에서 내리면 최대 2분 47초를 더 걷습니다.",
+    text: "반대쪽 끝 칸에서 내리면 최대 2분 47초를 더 걷습니다.",
     sourceIds: ["seoulmetro-transfer-info"],
   },
   transfers: [
@@ -63,14 +69,6 @@ export const jamsil: Station = {
         "두 노선 모두 상대식 승강장이며 긴 환승통로 2개로 이어집니다. 2호선 쪽 통로는 방향별로 나뉘어 있고, 8호선 쪽 통로에서는 맞은편 승강장으로 건너갈 수 있습니다.",
       ],
       sourceIds: ["redaily-2021", "wiki-jamsil"],
-    },
-    {
-      question: "잠실역에서 8호선으로 갈아탈 때 어디서 내리면 빠른가요?",
-      answer: [
-        "2호선 잠실새내 방면 열차는 10-3, 잠실나루 방면 열차는 1-1에서 내리면 8호선까지 약 4분 걸립니다.",
-        "8호선에서 2호선으로 갈아탈 때는 몽촌토성 방면 6-4, 석촌 방면 1-1이 가깝습니다. 반대쪽 끝 칸에서 내리면 최대 2분 47초를 더 걷습니다.",
-      ],
-      sourceIds: ["seoulmetro-transfer-info"],
     },
     {
       question: "잠실역은 하루에 몇 명이 이용하나요?",
@@ -142,5 +140,5 @@ export const jamsil: Station = {
     },
   ],
   datePublished: "2026-10-29T09:00:00+09:00",
-  dateModified: "2026-10-29T09:00:00+09:00",
+  dateModified: "2026-11-01T14:03:09+09:00",
 };

@@ -7,7 +7,7 @@ import { Hahmlet, IBM_Plex_Sans_KR } from "next/font/google";
 // display: swap + adjustFontFallback(기본값)으로 대체 서체 크기를 보정해 CLS를 줄인다.
 
 export const hahmlet = Hahmlet({
-  weight: ["600", "700"],
+  weight: "variable",
   display: "swap",
   preload: false,
   variable: "--font-hahmlet",

@@ -7,6 +7,12 @@ export const sadang: Station = {
   name: "사당역",
   lines: ["2", "4"],
   section: "transfer",
+  cover: {
+    src: "/images/station/sadang-cover.jpg",
+    alt: "사당역 릴스 표지. 환승 74m인데 왜 3분 넘게?",
+    caption: "사당역 2·4호선 환승을 다룬 릴스 표지. AI 시각화 참고 이미지.",
+    width: 1080, height: 1920,
+  },
   sign: { line: "2", prev: "방배", next: "낙성대", en: "Sadang" },
   question: "사당역, 환승 74m인데 왜 3분 넘게 걸릴까?",
   seoTitle: "사당역 2호선↔4호선 환승 74m인데 3분 22초, 왜 돌아가게 할까",
@@ -40,7 +46,7 @@ export const sadang: Station = {
     },
   ],
   pin: {
-    text: "4호선에서 2호선 방배 방면으로 갈 때는 총신대입구 방면 열차 10-4, 남태령 방면 열차 1-1에서 내리면 가장 빠릅니다. 2호선 낙성대 방면으로 갈 때는 총신대입구 방면 열차 4-2, 남태령 방면 열차 7-3. 끝 칸에서 내리면 최대 2분 47초를 더 걷습니다.",
+    text: "표의 소요 시간은 가장 가까운 칸에서 내려 막힘 없이 걸을 때 기준입니다. 혼잡 시간대에는 더 걸릴 수 있습니다. 반대쪽 끝 칸에서 내리면 최대 2분 47초를 더 걷습니다.",
     sourceIds: ["seoulmetro-transfer-info"],
   },
   transfers: [
@@ -51,6 +57,20 @@ export const sadang: Station = {
     { ride: { line: "2", direction: "방배 방면" }, to: { line: "4", direction: "총신대입구·남태령 방면" }, car: "6-3", time: "3분 22~24초", sourceId: "seoulmetro-transfer-info" },
     { ride: { line: "2", direction: "낙성대 방면" }, to: { line: "4", direction: "총신대입구·남태령 방면" }, car: "5-3", time: "1분 51~55초", sourceId: "seoulmetro-transfer-info" },
   ],
+  comparison: {
+    title: "사당역 2호선과 4호선 비교",
+    columns: ["2호선", "4호선"],
+    rows: [
+      { label: "사당역 개통", values: ["1983년 12월 17일", "1985년 10월 18일"], sourceIds: ["wiki-sadang"], note: "개통일은 위키백과 기준입니다." },
+      { label: "승강장 형태", values: ["상대식", "섬식"], sourceIds: ["wiki-sadang", "redaily-2021-11"], note: "승강장 형태는 위키백과·철도경제신문 기준입니다." },
+      {
+        label: "승강장 층",
+        values: ["지하 2층", "지하 3층"],
+        sourceIds: ["namu-sadang"],
+        note: "층수는 나무위키 단독 자료입니다.",
+      },
+    ],
+  },
   reel: {
     url: "https://www.instagram.com/reel/De_BAeuiU93/",
     thumbnail: "/images/station/sadang-reel.jpg",
@@ -65,14 +85,6 @@ export const sadang: Station = {
         "짧은 길은 폭이 좁아 출퇴근 때 환승객이 계단에서 엉킬 위험이 큽니다. 그래서 2호선 방배 방면 환승통로에는 긴 안전펜스를 쳐 한 바퀴 돌아 계단을 쓰게 했고, 4호선 승강장 가운데에서 2호선 낙성대 방면으로 바로 이어지는 좁은 간이 통로는 출퇴근 시간(아침은 9시까지)에 셔터를 내립니다. 돌아가는 길이 설계입니다.",
       ],
       sourceIds: ["redaily-2021-11", "wiki-sadang"],
-    },
-    {
-      question: "사당역에서 갈아탈 때 어디서 내리면 빠른가요?",
-      answer: [
-        "서울교통공사 환승 경로 안내 기준으로 2호선 방배 방면↔4호선은 3분 22초, 낙성대 방면↔4호선은 1분 51초입니다. 같은 역인데 방향에 따라 두 배 가까이 차이가 납니다.",
-        "4호선에서 내릴 때 2호선 방배 방면으로는 총신대입구 방면 열차 10-4(3분 24초), 남태령 방면 열차 1-1(3분 22초)이 가장 빠르고, 2호선 낙성대 방면으로는 총신대입구 방면 열차 4-2(1분 55초), 남태령 방면 열차 7-3(1분 51초)이 가장 빠릅니다. 2호선에서 4호선으로 갈 때는 방배 방면 열차 6-3, 낙성대 방면 열차 5-3에서 내립니다. 이 시간은 가장 좋은 칸에서 내려 막힘 없이 걸을 때 기준이라 출근길 체감은 더 깁니다.",
-      ],
-      sourceIds: ["seoulmetro-transfer-info"],
     },
     {
       question: "사당역은 얼마나 붐비나요?",
@@ -149,9 +161,16 @@ export const sadang: Station = {
       date: "2025-07-17",
       url: "https://www.hankyung.com/article/2025071752221",
     },
+    {
+      id: "namu-sadang",
+      org: "나무위키",
+      title: "사당역(기존 기사 층수 인용, 원문 미확인)",
+      date: "2026-10-30 기존 기사 인용 기준",
+      url: "https://namu.wiki/w/%EC%82%AC%EB%8B%B9%EC%97%AD",
+    },
   ],
   datePublished: "2026-10-29T09:00:00+09:00",
-  dateModified: "2026-10-30T12:00:00+09:00",
+  dateModified: "2026-11-01T14:03:09+09:00",
   corrections: [
     {
       date: "2026-10-30",

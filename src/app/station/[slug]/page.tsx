@@ -1,14 +1,28 @@
 import type { Metadata } from "next";
+import { Fragment } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { JsonLd } from "@/components/JsonLd";
-import { formatDate, SourceRefs, withTopic } from "@/components/SourceRefs";
+import { firstCitations, formatDate, SourceRefs } from "@/components/SourceRefs";
+import { Breadcrumb } from "@/components/article/meta/Breadcrumb";
+import { Byline } from "@/components/article/meta/Byline";
+import { Corrections } from "@/components/article/meta/Corrections";
+import { SourceList } from "@/components/article/meta/SourceList";
+import { NextQuestion, PullQuote, QnaBlock, ReelLink } from "@/components/article/reading";
+import { CompareTable } from "@/components/blocks";
+import { StationSign } from "@/components/station-sign";
+import { StatTable } from "@/components/stat-table";
+import { TransferDoors } from "@/components/transfer-doors";
+import { Button } from "@/components/ui/button";
+import { linePath } from "@/app/line/data";
 import { lineName } from "@/content/lines";
 import { getNextStation, getStation, stationPath, stations } from "@/content/stations";
 import { stationJsonLd } from "@/lib/jsonld";
 import { markdownPath } from "@/lib/markdown";
-import { site } from "@/lib/site";
+import { readingMinutes } from "@/lib/reading-time";
+import { absoluteUrl, site } from "@/lib/site";
+import { ArticleLayout } from "@/components/article/ArticleLayout";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -35,231 +49,106 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       description: s.answer,
       publishedTime: s.datePublished,
       modifiedTime: s.dateModified,
-      images: [{ url: s.ogImage, width: 1200, height: 630, alt: s.crossSection.alt }],
+      images: [{ url: s.ogImage, width: 1200, height: 630, alt: s.question }],
     },
     twitter: { card: "summary_large_image", title: s.question, description: s.answer, images: [s.ogImage] },
   };
 }
 
-// 기사 템플릿(F안). 모바일 순서 ①~⑧은 order-*로, 데스크톱은 숫자·릴스·다음 기사를 오른쪽 열에 고정한다.
-// DOM은 본문을 먼저 두어 크롤러와 스크린리더가 질문 → 답 → 본문 순으로 읽게 한다.
 export default async function StationPage({ params }: Props) {
   const s = getStation((await params).slug);
   if (!s) notFound();
   const next = getNextStation(s.slug);
-  const lineLabel = s.lines.map(lineName).join("·");
+  const quote = s.pullQuote ?? s.stats[0];
+  const breadcrumb = [
+    { name: site.name, href: "/" },
+    { name: lineName(s.sign.line), href: linePath(s.sign.line) },
+    { name: s.name },
+  ];
+  const jsonLd = stationJsonLd(s).map((node) => node["@type"] === "BreadcrumbList" ? {
+    ...node,
+    itemListElement: breadcrumb.map((item, index) => ({
+      "@type": "ListItem", position: index + 1, name: item.name,
+      item: absoluteUrl(item.href ?? stationPath(s)),
+    })),
+  } : node);
+  const comparisonIds = s.comparison?.rows.flatMap((row) => row.sourceIds) ?? [];
+  const [, ...contentAnchors] = firstCitations([
+    s.stats.flatMap((stat) => stat.sourceIds),
+    ...s.qna.flatMap((qna, index) => index === 0 ? [qna.sourceIds, comparisonIds, quote.sourceIds] : [qna.sourceIds]),
+    s.pin.sourceIds,
+    s.transfers.map((transfer) => transfer.sourceId),
+  ]);
+  const pinAnchors = contentAnchors.at(-2) ?? [];
+  const transferAnchors = contentAnchors.at(-1) ?? [];
+  const readingAnchors = contentAnchors.slice(0, -2);
 
   return (
     <>
-      <JsonLd data={stationJsonLd(s)} />
-      <nav aria-label="현재 위치" className="mx-auto max-w-6xl px-4 pt-4 text-sm text-neutral-500">
-        <ol className="flex gap-1">
-          <li>
-            <Link href="/" className="hover:underline">
-              {site.name}
-            </Link>
-          </li>
-          <li aria-hidden>›</li>
-          <li aria-current="page">{s.name}</li>
-        </ol>
-      </nav>
-
-      <article className="mx-auto flex max-w-6xl flex-col gap-8 px-4 py-6 lg:grid lg:grid-cols-[minmax(0,1fr)_20rem] lg:gap-x-12">
-        {/* ① 눈썹 + 질문 제목 + 한 문장 답 */}
-        <header className="order-1 lg:col-start-1">
-          <p className="text-sm text-neutral-500">
-            {site.name} · 역 해부 {String(s.no).padStart(2, "0")} · {lineLabel}
-          </p>
-          <h1 className="mt-2 text-[22px] font-bold leading-snug break-keep sm:text-3xl">{s.question}</h1>
-          <p className="mt-4 text-lg leading-relaxed break-keep">{s.answer}</p>
-          <p className="mt-3 text-xs text-neutral-500">
-            글{" "}
-            <Link href={site.author.path} rel="author" className="underline-offset-2 hover:underline">
-              {site.author.name}
-            </Link>{" "}
-            · <time dateTime={s.datePublished}>{formatDate(s.datePublished)}</time> 게시
-            {s.dateModified !== s.datePublished && (
-              <>
-                {" "}
-                · <time dateTime={s.dateModified}>{formatDate(s.dateModified)}</time> 숫자 갱신
-              </>
-            )}
-          </p>
+      <JsonLd data={jsonLd} />
+      <article className="page-wrap pb-16">
+        <div className="flex flex-wrap items-center justify-between gap-x-6 gap-y-2 py-3">
+          <Breadcrumb items={breadcrumb} />
+          <p className="text-label">#갈아타다 <span className="ml-3 text-ink-3">역 해부 {String(s.no).padStart(2, "0")}</span></p>
+        </div>
+        <StationSign station={s} transfers={s.transfers} />
+        <div className="mt-8 xl:mt-12">
+        <ArticleLayout key={s.slug}>
+        <header>
+          <h1 className="text-h1 break-keep xl:text-article-title">{s.question}</h1>
+          <p id="article-answer" className="mt-4 text-lead">{s.answer}</p>
+          <div className="mt-2"><Byline author={site.author} published={s.datePublished} modified={s.dateModified} readingMinutes={readingMinutes(s)} /></div>
         </header>
-
-        {/* ② 3D 단면 이미지(고정 비율로 레이아웃 이동 없음) */}
-        <figure className="order-2 lg:col-start-1 lg:max-w-xl">
-          <div className="relative aspect-[4/5] w-full overflow-hidden rounded-lg bg-neutral-100">
-            <Image src={s.crossSection.src} alt={s.crossSection.alt} fill priority sizes="(min-width: 1024px) 36rem, 100vw" className="object-cover" />
+        <figure className="mt-6">
+          <div className="relative aspect-4/5 overflow-hidden bg-slab">
+            <Image src={s.crossSection.src} alt={s.crossSection.alt} fill priority fetchPriority="high" sizes="(min-width: 1280px) 690px, (min-width: 768px) calc(75vw - 53px), calc(100vw - 40px)" className="object-cover" />
           </div>
-          <figcaption className="mt-2 text-sm text-neutral-600">
-            {s.crossSection.caption} <span className="text-neutral-500">AI 시각화 참고 이미지.</span>
-          </figcaption>
+          <figcaption className="mt-2 text-caption">{s.crossSection.caption} AI 시각화 참고 이미지.</figcaption>
         </figure>
-
-        {/* ④ 하차 칸 한 줄 */}
-        <section aria-labelledby="pin" className="order-4 rounded-lg border border-neutral-200 p-4 lg:col-start-1">
-          <h2 id="pin" className="text-sm font-semibold">
-            어디서 내리면 빠른가
-          </h2>
-          <p className="mt-1 leading-relaxed break-keep">
-            {s.pin.text}
-            <SourceRefs ids={s.pin.sourceIds} sources={s.sources} />
-          </p>
+        <section data-rail="numbers" aria-label={`숫자로 보는 ${s.name}`} className="mt-8">
+          <div className="xl:[&_tbody]:grid-cols-1 xl:[&_tr]:grid xl:[&_tr]:gap-y-0 xl:[&_tr]:border-l-0 xl:[&_tr]:border-b xl:[&_tr]:py-4 xl:[&_th]:text-right xl:[&_th]:text-4xl">
+          <StatTable stats={s.stats} sources={s.sources} accent={s.sign.line} caption={`${s.name} 핵심 숫자와 기준일·출처`} />
+          </div>
         </section>
-
-        {/* ⑥ Q&A — FAQPage 구조화 데이터와 1:1 */}
-        <section aria-label="묻고 답하기" className="order-6 flex flex-col gap-8 lg:col-start-1">
-          {s.qna.map((q, i) => (
-            <section key={q.question} aria-labelledby={`q${i + 1}`}>
-              <h2 id={`q${i + 1}`} className="text-xl font-bold leading-snug break-keep">
-                {q.question}
-              </h2>
-              {q.answer.map((para, j) => (
-                <p key={j} className="mt-3 leading-relaxed break-keep">
-                  {para}
-                  {j === q.answer.length - 1 && <SourceRefs ids={q.sourceIds} sources={s.sources} />}
-                </p>
-              ))}
-            </section>
+        <div data-rail="reel" className="mt-8"><div><ReelLink reel={s.reel} title={s.question} /></div></div>
+        <section aria-label="묻고 답하기">
+          {s.qna.map((qna, index) => (
+            <Fragment key={qna.question}>
+              <QnaBlock index={index} qna={qna} sources={s.sources} anchorIds={readingAnchors[index === 0 ? 0 : index + 2]} />
+              {index === 0 && <>
+                {s.comparison && <div>
+                  <CompareTable {...s.comparison} sources={s.sources} />
+                  <SourceRefs ids={readingAnchors[1]} sources={s.sources} anchorIds={readingAnchors[1]} />
+                </div>}
+                <PullQuote {...quote} sources={s.sources} anchorIds={readingAnchors[2]} />
+                {!s.pullQuote && <p className="-mt-8 mb-12 px-6 text-caption md:px-8">{s.stats[0].asOf}</p>}
+              </>}
+            </Fragment>
           ))}
         </section>
-
-        {/* 최근 소식(/news/) — 비어 있으면 숨긴다 */}
-        {s.news && s.news.length > 0 && (
-          <section aria-labelledby="news" className="order-6 lg:col-start-1">
-            <h2 id="news" className="text-lg font-bold">
-              최근 소식
-            </h2>
-            <ul className="mt-2 list-disc pl-5">
-              {s.news.map((n) => (
-                <li key={n.href}>
-                  <Link href={n.href} className="underline">
-                    {n.title}
-                  </Link>{" "}
-                  <time dateTime={n.date} className="text-sm text-neutral-500">
-                    {formatDate(n.date)}
-                  </time>
-                </li>
-              ))}
-            </ul>
-          </section>
-        )}
-
-        {/* ⑧ 출처 전문 · 제작 문의 (read_end 측정 지점). AI 표시는 ② 단면 이미지 캡션에 둔다 */}
-        <footer id="sources" className="order-8 border-t border-neutral-200 pt-6 text-sm lg:col-start-1">
-          <h2 className="text-base font-bold">출처</h2>
-          <ol className="mt-3 flex list-decimal flex-col gap-2 pl-5">
-            {s.sources.map((src) => (
-              <li key={src.id} id={`src-${src.id}`} className="break-keep">
-                {src.org}, {src.title}, {src.date}
-                {src.url && (
-                  <>
-                    {". "}
-                    <a href={src.url} rel="noopener" className="break-all text-neutral-600 underline">
-                      {src.url}
-                    </a>
-                  </>
-                )}
-              </li>
-            ))}
-          </ol>
-          {s.corrections && s.corrections.length > 0 && (
-            <>
-              <h2 className="mt-6 text-base font-bold">정정 기록</h2>
-              <ul className="mt-2 flex flex-col gap-1 text-neutral-600">
-                {s.corrections.map((c) => (
-                  <li key={`${c.date}-${c.before}`} className="break-keep">
-                    <time dateTime={c.date}>{formatDate(c.date)}</time>: {c.before} → {c.after} ({c.reason})
-                  </li>
-                ))}
-              </ul>
-            </>
-          )}
-          <h2 className="mt-6 text-base font-bold">제작 문의</h2>
-          <p className="mt-2 text-neutral-600 break-keep">
-            역 한 곳의 해부 기사와 릴스를 함께 제작합니다. 이메일{" "}
-            <a href={`mailto:${site.email}`} className="underline">
-              {site.email}
-            </a>{" "}
-            또는 인스타그램{" "}
-            <a href={site.instagram} className="underline">
-              {site.instagramHandle}
-            </a>{" "}
-            DM으로 문의해 주세요. 숫자가 틀렸다면 같은 주소로 알려 주세요.{" "}
-            <Link href="/about/" className="underline">
-              출처·정정 정책
-            </Link>
-          </p>
-        </footer>
-
-        {/* 사이드: 모바일에서는 contents로 풀려 ③⑤⑦ 자리에 끼고, 데스크톱에서는 오른쪽에 고정된다 */}
-        <aside className="contents lg:sticky lg:top-6 lg:col-start-2 lg:row-span-6 lg:row-start-1 lg:flex lg:flex-col lg:gap-6 lg:self-start">
-          {/* ③ 숫자·출처 카드 3개 */}
-          <section aria-labelledby="numbers" className="order-3">
-            <h2 id="numbers" className="sr-only">
-              숫자로 보는 {s.name}
-            </h2>
-            <table className="w-full border-separate border-spacing-y-3 text-left">
-              <caption className="sr-only">
-                {s.name} {lineLabel} 핵심 숫자와 기준일, 출처
-              </caption>
-              <thead className="sr-only">
-                <tr>
-                  <th scope="col">숫자</th>
-                  <th scope="col">내용</th>
-                  <th scope="col">기준일·출처</th>
-                </tr>
-              </thead>
-              <tbody>
-                {s.stats.map((st) => (
-                  <tr key={st.value} className="flex flex-col rounded-lg border border-neutral-200 p-4">
-                    <th scope="row" className="text-2xl font-bold">
-                      {st.value}
-                    </th>
-                    <td className="mt-1 break-keep">{st.label}</td>
-                    <td className="mt-2 text-xs text-neutral-500">
-                      {st.asOf}
-                      <SourceRefs ids={st.sourceIds} sources={s.sources} />
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </section>
-
-          {/* ⑤ 릴스 썸네일 + 인스타 링크(임베드 스크립트 없음) */}
-          <section aria-labelledby="reel" className="order-5">
-            <h2 id="reel" className="sr-only">
-              릴스 영상
-            </h2>
-            <a href={s.reel.url} rel="noopener" className="flex items-center gap-4 rounded-lg border border-neutral-200 p-3 hover:bg-neutral-50">
-              <Image src={s.reel.thumbnail} alt={`${s.name} 릴스 썸네일`} width={96} height={171} className="h-auto w-24 shrink-0 rounded" />
-              <span>
-                <span className="block font-semibold">1분 영상으로 보기</span>
-                <span className="mt-1 block text-sm text-neutral-600">인스타그램 {site.instagramHandle} 릴스</span>
-              </span>
-            </a>
-          </section>
-
-          {/* ⑦ 다음 기사: 역 이름이 아니라 다음 질문 */}
-          <section aria-labelledby="next" className="order-7">
-            <h2 id="next" className="text-sm text-neutral-500">
-              다음 질문
-            </h2>
-            <Link
-              href={stationPath(next)}
-              data-track="next_click"
-              data-to={stationPath(next)}
-              className="mt-2 block rounded-lg border border-neutral-900 p-4 hover:bg-neutral-50"
-            >
-              <span className="block text-lg font-bold break-keep">
-                그럼 {withTopic(next.name.replace(/역$/, ""))} 왜?
-              </span>
-              <span className="mt-1 block break-keep text-neutral-700">{next.teaser}</span>
-            </Link>
-          </section>
-        </aside>
+        <section aria-labelledby="transfer-heading" className="mt-16">
+          <h2 id="transfer-heading" className="text-h2">어디서 내리면 빠른가</h2>
+          <p className="mt-4 text-body">{s.pin.text}<SourceRefs ids={s.pin.sourceIds} sources={s.sources} anchorIds={pinAnchors} /></p>
+          <div className="mt-6"><TransferDoors transfers={s.transfers} sources={s.sources} anchorIds={transferAnchors} /></div>
+        </section>
+        {s.news && s.news.length > 0 && <section className="my-12" aria-labelledby="news-heading">
+          <h2 id="news-heading" className="text-h2">최근 소식</h2>
+          <ul className="mt-4 divide-y divide-rule">{s.news.map((news) => <li key={news.href} className="py-3">
+            <Link href={news.href} className="inline-flex min-h-11 items-center text-body underline">{news.title}</Link>
+            <time dateTime={news.date} className="ml-3 text-caption">{formatDate(news.date)}</time>
+          </li>)}</ul>
+        </section>}
+        <div data-rail="next" className="my-16"><div><NextQuestion next={next} related={stations.filter((station) => station.slug !== s.slug)} /></div></div>
+        <SourceList sources={s.sources} />
+        <div className="mt-12"><Corrections items={s.corrections} /></div>
+        <section aria-labelledby="contact-heading" className="mt-12 border-t-2 border-ink pt-4">
+          <h2 id="contact-heading" className="text-h2">제작 문의</h2>
+          <p className="mt-4 text-body">역 한 곳의 해부 기사와 릴스를 함께 제작합니다. 숫자가 틀렸다면 같은 주소로 알려 주세요.</p>
+          <Button asChild variant="outline" className="mt-4"><a href={`mailto:${site.email}`}>제작 문의 {site.email}</a></Button>
+          <p className="mt-3 text-caption"><Link href="/about/" className="inline-flex min-h-11 items-center underline">출처·정정 정책</Link></p>
+        </section>
+        </ArticleLayout>
+        </div>
       </article>
     </>
   );

@@ -3,7 +3,7 @@
 /*
  * 디자인 토큰 — 시안 v1(docs/design/v1/README.md "토큰"). 컴포넌트는 Tailwind 유틸리티 클래스로만 쓴다.
  * 모든 토큰은 @theme 변수라 bg-ground, text-ink, border-rule, bg-line-2, text-on-line-2 같은 클래스가 생긴다.
- * 다크는 prefers-color-scheme로 --color-* 값만 바꾼다. 흰 판(plate)·출구 노랑(exit)·노선색은 다크에서도 그대로.
+ * 다크는 시스템 설정 또는 현재 탭의 data-theme으로 --color-* 값만 바꾼다. 흰 판(plate)·출구 노랑(exit)·노선색은 다크에서도 그대로.
  * 브레이크포인트는 Tailwind 기본값을 시안 폭에 맞춰 쓴다: 기본 = 390(모바일), md = 768, xl = 1280.
  */
 
@@ -17,6 +17,9 @@
   --color-ink-2: #33383d;
   --color-ink-3: #4a5056;
   --color-exit: #ffcd00;
+  --color-footer: #191b1d;
+  --color-on-footer: #eceeee;
+  --color-footer-muted: #c5cacd;
   /* 흰 판·출구 노랑·노선색 채움 위의 먹 글자. 다크에서도 바뀌지 않는다. */
   --color-plate-ink: #191b1d;
   /* 기사 강조색 = 기준 노선색. 기사 루트에서 [--color-accent:var(--color-line-2)]처럼 덮어쓴다. */
@@ -32,6 +35,15 @@
   --color-line-7: #747f00;
   --color-line-8: #e6186c;
   --color-line-9: #bdb092;
+  /* 이름 노선은 안내용 근사색. 공식 지정 hex로 사용하지 않는다. */
+  --color-line-gyeongui-jungang: #77c4a3;
+  --color-line-arex: #0090d2;
+  --color-line-seohae: #8fc31f;
+  --color-line-gimpo-goldline: #a17800;
+  --color-on-line-gyeongui-jungang: #191b1d;
+  --color-on-line-arex: #191b1d;
+  --color-on-line-seohae: #191b1d;
+  --color-on-line-gimpo-goldline: #ffffff;
 
   /* 노선색 채움 위 숫자색 */
   --color-on-line-1: #ffffff;
@@ -44,8 +56,13 @@
   --color-on-line-8: #ffffff;
   --color-on-line-9: #191b1d;
 
-  /* 모서리: 기본 rounded-none(본문 블록·표·이미지·카드), rounded-plate(역명판·버튼·하차 칸 표지), rounded-full(원형 번호·역 점·핀만) */
+  /* 모서리: rounded-xl(기사 카드·홈 표지), rounded-lg(카드 안 썸네일), rounded-none(본문 블록·표), rounded-plate(역명판·버튼·하차 칸 표지), rounded-full(원형 번호·역 점·핀만) */
   --radius-plate: 2px;
+  /* 기사 상세 시안의 데스크톱 제목. */
+  --text-article-title: 56px;
+  --text-article-title--line-height: 1.22;
+  --text-station-name: 64px;
+  --text-station-name--line-height: 1;
 
   /* 움직임: 역명판 띠 그리기 900ms, 진입 1회 */
   --ease-band: cubic-bezier(0.2, 0.7, 0.2, 1);
@@ -114,14 +131,30 @@
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme="light"]) {
     --color-ground: #121416;
+    --color-footer: #1c1f22;
     --color-slab: #1c1f22;
     --color-rule: #3a4045;
     --color-ink: #e8eaeb;
     --color-ink-2: #c5cacd;
     --color-ink-3: #a3a9ae;
   }
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --color-ground: #121416;
+  --color-footer: #1c1f22;
+  --color-slab: #1c1f22;
+  --color-rule: #3a4045;
+  --color-ink: #e8eaeb;
+  --color-ink-2: #c5cacd;
+  --color-ink-3: #a3a9ae;
 }
 
 /* 타입 스케일. 모바일 값이 기본이고 md(768) 이상에서 데스크톱 값. */
@@ -275,4 +308,198 @@
   :focus-visible {
     @apply focus-ring;
   }
+}
+
+/* Native swipe/snap remains usable before hydration and with JavaScript disabled. */
+@utility scrollbar-none {
+  scrollbar-width: none;
+  &::-webkit-scrollbar { display: none; }
+}
+
+@utility question-slide {
+  flex-basis: calc(100% - 3rem);
+  &:only-child { flex-basis: 100%; }
+  @variant md {
+    flex-basis: calc((100% - 2rem) / 3);
+    &:only-child { flex-basis: 100%; }
+  }
+}
+
+/* 작은 화면과 감소 모션에서는 사진과 본문을 정적인 순서로 읽는다. */
+@utility about-chapter {
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) and (min-width: 64rem) and (min-height: 44rem) {
+      view-timeline-name: --about-chapter;
+      view-timeline-axis: block;
+    }
+  }
+}
+
+@utility about-story-copy {
+  @media (prefers-reduced-motion: no-preference) and (min-width: 64rem) and (min-height: 44rem) {
+    position: sticky;
+    top: clamp(6rem, 18svh, 10rem);
+  }
+}
+
+@utility about-chapter-rule {
+  transform-origin: left;
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) and (min-width: 64rem) and (min-height: 44rem) {
+      animation: var(--animate-about-rule);
+      animation-timeline: --about-chapter;
+      animation-range: entry 0% cover 65%;
+    }
+  }
+}
+
+@utility about-photo-reveal {
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) and (min-width: 64rem) and (min-height: 44rem) {
+      animation: var(--animate-about-photo);
+      animation-timeline: view();
+      animation-range: entry 0% entry 90%;
+    }
+  }
+}
+
+@utility about-change-photo {
+  max-width: 500px;
+}
+
+@utility about-chapter-title {
+  font-family: var(--font-serif);
+  font-weight: 600;
+  font-size: 36px;
+  line-height: 1.3;
+  letter-spacing: -0.025em;
+  word-break: keep-all;
+  @variant md { font-size: 42px; }
+  @variant xl { font-size: 56px; }
+}
+
+@theme {
+  --animate-about-rule: about-rule 1ms linear both;
+  --animate-about-photo: about-photo 1ms linear both;
+  @keyframes about-rule {
+    from { transform: scaleX(0.08); }
+    to { transform: scaleX(1); }
+  }
+  @keyframes about-photo {
+    from { clip-path: inset(6% 8% round 0.75rem); }
+    to { clip-path: inset(0 round 0.75rem); }
+  }
+}
+
+@utility about-title {
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: 44px;
+  line-height: 1.22;
+  letter-spacing: -0.025em;
+  word-break: keep-all;
+  @media (max-width: 360px) { font-size: 36px; }
+  @variant md { font-size: 72px; }
+  @variant xl { font-size: 96px; }
+}
+
+/* 소개의 차량 장면: 수단을 구별하는 레일과 차선, 원래 문서 흐름을 유지한다. */
+@utility transit-title {
+  font-family: var(--font-serif);
+  font-weight: 600;
+  font-size: 36px;
+  line-height: 1.28;
+  letter-spacing: -0.035em;
+  word-break: keep-all;
+  @variant md { font-size: 56px; }
+  @variant xl { font-size: 72px; }
+}
+
+@utility transit-rail-scene {
+  border-block: 1px solid var(--color-rule);
+}
+
+@utility transit-railway {
+  position: relative;
+  padding-bottom: 1rem;
+}
+
+@utility transit-train {
+  width: 54rem;
+  margin-left: calc(100% - 54rem);
+  position: relative;
+  z-index: 1;
+  @variant md {
+    width: 64rem;
+    margin-left: calc(100% - 64rem);
+  }
+  @variant xl {
+    width: max(100%, 84rem);
+    margin-left: -4rem;
+  }
+}
+
+@utility transit-track {
+  position: absolute;
+  inset-inline: 0;
+  bottom: 1.25rem;
+  height: 1.25rem;
+  border-top: 3px solid var(--color-ink-3);
+  border-bottom: 2px solid var(--color-rule);
+  background: repeating-linear-gradient(90deg, transparent 0 1.75rem, var(--color-rule) 1.75rem 2rem);
+  @variant md { bottom: 1.55rem; }
+  @variant xl { bottom: 2.125rem; }
+}
+
+@utility transit-road-scene { position: relative; }
+
+@utility transit-bus {
+  width: 100%;
+  max-width: 32rem;
+  position: relative;
+  z-index: 1;
+}
+
+@utility transit-road {
+  position: relative;
+  margin-top: -2rem;
+  height: 3.5rem;
+  border-top: 1px solid var(--color-rule);
+  border-bottom: 1px solid var(--color-rule);
+  background-color: var(--color-slab);
+  @variant md { margin-top: -2.5rem; }
+}
+
+@utility transit-road-markings {
+  position: absolute;
+  inset-inline: 0;
+  top: 1.5rem;
+  height: 2px;
+  background: repeating-linear-gradient(90deg, var(--color-ink-3) 0 2rem, transparent 2rem 4rem);
+}
+
+/* 지원하지 않는 브라우저는 기본 details 동작으로 즉시 전환한다. */
+@utility transfer-disclosure {
+  @supports (interpolate-size: allow-keywords) {
+    interpolate-size: allow-keywords;
+    &::details-content {
+      block-size: 0;
+      overflow: clip;
+      transition: block-size 220ms ease, content-visibility 220ms allow-discrete;
+    }
+    &[open]::details-content { block-size: auto; }
+    @media (prefers-reduced-motion: reduce) {
+      &::details-content { transition: none; }
+    }
+  }
+}
+
+/* 승인된 영문 주 표기. 한국어 본문·제목 서체는 기존 토큰을 유지한다. */
+@utility brand-wordmark {
+  font-family: var(--font-sans);
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+  @variant md { font-size: 16px; }
 }
