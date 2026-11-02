@@ -1,8 +1,10 @@
 import type { Station } from "../types";
+import { stationPhotos } from "../station-photos";
 
 // 원천: reel-studio episodes/maeil-geugil/sadang-transfer (facts.md·caption.txt·pin.txt·episode.json)
 export const sadang: Station = {
   slug: "sadang",
+  photo: stationPhotos["sadang"],
   no: 2,
   name: "사당역",
   lines: ["2", "4"],
@@ -144,7 +146,7 @@ export const sadang: Station = {
     }
   ],
   datePublished: "2026-10-29T09:00:00+09:00",
-  dateModified: "2026-11-02T21:21:45+09:00",
+  dateModified: "2026-11-02T22:24:34+09:00",
   corrections: [
     {"date": "2026-11-02", "before": "74m인데 3분 22초인 것은 펜스·셔터로 돌아가게 하기 때문이라는 설명", "after": "74m는 최단거리이며 문 위치별 참고시간과 같은 조건의 값인지 확인되지 않아 통제에 따른 지연이라는 설명 삭제", "reason": "거리 자료의 계산값과 방면별 환승 참고시간을 같은 경로의 값으로 연결한 설명을 바로잡았다."},
     {"date": "2026-11-02", "before": "보행 1분 2초, 막힘 없이 걸을 때 기준, 끝 칸에서 최대 2분 47초 추가", "after": "초당 1.2m 기준 계산 1분 2초, 걸음걸이·속도에 따라 달라지는 참고시간으로 구분하고 근거를 확인하지 못한 추가시간 삭제", "reason": "서울교통공사 자료의 정의에 맞게 계산값과 참고시간을 구분했다."},

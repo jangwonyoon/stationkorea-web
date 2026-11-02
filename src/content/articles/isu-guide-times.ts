@@ -1,7 +1,9 @@
 import type { MagazineArticle } from "../articles";
+import { stationPhotos } from "../station-photos";
 
 export const isuGuideTimes: MagazineArticle = {
   slug: "isu-guide-times",
+  image: stationPhotos["isu-guide-times"],
   section: "transfer",
   question: "이수역 환승 안내의 2분 23초와 5분 24초는 무엇이 다를까?",
   answer: "서울교통공사의 이수역 자료에서 2분 23초는 2026년 8월 기준 최단 환승거리 171m를 계산한 값이고, 5분 24초는 같은 해 9월 기준 4호선에서 7호선 내방 방면으로 갈아타는 한 경로의 참고 시간이다.",
@@ -63,5 +65,5 @@ export const isuGuideTimes: MagazineArticle = {
     { title: "사당역에서 2호선으로 갈아탈 때, 왜 방면부터 확인해야 할까?", href: "/station/sadang/" },
   ],
   datePublished: "2026-11-01T00:00:00+09:00",
-  dateModified: "2026-11-01T16:16:28+09:00",
+  dateModified: "2026-11-02T22:24:34+09:00",
 };

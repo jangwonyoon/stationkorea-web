@@ -29,7 +29,7 @@ const illustration = station.crossSection;
 assert(illustration, "fixture starts with an existing illustration");
 const withImage = { ...station, body: [{ heading: "해설", paragraphs: [] }] };
 assert(stationMarkdown(withImage).includes(illustration.src));
-assert.deepEqual(stationJsonLd(station).find(item => item["@type"] === "Article").image, [absoluteUrl(station.ogImage), absoluteUrl(illustration.src)]);
+assert.deepEqual(stationJsonLd(station).find(item => item["@type"] === "Article").image, [absoluteUrl(station.photo.src), absoluteUrl(illustration.src)]);
 
 station.crossSection = undefined;
 for (const body of [undefined, withImage.body]) {
@@ -37,11 +37,11 @@ for (const body of [undefined, withImage.body]) {
   assert(!stationMarkdown(fixture).includes(illustration.src));
   assert.equal(readingMinutes(fixture), readingMinutes({ ...fixture, crossSection: { ...illustration, caption: "" } }));
 }
-assert.deepEqual(stationJsonLd(station).find(item => item["@type"] === "Article").image, [absoluteUrl(station.ogImage)]);
-assert.equal(sitemap().find(item => item.url === absoluteUrl(stationPath(station))).images, undefined);
+assert.deepEqual(stationJsonLd(station).find(item => item["@type"] === "Article").image, [absoluteUrl(station.photo.src)]);
+assert.deepEqual(sitemap().find(item => item.url === absoluteUrl(stationPath(station))).images, [absoluteUrl(station.photo.src)]);
 const rss = (await GET().text()).split("<item>").find(item => item.includes(`<link>${absoluteUrl(stationPath(station))}</link>`));
 assert(rss);
-assert(!rss.includes("<figure>"));
+assert(rss.includes(station.photo.src));
 assert(!rss.includes(illustration.src));
 assert(rss.includes("어디서 내리면 빠른가"), "guidance remains when the illustration is absent");
 console.log("PASS: optional station illustration preserves OG and guidance without broken Markdown, RSS, sitemap or reading time");

@@ -1,5 +1,6 @@
 import { articleGuideSourceIds, validateArticleGuide } from "../lib/article-guide";
 import type { Source, StationSection, StationSign, LineId, Transfer, ReelCover, Station } from "./types";
+import type { StationPhoto } from "./station-photos";
 import { guriEscalator } from "./articles/guri-escalator";
 import { expressTerminal } from "./articles/express-terminal";
 import { seongsuBranch } from "./articles/seongsu-branch";
@@ -29,7 +30,7 @@ export type MagazineArticle = {
   transfers?: Transfer[];
   sources: Source[];
   related: { title: string; href: string }[];
-  image?: { src: string; alt: string; caption: string; width: number; height: number };
+  image?: StationPhoto;
   cover?: ReelCover;
   reel?: Station["reel"];
   datePublished: string;

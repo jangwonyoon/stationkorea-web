@@ -22,7 +22,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: s.dateModified,
       changeFrequency: "monthly" as const,
       priority: 0.8,
-      ...(s.crossSection ? { images: [absoluteUrl(s.crossSection.src)] } : {}),
+      ...(s.photo || s.crossSection ? { images: [...(s.photo ? [absoluteUrl(s.photo.src)] : []), ...(s.crossSection ? [absoluteUrl(s.crossSection.src)] : [])] } : {}),
     })),
     ...articles.map((article) => ({
       url: absoluteUrl(articlePath(article)),

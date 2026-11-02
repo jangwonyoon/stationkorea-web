@@ -66,7 +66,7 @@ export function stationJsonLd(s: Station) {
       "@type": "Article",
       headline: s.question,
       description: s.answer,
-      image: [absoluteUrl(s.ogImage), ...(s.crossSection ? [absoluteUrl(s.crossSection.src)] : [])],
+      image: [absoluteUrl(s.photo?.src ?? s.ogImage), ...(s.crossSection ? [absoluteUrl(s.crossSection.src)] : [])],
       datePublished: s.datePublished,
       dateModified: s.dateModified,
       inLanguage: "ko-KR",

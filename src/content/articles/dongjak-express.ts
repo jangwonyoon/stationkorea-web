@@ -1,7 +1,9 @@
 import type { MagazineArticle } from "../articles";
+import { stationPhotos } from "../station-photos";
 
 export const dongjakExpress: MagazineArticle = {
   slug: "dongjak-express",
+  image: stationPhotos["dongjak-express"],
   section: "change",
   question: "9호선 급행 개편, 동작역에서 무엇을 확인해야 하나?",
   answer: "동작역에서 9호선 급행을 이용한다면 2026년 11월 16일부터 바뀔 예정인 평일 열차시각표를 방향과 시간대별로 확인해야 한다. 출근길 급행 운행 방식이 달라지지만 아직 시행 전 계획이다.",
@@ -78,5 +80,5 @@ export const dongjakExpress: MagazineArticle = {
     { title: "홍대입구역 환승 355m, 어느 노선 사이를 잰 걸까?", href: "/article/hongdae-transfer/" },
   ],
   datePublished: "2026-11-01T00:00:00+09:00",
-  dateModified: "2026-11-01T16:16:28+09:00",
+  dateModified: "2026-11-02T22:24:34+09:00",
 };

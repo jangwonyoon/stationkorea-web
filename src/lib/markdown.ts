@@ -3,6 +3,7 @@ import type { Station } from "@/content/types";
 import { stationPath } from "@/content/stations";
 import { absoluteUrl, site } from "@/lib/site";
 import { articlePath, type MagazineArticle } from "@/content/articles";
+import { stationPhotoCredit } from "@/content/station-photos";
 
 // AI 답변엔진용 기사 마크다운. HTML과 같은 콘텐츠에서 만들어 어긋나지 않게 한다.
 export function stationMarkdown(s: Station): string {
@@ -18,6 +19,7 @@ export function stationMarkdown(s: Station): string {
     ...(s.series ? [`연재: ${s.series.title}`, s.series.description, ""] : []),
     s.answer,
     "",
+    ...(s.photo ? [`![${s.photo.alt}](${absoluteUrl(s.photo.src)})`, "", s.photo.caption, stationPhotoCredit(s.photo), ""] : []),
     "## 숫자",
     "",
     "| 숫자 | 내용 | 기준일 | 출처 |",
@@ -68,7 +70,7 @@ export function articleMarkdown(article: MagazineArticle): string {
     `게시: ${article.datePublished.slice(0, 10)} · 갱신: ${article.dateModified.slice(0, 10)}`,
     ...(article.station ? ["", `역명판: ${article.station.name} (${article.station.sign.en}) · ${article.station.lines.map(lineName).join("·")}`, `${lineName(article.station.sign.line)}: ${article.station.sign.prev} ← ${article.station.name} → ${article.station.sign.next} ${reference(article.station.sourceIds)}`] : []),
     "", `${article.answer} ${reference(article.answerSourceIds)}`, "",
-    ...(article.image ? [`![${article.image.alt}](${absoluteUrl(article.image.src)})`, "", article.image.caption, ""] : []),
+    ...(article.image ? [`![${article.image.alt}](${absoluteUrl(article.image.src)})`, "", article.image.caption, stationPhotoCredit(article.image), ""] : []),
     ...article.body.flatMap((section) => [
       `## ${section.heading}`, "",
       ...section.paragraphs.flatMap((paragraph) => [`${paragraph.text} ${reference(paragraph.sourceIds)}`, ""]),

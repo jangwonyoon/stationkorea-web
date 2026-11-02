@@ -1,8 +1,10 @@
 import type { Station } from "../types";
+import { stationPhotos } from "../station-photos";
 
 // 원천: reel-studio episodes/maeil-geugil/konkuk-transfer (facts.md·caption.txt·pin.txt·episode.json)
 export const konkukUniv: Station = {
   slug: "konkuk-univ",
+  photo: stationPhotos["konkuk-univ"],
   no: 3,
   name: "건대입구역",
   lines: ["2", "7"],
@@ -134,7 +136,7 @@ export const konkukUniv: Station = {
     },
   ],
   datePublished: "2026-10-29T09:00:00+09:00",
-  dateModified: "2026-11-02T21:07:27+09:00",
+  dateModified: "2026-11-02T22:24:34+09:00",
   corrections: [
     {"date": "2026-11-02", "before": "반대쪽 끝 칸에서 내리면 최대 2분 47초를 더 걷습니다.", "after": "하차 위치는 자료 기준일의 경로별 안내입니다. 시간은 개인 걸음걸이에 따라 달라지는 참고값이며, 엘리베이터 이용 경로의 시간으로 확인한 값은 아닙니다.", "reason": "인용한 서울교통공사 환승정보에서 반대쪽 끝 칸 하차에 따른 추가시간 2분 47초의 산정 근거를 확인하지 못해 해당 수치를 삭제하고 자료의 이용 범위를 안내했습니다."},
     {
