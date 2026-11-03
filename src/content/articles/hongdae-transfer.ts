@@ -7,8 +7,8 @@ export const hongdaeTransfer: MagazineArticle = {
   section: "transfer",
   cover: {
     src: "/images/station/hongdae-transfer-cover.jpg",
-    alt: "홍대입구역 릴스 표지에 ‘2호선에서 공항철도까지 8분’이라고 적혀 있다. 방향별 안내는 8분 28초부터 11분 46초까지 다르다.",
-    caption: "릴스 표지의 ‘8분’은 산정 방식을 확인하지 못했습니다. 2026년 9월 1일 기준 방향별 참고 시간은 8분 28초~11분 46초입니다. AI 시각화 참고 이미지.",
+    alt: "‘2호선에서 공항철도까지 8분, 왜?’라고 적힌 홍대입구역 릴스 표지",
+    caption: "표지의 ‘8분’ 산정 방식은 확인되지 않았습니다. 방향별 참고 시간은 본문과 표에서 확인할 수 있습니다. AI 시각화 참고 이미지.",
     width: 1080, height: 1920,
   },
   station: {
@@ -24,13 +24,13 @@ export const hongdaeTransfer: MagazineArticle = {
     { ride: { line: "2", direction: "합정 방면" }, to: { line: "arex", direction: "디지털미디어시티 방면" }, car: "8-2", toCar: "1-1", time: "10분 57초", sourceId: "H2", formation: { cars: 10, sourceId: "guide-formation" } },
   ],
   question: "홍대입구역의 세 노선은 어떻게 이어질까?",
-  answer: "공항철도 홍대입구역 안내도에는 지하 2층의 2호선 방향 환승통로와 경의중앙선 대합실, 지하 1층의 경의중앙선 승강장, 대합실 아래의 공항철도 승강장이 표시돼 있다. 이 도면만으로 현재 환승길의 분기 지점은 알 수 없다. 서울교통공사의 2026년 8월 31일 기준 최단 이동거리는 2호선과 공항철도 사이 355m, 2호선과 경의중앙선 사이 305m다.",
-  answerSourceIds: ["H0", "H0-pdf", "H1"],
+  answer: "홍대입구역의 2호선은 공항철도·경의중앙선과 이어지며, 서울교통공사의 2026년 8월 31일 기준 노선 간 최단 이동거리는 2호선과 공항철도 사이 355m, 2호선과 경의중앙선 사이 305m다.",
+  answerSourceIds: ["H0", "H1"],
   reel: {
     url: "https://www.instagram.com/reel/DfMsIvHRqjm/",
     thumbnail: "/images/station/hongdae-transfer-cover.jpg",
     postedAt: "2026-11-01T21:06:00+09:00",
-    notice: "릴스 표지의 ‘8분’ 산정 방식은 확인되지 않았습니다. 2026년 9월 1일 기준 방향·출입문별 참고 시간은 8분 28초~11분 46초입니다.",
+    notice: "릴스 표지의 ‘8분’ 산정 방식은 확인되지 않았습니다. 방향별 참고 시간은 본문과 표에서 확인할 수 있습니다.",
   },
   body: [
     {
@@ -84,7 +84,7 @@ export const hongdaeTransfer: MagazineArticle = {
     { title: "고속터미널역의 15cm와 314m는 무엇을 잰 숫자일까?", href: "/article/express-terminal/" },
   ],
   datePublished: "2026-11-01T00:00:00+09:00",
-  dateModified: "2026-11-03T11:03:31+09:00",
+  dateModified: "2026-11-03T11:10:04+09:00",
   corrections: [
     {
       date: "2026-11-03",
