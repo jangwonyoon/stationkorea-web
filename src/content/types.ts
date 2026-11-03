@@ -133,6 +133,8 @@ export type Station = {
   seoTitle: string;
   /** 첫 단락이자 meta description. 역 이름·노선·핵심 숫자·기준일을 담은 한 문장. */
   answer: string;
+  /** 첫 단락의 출처. 숫자나 날짜가 있으면 같은 단락에 표시한다. */
+  answerSourceIds?: string[];
   /** 다음 기사 카드에 쓰는 짧은 질문("그럼 사당은 왜?" 뒤에 붙는 문장). */
   teaser: string;
   /** 선택적 본문 설명 이미지(4:5). 원고와 맞는 자산이 없으면 생략한다. */

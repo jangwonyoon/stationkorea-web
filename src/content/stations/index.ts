@@ -10,6 +10,7 @@ for (const s of stations) {
   // 숫자 카드 3개 + 출처가 없는 기사는 발행하지 않는다(설계 문서 전제 1).
   const ids = new Set(s.sources.map((x) => x.id));
   const refs = [
+    ...(s.answerSourceIds ?? []),
     ...[...s.stats, s.pin, ...s.qna, ...(s.pullQuote ? [s.pullQuote] : [])].flatMap((x) => x.sourceIds),
     ...(s.body ?? []).flatMap((section) => section.paragraphs.flatMap((paragraph) => paragraph.sourceIds)),
     ...s.transfers.map((t) => t.sourceId),
