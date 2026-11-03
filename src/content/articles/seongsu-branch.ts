@@ -95,8 +95,8 @@ export const seongsuBranch: MagazineArticle = {
   ],
   related: [
     { title: "건대입구역, 엘리베이터가 있어도 환승은 왜 따로 살펴야 할까?", href: "/station/konkuk-univ/" },
-    { title: "잠실역, 2호선에서 8호선까지 왜 이렇게 멀까?", href: "/station/jamsil/" },
+    { title: "잠실역 2호선과 8호선은 어떻게 연결되나?", href: "/station/jamsil/" },
   ],
   datePublished: "2026-11-01T00:00:00+09:00",
-  dateModified: "2026-11-02T22:24:34+09:00",
+  dateModified: "2026-11-03T10:57:01+09:00",
 };

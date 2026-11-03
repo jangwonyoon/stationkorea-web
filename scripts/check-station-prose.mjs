@@ -48,4 +48,22 @@ assert(!html.includes('aria-label="묻고 답하기"'));
 assert.equal(station.transfers.length, 5);
 assert(station.corrections.length >= 2);
 assert(station.corrections.some(item => item.after.includes("환산 지표")));
-console.log("PASS: prose/series parity, visible-only FAQ, preserved guidance/corrections, corrected cover and explanation order");
+const jamsil = stations.find(item => item.slug === "jamsil");
+const jamsilHtml = readFileSync("out/station/jamsil/index.html", "utf8");
+const jamsilMarkdown = readFileSync("out/station/jamsil/article.md", "utf8");
+const jamsilRss = readFileSync("out/rss.xml", "utf8").split("<item>").find(item => item.includes("<link>https://www.stationkorea.com/station/jamsil/</link>"));
+assert.equal(jamsil.transfers.length, 0, "unverified transfer rows stay unpublished");
+assert.equal(jamsil.qna.length, 0, "unverified design explanation stays unpublished");
+assert(!stationJsonLd(jamsil).some(item => item["@type"] === "FAQPage"));
+assert(!jamsilHtml.includes('id="transfer-heading"'));
+assert(!jamsilMarkdown.includes("## 어디서 내리면 빠른가"));
+assert(!jamsilRss.includes("<h2>어디서 내리면 빠른가</h2>"));
+const jamsilAnswer = jamsilHtml.match(/id="article-answer"[^>]*>([\s\S]*?)<\/p>/)?.[1];
+assert(jamsilAnswer?.includes("2025년 12월 4일") && jamsilAnswer.includes('href="#src-seoul-2025-12"'), "first answer links its dated source");
+assert.equal(jamsilHtml.split('id="ref-seoul-2025-12"').length - 1, 1, "source return anchor is unique");
+for (const [label, value] of [["HTML", jamsilHtml], ["Markdown", jamsilMarkdown], ["llms", llms], ["RSS", jamsilRss]]) {
+  assert(value.includes(label === "HTML" || label === "RSS" ? escape(jamsil.question) : jamsil.question), `${label} missing Jamsil title`);
+  assert(value.includes(label === "HTML" || label === "RSS" ? escape(jamsil.answer) : jamsil.answer), `${label} missing Jamsil answer`);
+}
+assert(readFileSync("docs/geo-test.md", "utf8").includes(`| J1 | 잠실 | 제목 | ${jamsil.question} |`));
+console.log("PASS: station prose/series parity, visible-only FAQ, Jamsil correction and hidden unverified guidance");

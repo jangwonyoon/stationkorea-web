@@ -17,7 +17,7 @@ export function stationMarkdown(s: Station): string {
     `게시: ${s.datePublished.slice(0, 10)} · 숫자 갱신: ${s.dateModified.slice(0, 10)}`,
     "",
     ...(s.series ? [`연재: ${s.series.title}`, s.series.description, ""] : []),
-    s.answer,
+    `${s.answer}${s.answerSourceIds?.length ? ` ${refs(s.answerSourceIds)}` : ""}`,
     "",
     ...(s.photo ? [`![${s.photo.alt}](${absoluteUrl(s.photo.src)})`, "", s.photo.caption, stationPhotoCredit(s.photo), ""] : []),
     "## 숫자",
@@ -29,7 +29,7 @@ export function stationMarkdown(s: Station): string {
     ...(s.body ?? []).flatMap((section) => [`## ${section.heading}`, "", ...section.paragraphs.flatMap((paragraph) => [`${paragraph.text} ${refs(paragraph.sourceIds)}`, ""])]),
     ...s.qna.flatMap((q) => [`## ${q.question}`, "", ...q.answer.map((p) => `${p}\n`), `출처: ${refs(q.sourceIds)}`, ""]),
     ...(s.body && s.crossSection ? [`![${s.crossSection.alt}](${absoluteUrl(s.crossSection.src)})`, "", s.crossSection.caption, ""] : []),
-    "## 어디서 내리면 빠른가",
+    ...(s.transfers.length ? ["## 어디서 내리면 빠른가",
     "",
     `${s.pin.text} ${refs(s.pin.sourceIds)}`,
     "",
@@ -40,7 +40,7 @@ export function stationMarkdown(s: Station): string {
       if (!source) throw new Error(`stationMarkdown: transfer source missing: ${t.sourceId}`);
       return `| ${lineName(t.ride.line)} ${t.ride.direction} | ${lineName(t.to.line)} ${t.to.direction} | ${t.car} | ${t.time} | ${source.date} [${n(t.sourceId)}] |`;
     }),
-    "",
+    ""] : []),
     "## 출처",
     "",
     ...s.sources.map((src, i) => `${i + 1}. ${src.org}, ${src.title}, ${src.date}${src.url ? `. ${src.url}` : ""}`),

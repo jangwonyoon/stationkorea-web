@@ -74,7 +74,8 @@ export default async function StationPage({ params }: Props) {
     })),
   } : node);
   const comparisonIds = s.comparison?.rows.flatMap((row) => row.sourceIds) ?? [];
-  const [, ...contentAnchors] = firstCitations([
+  const [answerAnchors, , ...contentAnchors] = firstCitations([
+    s.answerSourceIds ?? [],
     s.stats.flatMap((stat) => stat.sourceIds),
     ...(s.body ?? []).flatMap((section) => section.paragraphs.map((paragraph) => paragraph.sourceIds)),
     ...s.qna.flatMap((qna, index) => index === 0 ? [qna.sourceIds, comparisonIds, quote.sourceIds] : [qna.sourceIds]),
@@ -114,7 +115,7 @@ export default async function StationPage({ params }: Props) {
             <p className="mt-3 text-caption">{s.series.description}</p>
           </div>}
           <h1 className="text-h1 break-keep xl:text-article-title">{s.question}</h1>
-          <p id="article-answer" className="mt-4 text-lead">{s.answer}</p>
+          <p id="article-answer" className="mt-4 text-lead">{s.answer}{s.answerSourceIds?.length ? <SourceRefs ids={s.answerSourceIds} sources={s.sources} anchorIds={answerAnchors} /> : null}</p>
           <div className="mt-2"><Byline author={site.author} published={s.datePublished} modified={s.dateModified} readingMinutes={readingMinutes(s)} /></div>
         </header>
         {s.photo && <figure className="mt-8">
@@ -124,7 +125,7 @@ export default async function StationPage({ params }: Props) {
         {!s.body && illustration}
         <section data-rail="numbers" aria-label={`숫자로 보는 ${s.name}`} className="mt-8">
           <div className="xl:[&_tbody]:grid-cols-1 xl:[&_tr]:grid xl:[&_tr]:gap-y-0 xl:[&_tr]:border-l-0 xl:[&_tr]:border-b xl:[&_tr]:py-4 xl:[&_th]:text-right xl:[&_th]:text-4xl">
-          <StatTable stats={s.stats} sources={s.sources} accent={s.sign.line} caption={`${s.name} 핵심 숫자와 기준일·출처`} />
+          <StatTable stats={s.stats} sources={s.sources} accent={s.sign.line} caption={`${s.name} 핵심 숫자와 기준일·출처`} reservedSourceIds={s.answerSourceIds} />
           </div>
         </section>
         <div data-rail="reel" className="mt-8"><div><ReelLink reel={s.reel} title={s.question} /></div></div>
@@ -152,11 +153,11 @@ export default async function StationPage({ params }: Props) {
           ))}
         </section>}
         {s.body && illustration}
-        <section aria-labelledby="transfer-heading" className="mt-16">
+        {!!s.transfers.length && <section aria-labelledby="transfer-heading" className="mt-16">
           <h2 id="transfer-heading" className="text-h2">어디서 내리면 빠른가</h2>
           <p className="mt-4 text-body">{s.pin.text}<SourceRefs ids={s.pin.sourceIds} sources={s.sources} anchorIds={pinAnchors} /></p>
           <div className="mt-6"><TransferDoors transfers={s.transfers} sources={s.sources} anchorIds={transferAnchors} /></div>
-        </section>
+        </section>}
         {s.news && s.news.length > 0 && <section className="my-12" aria-labelledby="news-heading">
           <h2 id="news-heading" className="text-h2">최근 소식</h2>
           <ul className="mt-4 divide-y divide-rule">{s.news.map((news) => <li key={news.href} className="py-3">

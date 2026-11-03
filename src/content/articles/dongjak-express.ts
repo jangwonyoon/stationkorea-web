@@ -77,8 +77,8 @@ export const dongjakExpress: MagazineArticle = {
   ],
   related: [
     { title: "이수역 환승 안내의 2분 23초와 5분 24초는 무엇이 다를까?", href: "/article/isu-guide-times/" },
-    { title: "홍대입구역 환승 355m, 어느 노선 사이를 잰 걸까?", href: "/article/hongdae-transfer/" },
+    { title: "홍대입구역의 세 노선은 어떻게 이어질까?", href: "/article/hongdae-transfer/" },
   ],
   datePublished: "2026-11-01T00:00:00+09:00",
-  dateModified: "2026-11-02T22:24:34+09:00",
+  dateModified: "2026-11-03T11:07:03+09:00",
 };

@@ -53,11 +53,11 @@ export const guriEscalator: MagazineArticle = {
     { id: "G3", org: "경기도", title: "8호선 별내선 구리역 환승통로 현장점검 보도자료", date: "2026-08-26 발표 · 2026-08-25 현장점검", url: "https://gnews.gg.go.kr/briefing/brief_gongbo_view.do?BS_CODE=S017&number=71298" },
   ],
   related: [
-    { title: "잠실역, 2호선에서 8호선까지 왜 이렇게 멀까?", href: "/station/jamsil/" },
+    { title: "잠실역 2호선과 8호선은 어떻게 연결되나?", href: "/station/jamsil/" },
     { title: "사당역에서 2호선으로 갈아탈 때, 왜 방면부터 확인해야 할까?", href: "/station/sadang/" },
   ],
   datePublished: "2026-11-01T00:00:00+09:00",
-  dateModified: "2026-11-02T22:24:34+09:00",
+  dateModified: "2026-11-03T10:57:01+09:00",
   corrections: [
     {
       date: "2026-11-02",
