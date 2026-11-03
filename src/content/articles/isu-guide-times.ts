@@ -24,8 +24,8 @@ export const isuGuideTimes: MagazineArticle = {
       heading: "총신대입구와 이수, 한 환승역의 두 표기",
       paragraphs: [
         {
-          text: "서울교통공사의 두 자료에는 같은 환승역이 4호선 쪽은 총신대입구, 7호선 쪽은 이수로 적혀 있다. 역 이름이 달라 보여도 두 숫자는 모두 4호선과 7호선 사이의 환승을 설명한다. 차이는 자료가 설명하는 경로와 시간을 계산·안내하는 방식에 있다.",
-          sourceIds: ["I1", "I2"],
+          text: "서울교통공사의 두 자료에는 같은 환승역이 4호선 쪽은 총신대입구, 7호선 쪽은 이수로 적혀 있다. 두 노선의 내부시설도에는 4호선 승강장이 지하 2층(B2), 7호선 승강장이 지하 4층(B4)에 있고 그 사이를 잇는 환승통로가 표시된다. 다만 안내도에는 제작·개정일이 없어 현재 세부 시설 상태까지 확인해 주지는 않는다.",
+          sourceIds: ["I3", "I4"],
         },
       ],
     },
@@ -42,7 +42,7 @@ export const isuGuideTimes: MagazineArticle = {
       heading: "방면과 하차 문에 따라 달라지는 안내",
       paragraphs: [
         {
-          text: "2026년 9월 1일 기준의 별도 환승 안내는 4호선 열차에서 내려 7호선 내방 방면으로 갈 때 5분 17초 또는 5분 24초, 남성 방면으로 갈 때 3분 44초 또는 3분 48초를 제시한다. 출발 열차의 방면과 하차·승차 문이 다른 경로별 참고값이다.",
+          text: "예를 들어 4호선 사당 방면 열차 1-1에서 내려 7호선 내방 방면 8-4로 갈아타는 경로는 5분 24초, 같은 하차 위치에서 남성 방면 2-2로 가는 경로는 3분 48초로 안내된다. 이 값은 방면과 승하차 위치를 지정한 참고시간이다.",
           sourceIds: ["I2"],
         },
         {
@@ -59,11 +59,13 @@ export const isuGuideTimes: MagazineArticle = {
 
     { id: "I1", org: "서울교통공사", title: "환승역거리 소요시간 정보", date: "2026-08-31 기준", url: "https://www.data.go.kr/data/15044419/fileData.do" },
     { id: "I2", org: "서울교통공사", title: "서울 도시철도 환승정보", date: "2026-09-01 기준", url: "https://www.data.go.kr/data/15098252/fileData.do" },
+    { id: "I3", org: "서울교통공사", title: "총신대입구(이수)역 내부시설도", date: "제작·개정일 미표기 · 2026-11-03 확인", url: "https://www.seoulmetro.co.kr/common/resources/cyber/fileView.jsp?fileName=station_0432.jpg" },
+    { id: "I4", org: "서울교통공사", title: "이수역 내부시설도", date: "제작·개정일 미표기 · 2026-11-03 확인", url: "https://www.seoulmetro.co.kr/common/resources/cyber/fileView.jsp?fileName=station_2738.jpg" },
   ],
   related: [
     { title: "고속터미널역의 15cm와 314m는 무엇을 잰 숫자일까?", href: "/article/express-terminal/" },
     { title: "사당역에서 2호선으로 갈아탈 때, 왜 방면부터 확인해야 할까?", href: "/station/sadang/" },
   ],
   datePublished: "2026-11-01T00:00:00+09:00",
-  dateModified: "2026-11-02T22:24:34+09:00",
+  dateModified: "2026-11-03T12:00:00+09:00",
 };
