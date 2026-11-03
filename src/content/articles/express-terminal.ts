@@ -80,8 +80,8 @@ export const expressTerminal: MagazineArticle = {
   ],
   related: [
     { title: "구리역에서 경의중앙선과 8호선은 어떻게 이어질까?", href: "/article/guri-escalator/" },
-    { title: "잠실역, 2호선에서 8호선까지 왜 이렇게 멀까?", href: "/station/jamsil/" },
+    { title: "잠실역 2호선과 8호선은 어떻게 연결되나?", href: "/station/jamsil/" },
   ],
   datePublished: "2026-11-01T00:00:00+09:00",
-  dateModified: "2026-11-02T22:24:34+09:00",
+  dateModified: "2026-11-03T10:57:01+09:00",
 };

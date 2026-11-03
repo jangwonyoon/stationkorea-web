@@ -12,6 +12,8 @@ type Props = {
   accent?: LineId;
   /** 표 캡션(화면에서는 숨김, 스크린리더·검색용). */
   caption?: string;
+  /** 첫 문단에서 이미 각주 앵커를 쓴 출처. */
+  reservedSourceIds?: readonly string[];
 };
 
 /**
@@ -19,13 +21,13 @@ type Props = {
  * 390: 행 3개(숫자 | 설명·기준일), md(768) 이상: 칸 3개 가로.
  * 각주 링크는 출처 목록 항목 `#src-<id>`로 가고, 출처 목록에서 돌아올 자리로 `id="ref-<id>"`를 가진다(표 안 첫 등장에만).
  */
-export function StatTable({ stats, sources, accent, caption = "숫자와 출처" }: Props) {
+export function StatTable({ stats, sources, accent, caption = "숫자와 출처", reservedSourceIds = [] }: Props) {
   for (const stat of stats) {
     if (stat.sourceIds.length === 0) {
       throw new Error(`StatTable: "${stat.value}" requires at least one sourceId.`);
     }
   }
-  const seen = new Set<string>();
+  const seen = new Set(reservedSourceIds);
 
   return (
     <Table
