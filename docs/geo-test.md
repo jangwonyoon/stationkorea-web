@@ -12,9 +12,9 @@ AI 답변엔진(ChatGPT·Perplexity·Google AI Overviews/AI Mode·네이버 AI �
 
 ## 1. 공개 전·공개 당일 체크리스트
 
-- [ ] [Schema.org Validator](https://validator.schema.org/)에서 기사 3개 오류 0
+- [ ] [Schema.org Validator](https://validator.schema.org/)에서 공개 대상 기사 오류 0
 - [ ] [Rich Results Test](https://search.google.com/test/rich-results)에서 Article·BreadcrumbList 인식
-- [ ] Google Search Console 등록, `https://www.stationkorea.com/sitemap.xml` 제출, 기사 3개 색인 요청
+- [ ] Google Search Console 등록, `https://www.stationkorea.com/sitemap.xml` 제출, 공개할 신규 기사 색인 요청
 - [ ] Bing Webmaster Tools 등록(GSC 가져오기 가능), sitemap 제출
 - [ ] 네이버 서치어드바이저 등록, sitemap 제출, 수집 요청
 - [ ] AI 봇 User-Agent로 200 응답 확인(아래 명령)
@@ -100,6 +100,10 @@ done
 | GP2 | 김포공항 | 구어 | 김포공항역 서해선은 왜 원래 계획했던 주차장 자리에 안 만들었어? |
 | GP3 | 김포공항 | 설계 | 김포공항역 서해선 정거장 위치를 2017년에 바꾼 이유가 뭐야? |
 | GP4 | 김포공항 | 구어 | 김포공항역 서해선은 다른 노선이랑 어떻게 갈아타게 계획했어? |
+| GM1 | 김포·검단 연장 | 제목 | 5호선 김포·검단 연장, 예타 통과 뒤 무엇이 정해졌어? |
+| GM2 | 김포·검단 연장 | 구어 | 서울 5호선 김포검단 연장 역은 확정됐어? |
+| GM3 | 김포·검단 연장 | 해석 | 김포·검단 연장 계획에 나온 노선도와 역은 확정안이야? |
+| GM4 | 김포·검단 연장 | 전망 | 5호선이 연장되면 김포골드라인 혼잡이 이미 줄어들었어? |
 | IS1 | 이수 | 제목 | 이수역 환승 안내의 2분 23초와 5분 24초는 무엇이 다를까? |
 | IS2 | 이수 | 구어 | 이수역 환승 2분 23초와 5분 24초는 같은 환승시간이야? |
 | IS3 | 이수 | 숫자 | 이수역 4호선에서 7호선 내방 방면 환승 안내 시간은 몇 분이야? |

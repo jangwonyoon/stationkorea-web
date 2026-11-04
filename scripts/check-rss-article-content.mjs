@@ -20,7 +20,7 @@ const content = (item) => item.match(/<content:encoded><!\[CDATA\[(.*?)\]\]><\/c
 const metadata = (xml) => items(xml).map((item) => ["link", "guid", "pubDate"].map((tag) => item.match(new RegExp(`<${tag}[^>]*>(.*?)</${tag}>`))[1]));
 const feed = await GET().text();
 assert.equal(readFileSync("out/rss.xml", "utf8"), feed, "exported RSS matches route");
-assert.equal(items(feed).length, 11);
+assert.equal(items(feed).length, 12);
 if (process.argv[2]) {
   const before = readFileSync(process.argv[2], "utf8");
   assert.deepEqual(metadata(feed), metadata(before), "URLs, dates and ordering stay unchanged");
@@ -30,6 +30,11 @@ if (process.argv[2]) {
 const seongsu = articles.find((article) => article.slug === "seongsu-branch");
 const seongsuContent = content(items(feed).find((item) => item.includes("/article/seongsu-branch/")));
 assert(seongsuContent.includes(seongsu.image.src) && seongsuContent.includes(seongsu.image.source), "역 사진과 출처가 RSS에 함께 표시된다");
+const gimpoContent = content(items(feed).find((item) => item.includes("/article/gimpo-extension-status/")));
+assert(gimpoContent.includes("<h2>공식 자료로 확인한 사업 흐름</h2><ol>"), "김포 연장 기사 연표가 RSS에 포함된다");
+assert(gimpoContent.indexOf("2026-03-10") < gimpoContent.indexOf("2026-09-18"), "김포 연표는 날짜순으로 표시된다");
+const gimpoMarkdown = readFileSync("out/article/gimpo-extension-status/article.md", "utf8");
+assert(gimpoMarkdown.includes("## 공식 자료로 확인한 사업 흐름") && gimpoMarkdown.indexOf("2026-03-10") < gimpoMarkdown.indexOf("2026-09-18"), "김포 연표가 Markdown에도 날짜순으로 포함된다");
 for (const text of [seongsu.series.title, seongsu.series.description, ...seongsu.body.flatMap((section) => [
   ...(section.figure ? [section.figure.title, ...section.figure.descriptions, section.figure.caption] : []),
   ...(section.scope ? [section.scope.known, section.scope.unknown] : []),
@@ -97,4 +102,4 @@ try {
 } finally {
   articles.splice(0, articles.length, ...originalArticles);
 }
-console.log("PASS: 11 RSS entries, exported content, Seongsu explanations, optional blocks/order, transfer basis, escaping and missing-source guards");
+console.log("PASS: 12 RSS entries, exported content, article timeline parity, Seongsu explanations, optional blocks/order, transfer basis, escaping and missing-source guards");

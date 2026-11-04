@@ -1,5 +1,5 @@
 import { articleGuideSourceIds, validateArticleGuide } from "../lib/article-guide";
-import type { Source, StationSection, StationSign, LineId, Transfer, ReelCover, Station } from "./types";
+import type { Source, StationSection, StationSign, LineId, Transfer, ReelCover, Station, Timeline } from "./types";
 import type { StationPhoto } from "./station-photos";
 import { guriEscalator } from "./articles/guri-escalator";
 import { expressTerminal } from "./articles/express-terminal";
@@ -9,6 +9,7 @@ import { gimpoPlanChange } from "./articles/gimpo-plan-change";
 import { isuGuideTimes } from "./articles/isu-guide-times";
 import { hongdaeTransfer } from "./articles/hongdae-transfer";
 import { dongjakExpress } from "./articles/dongjak-express";
+import { gimpoExtensionStatus } from "./articles/gimpo-extension-status";
 
 export type ArticleFigure = {
   kind: "seongsu-current" | "seongsu-history";
@@ -28,6 +29,7 @@ export type MagazineArticle = {
   body: { heading: string; paragraphs: { text: string; sourceIds: string[] }[]; figure?: ArticleFigure; scope?: { known: string; unknown: string } }[];
   station?: { name: string; lines: LineId[]; sign: StationSign; sourceIds: string[] };
   transfers?: Transfer[];
+  timelines?: Timeline[];
   sources: Source[];
   related: { title: string; href: string }[];
   image?: StationPhoto;
@@ -39,7 +41,7 @@ export type MagazineArticle = {
 };
 
 // 검증된 편만 등록한다. 릴스 게시 여부는 기사 발행 조건이 아니다.
-export const articles: MagazineArticle[] = [guriEscalator, expressTerminal, seongsuBranch, dongmyoWeekend, gimpoPlanChange, isuGuideTimes, hongdaeTransfer, dongjakExpress];
+export const articles: MagazineArticle[] = [guriEscalator, expressTerminal, seongsuBranch, dongmyoWeekend, gimpoPlanChange, isuGuideTimes, hongdaeTransfer, dongjakExpress, gimpoExtensionStatus];
 
 for (const article of articles) {
   validateArticleGuide(article);
