@@ -77,6 +77,10 @@ export function articleMarkdown(article: MagazineArticle): string {
       ...(section.figure ? [section.figure.title, "", ...section.figure.descriptions.map((text) => `- ${text}`), "", `${section.figure.caption} ${reference(section.figure.sourceIds)}`, ""] : []),
       ...(section.scope ? [`알 수 있는 것: ${section.scope.known}`, `알 수 없는 것: ${section.scope.unknown}`, ""] : []),
     ]),
+    ...(article.timelines?.flatMap((timeline) => [
+      `## ${timeline.title}`, "",
+      ...timeline.items.slice().sort((a, b) => a.date.localeCompare(b.date)).flatMap((item) => [`### ${item.date} · ${item.org} · ${item.doc}`, "", ...(item.summary ? [item.summary, ""] : []), `[원문](${item.url})`, ""]),
+    ]) ?? []),
     ...(article.transfers?.length ? ["## 어디서 내리면 빠른가", "", "표의 시간은 자료 기준일의 경로별 참고값입니다. 실제 이동 시간은 보행 속도와 혼잡에 따라 달라집니다.", "", "| 타고 있는 열차 | 갈아탈 노선·방면 | 내릴 칸(호차-문) | 참고 시간 | 기준일·출처 |", "|---|---|---|---|---|", ...article.transfers.map((transfer) => {
       const source = article.sources.find((item) => item.id === transfer.sourceId)!;
       const formationSource = transfer.formation ? article.sources.find((item) => item.id === transfer.formation!.sourceId)! : undefined;

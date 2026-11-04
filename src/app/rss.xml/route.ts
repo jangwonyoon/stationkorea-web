@@ -61,6 +61,11 @@ function fullArticleContent(article: MagazineArticle): string {
       ...(section.figure ? [`<figure><p>${escape(section.figure.title)}</p><ul>${section.figure.descriptions.map((description) => `<li>${escape(description)}</li>`).join("")}</ul><figcaption>${escape(section.figure.caption)} ${reference(section.figure.sourceIds)}</figcaption></figure>`] : []),
       ...(section.scope ? [`<dl><dt>이 순서로 알 수 있는 것</dt><dd>${escape(section.scope.known)}</dd><dt>이 자료로는 알 수 없는 것</dt><dd>${escape(section.scope.unknown)}</dd></dl>`] : []),
     ]),
+    ...(article.timelines?.flatMap((timeline) => [
+      `<h2>${escape(timeline.title)}</h2><ol>`,
+      ...timeline.items.slice().sort((a, b) => a.date.localeCompare(b.date)).map((item) => `<li><time datetime="${escape(item.date)}">${escape(item.date)}</time> ${escape(item.org)} · ${escape(item.doc)}${item.summary ? `<p>${escape(item.summary)}</p>` : ""} <a href="${escape(item.url)}">원문</a></li>`),
+      "</ol>",
+    ]) ?? []),
     ...(article.transfers?.length ? [
       "<h2>어디서 내리면 빠른가</h2><p>표의 시간은 자료 기준일의 경로별 참고값입니다. 실제 이동 시간은 보행 속도와 혼잡에 따라 달라집니다.</p>",
       "<table><thead><tr><th>타고 있는 열차</th><th>갈아탈 노선·방면</th><th>내릴 칸(호차-문)</th><th>참고 시간</th><th>기준일·출처</th></tr></thead><tbody>",

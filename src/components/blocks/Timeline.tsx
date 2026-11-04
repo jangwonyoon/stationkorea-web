@@ -22,7 +22,7 @@ type Props = {
 };
 
 /**
- * 진행 연표: 항목마다 "YYYY.M.D 기관 > 문서" + URL, 단계가 있으면 상태 배지.
+ * 진행 연표: 항목마다 "YYYY.M.D 기관 > 문서"와 원문 링크, 단계가 있으면 상태 배지.
  * 날짜 오름차순. 마크업은 <ol>과 <time>.
  */
 export function Timeline({ title, items, headingAs: Heading = "h3" }: Props) {
@@ -53,8 +53,8 @@ export function Timeline({ title, items, headingAs: Heading = "h3" }: Props) {
             )}
             {item.summary && <p className="text-body">{item.summary}</p>}
             {item.url && (
-              <a href={item.url} rel="noopener" className="inline-flex min-h-11 items-center text-caption break-all underline">
-                {item.url}
+              <a href={item.url} aria-label={`${item.org} ${item.doc} 원문 보기`} rel="noopener noreferrer" className="inline-flex min-h-11 items-center text-caption underline underline-offset-2">
+                원문 보기 ↗
               </a>
             )}
           </li>
