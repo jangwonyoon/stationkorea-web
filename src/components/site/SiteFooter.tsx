@@ -9,7 +9,7 @@ export function SiteFooter() {
       <div className="page-wrap grid gap-6 py-8 md:grid-cols-4 md:gap-x-8">
         <div>
           <p className="brand-wordmark">{site.name}</p>
-          <p className="mt-2 text-sm leading-relaxed break-keep">{site.description}</p>
+          <p className="mt-2 text-sm leading-relaxed break-keep">{site.name}<wbr />({site.koreanName})는 {site.description}</p>
         </div>
         <nav aria-labelledby="footer-browse">
           <h2 id="footer-browse" className="text-xs font-bold text-footer-muted">둘러보기</h2>
