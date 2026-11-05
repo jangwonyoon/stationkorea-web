@@ -9,6 +9,15 @@ export const gimpoExtensionStatus: MagazineArticle = {
   body: [
     {
       heading: "노선도에 표시된 역은 확정됐을까?",
+      visual: {
+        src: "/images/documents/gimpo-geomdan-plan-20260310.jpg",
+        width: 658,
+        height: 451,
+        alt: "2026년 3월 인천시가 발표한 서울5호선 김포·검단 연장 노선도안. 기존 5호선에서 검단과 김포 방향으로 이어지는 계획 선형과 가칭 정거장 표시이며 확정 노선도가 아니다.",
+        caption: "인천광역시, 2026-03-10 예비타당성조사 통과 발표에 첨부한 ‘노선도(안)’. 발표 당시 계획 참고도이며 현재 운행 노선이나 확정 역 위치를 나타내지 않습니다. 그림 속 다른 교통망·개발구역도 당시 표시입니다. 원본 그대로 수록했습니다.",
+        sourceId: "incheon-march",
+        license: { name: "공공누리 제1유형(출처표시)", url: "https://www.kogl.or.kr/info/license.do#guidetab1-tab" },
+      },
       paragraphs: [
         {
           text: "아직 확정된 역 목록으로 볼 수 없습니다. 김포시 사업 안내는 2024년 변경 계획의 노선과 정거장을 기본계획 단계에서 다시 검토할 내용으로 소개합니다. 인천시가 예타 통과 발표에 붙인 그림에도 ‘노선도(안)’이라고 적혀 있습니다. 지금 공개된 선형과 역 이름은 계획의 출발점이지, 완성된 노선도가 아닙니다.",
@@ -54,5 +63,5 @@ export const gimpoExtensionStatus: MagazineArticle = {
     { title: "9호선 급행 개편, 동작역에서 무엇을 확인해야 하나?", href: "/article/dongjak-express/" },
   ],
   datePublished: "2026-11-04T00:00:00+09:00",
-  dateModified: "2026-11-04T00:00:00+09:00",
+  dateModified: "2026-11-05T00:00:00+09:00",
 };

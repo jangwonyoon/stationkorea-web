@@ -74,6 +74,8 @@ export function articleMarkdown(article: MagazineArticle): string {
     ...article.body.flatMap((section) => [
       `## ${section.heading}`, "",
       ...section.paragraphs.flatMap((paragraph) => [`${paragraph.text} ${reference(paragraph.sourceIds)}`, ""]),
+      ...(section.comparison ? [section.comparison.title, "", `| 구분 | ${section.comparison.columns.join(" | ")} |`, `|---|${section.comparison.columns.map(() => "---").join("|")}|`, ...section.comparison.rows.map((row) => `| ${row.label} | ${row.values.join(" | ")} |`), "", ...section.comparison.rows.map((row) => `${row.label}: ${row.note ?? ""} ${reference(row.sourceIds)}`), ""] : []),
+      ...(section.visual ? [`![${section.visual.alt}](${absoluteUrl(section.visual.src)})`, "", `${section.visual.caption} ${reference([section.visual.sourceId])} · [${section.visual.license.name}](${section.visual.license.url})`, ""] : []),
       ...(section.figure ? [section.figure.title, "", ...section.figure.descriptions.map((text) => `- ${text}`), "", `${section.figure.caption} ${reference(section.figure.sourceIds)}`, ""] : []),
       ...(section.scope ? [`알 수 있는 것: ${section.scope.known}`, `알 수 없는 것: ${section.scope.unknown}`, ""] : []),
     ]),

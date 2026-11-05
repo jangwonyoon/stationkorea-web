@@ -1,5 +1,5 @@
 import { articleGuideSourceIds, validateArticleGuide } from "../lib/article-guide";
-import type { Source, StationSection, StationSign, LineId, Transfer, ReelCover, Station, Timeline } from "./types";
+import type { Source, StationSection, StationSign, LineId, Transfer, ReelCover, Station, Timeline, Comparison } from "./types";
 import type { StationPhoto } from "./station-photos";
 import { guriEscalator } from "./articles/guri-escalator";
 import { expressTerminal } from "./articles/express-terminal";
@@ -36,7 +36,7 @@ export type MagazineArticle = {
   answer: string;
   answerSourceIds: string[];
   series?: { title: string; description: string };
-  body: { heading: string; paragraphs: { text: string; sourceIds: string[] }[]; figure?: ArticleFigure; scope?: { known: string; unknown: string } }[];
+  body: { heading: string; paragraphs: { text: string; sourceIds: string[] }[]; figure?: ArticleFigure; comparison?: Comparison; visual?: { src: string; width: number; height: number; alt: string; caption: string; sourceId: string; license: { name: string; url: string } }; scope?: { known: string; unknown: string } }[];
   station?: { name: string; lines: LineId[]; sign: StationSign; sourceIds: string[] };
   transfers?: Transfer[];
   timelines?: Timeline[];
@@ -56,7 +56,7 @@ export const articles: MagazineArticle[] = [guriEscalator, expressTerminal, seon
 for (const article of articles) {
   validateArticleGuide(article);
   const sourceIds = new Set(article.sources.map((source) => source.id));
-  const citations = [articleGuideSourceIds(article), article.answerSourceIds, ...article.body.flatMap((section) => [...section.paragraphs.map((paragraph) => paragraph.sourceIds), section.figure?.sourceIds ?? []])].flat();
+  const citations = [articleGuideSourceIds(article), article.answerSourceIds, ...article.body.flatMap((section) => [...section.paragraphs.map((paragraph) => paragraph.sourceIds), section.figure?.sourceIds ?? [], section.visual ? [section.visual.sourceId] : [], section.comparison?.rows.flatMap((row) => row.sourceIds) ?? []])].flat();
   const missing = citations.filter((id) => !sourceIds.has(id));
   const uncited = article.sources.filter((source) => !citations.includes(source.id) || !source.url);
   if (!article.answerSourceIds.length || !article.body.length || article.related.length < 2 || missing.length || uncited.length) {

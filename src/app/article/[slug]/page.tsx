@@ -1,3 +1,4 @@
+import { CompareTable } from "@/components/blocks/CompareTable";
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
@@ -104,6 +105,11 @@ export default async function MagazineArticlePage({ params }: Props) {
                 return <p key={paragraph.text} className="text-body">{paragraph.text}<SourceRefs ids={paragraph.sourceIds} sources={article.sources} anchorIds={anchors} /></p>;
               })}
             </div>
+            {section.comparison && <div className="mt-8"><CompareTable {...section.comparison} sources={article.sources} /></div>}
+            {section.visual && <figure className="mt-8 border-t border-rule pt-5">
+              <Image src={section.visual.src} alt={section.visual.alt} width={section.visual.width} height={section.visual.height} unoptimized className="h-auto max-w-full rounded-lg" />
+              <figcaption className="mt-4 text-caption">{section.visual.caption} <a href={article.sources.find((source) => source.id === section.visual!.sourceId)!.url} className="underline underline-offset-4">출처 원문</a> · <a href={section.visual.license.url} className="underline underline-offset-4">{section.visual.license.name}</a> · <a href={section.visual.src} className="underline underline-offset-4">원본 이미지 보기</a></figcaption>
+            </figure>}
             {section.figure && <figure className="mt-8 border-t border-ink pt-4">
               <p className="text-label">{section.figure.title}</p>
               <SeongsuDiagrams kind={section.figure.kind} descriptions={section.figure.descriptions} />

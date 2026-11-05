@@ -58,6 +58,8 @@ function fullArticleContent(article: MagazineArticle): string {
     ...article.body.flatMap((section) => [
       `<h2>${escape(section.heading)}</h2>`,
       ...section.paragraphs.map((paragraph) => `<p>${escape(paragraph.text)} ${reference(paragraph.sourceIds)}</p>`),
+      ...(section.comparison ? [`<table><caption>${escape(section.comparison.title)}</caption><thead><tr><th scope="col">구분</th>${section.comparison.columns.map((column) => `<th scope="col">${escape(column)}</th>`).join("")}</tr></thead><tbody>${section.comparison.rows.map((row) => `<tr><th scope="row">${escape(row.label)} ${reference(row.sourceIds)}</th>${row.values.map((value) => `<td>${escape(value)}</td>`).join("")}</tr>`).join("")}</tbody></table>`, ...section.comparison.rows.filter((row) => row.note).map((row) => `<p>${escape(row.label)}: ${escape(row.note!)} ${reference(row.sourceIds)}</p>`)] : []),
+      ...(section.visual ? [`<figure><img src="${absoluteUrl(section.visual.src)}" alt="${escape(section.visual.alt)}" width="${section.visual.width}" height="${section.visual.height}"/><figcaption>${escape(section.visual.caption)} ${reference([section.visual.sourceId])} · <a href="${escape(section.visual.license.url)}">${escape(section.visual.license.name)}</a></figcaption></figure>`] : []),
       ...(section.figure ? [`<figure><p>${escape(section.figure.title)}</p><ul>${section.figure.descriptions.map((description) => `<li>${escape(description)}</li>`).join("")}</ul><figcaption>${escape(section.figure.caption)} ${reference(section.figure.sourceIds)}</figcaption></figure>`] : []),
       ...(section.scope ? [`<dl><dt>이 순서로 알 수 있는 것</dt><dd>${escape(section.scope.known)}</dd><dt>이 자료로는 알 수 없는 것</dt><dd>${escape(section.scope.unknown)}</dd></dl>`] : []),
     ]),
