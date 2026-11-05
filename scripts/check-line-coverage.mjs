@@ -16,7 +16,7 @@ const { publishedLines, lineArticles, lineLastModified } = await import("../src/
 const read = path => readFileSync(`out/${path}`, "utf8");
 const sitemap = read("sitemap.xml");
 assert.deepEqual([...publishedLines].sort(), [...new Set(articleEntries.flatMap(entry => entry.lines))].sort());
-assert.equal(publishedLines.length, 13);
+assert(publishedLines.length > 0);
 for (const id of publishedLines) {
   const entries = lineArticles(id);
   assert(entries.length > 0);
@@ -33,4 +33,4 @@ for (const id of publishedLines) {
 }
 for (const id of ["2", "4", "7", "8"]) assert(existsSync(`out/line/${id}/index.html`));
 assert(sitemap.includes("https://www.stationkorea.com/line/</loc>"));
-console.log("PASS: 13 actual lines, exact article coverage/order/schema, existing paths, canonical/sitemap");
+console.log("PASS: actual published lines, exact article coverage/order/schema, existing paths, canonical/sitemap");

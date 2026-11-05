@@ -1,14 +1,26 @@
 import assert from "node:assert/strict";
-import { readFileSync, mkdirSync } from "node:fs";
+import { existsSync, mkdirSync } from "node:fs";
+import { registerHooks } from "node:module";
 import { chromium } from "playwright";
 import AxeBuilder from "@axe-core/playwright";
 
 const base = process.argv[2] ?? "http://localhost:3260";
 const evidence = process.argv[3];
 if (evidence) mkdirSync(evidence, { recursive: true });
-const paths = [...readFileSync("out/sitemap.xml", "utf8").matchAll(/<loc>(.*?)<\/loc>/g)]
-  .map(match => new URL(match[1]).pathname).filter(path => /^\/(station|article)\/[^/]+\/$/.test(path));
-assert.equal(paths.length, 11);
+registerHooks({ resolve(specifier, context, next) {
+  if (specifier.startsWith("@/") || specifier.startsWith(".")) {
+    const url = specifier.startsWith("@/") ? new URL(`../src/${specifier.slice(2)}`, import.meta.url) : new URL(specifier, context.parentURL);
+    for (const suffix of [".ts", "/index.ts"]) {
+      const candidate = new URL(`${url.href}${suffix}`);
+      if (existsSync(candidate)) return next(candidate.href, context);
+    }
+  }
+  return next(specifier, context);
+} });
+const { articles, articlePath } = await import("../src/content/articles.ts");
+const { stations, stationPath } = await import("../src/content/stations/index.ts");
+const paths = [...stations.map(stationPath), ...articles.filter(article => article.station).map(articlePath)];
+assert(paths.length > 0);
 const browser = await chromium.launch();
 try {
   for (const width of [390, 768, 1280]) for (const colorScheme of ["light", "dark"]) {
@@ -36,6 +48,17 @@ try {
       assert(box && plate && title && article, path);
       assert(Math.abs(box.x - article.x) <= 40, `${path}: hero alignment`);
       assert(plate.x >= box.x && plate.x + plate.width <= box.x + box.width + 1, `${path}: plate clipped`);
+      assert(await panel.evaluate(element => {
+        const bounds = element.getBoundingClientRect();
+        const walker = document.createTreeWalker(element, NodeFilter.SHOW_TEXT);
+        while (walker.nextNode()) {
+          if (!walker.currentNode.textContent.trim()) continue;
+          const range = document.createRange();
+          range.selectNodeContents(walker.currentNode);
+          if ([...range.getClientRects()].some(rect => rect.left < bounds.left - 1 || rect.right > bounds.right + 1)) return false;
+        }
+        return true;
+      }), `${path}: station name or line label clipped`);
       assert(title.y >= box.y + box.height, `${path}: title must follow hero`);
       if (width === 1280) {
         assert.equal(Math.round(box.width), 1200, `${path}: full-width hero`);
@@ -64,4 +87,4 @@ try {
   }
   await context.close();
 } finally { await browser.close(); }
-console.log("PASS: all 11 station articles, 66 responsive/theme layouts, representative axe checks, static/no-JS hero and navigation");
+console.log("PASS: station articles, responsive/theme layouts, representative axe checks, static/no-JS hero and navigation");

@@ -44,7 +44,7 @@ export default function Home() {
                   <div className={`relative mx-auto w-full overflow-hidden rounded-lg bg-slab ${cover.image.kind === "reel-cover" ? "aspect-9/16 max-w-56" : "aspect-video"}`}>
                     <Image src={cover.image.src} alt={cover.image.alt} fill priority sizes={cover.image.kind === "reel-cover" ? "224px" : "(min-width: 1280px) 550px, (min-width: 768px) 45vw, calc(100vw - 82px)"} className={cover.image.kind === "reel-cover" ? "object-contain" : "object-cover"} />
                   </div>
-                  <figcaption className="mt-2 text-caption">{cover.image.caption}{"artist" in cover.image ? ` 사진 ${cover.image.artist} · Wikimedia Commons` : ""}{cover.image.kind === "cross-section" ? " AI 시각화 참고 이미지." : ""}</figcaption>
+                  <figcaption className="mt-2 text-caption">{cover.image.caption}{"artist" in cover.image ? ` 사진 ${cover.image.artist} · ${cover.image.provider ?? "Wikimedia Commons"}` : ""}{cover.image.kind === "cross-section" ? " AI 시각화 참고 이미지." : ""}</figcaption>
                 </figure>}
               </div>
             </div>

@@ -14,13 +14,14 @@ registerHooks({ resolve(specifier, context, nextResolve) {
 } });
 
 const { articles } = await import("../src/content/articles.ts");
+const { stations } = await import("../src/content/stations/index.ts");
 const { GET } = await import("../src/app/rss.xml/route.ts");
 const items = (xml) => [...xml.matchAll(/<item>(.*?)<\/item>/gs)].map((match) => match[1]);
 const content = (item) => item.match(/<content:encoded><!\[CDATA\[(.*?)\]\]><\/content:encoded>/s)[1];
 const metadata = (xml) => items(xml).map((item) => ["link", "guid", "pubDate"].map((tag) => item.match(new RegExp(`<${tag}[^>]*>(.*?)</${tag}>`))[1]));
 const feed = await GET().text();
 assert.equal(readFileSync("out/rss.xml", "utf8"), feed, "exported RSS matches route");
-assert.equal(items(feed).length, 12);
+assert.equal(items(feed).length, articles.length + stations.length);
 if (process.argv[2]) {
   const before = readFileSync(process.argv[2], "utf8");
   assert.deepEqual(metadata(feed), metadata(before), "URLs, dates and ordering stay unchanged");
@@ -28,9 +29,9 @@ if (process.argv[2]) {
   assert.deepEqual(stationItems(feed), stationItems(before), "Station items stay byte-for-byte unchanged");
 }
 const seongsu = articles.find((article) => article.slug === "seongsu-branch");
-const seongsuContent = content(items(feed).find((item) => item.includes("/article/seongsu-branch/")));
+const seongsuContent = content(items(feed).find((item) => item.includes("<link>https://www.stationkorea.com/article/seongsu-branch/</link>")));
 assert(seongsuContent.includes(seongsu.image.src) && seongsuContent.includes(seongsu.image.source), "역 사진과 출처가 RSS에 함께 표시된다");
-const gimpoContent = content(items(feed).find((item) => item.includes("/article/gimpo-extension-status/")));
+const gimpoContent = content(items(feed).find((item) => item.includes("<link>https://www.stationkorea.com/article/gimpo-extension-status/</link>")));
 assert(gimpoContent.includes("<h2>공식 자료로 확인한 사업 흐름</h2><ol>"), "김포 연장 기사 연표가 RSS에 포함된다");
 assert(gimpoContent.indexOf("2026-03-10") < gimpoContent.indexOf("2026-09-18"), "김포 연표는 날짜순으로 표시된다");
 const gimpoMarkdown = readFileSync("out/article/gimpo-extension-status/article.md", "utf8");
@@ -65,7 +66,7 @@ const fixture = {
 try {
   articles.splice(0, articles.length, fixture);
   const fixtureFeed = await GET().text();
-  const html = content(items(fixtureFeed).find((item) => item.includes("/article/seongsu-branch/")));
+  const html = content(items(fixtureFeed).find((item) => item.includes("<link>https://www.stationkorea.com/article/seongsu-branch/</link>")));
   for (const prefix of ["series", "introduction", "figure", "description", "caption", "known", "unknown", "ride", "to", "time", "route org", "route date", "formation org", "formation date"]) {
     assert(html.includes(`${prefix} ${escaped}`), `${prefix} is HTML escaped`);
   }
@@ -83,14 +84,14 @@ try {
 
   delete fixture.transfers[0].formation;
   delete fixture.transfers[0].toCar;
-  let absent = content(items(await GET().text()).find((item) => item.includes("/article/seongsu-branch/")));
+  let absent = content(items(await GET().text()).find((item) => item.includes("<link>https://www.stationkorea.com/article/seongsu-branch/</link>")));
   assert(!absent.includes("칸 편성") && !absent.includes("승차 위치"));
   delete fixture.series;
   delete fixture.body[0].figure;
   delete fixture.body[0].scope;
   for (const transfers of [undefined, []]) {
     fixture.transfers = transfers;
-    absent = content(items(await GET().text()).find((item) => item.includes("/article/seongsu-branch/")));
+    absent = content(items(await GET().text()).find((item) => item.includes("<link>https://www.stationkorea.com/article/seongsu-branch/</link>")));
     for (const marker of ["연재:", "<figure>", "<dl>", "어디서 내리면 빠른가", "<table>"]) assert(!absent.includes(marker), `absent optional block: ${marker}`);
     assert(absent.includes("paragraph") && absent.includes("<h2>출처"));
   }
@@ -102,4 +103,4 @@ try {
 } finally {
   articles.splice(0, articles.length, ...originalArticles);
 }
-console.log("PASS: 12 RSS entries, exported content, article timeline parity, Seongsu explanations, optional blocks/order, transfer basis, escaping and missing-source guards");
+console.log("PASS: RSS entries match published articles, exported content, article timeline parity, Seongsu explanations, optional blocks/order, transfer basis, escaping and missing-source guards");
