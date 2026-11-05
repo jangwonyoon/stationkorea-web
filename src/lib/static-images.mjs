@@ -10,6 +10,7 @@ export const imageSources = [
   ...["jamsil", "sadang", "konkuk-univ", "hongdae-transfer", "express-terminal"].map((slug) => `/images/station/${slug}-cover.jpg`),
   ...["seongsu", "guri", "express-terminal", "dongmyo", "gimpo", "isu", "hongdae", "dongjak", "jamsil", "sadang", "konkuk-univ"].map((slug) => `/images/station/${slug}-photo.jpg`),
   ...["ichon-museum-neighborhood","seoul-station-connections","sindorim-cultural-spaces","wangsimni-neighborhood","gangnam-connections","ddp-history-walk","jongno3-music-heritage","gongdeok-connections","gunja-morning-crowding"].map((slug) => `/images/station/${slug}-photo.jpg`),
+  ...["sindorim-dcube", "sindorim-dorimcheon"].map((slug) => `/images/station/${slug}-photo.jpg`),
   ...["rail", "street", "space", "network", "change-day", "change-evening"].map((name) => `/images/about/${name}.jpg`),
 ];
 

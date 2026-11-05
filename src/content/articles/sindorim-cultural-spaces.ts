@@ -1,114 +1,347 @@
 import type { MagazineArticle } from "../articles";
 import { stationPhotos } from "../station-photos";
 
-const sindorimPhoto = {
-  ...stationPhotos["sindorim-cultural-spaces"],
-  caption: "신도림역 철길과 승강장, 주변 건물. 2020-08-08 촬영. 문화철도959의 전시나 활동 장면은 아닙니다.",
-};
-
 export const sindorimCulturalSpaces: MagazineArticle = {
-  slug: "sindorim-cultural-spaces",
-  image: sindorimPhoto,
-  imagePlacement: "body",
-  section: "see",
-  question: "신도림역 문화철도959에서는 무엇을 보고, 어떤 수업에 참여할 수 있을까?",
-  answer: "문화철도959는 신도림역 선상역사 3층의 959갤러리와 문화교실에서 전시와 신청형 수업을 안내한다. 2026년 11월 5일 확인 당시 송유리 전시는 11월 2일부터 19일까지 일정으로 진행 중이었고, 4분기 문화교실 접수는 끝난 상태였다.",
-  answerSourceIds: ["sindorim-facility", "sindorim-song-exhibition", "sindorim-quarterly-class"],
-  station: { name: "신도림역", lines: ["1", "2"], sign: { line: "1", prev: "영등포", next: "구로", en: "Sindorim" }, sourceIds: ["seoul-tourist-map-en-202603", "seoul-route-map-202509"] },
-  body: [
-    {
-      heading: "철길 위 역사의 3층에 갤러리와 문화교실이 있다",
-      paragraphs: [
-        {
-          text: "문화철도959는 신도림역 1호선 선상역사 3층에 있다. 선상역사는 철길 위를 가로질러 놓은 역 건물이다. 구로문화재단은 이곳의 아트플랫폼과 문화교실, 959갤러리를 시설로 안내한다. 이 정보로 확인할 수 있는 것은 공간의 위치와 쓰임이다. 갤러리가 늘 열려 있는지, 역을 지나던 사람이 실제로 작품을 보는지는 시설 안내만으로 알 수 없다.",
-          sourceIds: ["sindorim-facility"],
-        },
-        {
-          text: "구로구의 2015년 자료는 새 선상역사가 문을 열면서 역 남쪽과 북쪽 광장을 지상으로 연결했다고 기록한다. 신도림역에는 철길 위 역사와 광장, 지하 연결통로처럼 서로 다른 자리가 있다. 문화시설 안내를 이 공간들과 함께 읽으면, 열차를 타는 시설 안팎에 전시와 수업, 공연을 위한 공간이 따로 마련된 구성을 볼 수 있다. 이것은 시설과 조성 기록을 나란히 읽은 설명이며, 문화공간이 이동이나 동네 생활을 어떻게 바꾸었는지를 입증하는 자료는 아니다.",
-          sourceIds: ["sindorim-station-opening", "sindorim-opera-facility"],
-        },
-      ],
-      image: sindorimPhoto,
-    },
-    {
-      heading: "전시는 날짜가 있고 관람 조건은 따로 확인해야 한다",
-      paragraphs: [
-        {
-          text: "구로문화재단은 송유리의 《The Secret Passage》를 2026년 11월 2일부터 19일까지 문화철도959에서 여는 일정으로 안내했다. 재단 소개에 따르면 작품은 《안네의 일기》 속 인물에게 다른 가능성을 상상하는 질문에서 출발한다. 이 전시는 11월 5일 확인 당시 일정상 진행 중이었다.",
-          sourceIds: ["sindorim-song-exhibition"],
-        },
-        {
-          text: "다음 전시로는 홍승희의 《방황하는 경로》가 11월 23일부터 12월 11일까지 예정돼 있었다. 재단은 미로와 움직임, 선택을 작품의 주제로 소개했다. 두 일정은 각각 별도의 전시다. 한 전시를 관람하고 다음 전시까지 연이어 볼 수 있다는 뜻은 아니다.",
-          sourceIds: ["sindorim-hong-exhibition"],
-        },
-        {
-          text: "전시 상세 페이지의 관람시간은 ‘00:00’으로 표시돼 있고 휴관일은 적혀 있지 않았다. 이 표기를 24시간 관람이나 휴관일 없음으로 해석할 수는 없다. 요금과 예약 여부도 확인되지 않았다. 날짜가 지난 뒤에는 위 일정이 현재 전시를 뜻하지 않으므로, 방문 전 구로문화재단의 최신 전시 공지에서 관람 가능 시간과 조건을 확인해야 한다.",
-          sourceIds: ["sindorim-song-exhibition", "sindorim-hong-exhibition"],
-        },
-      ],
-    },
-    {
-      heading: "수업은 모집 기간과 수업 기간이 다르다",
-      paragraphs: [
-        {
-          text: "문화철도959의 문화교실은 완성된 작품을 보는 갤러리와 달리, 회차에 신청해 직접 만드는 프로그램을 안내한다. 2026년 단기 문화교실 공지에는 사진 인화, 손그림, 펀치니들, 테라리움 등의 과정이 실렸다. 이 공지의 모집 기간은 10월 23일까지였고, 수업 일정은 11월 9일부터 12월 4일까지인 회차도 포함했다. 모집이 끝난 뒤에도 공지에 적힌 수업 기간은 이어질 수 있으므로, 수업 일정만 보고 신청할 수 있다고 판단하면 안 된다.",
-          sourceIds: ["sindorim-short-class"],
-        },
-        {
-          text: "별도의 2026년 4분기 문화교실은 10월 12일부터 12월 18일까지 운영 일정으로 안내됐고 접수 기간은 9월 28일에 끝났다. 단기반과 분기 문화교실은 서로 다른 공고다. 문화교실을 방문 목적으로 삼으려면 관심 있는 프로그램의 모집 상태, 수업 날짜, 대상과 재료비를 각각 확인해야 한다. 과거 공고는 다음 모집이나 현재 잔여석을 보장하지 않는다.",
-          sourceIds: ["sindorim-quarterly-class"],
-        },
-      ],
-    },
-    {
-      heading: "공연장은 상설 공연표가 아니다",
-      paragraphs: [
-        {
-          text: "신도림오페라하우스는 남측 광장에 있는 야외극장과 지하 소극장으로 안내된다. 시설 이름만으로 오페라가 상설 공연된다고 볼 수는 없다. 공연이나 영화 상영을 보려면 개별 행사 날짜가 있는지 확인해야 한다.",
-          sourceIds: ["sindorim-opera-facility"],
-        },
-        {
-          text: "서울문화포털의 2024년 서울축제지도에는 신도림오페라하우스에서 10월 4일부터 5일까지 열릴 스트릿댄스 행사가 예정 프로그램으로 실렸다. 구로문화재단은 2025년 6월 25일 인디영화 상영 일정도 공지했다. 두 기록은 서로 다른 시기의 행사 안내다. 둘만으로 축제가 실제 열렸거나 매년 반복된다고 단정할 수 없고, 정기 상영일이 계속된다고 볼 수도 없다. 2026년 11월 5일 확인 범위에서 다음 회차 일정은 찾지 못했다.",
-          sourceIds: ["sindorim-2024-festival", "sindorim-2025-film"],
-        },
-      ],
-    },
-    {
-      heading: "신도림의 문화공간은 서로 다른 자리에 생겼다",
-      paragraphs: [
-        {
-          text: "역 주변 문화공간의 기록은 한 시점의 대규모 변화라기보다 여러 공간에 기능이 더해진 과정을 보여 준다. 서울문화포털 자료는 지하 연결통로의 예술공간 ‘고리’가 2012년 문을 열고, 2017년 생활문화 사업을 확대했으며, 2020년 서울생활문화센터 신도림으로 이름이 바뀐 이력을 기록한다. 구로구는 2015년 선상역사와 남북 광장 연결을 안내했고, 문화철도959는 역사 안에서 창작실·문화교실·갤러리를 운영 시설로 소개한다.",
-          sourceIds: ["sindorim-gori-history", "sindorim-station-opening", "sindorim-facility"],
-        },
-        {
-          text: "고리의 현재 운영과 개방 여부는 확인되지 않았다. 따라서 지금 찾아갈 장소나 프로그램으로 안내하지 않는다. 확인할 수 있는 것은 지하 통로에서 시작된 과거의 공간 이력뿐이다. 이 기록과 현재 문화철도959의 시설 안내, 오페라하우스의 행사 공지를 구분해서 보면 신도림에서는 전시를 보고, 모집 회차에 맞춰 수업을 신청하고, 일정이 발표된 날 공연장을 찾는 선택지가 각각 다른 방식으로 마련돼 있음을 알 수 있다.",
-          sourceIds: ["sindorim-gori-history", "sindorim-facility", "sindorim-opera-facility"],
-        },
-        {
-          text: "신도림에서 문화생활을 계획할 때는 한 번의 동선에 모든 공간을 넣기보다 보고 싶은 프로그램과 날짜를 먼저 고르는 편이 정확하다. 문화철도959 전시는 기간과 관람 조건을, 문화교실은 모집과 회차를, 오페라하우스는 개별 공연·상영 공지를 확인해야 한다.",
-          sourceIds: ["sindorim-facility", "sindorim-short-class", "sindorim-opera-facility"],
-        },
-      ],
-    },
+  "slug": "sindorim-cultural-spaces",
+  "image": stationPhotos["sindorim-dcube"],
+  "imagePlacement": "body",
+  "section": "see",
+  "question": "신도림에서 갈아타지 않고 내린다면, 무엇을 보고 머물 수 있을까?",
+  "answer": "신도림역 주변에서는 디큐브시티의 건축과 공연, 문화철도959의 창작과 전시, 오페라하우스의 위아래 무대, 도림천의 물길을 살펴볼 수 있다.",
+  "answerSourceIds": [
+    "S01",
+    "S04",
+    "S09",
+    "S12",
+    "S14"
   ],
-  sources: [
-    { id: "seoul-tourist-map-en-202603", org: "서울특별시·서울관광재단", title: "2026 Seoul Tourist Map, 2쪽 Seoul Metro Map", date: "2026년 3월 게시본 · 2026-11-05 확인", url: "https://english.seoul.go.kr/wp-content/uploads/2026/03/2026_touristmap_EN.pdf" },
-    { id: "seoul-route-map-202509", org: "서울특별시", title: "서울 지하철 노선도 (Route Map)", date: "2025년 9월 게시본 · 2026-11-05 확인", url: "https://english.seoul.go.kr/wp-content/uploads/2025/09/route-map.pdf" },
-    { id: "sindorim-station-opening", org: "구로구", title: "구로구, 신도림역 선상역사 개통식(15.05.21)", date: "표제 2015-05-21 · 2015-05-22 게시 · 개통식 2015-05-20 · 정식 개통 2015-05-23 자료 구분 · 2026-11-05 확인", url: "https://www.guro.go.kr/www/selectBbsNttView.do?bbsNo=665&key=1793&nttNo=22076&pageIndex=689&pageUnit=10" },
-    { id: "sindorim-facility", org: "구로문화재단", title: "신도림 문화철도959 — 시설 정보", date: "게시일 미표기 · 2026-11-05 확인", url: "https://guroartsvalley.or.kr/user/overall/overallArt9.do" },
-    { id: "sindorim-song-exhibition", org: "구로문화재단", title: "문화철도959 전시 상세 — 송유리 《The Secret Passage》 (displaySeq=406)", date: "전시 일정 2026-11-02~11-19 · 2026-11-05 확인", url: "https://www.guroartsvalley.or.kr/user/display/displayView.do?displaySeq=406&page=1" },
-    { id: "sindorim-hong-exhibition", org: "구로문화재단", title: "문화철도959 전시 상세 — 홍승희 《방황하는 경로》 (displaySeq=407)", date: "전시 예정 2026-11-23~12-11 · 2026-11-05 확인", url: "https://www.guroartsvalley.or.kr/user/display/displayView.do?displaySeq=407&page=1" },
-    { id: "sindorim-short-class", org: "구로문화재단", title: "2026 문화철도959 단기 문화교실 (etcSeq=3701)", date: "모집 2026-09-10~10-23 · 수업 일정은 공고 기준 · 2026-11-05 확인", url: "https://www.guroartsvalley.or.kr/user/bizetc/bizetcView.do?etcSeq=3701&page=1" },
-    { id: "sindorim-quarterly-class", org: "구로문화재단", title: "2026년 4분기 문화교실 (programSeq=147)", date: "운영 일정 2026-10-12~12-18 · 접수 2026-09-07~09-28 · 2026-11-05 확인", url: "https://guroartsvalley.or.kr/user/bizprogram/view.do?programSeq=147" },
-    { id: "sindorim-opera-facility", org: "구로문화재단", title: "신도림오페라하우스 — 시설 정보", date: "게시일 미표기 · 2026-11-05 확인", url: "https://www.guroartsvalley.or.kr/user/overall/overallArt8.do" },
-    { id: "sindorim-2024-festival", org: "서울문화포털", title: "2024 서울축제지도 — 신도림오페라하우스 예정 프로그램", date: "행사 예정 2024-10-04~05 · 2026-11-05 확인", url: "https://culture.seoul.go.kr/culture/bbs/B0000000/view.do?menuNo=200050&nttId=13179&pageIndex=" },
-    { id: "sindorim-2025-film", org: "구로문화재단", title: "신도림오페라하우스 인디영화 상영 공지 (etcSeq=3645)", date: "행사 일정 2025-06-25 · 2026-11-05 확인", url: "https://guroartsvalley.or.kr/user/bizetc/bizetcView.do?etcSeq=3645&page=1" },
-    { id: "sindorim-gori-history", org: "서울문화포털", title: "서울생활문화센터 신도림 — 고리 공간 이력", date: "게시일 미표기 · 2026-11-05 확인", url: "https://culture.seoul.go.kr/night/sub/nightFac/view.do?facId=33" },
+  "station": {
+    "name": "신도림역",
+    "lines": [
+      "1",
+      "2"
+    ],
+    "sign": {
+      "line": "1",
+      "prev": "영등포",
+      "next": "구로",
+      "en": "Sindorim"
+    },
+    "sourceIds": [
+      "seoul-tourist-map-en-202603",
+      "seoul-route-map-202509"
+    ]
+  },
+  "body": [
+    {
+      "heading": "서로 다른 높이의 문화공간",
+      "paragraphs": [
+        {
+          "text": "공장 부지를 바꾼 복합건물, 철길 위의 작업실, 광장 아래의 소극장과 하천 옆 산책 공간. 신도림에서 내리면 서로 다른 높이에 놓인 장소들을 만난다. 건물을 살펴보는 일과 작품을 보는 일은 저마다 다른 방문 이유가 된다. 전시는 관람 안내를, 수업은 모집공지를, 공연은 회차별 일정을 보고 관심에 맞는 곳을 고를 수 있다.\n",
+          "sourceIds": [
+            "S01",
+            "S03",
+            "S05",
+            "S07",
+            "S08",
+            "S12",
+            "S14"
+          ]
+        }
+      ],
+      "image": stationPhotos["sindorim-cultural-spaces"]
+    },
+    {
+      "heading": "공장 자리에 생긴 디큐브시티, 건물의 아래쪽을 보자",
+      "paragraphs": [
+        {
+          "text": "디큐브시티의 고층건물은 신도림역 주변을 읽는 첫 단서다. 이곳은 원래 대성산업의 연탄공장이 있던 자리였다. 사업에 참여한 한미글로벌의 기록은 이 부지를 주거·업무·상업시설과 뮤지컬홀을 갖춘 복합공간으로 개발한 과정을 설명한다. 공장 건물을 남겨 고쳐 쓴 사례가 아니라 같은 땅에 여러 용도의 건물을 새로 세운 개발이다.",
+          "sourceIds": [
+            "S01",
+            "S02"
+          ]
+        },
+        {
+          "text": "건축을 볼 때는 높은 타워만 올려다보기보다 아래쪽 건물과 바깥 공간의 관계를 함께 살펴볼 만하다. 설계사 JERDE는 이 프로젝트에서 저층부의 문화·상업공간, 높이 솟은 타워, 공원과 광장을 결합하고 거리에서 위층으로 이어지는 외부 길을 계획했다고 설명한다. 돌의 밝은 면과 목재로 감싼 부분을 대비시키고, 낮은 건물들 사이로 높이 차를 만드는 방식도 설계 설명의 일부다. 외관에서 어디가 큰 덩어리로 묶이고 어디가 나뉘는지 보면, 한 건물에 여러 목적지를 넣으려 했던 구상이 읽힌다.",
+          "sourceIds": [
+            "S02"
+          ]
+        },
+        {
+          "text": "디큐브의 공연장에서는 건물을 구경하는 시간과 공연을 보는 시간이 만난다. 예를 들어 2026년 가을에는 뮤지컬 《광화문연가》가 이곳 공연 일정으로 안내됐다. 공연을 보기로 했다면 그 한 편이 신도림에 머무는 중심이 되고, 건물과 주변 광장은 공연 전후에 살펴볼 대상이 된다. 문화공간을 한꺼번에 모두 방문해야 동네를 본 것은 아니다.",
+          "sourceIds": [
+            "S02",
+            "S14"
+          ]
+        }
+      ],
+      "image": stationPhotos["sindorim-dcube"]
+    },
+    {
+      "heading": "철길 위에는 작품을 만드는 사람들의 공간이 있다",
+      "paragraphs": [
+        {
+          "text": "디큐브가 역 밖의 큰 복합건물이라면, 문화철도959는 역 건물 안으로 들어온 문화공간이다. 위치는 신도림역 1호선 선상역사 3층이다. 이곳의 선상역사는 철길 위를 가로질러 놓인 역 건물이다. 구로구는 2015년 새 역사가 문을 열면서 남쪽과 북쪽 광장을 지상으로 연결했다고 기록했다. 문화철도959는 이 역 건물에 작가의 창작공간인 아트플랫폼, 문화교실, 959갤러리를 두고 있다.",
+          "sourceIds": [
+            "S03",
+            "S04",
+            "S05"
+          ]
+        },
+        {
+          "text": "문화철도959에는 작품을 보여주는 갤러리와 작품을 만드는 작업공간이 함께 있다. 구로문화재단이 2017년부터 이어 온 아트플랫폼은 예술가에게 작업공간을 제공하고 전시와 시민 참여 프로그램을 연결하는 사업이다. 2026년 입주작가 안내에는 회화와 판화, 일러스트, 영상과 뉴미디어아트처럼 서로 다른 작업이 실려 있다. 전시를 볼 때 같은 재료나 형식만 기대할 필요가 없는 이유다.",
+          "sourceIds": [
+            "S05"
+          ]
+        },
+        {
+          "text": "959갤러리는 입주작가의 작업을 차례로 소개하는 열린 전시공간으로 안내된다. 그림의 소재뿐 아니라 그 소재를 작가가 어떤 질문으로 바꾸었는지 읽으면 관람이 달라진다. 2026년 11월 송유리의 《The Secret Passage》가 한 예다. 재단의 전시 소개는 《안네의 일기》 속 인물에게 다른 길이 있었을 가능성을 상상하며 경계와 통로를 회화로 다룬다고 설명한다. 전시를 보며 작가가 상상한 다른 길이 인물에게 어떤 가능성을 뜻하는지 생각해 볼 수 있다.",
+          "sourceIds": [
+            "S05",
+            "S06"
+          ]
+        },
+        {
+          "text": "직접 만드는 경험을 원한다면 문화교실 쪽으로 관심을 옮길 수 있다. 2026년 단기 문화교실에는 사진 인화, 손그림, 펀치니들, 테라리움 등의 과정이 안내됐다. 작품 앞에서 해석하는 일과 재료를 손으로 다뤄 보는 일은 다른 경험이다. 갤러리 관람과 수업 신청은 별개다. 전시를 보고 관심이 생긴 재료가 있다면, 이후 모집공지를 살펴 참여할 수업을 찾아볼 수 있다.",
+          "sourceIds": [
+            "S05",
+            "S07"
+          ]
+        }
+      ]
+    },
+    {
+      "heading": "광장의 오페라하우스는 왜 위아래에 무대가 있을까",
+      "paragraphs": [
+        {
+          "text": "신도림역 남측 광장의 오페라하우스는 이름만 듣고 떠올리는 큰 실내 오페라극장과는 형태가 다르다. 야외무대와 객석이 있고, 그 아래에 별도의 지하소극장이 있다. 구로문화재단은 두 공간을 생활문화 활동을 지원하는 공연시설로 소개한다. 하나의 공연장이라기보다, 열린 광장의 무대와 작은 실내 무대가 포개진 공간에 가깝다.",
+          "sourceIds": [
+            "S08",
+            "S09"
+          ]
+        },
+        {
+          "text": "그 형태에는 고쳐 쓴 이력이 있다. 구로구의 조성 기록에 따르면 오페라하우스는 2008년 처음 만들어졌지만 무대가 깊고 객석의 경사가 심해 활용하기 어렵다는 평가를 받았다. 2017년 리모델링에서는 무대를 높이고 객석에 개별 의자를 놓았으며 높아진 무대 아래에 실내 소극장을 마련했다. 무대와 객석의 높이 관계를 바꾸면서 아래쪽에는 실내 공연에 쓸 공간을 만든 공사였다.",
+          "sourceIds": [
+            "S08"
+          ]
+        },
+        {
+          "text": "이곳에서는 객석과 무대의 높이 차, 야외무대 아래에 놓인 실내 공연장의 관계를 눈여겨볼 만하다. 디큐브의 공연장이 상업시설 상부에 놓였다면, 오페라하우스는 광장의 야외무대와 그 아래 소극장을 나눈 구조다. 같은 공연시설이어도 건물의 위쪽을 쓰는 방식과 광장의 아래쪽을 쓰는 방식이 다르다.",
+          "sourceIds": [
+            "S02",
+            "S08",
+            "S09"
+          ]
+        },
+        {
+          "text": "구로구의 시설 안내는 이곳의 프로그램으로 생활문화와 동아리·밴드 축제, 지하소극장의 영화 상영 등을 소개한다. 뮤지컬 한 편을 중심으로 일정을 잡는 디큐브와 함께, 지역의 연주나 생활문화 활동이 오르는 무대도 신도림의 공연공간을 이룬다. 관심 있는 프로그램이 열리는 날에는 야외무대와 지하소극장 중 어느 공간을 사용하는지 살펴볼 수 있다.",
+          "sourceIds": [
+            "S10",
+            "S14"
+          ]
+        }
+      ]
+    },
+    {
+      "heading": "도림천에서는 건물보다 낮은 곳으로 시선이 옮겨 간다",
+      "paragraphs": [
+        {
+          "text": "디큐브시티 가까이에는 도림천과 도림교가 있다. 건물의 높이를 살피던 시선을 하천으로 옮기면, 물길 위를 건너는 교량과 하천 옆 둔치의 관계를 볼 수 있다. 신도림의 바깥 공간을 읽는 또 다른 대상이다.",
+          "sourceIds": [
+            "S02",
+            "S12"
+          ]
+        },
+        {
+          "text": "도림교 주변의 산책 공간도 처음부터 지금 형태로 주어진 것은 아니다. 서울시는 2014년 도림교 확장공사를 마치며 교량 보도와 자전거도로, 도림천 둔치의 조경과 산책로를 정비하고 연결했다고 발표했다. 교량 보도를 걷는 공간과 둔치에서 걷는 공간은 높이와 역할이 다르다. 2014년 정비는 도로의 폭만 넓힌 공사가 아니라, 다리 위 보행공간과 물가의 산책로를 연결한 작업이었다.",
+          "sourceIds": [
+            "S12"
+          ]
+        },
+        {
+          "text": "디큐브에서는 저층부와 타워의 관계를, 문화철도959에서는 철길 위 건물의 쓰임을, 오페라하우스에서는 무대의 위와 아래를 살펴볼 수 있다. 도림천에서는 그 관찰 대상이 하천과 교량, 둔치로 옮겨 간다. 서로 다른 높이에 공간을 마련한 방식을 비교하면, 역 주변에서 사람들이 걷거나 머무는 자리가 어디에 놓였는지 읽을 수 있다.",
+          "sourceIds": [
+            "S02",
+            "S03",
+            "S04",
+            "S08",
+            "S12"
+          ]
+        }
+      ],
+      "image": stationPhotos["sindorim-dorimcheon"]
+    },
+    {
+      "heading": "한 동네 안에서도 머무는 방식은 다르다",
+      "paragraphs": [
+        {
+          "text": "신도림의 볼거리를 하나의 시설이나 한 가지 이미지로 묶기는 어렵다. 옛 산업용지의 복합개발, 역 건물 속 작업실과 갤러리, 광장에 포개진 두 무대, 교량 아래 물길은 서로 다른 과정을 거쳐 생겼다. 이 장소들을 함께 보면 역 주변의 상권과 함께 일과 이동 사이에 놓인 문화생활의 자리가 드러난다.",
+          "sourceIds": [
+            "S01",
+            "S03",
+            "S04",
+            "S08",
+            "S12"
+          ]
+        },
+        {
+          "text": "공연이 목적이라면 작품 한 편을 중심에 두고 디큐브의 건축을 살펴보면 된다. 그림이 궁금하다면 문화철도959의 전시를 살펴보고, 직접 만들고 싶다면 문화교실의 새 모집공지를 찾아볼 수 있다. 날짜가 맞는 지역 공연을 골라 오페라하우스를 찾거나, 주변 광장과 도림천의 경관을 보며 역 밖에 머무는 시간도 가능하다. 건물의 형태를 볼지, 작품을 읽을지, 공연에 시간을 쓸지에 따라 신도림에서 머물 곳도 달라진다.",
+          "sourceIds": [
+            "S02",
+            "S05",
+            "S07",
+            "S09",
+            "S12",
+            "S14"
+          ]
+        }
+      ]
+    },
+    {
+      "heading": "방문 전에 확인할 것",
+      "paragraphs": [
+        {
+          "text": "아래 일정은 2026년 11월 5일 확인 기준이다.",
+          "sourceIds": []
+        },
+        {
+          "text": "디큐브 공연장: 공식 예매 공지는 《광화문연가》를 ‘디큐브 링크아트센터’에서 2026년 9월 6일~11월 15일 공연하는 일정으로 안내한다. 공연장 명칭과 출입 방법, 좌석·회차는 예매한 공연의 최신 안내를 따른다.",
+          "sourceIds": [
+            "S14"
+          ]
+        },
+        {
+          "text": "문화철도959: 송유리 《The Secret Passage》는 11월 2~19일 일정으로 안내돼 있다. 일별 관람시간과 휴관 여부는 방문 전 재단에 확인한다. 본문에서 소개한 2026년 단기 문화교실 공지의 모집기간은 10월 23일까지였다. 다음 수업에 참여하려면 새 모집공지를 확인한다.",
+          "sourceIds": [
+            "S06",
+            "S07"
+          ]
+        },
+        {
+          "text": "오페라하우스: 구로문화재단의 공연·행사 일정에서 장소가 야외무대인지 지하소극장인지 확인한다. 관람하려는 프로그램의 날짜와 회차도 함께 살핀다.",
+          "sourceIds": [
+            "S09",
+            "S10"
+          ]
+        },
+        {
+          "text": "도림천: 산책로 진입과 이용은 현장 통제 안내를 우선한다. 횡단 지점과 산책로 출입구, 무장애 접근 안내는 이동 전에 따로 확인한다.",
+          "sourceIds": []
+        }
+      ]
+    }
   ],
-  related: [
-    { title: "동대문디자인플라자 주변에서는 은빛 건물 말고 무엇을 볼 수 있을까?", href: "/article/ddp-history-walk/" },
-    { title: "종로3가역에서 낙원상가와 종묘는 어느 출구로 나가야 할까?", href: "/article/jongno3-music-heritage/" },
+  "sources": [
+    {
+      "id": "seoul-tourist-map-en-202603",
+      "org": "서울특별시·서울관광재단",
+      "title": "2026 Seoul Tourist Map, 2쪽 Seoul Metro Map",
+      "date": "2026년 3월 게시본 · 2026-11-05 확인",
+      "url": "https://english.seoul.go.kr/wp-content/uploads/2026/03/2026_touristmap_EN.pdf"
+    },
+    {
+      "id": "seoul-route-map-202509",
+      "org": "서울특별시",
+      "title": "서울 지하철 노선도 (Route Map)",
+      "date": "2025년 9월 게시본 · 2026-11-05 확인",
+      "url": "https://english.seoul.go.kr/wp-content/uploads/2025/09/route-map.pdf"
+    },
+    {
+      "id": "S01",
+      "org": "한미글로벌",
+      "title": "신도림 디큐브시티",
+      "date": "게시일 미표시 · 사업기간 2007.07~2011.06 · 2026-11-05 확인",
+      "url": "https://www.hanmiglobal.com/kr/report/view.asp?pageGubun=&seq=98"
+    },
+    {
+      "id": "S02",
+      "org": "JERDE",
+      "title": "D-Cube City",
+      "date": "게시일 미표시 · 완성 프로젝트의 설계 설명 · 2026-11-05 확인",
+      "url": "https://www.jerde.com/projects/7375/d-cube-city"
+    },
+    {
+      "id": "S03",
+      "org": "구로구",
+      "title": "구로구, 신도림역 선상역사 개통식(15.05.21)",
+      "date": "2015-05-22 작성 · 2015년 개통 기록 · 2026-11-05 확인",
+      "url": "https://www.guro.go.kr/www/selectBbsNttView.do?bbsNo=665&key=1793&nttNo=22076&pageIndex=689&pageUnit=10"
+    },
+    {
+      "id": "S04",
+      "org": "구로문화재단",
+      "title": "신도림 문화철도959",
+      "date": "게시일 미표시 · 시설 안내 · 2026-11-05 확인",
+      "url": "https://guroartsvalley.or.kr/user/overall/overallArt9.do"
+    },
+    {
+      "id": "S05",
+      "org": "구로문화재단",
+      "title": "신도림 문화철도959 아트플랫폼",
+      "date": "게시일 미표시 · 2017년부터 사업 설명·2026년 입주작가 목록 · 2026-11-05 확인",
+      "url": "https://guroartsvalley.or.kr/user/page/mn01170901.do"
+    },
+    {
+      "id": "S06",
+      "org": "구로문화재단",
+      "title": "송유리 《The Secret Passage》",
+      "date": "게시일 미표시 · 전시 2026-11-02~19 · 2026-11-05 확인",
+      "url": "https://www.guroartsvalley.or.kr/user/display/displayView.do?displaySeq=406&page=1"
+    },
+    {
+      "id": "S07",
+      "org": "구로문화재단",
+      "title": "신도림 문화철도959 단기 문화교실",
+      "date": "게시일 미표시 · 모집 2026-09-10~10-23 · 수업 10-12~12-04 · 2026-11-05 확인",
+      "url": "https://www.guroartsvalley.or.kr/user/bizetc/bizetcView.do?etcSeq=3701&page=1"
+    },
+    {
+      "id": "S08",
+      "org": "구로구",
+      "title": "아시나요! 신도림 오페라하우스",
+      "date": "2017-08-22 작성 · 2008년 조성·2017년 리모델링 기록 · 2026-11-05 확인",
+      "url": "https://www.guro.go.kr/www/selectBbsNttView.do?bbsNo=665&key=1793&nttNo=23408&pageIndex=463&pageUnit=10"
+    },
+    {
+      "id": "S09",
+      "org": "구로문화재단",
+      "title": "신도림 오페라하우스/지하소극장",
+      "date": "게시일 미표시 · 시설 안내 · 2026-11-05 확인",
+      "url": "https://guroartsvalley.or.kr/user/overall/overallArt8.do"
+    },
+    {
+      "id": "S10",
+      "org": "구로구",
+      "title": "구로구 생활문화지원센터",
+      "date": "2026-07-07 수정 · 시설별 주요 프로그램 안내 · 2026-11-05 확인",
+      "url": "https://www.guro.go.kr/www/contents.do?key=2931"
+    },
+    {
+      "id": "S12",
+      "org": "서울특별시 도로계획과",
+      "title": "도림교 확장공사 완료, 통행속도 빨라져",
+      "date": "2014-05-07 수정 · 2014-04-30 공사 완료 · 2026-11-05 확인",
+      "url": "https://news.seoul.go.kr/safe/archives/23126"
+    },
+    {
+      "id": "S14",
+      "org": "티켓링크",
+      "title": "광화문연가 마지막 티켓오픈 안내",
+      "date": "등록일 미표시 · 티켓 오픈 2026-10-01 · 전체 공연 09-06~11-15 · 2026-11-05 확인",
+      "url": "https://www.ticketlink.co.kr/help/notice/66039"
+    }
   ],
-  datePublished: "2026-11-05T00:00:00+09:00",
-  dateModified: "2026-11-05T13:29:29+09:00",
+  "related": [
+    {
+      "title": "DDP의 건축·유적·시장을 함께 읽기",
+      "href": "/article/ddp-history-walk/"
+    },
+    {
+      "title": "동묘앞역은 왜 토·휴일 승하차가 더 많을까?",
+      "href": "/article/dongmyo-weekend/"
+    }
+  ],
+  "datePublished": "2026-11-05T00:00:00+09:00",
+  "dateModified": "2026-11-05T14:24:41+09:00"
 };

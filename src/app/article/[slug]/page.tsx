@@ -105,7 +105,7 @@ export default async function MagazineArticlePage({ params }: Props) {
               })}
             </div>
             {section.image && <figure className="mt-8 ml-auto md:w-11/12">
-              <Image src={section.image.src} alt={section.image.alt} width={section.image.width} height={section.image.height} sizes="(min-width: 1280px) 600px, (min-width: 768px) 66vw, calc(100vw - 40px)" className="h-auto w-full rounded-lg" />
+              <Image src={section.image.src} alt={section.image.alt} width={section.image.width} height={section.image.height} sizes="(min-width: 1280px) 600px, (min-width: 768px) 66vw, calc(100vw - 40px)" className="h-auto max-w-full rounded-lg" />
               <StationPhotoCaption photo={section.image} />
             </figure>}
             {section.figure && <figure className="mt-8 border-t border-ink pt-4">
