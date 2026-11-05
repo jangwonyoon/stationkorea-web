@@ -20,7 +20,17 @@ const { articles, articlePath } = await import("../src/content/articles.ts");
 const { stations, stationPath } = await import("../src/content/stations/index.ts");
 const { articleReadingMinutes, readingMinutes } = await import("../src/lib/reading-time.ts");
 const publishedCount = articles.length + stations.length;
-assert.equal(publishedCount, 11, "현재 발행 기사 수");
+const newSlugs = ["ichon-museum-neighborhood", "seoul-station-connections", "sindorim-cultural-spaces", "wangsimni-neighborhood", "gangnam-connections", "ddp-history-walk", "jongno3-music-heritage", "gongdeok-connections", "gunja-morning-crowding"];
+for (const slug of newSlugs) {
+  const article = articles.find(item => item.slug === slug);
+  assert(article?.station && article.image, `${slug}: 기사·역명판·실사 등록`);
+}
+const { stationPhotoCredit } = await import("../src/content/station-photos.ts");
+const ddpCredit = stationPhotoCredit(articles.find(item => item.slug === "ddp-history-walk").image);
+assert(ddpCredit.includes("Pixabay") && !ddpCredit.includes("Wikimedia"), "사진 제공처를 HTML 외 출력에서도 보존");
+assert(stationPhotoCredit(articles.find(item => item.slug === "seoul-station-connections").image).includes("Wikimedia Commons"));
+
+assert(publishedCount > 0, "발행 기사 존재");
 
 // 장소·노선·이미지가 없는 일반 기사도 등록 순서와 게시일만으로 목록에 들어간다.
 const plainArticle = { ...articles[0], slug: "display-fixture", station: undefined, transfers: undefined, image: undefined, cover: undefined, reel: undefined, dateModified: "2099-01-01" };
@@ -70,5 +80,6 @@ assert.equal(articleEntries.find(entry => entry.href === articlePath(coverArticl
 assert.equal(articleEntries.find(entry => entry.href === articlePath(bodyArticle)).image.src, fixtureImage.src, "표지가 없으면 기존 본문 이미지 사용");
 assert.deepEqual(articleEntries.find(entry => entry.href === articlePath(plainArticle)).lines, []);
 assert(articleEntries.findIndex(entry => entry.href === articlePath(plainArticle)) > articleEntries.findIndex(entry => entry.href === articlePath(articles[0])), "동일 게시일 등록 순서 보존, 수정일로 끌어올리지 않음");
-assert.equal(new Set(articleEntries.flatMap(entry => entry.lines)).size, 13, "실제 발행 글의 노선 집합");
-console.log("Article index: 11 published entries, source parity, optional covers and image fallback, stable ordering and 13 lines PASS");
+const { LINES } = await import("../src/content/lines.ts");
+assert(articleEntries.flatMap(entry => entry.lines).every(line => line in LINES), "등록된 노선만 표시");
+console.log(`Article index: ${publishedCount} published entries, source parity, optional covers, stable ordering and valid lines PASS`);

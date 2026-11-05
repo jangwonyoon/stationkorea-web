@@ -15,7 +15,7 @@ export type ArticleEntry = {
   minutes: number;
   place?: string;
   lines: LineId[];
-  image?: { src: string; alt: string; caption: string; width?: number; height?: number; artist?: string; kind?: "reel-cover" | "cross-section" };
+  image?: { src: string; alt: string; caption: string; width?: number; height?: number; artist?: string; provider?: "Wikimedia Commons" | "Pixabay"; kind?: "reel-cover" | "cross-section" };
 };
 
 // 게시 시각이 같으면 등록 순서를 유지한다. 수정일로 최신 기사를 바꾸지 않는다.

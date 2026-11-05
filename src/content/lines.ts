@@ -1,6 +1,6 @@
 // 숫자 노선 색은 docs/design/v1/README.md 기준. 이름 노선은 안내용 근사색이며 공식 지정 hex가 아니다.
 
-export type LineId = "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" | "gyeongui-jungang" | "arex" | "seohae" | "gimpo-goldline";
+export type LineId = "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" | "gyeongui-jungang" | "arex" | "seohae" | "gimpo-goldline" | "suin-bundang" | "shinbundang" | "gtx-a";
 
 export const LINES: Record<LineId, { name: string; color: string; onColor: "white" | "ink" }> = {
   "1": { name: "1호선", color: "#0052A4", onColor: "white" },
@@ -16,6 +16,9 @@ export const LINES: Record<LineId, { name: string; color: string; onColor: "whit
   "arex": { name: "공항철도", color: "#0090D2", onColor: "ink" },
   "seohae": { name: "서해선", color: "#8FC31F", onColor: "ink" },
   "gimpo-goldline": { name: "김포골드라인", color: "#A17800", onColor: "white" },
+  "suin-bundang": { name: "수인분당선", color: "#F5A200", onColor: "ink" },
+  "shinbundang": { name: "신분당선", color: "#D4003B", onColor: "white" },
+  "gtx-a": { name: "GTX-A", color: "#9A6292", onColor: "white" },
 };
 
 /** 표시 문자열("2호선"). */

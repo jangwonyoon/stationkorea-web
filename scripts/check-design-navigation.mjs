@@ -50,7 +50,7 @@ try {
     await page.getByRole("navigation", { name: "기사 카테고리" }).getByRole("link", { name: /걷다/ }).click();
     await page.waitForURL("**/section/walk/");
     assert.equal(await page.locator('main a[aria-current="page"]').count(), 1);
-    await page.locator('main a[href^="/article/"]').first().click();
+    await page.locator('main a[href="/article/dongmyo-weekend/"]').click();
     await page.waitForURL("**/article/**");
     const original = page.url();
     const details = page.locator('section[aria-labelledby="transfer-guide"] details');
