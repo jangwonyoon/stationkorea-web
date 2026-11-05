@@ -92,7 +92,7 @@ export default async function MagazineArticlePage({ params }: Props) {
           <p className="mt-5 text-lead">{article.answer}<SourceRefs ids={article.answerSourceIds} sources={article.sources} anchorIds={citations[1]} /></p>
           <div className="mt-4"><Byline author={site.author} published={article.datePublished} modified={article.dateModified} readingMinutes={articleReadingMinutes(article)} /></div>
         </header>
-        {article.image && <figure className="mt-8">
+        {article.image && article.imagePlacement !== "body" && <figure className="mt-8">
           <Image src={article.image.src} alt={article.image.alt} width={article.image.width} height={article.image.height} priority sizes="(min-width: 1280px) 690px, (min-width: 768px) calc(75vw - 53px), calc(100vw - 40px)" className="h-auto w-full rounded-xl" />
           <StationPhotoCaption photo={article.image} />
         </figure>}
@@ -105,6 +105,10 @@ export default async function MagazineArticlePage({ params }: Props) {
                 return <p key={paragraph.text} className="text-body">{paragraph.text}<SourceRefs ids={paragraph.sourceIds} sources={article.sources} anchorIds={anchors} /></p>;
               })}
             </div>
+            {section.image && <figure className="mt-8 ml-auto md:w-11/12">
+              <Image src={section.image.src} alt={section.image.alt} width={section.image.width} height={section.image.height} sizes="(min-width: 1280px) 600px, (min-width: 768px) 66vw, calc(100vw - 40px)" className="h-auto max-w-full rounded-lg" />
+              <StationPhotoCaption photo={section.image} />
+            </figure>}
             {section.comparison && <div className="mt-8"><CompareTable {...section.comparison} sources={article.sources} /></div>}
             {section.visual && <figure className="mt-8 border-t border-rule pt-5">
               <Image src={section.visual.src} alt={section.visual.alt} width={section.visual.width} height={section.visual.height} unoptimized className="h-auto max-w-full rounded-lg" />

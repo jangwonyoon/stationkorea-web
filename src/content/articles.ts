@@ -36,13 +36,14 @@ export type MagazineArticle = {
   answer: string;
   answerSourceIds: string[];
   series?: { title: string; description: string };
-  body: { heading: string; paragraphs: { text: string; sourceIds: string[] }[]; figure?: ArticleFigure; comparison?: Comparison; visual?: { src: string; width: number; height: number; alt: string; caption: string; sourceId: string; license: { name: string; url: string } }; scope?: { known: string; unknown: string } }[];
+  body: { heading: string; paragraphs: { text: string; sourceIds: string[] }[]; figure?: ArticleFigure; image?: StationPhoto; comparison?: Comparison; visual?: { src: string; width: number; height: number; alt: string; caption: string; sourceId: string; license: { name: string; url: string } }; scope?: { known: string; unknown: string } }[];
   station?: { name: string; lines: LineId[]; sign: StationSign; sourceIds: string[] };
   transfers?: Transfer[];
   timelines?: Timeline[];
   sources: Source[];
   related: { title: string; href: string }[];
   image?: StationPhoto;
+  imagePlacement?: "body";
   cover?: ReelCover;
   reel?: Station["reel"];
   datePublished: string;

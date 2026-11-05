@@ -54,10 +54,11 @@ function fullArticleContent(article: MagazineArticle): string {
   return [
     ...(article.series ? [`<p>연재: ${escape(article.series.title)}</p><p>${escape(article.series.description)}</p>`] : []),
     `<p>${escape(article.answer)} ${reference(article.answerSourceIds)}</p>`,
-    ...(article.image ? [`<figure><img src="${absoluteUrl(article.image.src)}" alt="${escape(article.image.alt)}"/><figcaption>${escape(article.image.caption)} ${escape(stationPhotoCredit(article.image))}</figcaption></figure>`] : []),
+    ...(article.image && article.imagePlacement !== "body" ? [`<figure><img src="${absoluteUrl(article.image.src)}" alt="${escape(article.image.alt)}"/><figcaption>${escape(article.image.caption)} ${escape(stationPhotoCredit(article.image))}</figcaption></figure>`] : []),
     ...article.body.flatMap((section) => [
       `<h2>${escape(section.heading)}</h2>`,
       ...section.paragraphs.map((paragraph) => `<p>${escape(paragraph.text)} ${reference(paragraph.sourceIds)}</p>`),
+      ...(section.image ? [`<figure><img src="${absoluteUrl(section.image.src)}" alt="${escape(section.image.alt)}"/><figcaption>${escape(section.image.caption)} ${escape(stationPhotoCredit(section.image))}</figcaption></figure>`] : []),
       ...(section.comparison ? [`<table><caption>${escape(section.comparison.title)}</caption><thead><tr><th scope="col">구분</th>${section.comparison.columns.map((column) => `<th scope="col">${escape(column)}</th>`).join("")}</tr></thead><tbody>${section.comparison.rows.map((row) => `<tr><th scope="row">${escape(row.label)} ${reference(row.sourceIds)}</th>${row.values.map((value) => `<td>${escape(value)}</td>`).join("")}</tr>`).join("")}</tbody></table>`, ...section.comparison.rows.filter((row) => row.note).map((row) => `<p>${escape(row.label)}: ${escape(row.note!)} ${reference(row.sourceIds)}</p>`)] : []),
       ...(section.visual ? [`<figure><img src="${absoluteUrl(section.visual.src)}" alt="${escape(section.visual.alt)}" width="${section.visual.width}" height="${section.visual.height}"/><figcaption>${escape(section.visual.caption)} ${reference([section.visual.sourceId])} · <a href="${escape(section.visual.license.url)}">${escape(section.visual.license.name)}</a></figcaption></figure>`] : []),
       ...(section.figure ? [`<figure><p>${escape(section.figure.title)}</p><ul>${section.figure.descriptions.map((description) => `<li>${escape(description)}</li>`).join("")}</ul><figcaption>${escape(section.figure.caption)} ${reference(section.figure.sourceIds)}</figcaption></figure>`] : []),
