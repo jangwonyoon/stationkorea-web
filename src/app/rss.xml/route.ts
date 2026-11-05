@@ -54,10 +54,11 @@ function fullArticleContent(article: MagazineArticle): string {
   return [
     ...(article.series ? [`<p>연재: ${escape(article.series.title)}</p><p>${escape(article.series.description)}</p>`] : []),
     `<p>${escape(article.answer)} ${reference(article.answerSourceIds)}</p>`,
-    ...(article.image ? [`<figure><img src="${absoluteUrl(article.image.src)}" alt="${escape(article.image.alt)}"/><figcaption>${escape(article.image.caption)} ${escape(stationPhotoCredit(article.image))}</figcaption></figure>`] : []),
+    ...(article.image && article.imagePlacement !== "body" ? [`<figure><img src="${absoluteUrl(article.image.src)}" alt="${escape(article.image.alt)}"/><figcaption>${escape(article.image.caption)} ${escape(stationPhotoCredit(article.image))}</figcaption></figure>`] : []),
     ...article.body.flatMap((section) => [
       `<h2>${escape(section.heading)}</h2>`,
       ...section.paragraphs.map((paragraph) => `<p>${escape(paragraph.text)} ${reference(paragraph.sourceIds)}</p>`),
+      ...(section.image ? [`<figure><img src="${absoluteUrl(section.image.src)}" alt="${escape(section.image.alt)}"/><figcaption>${escape(section.image.caption)} ${escape(stationPhotoCredit(section.image))}</figcaption></figure>`] : []),
       ...(section.figure ? [`<figure><p>${escape(section.figure.title)}</p><ul>${section.figure.descriptions.map((description) => `<li>${escape(description)}</li>`).join("")}</ul><figcaption>${escape(section.figure.caption)} ${reference(section.figure.sourceIds)}</figcaption></figure>`] : []),
       ...(section.scope ? [`<dl><dt>이 순서로 알 수 있는 것</dt><dd>${escape(section.scope.known)}</dd><dt>이 자료로는 알 수 없는 것</dt><dd>${escape(section.scope.unknown)}</dd></dl>`] : []),
     ]),
