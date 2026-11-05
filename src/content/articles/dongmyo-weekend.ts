@@ -22,6 +22,11 @@ export const dongmyoWeekend: MagazineArticle = {
   body: [
     {
       heading: "환승역 곁의 벼룩시장",
+      comparison: {
+        title: "1호선 동묘앞역 하루 평균 승하차 · 2026년 상반기",
+        columns: ["평일", "토·휴일"],
+        rows: [{ label: "승하차 인원", values: ["19,673명", "28,785명"], sourceIds: ["D1"], note: "서울교통공사 2026-07-23 보도자료 붙임 통계를 표로 재구성. 평일 120일, 토·휴일 61일 집계이며 6호선을 합친 역 전체 인원이 아닙니다." }],
+      },
       paragraphs: [
         {
           text: "2005년 1호선 동묘앞역이 문을 열기 전, 서울시는 새 역으로 기존 6호선과 갈아타기가 쉬워질 것이라고 안내했다. 두 노선이 만나는 역이지만 이번 주말 승하차 수치는 역 전체의 합계가 아니다. 서울교통공사의 표에서 46.3%는 1호선 동묘앞역을 가리킨다.",
@@ -62,5 +67,5 @@ export const dongmyoWeekend: MagazineArticle = {
     { title: "건대입구역, 엘리베이터가 있어도 환승은 왜 따로 살펴야 할까?", href: "/station/konkuk-univ/" },
   ],
   datePublished: "2026-11-01T00:00:00+09:00",
-  dateModified: "2026-11-02T22:24:34+09:00",
+  dateModified: "2026-11-05T00:00:00+09:00",
 };

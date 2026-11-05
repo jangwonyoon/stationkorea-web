@@ -88,6 +88,7 @@ AI 답변엔진 대부분은 기존 검색 색인에서 출처를 가져온다(G
 - PR 먼저, 머지는 사용자가 말할 때만. push 출력은 필터링하지 않고 `git status -sb`로 반영 확인.
 - `.env*`는 커밋하지 않는다. 도메인이 정해지면 Vercel 환경변수 `NEXT_PUBLIC_SITE_URL`.
 - 커밋 전 `pnpm lint && pnpm build` 통과.
+- 화면 변경 PR 증거는 AS-IS·TO-BE로 구분한다. 같은 화면 크기·테마·의미상 같은 위치의 PNG와 조작 MP4를 비교하고 각 증거의 커밋을 적는다. `gh` 첨부 기능으로 PR에 직접 올리며 evidence 브랜치를 사용하지 않는다.
 - 스타일은 Tailwind CSS v4 유틸리티 클래스로만. 토큰은 globals.css @theme/@utility에서 정의하고, 컴포넌트에서 별도 CSS 파일·CSS 모듈·인라인 style·임의값 클래스를 쓰지 않는다(예외는 PR에 이유를 적음).
 
 ## 개발

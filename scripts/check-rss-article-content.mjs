@@ -61,6 +61,26 @@ for (const article of articles) {
   }
 }
 
+// 표의 기준일·주석과 자료 그림의 성격·이용조건이 모든 읽기 형식에 남아야 한다.
+for (const article of articles) {
+  const markdown = readFileSync(`out/article/${article.slug}/article.md`, "utf8");
+  const html = readFileSync(`out/article/${article.slug}/index.html`, "utf8");
+  const rss = content(items(feed).find((item) => item.includes(`<link>https://www.stationkorea.com/article/${article.slug}/</link>`)));
+  for (const section of article.body) {
+    if (section.visual) {
+      for (const text of [section.visual.src, section.visual.caption, section.visual.license.url]) {
+        for (const output of [markdown, html, rss]) assert(output.includes(text), `${article.slug}: official visual context missing`);
+      }
+    }
+    if (section.comparison) {
+      for (const text of [section.comparison.title, ...section.comparison.rows.flatMap(row => [...row.values, row.note])].filter(Boolean)) {
+        for (const output of [markdown, html, rss]) assert(output.includes(text), `${article.slug}: comparison context missing: ${text}`);
+      }
+      assert(markdown.includes(" |\n\n" + section.comparison.rows[0].label + ":"), "table notes are outside Markdown rows");
+    }
+  }
+}
+
 const originalArticles = [...articles];
 const unsafe = '<tag attr="value">& ]]>';
 const escaped = "&lt;tag attr=&quot;value&quot;&gt;&amp; ]]&gt;";
