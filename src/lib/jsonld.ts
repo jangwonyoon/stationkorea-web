@@ -39,6 +39,7 @@ export function homeJsonLd(items: { name: string; url: string }[]) {
       "@context": "https://schema.org",
       "@type": "WebSite",
       name: site.name,
+      alternateName: [site.koreanName, "스테이션 코리아", "StationKorea"],
       url: absoluteUrl("/"),
       description: site.description,
       inLanguage: "ko-KR",

@@ -45,7 +45,7 @@ export default function AboutPage() {
             <span className="block">조금 다르게 읽다.</span>
           </h1>
           <p className="mt-6 max-w-xl text-body text-ink-2">
-            {site.name}는 역과 교통에서 출발해 길과 동네, 도시의 구조와 생활·변화를 다룹니다.
+            {site.name}({site.koreanName})는 역과 교통에서 출발해 길과 동네, 도시의 구조와 생활·변화를 다룹니다.
             기사는 영상 없이도 읽히도록 쓰며, 영상 채널 {site.channelName}과 연결됩니다.
           </p>
           <div className="mt-6 flex flex-wrap items-center gap-x-8 gap-y-2 md:mt-8">

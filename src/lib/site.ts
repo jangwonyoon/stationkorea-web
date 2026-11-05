@@ -1,5 +1,6 @@
 export const site = {
   name: "STATION KOREA",
+  koreanName: "스테이션코리아",
   channelName: "매일 그 길",
   tagline: "역에서 시작해, 길과 동네와 도시를 읽습니다.",
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.stationkorea.com",
