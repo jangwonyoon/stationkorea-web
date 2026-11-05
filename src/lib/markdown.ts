@@ -70,10 +70,11 @@ export function articleMarkdown(article: MagazineArticle): string {
     `게시: ${article.datePublished.slice(0, 10)} · 갱신: ${article.dateModified.slice(0, 10)}`,
     ...(article.station ? ["", `역명판: ${article.station.name} (${article.station.sign.en}) · ${article.station.lines.map(lineName).join("·")}`, `${lineName(article.station.sign.line)}: ${article.station.sign.prev} ← ${article.station.name} → ${article.station.sign.next} ${reference(article.station.sourceIds)}`] : []),
     "", `${article.answer} ${reference(article.answerSourceIds)}`, "",
-    ...(article.image ? [`![${article.image.alt}](${absoluteUrl(article.image.src)})`, "", article.image.caption, stationPhotoCredit(article.image), ""] : []),
+    ...(article.image && article.imagePlacement !== "body" ? [`![${article.image.alt}](${absoluteUrl(article.image.src)})`, "", article.image.caption, stationPhotoCredit(article.image), ""] : []),
     ...article.body.flatMap((section) => [
       `## ${section.heading}`, "",
       ...section.paragraphs.flatMap((paragraph) => [`${paragraph.text} ${reference(paragraph.sourceIds)}`, ""]),
+      ...(section.image ? [`![${section.image.alt}](${absoluteUrl(section.image.src)})`, "", section.image.caption, stationPhotoCredit(section.image), ""] : []),
       ...(section.figure ? [section.figure.title, "", ...section.figure.descriptions.map((text) => `- ${text}`), "", `${section.figure.caption} ${reference(section.figure.sourceIds)}`, ""] : []),
       ...(section.scope ? [`알 수 있는 것: ${section.scope.known}`, `알 수 없는 것: ${section.scope.unknown}`, ""] : []),
     ]),

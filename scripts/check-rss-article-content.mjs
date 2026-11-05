@@ -43,6 +43,24 @@ for (const text of [seongsu.series.title, seongsu.series.description, ...seongsu
   assert(seongsuContent.includes(text), `Seongsu RSS missing: ${text}`);
 }
 
+for (const article of articles) {
+  const photos = article.body.filter((section) => section.image);
+  if (!photos.length) continue;
+  const html = readFileSync(`out/article/${article.slug}/index.html`, "utf8");
+  const markdown = readFileSync(`out/article/${article.slug}/article.md`, "utf8");
+  const rss = content(items(feed).find((item) => item.includes(`<link>https://www.stationkorea.com/article/${article.slug}/</link>`)));
+  for (const section of photos) {
+    const photo = section.image;
+    for (const [format, document] of [["HTML", html], ["Markdown", markdown], ["RSS", rss]]) {
+      assert(document.includes(photo.caption), `${article.slug}: ${format} photo caption`);
+      assert(document.includes(photo.source) && document.includes(photo.licenseUrl), `${article.slug}: ${format} photo credit`);
+      assert(document.indexOf(section.heading) < document.indexOf(photo.caption), `${article.slug}: ${format} photo follows its section`);
+    }
+    assert.equal((rss.match(/<img [^>]*>/g) ?? []).filter((tag) => tag.includes(photo.src)).length, 1, `${article.slug}: RSS photo appears once`);
+    assert.equal((markdown.match(/!\[[^\]]*\]\([^)]*\)/g) ?? []).filter((image) => image.endsWith(`${photo.src})`)).length, 1, `${article.slug}: Markdown photo appears once`);
+  }
+}
+
 const originalArticles = [...articles];
 const unsafe = '<tag attr="value">& ]]>';
 const escaped = "&lt;tag attr=&quot;value&quot;&gt;&amp; ]]&gt;";
