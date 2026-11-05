@@ -5,150 +5,95 @@ export const ddpHistoryWalk: MagazineArticle = {
   slug: "ddp-history-walk",
   image: stationPhotos["ddp-history-walk"],
   section: "see",
-  question: "동대문역사문화공원역에서 DDP와 옛 운동장 터는 어디로 나가야 할까?",
-  answer: "DDP 공식 길안내는 동대문역사문화공원역 1번 출구가 어울림광장과 디자인랩·뮤지엄 지하 2층 출입구에, 2번 출구가 디자인랩 1층과 역사문화공원 입구에 가깝다고 안내한다. 2026년 11월 5일 확인.",
-  answerSourceIds: [
-    "D01"
-  ],
-  station: {"name": "동대문역사문화공원역", "lines": ["2", "4", "5"], "sign": {"line": "2", "prev": "을지로4가", "next": "신당", "en": "Dongdaemun History & Culture Park"}, "sourceIds": ["seoul-tourist-map-en-202603", "seoul-route-map-202509"]},
+  question: "동대문디자인플라자 주변에서는 은빛 건물 말고 무엇을 볼 수 있을까?",
+  answer: "동대문디자인플라자(DDP) 주변에서는 곡선형 건축물뿐 아니라 옛 동대문운동장 터에서 확인된 한양도성 유구, 운동장 역사를 다루는 전시, 원단과 부자재를 취급하는 시장도 살펴볼 수 있다. 행사는 날짜에 따라 달라진다.",
+  answerSourceIds: ["ddp-museum-history", "ddp-architecture-seoul", "ddp-ground-museum", "visitseoul-market", "seoul-light-2026"],
+  station: {
+    name: "동대문역사문화공원역",
+    lines: ["2", "4", "5"],
+    sign: { line: "2", prev: "을지로4가", next: "신당", en: "Dongdaemun History & Culture Park" },
+    sourceIds: ["seoul-tourist-map-en-202603", "seoul-route-map-202509"],
+  },
   body: [
     {
-      heading: "DDP에 도착해도 목적지는 한곳이 아니다",
+      heading: "건물의 곡면에서 공원으로 시선을 옮기면",
       paragraphs: [
         {
-          text: "동대문역사문화공원역에는 2·4·5호선이 모인다(2026년 11월 5일 확인). 이 역에서 DDP로 향할 때는 건물 이름과 함께 찾아갈 공간도 알아두는 편이 좋다. DDP는 전시실 하나를 가리키는 이름이 아니다. 서울디자인재단의 2022년 공간구성 자료는 DDP를 아트홀·뮤지엄·디자인랩과 광장·공원부로 나누어 소개한다. 광장·공원부에는 동대문역사관과 운동장기념관도 포함된다. 역에서 내렸다는 것과 전시실 입구에 도착했다는 것은 구별해야 한다.",
-          sourceIds: [
-            "D01",
-            "D03"
-          ]
+          text: "DDP는 자하 하디드가 설계한 곡선형 건축물이다. 설계 사무소는 DDP와 주변 성곽·발굴 유적을 공원과 광장에 잇는 ‘건축적 풍경’으로 설명한다. 이는 설계자의 설명이며 실제 보행 동선이나 현재 관람 조건을 안내하는 말은 아니다.",
+          sourceIds: ["ddp-architecture-seoul", "ddp-architecture-zha"],
         },
         {
-          text: "DDP디자인스토어의 공식 길안내는 이 차이를 출구와 층으로 풀어준다. 1번 출구는 어울림광장과 DDP마켓, 디자인랩·뮤지엄의 지하 2층 출입구에 가깝다. 2번 출구는 디자인랩 1층 출입구와 동대문역사문화공원 입구에 가깝다. 같은 DDP를 찾아도 전시가 열리는 건물과 층에 따라 접근 지점이 달라지는 셈이다. 목적지가 공원이라면 전시실 이름만 좇을 이유가 없고 실내 전시를 보러 왔다면 공원 입구만으로 안내가 끝나지 않는다.",
-          sourceIds: [
-            "D01"
-          ]
-        }
-      ]
+          text: "건물에서 공원 쪽으로 관찰 대상을 옮기면 서로 다른 시기의 흔적이 보인다. DDP와 동대문역사문화공원이 들어선 곳은 옛 동대문운동장 부지다. 2008년부터 2009년 사이 발굴 과정에서 한양도성의 성벽과 수문, 조선시대 건물 터와 유물이 확인됐다. 동대문역사관은 이 발굴 유적과 출토 유물을 다룬다.",
+          sourceIds: ["ddp-museum-history"],
+        },
+      ],
     },
     {
-      heading: "운동장 아래에서 나온 도시",
+      heading: "성벽의 수문과 운동장의 기억",
       paragraphs: [
         {
-          text: "이곳을 이해하려면 은빛 건물 곁의 공원도 함께 보아야 한다. DDP와 동대문역사문화공원이 들어선 곳은 옛 동대문운동장 부지다. 운동장을 철거하고 새 공간을 조성하는 과정에서 땅 아래에 남아 있던 한양도성과 이간수문, 조선시대 건물 터가 확인됐다. 동대문역사관은 그 발굴 유물을 보존하고 전시하기 위해 마련됐다. 공원은 발굴된 옛 도시의 흔적을 새 건축물과 함께 보여주는 장소다.",
-          sourceIds: [
-            "D05"
-          ]
+          text: "이간수문은 도성의 물을 성 밖으로 내보내던 시설이다. 서울역사박물관은 배수와 방어에 쓰인 수문으로 설명한다. 성벽만 보면 도성의 경계를 성곽으로만 생각하기 쉽지만, 이 수문은 물길을 통과시키는 시설도 성곽의 일부였음을 보여준다. 지금 확인할 수 있는 것은 발굴 뒤 정비된 유구와 박물관의 설명이다. 옛 수로가 현재도 작동한다고 볼 근거는 아니다.",
+          sourceIds: ["ddp-museum-history"],
         },
         {
-          text: "성벽과 나란히 있는 이간수문은 물이 성 밖으로 빠져나가던 시설이다. 남산에서 내려온 물길이 이곳을 지나 도성 밖에서 청계천과 합류했다. 도성의 방어시설에는 물이 통과할 수문도 필요했다. 그 시설이 운동장 부지 아래에서 다시 드러났다. 발굴·정비된 성벽과 수문을 함께 보면 이 자리가 한양도성의 경계였다는 사실을 구체적으로 이해할 수 있다.",
-          sourceIds: [
-            "D07"
-          ]
+          text: "동대문역사관과 동대문운동장기념관은 다루는 시간이 다르다. 역사관은 운동장 부지에서 나온 유적과 유물을, 운동장기념관은 경성과 서울의 체육시설이었던 동대문운동장의 역사를 소개한다. 서울시가 2022년에 낸 안내는 야구장 조명탑과 공원으로 옮긴 성화대를 운동장의 흔적으로 기록했다. 그 자료는 현재 위치나 접근 가능 여부까지 보증하지 않는다.",
+          sourceIds: ["ddp-museum-history", "ddp-ground-museum", "seoul-history-2022"],
         },
-        {
-          text: "서울시의 2022년 안내에는 야구장 조명탑과 공원으로 옮겨진 성화대가 운동장의 흔적으로 소개된다. 동대문운동장기념관은 운동장의 역사를, 동대문역사관은 발굴로 드러난 부지의 역사를 중심으로 다룬다. 이름이 비슷한 두 전시공간도 다루는 대상에 따라 구별할 수 있다.",
-          sourceIds: [
-            "D07",
-            "D10",
-            "D05"
-          ]
-        }
-      ]
+      ],
     },
     {
-      heading: "공원 바깥에는 옷을 만들고 파는 동네가 있다",
+      heading: "옷을 이루는 재료를 파는 시장",
       paragraphs: [
         {
-          text: "DDP만 보고 동대문 일대를 하나의 전시장처럼 생각하면 주변 상권의 성격을 놓친다. 동대문패션타운에는 원단과 부자재를 취급하는 시장, 의류 도매상가, 도·소매를 함께 다루는 복합쇼핑몰이 있다. 관광특구협의회는 상가를 전통시장·도매상가·복합쇼핑몰 등으로 나누어 안내한다. 모두 옷과 관련돼 있어도 취급 품목과 거래 방식이 같지는 않다.",
-          sourceIds: [
-            "D11"
-          ]
+          text: "동대문종합시장은 DDP 내부의 전시 공간이 아니다. 서울관광재단은 이 시장에서 원단과 부자재, 액세서리, 혼수 관련 품목을 도·소매한다고 소개한다. 이 설명은 시장에서 무엇을 다루는지 알려주지만, 주변 상가가 실제로 옷을 생산하는 장소인지까지 입증하지는 않는다.",
+          sourceIds: ["visitseoul-market"],
         },
         {
-          text: "역에서 시작하는 동선도 목적에 따라 나누어 읽을 수 있다. DDP의 전시를 보려면 건물과 층을, 옛 도시의 흔적을 보려면 공원과 역사 전시공간을, 물건을 사려면 상가 이름과 취급 품목을 확인한다. 역 이름에 들어 있는 ‘역사문화공원’은 DDP 건물 하나로 끝나지 않는다. 역 출구 가까이에 있는 광장, 운동장 터에서 발견한 유적, 그 곁에서 이어지는 의류 거래가 이 일대를 함께 설명한다.",
-          sourceIds: [
-            "D01",
-            "D05",
-            "D11"
-          ]
-        }
-      ]
+          text: "그래서 동대문 일대를 볼 때는 완성된 옷을 판매하는 상가와 원단·재료를 취급하는 시장, 건축과 디자인을 다루는 DDP를 한 종류의 공간으로 묶지 않는 편이 정확하다. 거래 품목과 방식은 상가마다 다르며 운영시간도 구역별로 달라질 수 있다.",
+          sourceIds: ["visitseoul-market"],
+        },
+      ],
     },
     {
-      heading: "방문 전 확인",
+      heading: "행사는 일정이 공개된 날에",
       paragraphs: [
         {
-          text: "DDP 공식 길안내는 1번 출구가 어울림광장·지하 2층 출입구에, 2번 출구가 디자인랩 1층·공원 입구에 가깝다고 안내한다. 2026년 11월 5일 확인.",
-          sourceIds: [
-            "D01"
-          ]
+          text: "서울시는 서울라이트 DDP의 2024년과 2025년 가을 회차를 안내했다. 2026년 회차는 9월 3일부터 13일까지 열렸고, 시는 종료 결과를 발표했다. 여러 해 행사가 열린 기록은 있지만 다음 회차가 같은 시기와 형식으로 열린다는 뜻은 아니다.",
+          sourceIds: ["seoul-light-2024", "seoul-light-2025", "seoul-light-2026"],
         },
         {
-          text: "출구 안내는 전시별 입장구나 계단 없는 이동 경로를 모두 뜻하지 않는다. 전시장·관람일·이동 편의시설은 DDP의 해당 시설 안내에서 별도로 확인한다.",
-          sourceIds: [
-            "D01"
-          ]
-        }
-      ]
-    }
+          text: "행사 일정과 전시 내용은 해마다 달라질 수 있다. DDP에서 무엇을 볼지 정할 때 건축물과 유적은 장소에 관한 안내를, 전시와 빛 행사는 방문 날짜에 맞는 공식 공지를 확인한다. 동대문역사관의 전시·관람 정보도 방문 전에 별도 안내에서 확인할 수 있다.",
+          sourceIds: ["seoul-light-2026", "ddp-museum-history"],
+        },
+      ],
+    },
+    {
+      heading: "서로 다른 장면을 함께 보다",
+      paragraphs: [
+        {
+          text: "DDP 주변을 읽는 방법은 하나가 아니다. 곡면 건축을 볼 수도 있고, 땅 아래에서 나온 도성의 흔적과 운동장의 기억을 살펴볼 수도 있다. 시장에서는 건축과 전시와 다른 방식으로 동네의 일을 만난다. 이 공간들이 한곳에 있다는 사실은 서로 다른 역사를 한 이야기로 합치기보다, 동대문이라는 이름 아래 나란히 놓인 장면을 비교해 볼 이유가 된다.",
+          sourceIds: ["ddp-architecture-seoul", "ddp-museum-history", "visitseoul-market"],
+        },
+      ],
+    },
   ],
   sources: [
-    {"id": "seoul-tourist-map-en-202603", "org": "서울특별시·서울관광재단", "title": "2026 Seoul Tourist Map, 2쪽 Seoul Metro Map", "date": "2026년 3월 게시본 · 2026-11-05 확인", "url": "https://english.seoul.go.kr/wp-content/uploads/2026/03/2026_touristmap_EN.pdf"},
-    {"id": "seoul-route-map-202509", "org": "서울특별시", "title": "서울 지하철 노선도 (Route Map)", "date": "2025년 9월 게시본 · 2026-11-05 확인", "url": "https://english.seoul.go.kr/wp-content/uploads/2025/09/route-map.pdf"},
-
-    {
-      id: "D01",
-      org: "DDP디자인스토어",
-      title: "찾아오시는 길",
-      date: "게시일 미표시 · 2026-11-05 확인",
-      url: "https://www.ddpdesignstore.org/main/html.php?htmid=company/about.html"
-    },
-    {
-      id: "D03",
-      org: "서울디자인재단",
-      title: "제314회 시의회 임시회 주요업무보고 — DDP 공간구성",
-      date: "2022년 9월 · 2026-11-05 확인",
-      url: "https://mas.smc.seoul.kr/attach/record/SEOUL/appendix/a11/A0057408.pdf"
-    },
-    {
-      id: "D05",
-      org: "서울역사박물관",
-      title: "동대문역사관 전시소개",
-      date: "게시일 미표시 · 2026-11-05 확인",
-      url: "https://museum.seoul.go.kr/scwm/exhibition/ddmHistory/ddmExhGuide.jsp"
-    },
-    {
-      id: "D07",
-      org: "서울특별시 서울사랑",
-      title: "동대문디자인플라자와 동대문",
-      date: "2022년 9월 · 2026-11-05 확인",
-      url: "https://love.seoul.go.kr/articles/9023"
-    },
-    {
-      id: "D10",
-      org: "서울역사박물관",
-      title: "동대문운동장기념관 전시소개",
-      date: "게시일 미표시 · 2026-11-05 확인",
-      url: "https://museum.seoul.go.kr/scwm/exhibition/ddmGround/ddmGExhGuide.jsp"
-    },
-    {
-      id: "D11",
-      org: "동대문패션타운관광특구협의회",
-      title: "관광특구현황",
-      date: "게시·표 기준일 미표시 · 2026-11-05 확인",
-      url: "https://dft.co.kr/theme/daontheme_simple05/html/company/03.php"
-    }
+    { id: "seoul-tourist-map-en-202603", org: "서울특별시·서울관광재단", title: "2026 Seoul Tourist Map, 2쪽 Seoul Metro Map", date: "2026년 3월 게시본 · 2026-11-05 확인", url: "https://english.seoul.go.kr/wp-content/uploads/2026/03/2026_touristmap_EN.pdf" },
+    { id: "seoul-route-map-202509", org: "서울특별시", title: "서울 지하철 노선도 (Route Map)", date: "2025년 9월 게시본 · 2026-11-05 확인", url: "https://english.seoul.go.kr/wp-content/uploads/2025/09/route-map.pdf" },
+    { id: "ddp-museum-history", org: "서울역사박물관", title: "동대문역사관 전시소개", date: "게시일 미표시 · 2026-11-05 확인", url: "https://museum.seoul.go.kr/scwm/exhibition/ddmHistory/ddmExhGuide.jsp" },
+    { id: "ddp-architecture-seoul", org: "서울특별시", title: "동대문디자인플라자(DDP)", date: "게시일 미표시 · 2026-11-05 확인", url: "https://www.seoul.go.kr/policy/view.do?id=99&lan=KO" },
+    { id: "ddp-architecture-zha", org: "Zaha Hadid Architects", title: "Dongdaemun Design Plaza", date: "게시일 미표시 · 2026-11-05 확인", url: "https://www.zha.com/projects/architecture/dongdaemun-design-plaza?disclaimer=true" },
+    { id: "ddp-ground-museum", org: "서울역사박물관", title: "동대문운동장기념관 전시소개", date: "게시일 미표시 · 2026-11-05 확인", url: "https://museum.seoul.go.kr/scwm/exhibition/ddmGround/ddmGExhGuide.jsp" },
+    { id: "seoul-history-2022", org: "서울특별시 서울사랑", title: "동대문디자인플라자와 동대문", date: "2022년 9월 게시 · 2026-11-05 확인", url: "https://love.seoul.go.kr/articles/9023" },
+    { id: "visitseoul-market", org: "서울관광재단", title: "동대문종합시장", date: "2014-11-08 게시 · 2026-09-10 수정 · 2026-11-05 확인", url: "https://english.visitseoul.net/area/DongdaemunShoppingComplex/ENP000170" },
+    { id: "seoul-light-2024", org: "서울특별시", title: "서울라이트 DDP 2024 가을 개막", date: "2024년 가을 행사 · 2026-11-05 확인", url: "https://tv.seoul.go.kr/v/9874a999191b493b8a7275496a20908e" },
+    { id: "seoul-light-2025", org: "서울특별시", title: "서울라이트 DDP 2025 가을 행사 종료", date: "2025년 가을 행사 · 2026-11-05 확인", url: "https://mediahub.seoul.go.kr/archives/2015586" },
+    { id: "seoul-light-2026", org: "서울특별시", title: "서울라이트 DDP 2026 가을 행사 결과", date: "2026-09-03~09-13 개최 · 2026-09-28 결과 게시 · 2026-11-05 확인", url: "https://www.seoul.go.kr/news/news_report.do?nttNo=467138&srchCtgry=466" },
   ],
   related: [
-    {
-      title: "동묘앞역은 왜 토·휴일 승하차가 더 많을까?",
-      href: "/article/dongmyo-weekend/"
-    },
-    {
-      title: "홍대입구역의 세 노선은 어떻게 이어질까?",
-      href: "/article/hongdae-transfer/"
-    }
+    { title: "신도림역에서 전시를 보고, 직접 만드는 수업에도 참여할 수 있을까?", href: "/article/sindorim-cultural-spaces/" },
+    { title: "동묘앞역은 왜 토·휴일 승하차가 더 많을까?", href: "/article/dongmyo-weekend/" },
   ],
   datePublished: "2026-11-05T00:00:00+09:00",
-  dateModified: "2026-11-05T00:00:00+09:00"
+  dateModified: "2026-11-05T13:25:13+09:00",
 };
