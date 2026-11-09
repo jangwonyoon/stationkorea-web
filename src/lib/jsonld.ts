@@ -4,13 +4,13 @@ import { stationPath } from "@/content/stations";
 import { articlePath, type MagazineArticle } from "@/content/articles";
 import { absoluteUrl, site } from "@/lib/site";
 
-// logo는 Claude Design에서 로고가 나오면 추가한다(SEO·GEO 규칙 6).
 const publisher = {
   "@type": "Organization",
   name: site.name,
   url: absoluteUrl("/"),
   email: site.email,
   sameAs: [site.instagram],
+  logo: { "@type": "ImageObject", url: absoluteUrl("/logo.png"), width: 256, height: 256 },
 };
 
 const author = {
