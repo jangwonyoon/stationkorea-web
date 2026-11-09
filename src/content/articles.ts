@@ -23,6 +23,10 @@ import { ddpHistoryWalk } from "./articles/ddp-history-walk";
 import { jongno3MusicHeritage } from "./articles/jongno3-music-heritage";
 import { gongdeokConnections } from "./articles/gongdeok-connections";
 import { gunjaMorningCrowding } from "./articles/gunja-morning-crowding";
+import { gimpoAviationCulture } from "./articles/gimpo-aviation-culture";
+import { isuMarketCinema } from "./articles/isu-market-cinema";
+import { gongdeokHyochangMemory } from "./articles/gongdeok-hyochang-memory";
+import { guriCommunityCulture } from "./articles/guri-community-culture";
 
 export type ArticleFigure = {
   kind: "seongsu-current" | "seongsu-history";
@@ -55,7 +59,7 @@ export type MagazineArticle = {
 };
 
 // 검증된 편만 등록한다. 릴스 게시 여부는 기사 발행 조건이 아니다.
-export const articles: MagazineArticle[] = [jongno3RitualMemory, wangsimniCulturalSpaces, dongjakLandscapeMemory, guriEscalator, expressTerminal, seongsuBranch, dongmyoWeekend, gimpoPlanChange, isuGuideTimes, hongdaeTransfer, dongjakExpress, gimpoExtensionStatus, ichonMuseumNeighborhood, seoulStationConnections, sindorimCulturalSpaces, wangsimniNeighborhood, gangnamConnections, ddpHistoryWalk, jongno3MusicHeritage, gongdeokConnections, gunjaMorningCrowding];
+export const articles: MagazineArticle[] = [jongno3RitualMemory, wangsimniCulturalSpaces, dongjakLandscapeMemory, guriEscalator, expressTerminal, seongsuBranch, dongmyoWeekend, gimpoPlanChange, isuGuideTimes, hongdaeTransfer, dongjakExpress, gimpoExtensionStatus, ichonMuseumNeighborhood, seoulStationConnections, sindorimCulturalSpaces, wangsimniNeighborhood, gangnamConnections, ddpHistoryWalk, jongno3MusicHeritage, gongdeokConnections, gunjaMorningCrowding, gimpoAviationCulture, isuMarketCinema, gongdeokHyochangMemory, guriCommunityCulture];
 
 for (const article of articles) {
   validateArticleGuide(article);

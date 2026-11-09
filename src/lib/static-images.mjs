@@ -16,6 +16,7 @@ export const imageSources = [
   ...["ichon-museum-neighborhood","seoul-station-connections","sindorim-cultural-spaces","wangsimni-neighborhood","gangnam-connections","ddp-history-walk","jongno3-music-heritage","gongdeok-connections","gunja-morning-crowding"].map((slug) => `/images/station/${slug}-photo.jpg`),
   ...["sindorim-dcube", "sindorim-dorimcheon"].map((slug) => `/images/station/${slug}-photo.jpg`),
   ...["ddp-igansu", "ddp-stadium-2004", "ddp-market-fabrics"].map((slug) => `/images/station/${slug}-photo.jpg`),
+  ...["kukkiwon-main-gate-20260818", "three-martyrs-jjw-20160924", "kim-koo-museum-derpaul-20220601", "market-gate-jjw-20250524", "guri-art-hall-asfreeas-20220912"].map((slug) => `/images/station/${slug}.jpg`),
   ...["rail", "street", "space", "network", "change-day", "change-evening"].map((name) => `/images/about/${name}.jpg`),
 ];
 
