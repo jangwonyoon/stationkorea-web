@@ -1,6 +1,6 @@
 import { lineName } from "@/content/lines";
 import type { Station } from "@/content/types";
-import { stationPath } from "@/content/stations";
+import { stationPath, stations } from "@/content/stations";
 import { absoluteUrl, site } from "@/lib/site";
 import { articlePath, type MagazineArticle } from "@/content/articles";
 import { stationPhotoCredit } from "@/content/station-photos";
@@ -13,6 +13,7 @@ export function stationMarkdown(s: Station): string {
     `# ${s.question}`,
     "",
     `${site.name} · 역 해부 ${String(s.no).padStart(2, "0")} · ${s.name} · ${s.lines.map(lineName).join("·")}`,
+    `글: [${site.author.name}](${absoluteUrl(site.author.path)})`,
     `원문: ${absoluteUrl(stationPath(s))}`,
     `게시: ${s.datePublished.slice(0, 10)} · 숫자 갱신: ${s.dateModified.slice(0, 10)}`,
     "",
@@ -41,6 +42,9 @@ export function stationMarkdown(s: Station): string {
       return `| ${lineName(t.ride.line)} ${t.ride.direction} | ${lineName(t.to.line)} ${t.to.direction} | ${t.car} | ${t.time} | ${source.date} [${n(t.sourceId)}] |`;
     }),
     ""] : []),
+    "## 이어 읽기", "",
+    ...stations.filter((station) => station.slug !== s.slug).map((station) => `- [${station.question}](${absoluteUrl(stationPath(station))})`),
+    "",
     "## 출처",
     "",
     ...s.sources.map((src, i) => `${i + 1}. ${src.org}, ${src.title}, ${src.date}${src.url ? `. ${src.url}` : ""}`),

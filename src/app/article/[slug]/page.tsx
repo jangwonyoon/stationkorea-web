@@ -40,10 +40,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     alternates: { canonical: path, types: { "text/markdown": articleMarkdownPath(article), "application/rss+xml": "/rss.xml" } },
     openGraph: {
       type: "article", url: path, title: article.question, description: article.answer,
+      siteName: site.name, locale: "ko_KR",
       publishedTime: article.datePublished, modifiedTime: article.dateModified,
-      ...(article.image ? { images: [{ url: article.image.src, width: article.image.width, height: article.image.height, alt: article.image.alt }] } : {}),
+      images: article.image ? [{ url: article.image.src, width: article.image.width, height: article.image.height, alt: article.image.alt }] : [],
     },
-    twitter: { card: article.image ? "summary_large_image" : "summary", title: article.question, description: article.answer },
+    twitter: { card: article.image ? "summary_large_image" : "summary", title: article.question, description: article.answer, images: article.image ? [{ url: article.image.src, alt: article.image.alt }] : [] },
   };
 }
 
