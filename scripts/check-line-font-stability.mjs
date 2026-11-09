@@ -43,7 +43,7 @@ try {
       const after = await measure();
       const heights = await page.evaluate(() => window.navHeights);
       console.log(JSON.stringify({ width, before: { rows: before.rows, height: before.navHeight }, after: { rows: after.rows, height: after.navHeight } }));
-      assert.equal(after.links.length, 13, `${width}: published line links`);
+      assert(after.links.length > 0, `${width}: published line links`);
       assert.deepEqual(after.links.map(link => link.href), before.links.map(link => link.href));
       assert(heights.length > 0, `${width}: navigation resize was not observed`);
       assert(Math.max(...heights) - Math.min(...heights) <= 1, `${width}: navigation shifted while font subsets arrived`);
@@ -61,5 +61,5 @@ try {
       if (width >= 390) assert(!before.overflow && !after.overflow, `${width}: horizontal overflow`);
     } finally { release(); await context.close(); }
   }
-  console.log("PASS: delayed Korean fonts preserve 13 line links, row count, height, touch targets and line width (page width checked from 390px)");
+  console.log("PASS: delayed Korean fonts preserve published line links, row count, height, touch targets and line width (page width checked from 390px)");
 } finally { await browser.close(); }

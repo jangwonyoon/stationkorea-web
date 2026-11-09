@@ -1,3 +1,4 @@
+import { CompareTable } from "@/components/blocks/CompareTable";
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
@@ -8,6 +9,7 @@ import { ReelLink } from "@/components/article/reading/ReelLink";
 import { ArticleLayout } from "@/components/article/ArticleLayout";
 import { StationPhotoCaption } from "@/components/article/StationPhotoCaption";
 import { TransferDoors } from "@/components/transfer-doors/TransferDoors";
+import { Timeline } from "@/components/blocks/Timeline";
 import { articleGuideSourceIds } from "@/lib/article-guide";
 import { JsonLd } from "@/components/JsonLd";
 import { firstCitations, SourceRefs } from "@/components/SourceRefs";
@@ -90,7 +92,7 @@ export default async function MagazineArticlePage({ params }: Props) {
           <p className="mt-5 text-lead">{article.answer}<SourceRefs ids={article.answerSourceIds} sources={article.sources} anchorIds={citations[1]} /></p>
           <div className="mt-4"><Byline author={site.author} published={article.datePublished} modified={article.dateModified} readingMinutes={articleReadingMinutes(article)} /></div>
         </header>
-        {article.image && <figure className="mt-8">
+        {article.image && article.imagePlacement !== "body" && <figure className="mt-8">
           <Image src={article.image.src} alt={article.image.alt} width={article.image.width} height={article.image.height} priority sizes="(min-width: 1280px) 690px, (min-width: 768px) calc(75vw - 53px), calc(100vw - 40px)" className="h-auto w-full rounded-xl" />
           <StationPhotoCaption photo={article.image} />
         </figure>}
@@ -103,6 +105,15 @@ export default async function MagazineArticlePage({ params }: Props) {
                 return <p key={paragraph.text} className="text-body">{paragraph.text}<SourceRefs ids={paragraph.sourceIds} sources={article.sources} anchorIds={anchors} /></p>;
               })}
             </div>
+            {section.image && <figure className="mt-8 ml-auto md:w-11/12">
+              <Image src={section.image.src} alt={section.image.alt} width={section.image.width} height={section.image.height} sizes="(min-width: 1280px) 600px, (min-width: 768px) 66vw, calc(100vw - 40px)" className="h-auto max-w-full rounded-lg" />
+              <StationPhotoCaption photo={section.image} />
+            </figure>}
+            {section.comparison && <div className="mt-8"><CompareTable {...section.comparison} sources={article.sources} /></div>}
+            {section.visual && <figure className="mt-8 border-t border-rule pt-5">
+              <Image src={section.visual.src} alt={section.visual.alt} width={section.visual.width} height={section.visual.height} unoptimized className="h-auto max-w-full rounded-lg" />
+              <figcaption className="mt-4 text-caption">{section.visual.caption} <a href={article.sources.find((source) => source.id === section.visual!.sourceId)!.url} className="underline underline-offset-4">출처 원문</a> · <a href={section.visual.license.url} className="underline underline-offset-4">{section.visual.license.name}</a> · <a href={section.visual.src} className="underline underline-offset-4">원본 이미지 보기</a></figcaption>
+            </figure>}
             {section.figure && <figure className="mt-8 border-t border-ink pt-4">
               <p className="text-label">{section.figure.title}</p>
               <SeongsuDiagrams kind={section.figure.kind} descriptions={section.figure.descriptions} />
@@ -118,6 +129,7 @@ export default async function MagazineArticlePage({ params }: Props) {
             </dl>}
           </section>)}
         </div>
+        {article.timelines?.map((timeline) => <div key={timeline.title} className="mt-16"><Timeline title={timeline.title} items={timeline.items} headingAs="h2" /></div>)}
         {!!article.transfers?.length && <section className="mt-16" aria-labelledby="transfer-guide">
           <h2 id="transfer-guide" className="mb-6 text-h2">어디서 내리면 빠른가</h2>
           <p className="mb-6 text-caption">표의 시간은 자료 기준일의 경로별 참고값입니다. 실제 이동 시간은 보행 속도와 혼잡에 따라 달라집니다.</p>

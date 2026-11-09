@@ -34,7 +34,7 @@ export function StationSign({ station, transfers = [] }: StationSignProps) {
             <span className="inline-flex items-center gap-1.5"><LineRoundel line={line} size="S" /><span>↑ {directions[0]}</span></span>
           </span>)}
         </div>
-        <div data-station-sign-panel className="relative z-10 mx-auto flex min-h-24 w-full max-w-95 items-center justify-center gap-2 rounded-plate border-2 border-plate-ink bg-plate px-3 py-2 md:absolute md:top-1/2 md:left-1/2 md:min-h-49 md:w-80 md:-translate-x-1/2 md:-translate-y-1/2 md:flex-col md:gap-3 md:px-4 md:py-5 lg:w-95">
+        <div data-station-sign-panel className={`relative z-10 mx-auto flex min-h-24 w-full max-w-95 items-center justify-center gap-2 rounded-plate border-2 border-plate-ink bg-plate px-3 py-2 md:absolute md:top-1/2 md:left-1/2 md:min-h-49 md:w-80 md:-translate-x-1/2 md:-translate-y-1/2 md:flex-col md:gap-3 md:px-4 md:py-5 lg:w-95 ${orderedLines.length > 2 || displayName.length > 8 ? "flex-col" : ""}`}>
           <span className="flex max-w-full flex-wrap items-center justify-center gap-1.5 md:gap-2">
             {orderedLines.map((line) => <LineRoundel key={line} line={line} size="L" />)}
           </span>

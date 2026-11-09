@@ -40,10 +40,16 @@
   --color-line-arex: #0090d2;
   --color-line-seohae: #8fc31f;
   --color-line-gimpo-goldline: #a17800;
+  --color-line-suin-bundang: #f5a200;
+  --color-line-shinbundang: #d4003b;
+  --color-line-gtx-a: #9a6292;
   --color-on-line-gyeongui-jungang: #191b1d;
   --color-on-line-arex: #191b1d;
   --color-on-line-seohae: #191b1d;
   --color-on-line-gimpo-goldline: #ffffff;
+  --color-on-line-suin-bundang: #191b1d;
+  --color-on-line-shinbundang: #ffffff;
+  --color-on-line-gtx-a: #ffffff;
 
   /* 노선색 채움 위 숫자색 */
   --color-on-line-1: #ffffff;

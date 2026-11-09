@@ -6,16 +6,19 @@ import { Analytics } from "@/components/Analytics";
 import { SiteFooter } from "@/components/site/SiteFooter";
 import { SiteHeader } from "@/components/site/SiteHeader";
 import { sectionLinks } from "@/lib/article-index";
-import { site } from "@/lib/site";
+import { absoluteUrl, site } from "@/lib/site";
 import { stationPhotos } from "@/content/station-photos";
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
-  title: { default: `${site.name} — 길과 동네를 읽는 웹매거진`, template: `%s | ${site.name}` },
+  title: { default: `${site.name}(${site.koreanName}) — 길과 동네를 읽는 웹매거진`, template: `%s | ${site.name}` },
   description: site.description,
   alternates: { canonical: "/", types: { "application/rss+xml": "/rss.xml" } },
   openGraph: { type: "website", locale: "ko_KR", siteName: site.name, url: "/", images: [{ url: stationPhotos["seongsu-branch"].src, width: 1280, height: 720, alt: stationPhotos["seongsu-branch"].alt }] },
   twitter: { card: "summary_large_image", images: [stationPhotos["seongsu-branch"].src] },
+  icons: {
+    icon: { url: absoluteUrl("/favicon.ico"), type: "image/x-icon", sizes: "16x16 32x32 48x48 64x64" },
+  },
   // 네이버 서치어드바이저 소유 확인(메타 태그 방식, 2026-10-29 확인). 지우면 소유 확인이 풀린다.
   // Vercel은 public/*.html을 확장자 없는 경로로 내보내므로 HTML 파일 방식은 쓰지 않는다. Google·Bing은 DNS·GSC 가져오기로 확인했다.
   verification: { other: { "naver-site-verification": "d19249b28a182b5efb8ef5c7c5ba514253b9d0e1" } },

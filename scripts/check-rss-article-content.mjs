@@ -14,13 +14,14 @@ registerHooks({ resolve(specifier, context, nextResolve) {
 } });
 
 const { articles } = await import("../src/content/articles.ts");
+const { stations } = await import("../src/content/stations/index.ts");
 const { GET } = await import("../src/app/rss.xml/route.ts");
 const items = (xml) => [...xml.matchAll(/<item>(.*?)<\/item>/gs)].map((match) => match[1]);
 const content = (item) => item.match(/<content:encoded><!\[CDATA\[(.*?)\]\]><\/content:encoded>/s)[1];
 const metadata = (xml) => items(xml).map((item) => ["link", "guid", "pubDate"].map((tag) => item.match(new RegExp(`<${tag}[^>]*>(.*?)</${tag}>`))[1]));
 const feed = await GET().text();
 assert.equal(readFileSync("out/rss.xml", "utf8"), feed, "exported RSS matches route");
-assert.equal(items(feed).length, 11);
+assert.equal(items(feed).length, articles.length + stations.length);
 if (process.argv[2]) {
   const before = readFileSync(process.argv[2], "utf8");
   assert.deepEqual(metadata(feed), metadata(before), "URLs, dates and ordering stay unchanged");
@@ -28,13 +29,56 @@ if (process.argv[2]) {
   assert.deepEqual(stationItems(feed), stationItems(before), "Station items stay byte-for-byte unchanged");
 }
 const seongsu = articles.find((article) => article.slug === "seongsu-branch");
-const seongsuContent = content(items(feed).find((item) => item.includes("/article/seongsu-branch/")));
+const seongsuContent = content(items(feed).find((item) => item.includes("<link>https://www.stationkorea.com/article/seongsu-branch/</link>")));
 assert(seongsuContent.includes(seongsu.image.src) && seongsuContent.includes(seongsu.image.source), "역 사진과 출처가 RSS에 함께 표시된다");
+const gimpoContent = content(items(feed).find((item) => item.includes("<link>https://www.stationkorea.com/article/gimpo-extension-status/</link>")));
+assert(gimpoContent.includes("<h2>공식 자료로 확인한 사업 흐름</h2><ol>"), "김포 연장 기사 연표가 RSS에 포함된다");
+assert(gimpoContent.indexOf("2026-03-10") < gimpoContent.indexOf("2026-09-18"), "김포 연표는 날짜순으로 표시된다");
+const gimpoMarkdown = readFileSync("out/article/gimpo-extension-status/article.md", "utf8");
+assert(gimpoMarkdown.includes("## 공식 자료로 확인한 사업 흐름") && gimpoMarkdown.indexOf("2026-03-10") < gimpoMarkdown.indexOf("2026-09-18"), "김포 연표가 Markdown에도 날짜순으로 포함된다");
 for (const text of [seongsu.series.title, seongsu.series.description, ...seongsu.body.flatMap((section) => [
   ...(section.figure ? [section.figure.title, ...section.figure.descriptions, section.figure.caption] : []),
   ...(section.scope ? [section.scope.known, section.scope.unknown] : []),
 ]), ...seongsu.transfers.flatMap((transfer) => [transfer.car, transfer.time, seongsu.sources.find((source) => source.id === transfer.sourceId).date])]) {
   assert(seongsuContent.includes(text), `Seongsu RSS missing: ${text}`);
+}
+
+for (const article of articles) {
+  const photos = article.body.filter((section) => section.image);
+  if (!photos.length) continue;
+  const html = readFileSync(`out/article/${article.slug}/index.html`, "utf8");
+  const markdown = readFileSync(`out/article/${article.slug}/article.md`, "utf8");
+  const rss = content(items(feed).find((item) => item.includes(`<link>https://www.stationkorea.com/article/${article.slug}/</link>`)));
+  for (const section of photos) {
+    const photo = section.image;
+    for (const [format, document] of [["HTML", html], ["Markdown", markdown], ["RSS", rss]]) {
+      assert(document.includes(photo.caption), `${article.slug}: ${format} photo caption`);
+      assert(document.includes(photo.source) && document.includes(photo.licenseUrl), `${article.slug}: ${format} photo credit`);
+      assert(document.indexOf(section.heading) < document.indexOf(photo.caption), `${article.slug}: ${format} photo follows its section`);
+    }
+    assert.equal((rss.match(/<img [^>]*>/g) ?? []).filter((tag) => tag.includes(photo.src)).length, 1, `${article.slug}: RSS photo appears once`);
+    assert.equal((markdown.match(/!\[[^\]]*\]\([^)]*\)/g) ?? []).filter((image) => image.endsWith(`${photo.src})`)).length, 1, `${article.slug}: Markdown photo appears once`);
+  }
+}
+
+// 표의 기준일·주석과 자료 그림의 성격·이용조건이 모든 읽기 형식에 남아야 한다.
+for (const article of articles) {
+  const markdown = readFileSync(`out/article/${article.slug}/article.md`, "utf8");
+  const html = readFileSync(`out/article/${article.slug}/index.html`, "utf8");
+  const rss = content(items(feed).find((item) => item.includes(`<link>https://www.stationkorea.com/article/${article.slug}/</link>`)));
+  for (const section of article.body) {
+    if (section.visual) {
+      for (const text of [section.visual.src, section.visual.caption, section.visual.license.url]) {
+        for (const output of [markdown, html, rss]) assert(output.includes(text), `${article.slug}: official visual context missing`);
+      }
+    }
+    if (section.comparison) {
+      for (const text of [section.comparison.title, ...section.comparison.rows.flatMap(row => [...row.values, row.note])].filter(Boolean)) {
+        for (const output of [markdown, html, rss]) assert(output.includes(text), `${article.slug}: comparison context missing: ${text}`);
+      }
+      assert(markdown.includes(" |\n\n" + section.comparison.rows[0].label + ":"), "table notes are outside Markdown rows");
+    }
+  }
 }
 
 const originalArticles = [...articles];
@@ -60,7 +104,7 @@ const fixture = {
 try {
   articles.splice(0, articles.length, fixture);
   const fixtureFeed = await GET().text();
-  const html = content(items(fixtureFeed).find((item) => item.includes("/article/seongsu-branch/")));
+  const html = content(items(fixtureFeed).find((item) => item.includes("<link>https://www.stationkorea.com/article/seongsu-branch/</link>")));
   for (const prefix of ["series", "introduction", "figure", "description", "caption", "known", "unknown", "ride", "to", "time", "route org", "route date", "formation org", "formation date"]) {
     assert(html.includes(`${prefix} ${escaped}`), `${prefix} is HTML escaped`);
   }
@@ -78,14 +122,14 @@ try {
 
   delete fixture.transfers[0].formation;
   delete fixture.transfers[0].toCar;
-  let absent = content(items(await GET().text()).find((item) => item.includes("/article/seongsu-branch/")));
+  let absent = content(items(await GET().text()).find((item) => item.includes("<link>https://www.stationkorea.com/article/seongsu-branch/</link>")));
   assert(!absent.includes("칸 편성") && !absent.includes("승차 위치"));
   delete fixture.series;
   delete fixture.body[0].figure;
   delete fixture.body[0].scope;
   for (const transfers of [undefined, []]) {
     fixture.transfers = transfers;
-    absent = content(items(await GET().text()).find((item) => item.includes("/article/seongsu-branch/")));
+    absent = content(items(await GET().text()).find((item) => item.includes("<link>https://www.stationkorea.com/article/seongsu-branch/</link>")));
     for (const marker of ["연재:", "<figure>", "<dl>", "어디서 내리면 빠른가", "<table>"]) assert(!absent.includes(marker), `absent optional block: ${marker}`);
     assert(absent.includes("paragraph") && absent.includes("<h2>출처"));
   }
@@ -97,4 +141,4 @@ try {
 } finally {
   articles.splice(0, articles.length, ...originalArticles);
 }
-console.log("PASS: 11 RSS entries, exported content, Seongsu explanations, optional blocks/order, transfer basis, escaping and missing-source guards");
+console.log("PASS: RSS entries match published articles, exported content, article timeline parity, Seongsu explanations, optional blocks/order, transfer basis, escaping and missing-source guards");

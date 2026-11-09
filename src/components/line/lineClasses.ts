@@ -22,6 +22,9 @@ export const LINE_BG: Record<LineId, string> = {
   "arex": "bg-line-arex",
   "seohae": "bg-line-seohae",
   "gimpo-goldline": "bg-line-gimpo-goldline",
+  "suin-bundang": "bg-line-suin-bundang",
+  "shinbundang": "bg-line-shinbundang",
+  "gtx-a": "bg-line-gtx-a",
 };
 
 /** 노선색 채움 위 글자색. */
@@ -39,6 +42,9 @@ export const LINE_TEXT_ON: Record<LineId, string> = {
   "arex": "text-on-line-arex",
   "seohae": "text-on-line-seohae",
   "gimpo-goldline": "text-on-line-gimpo-goldline",
+  "suin-bundang": "text-on-line-suin-bundang",
+  "shinbundang": "text-on-line-shinbundang",
+  "gtx-a": "text-on-line-gtx-a",
 };
 
 /** 노선색 선. */
@@ -56,4 +62,7 @@ export const LINE_BORDER: Record<LineId, string> = {
   "arex": "border-line-arex",
   "seohae": "border-line-seohae",
   "gimpo-goldline": "border-line-gimpo-goldline",
+  "suin-bundang": "border-line-suin-bundang",
+  "shinbundang": "border-line-shinbundang",
+  "gtx-a": "border-line-gtx-a",
 };

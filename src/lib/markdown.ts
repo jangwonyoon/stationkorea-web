@@ -70,13 +70,20 @@ export function articleMarkdown(article: MagazineArticle): string {
     `게시: ${article.datePublished.slice(0, 10)} · 갱신: ${article.dateModified.slice(0, 10)}`,
     ...(article.station ? ["", `역명판: ${article.station.name} (${article.station.sign.en}) · ${article.station.lines.map(lineName).join("·")}`, `${lineName(article.station.sign.line)}: ${article.station.sign.prev} ← ${article.station.name} → ${article.station.sign.next} ${reference(article.station.sourceIds)}`] : []),
     "", `${article.answer} ${reference(article.answerSourceIds)}`, "",
-    ...(article.image ? [`![${article.image.alt}](${absoluteUrl(article.image.src)})`, "", article.image.caption, stationPhotoCredit(article.image), ""] : []),
+    ...(article.image && article.imagePlacement !== "body" ? [`![${article.image.alt}](${absoluteUrl(article.image.src)})`, "", article.image.caption, stationPhotoCredit(article.image), ""] : []),
     ...article.body.flatMap((section) => [
       `## ${section.heading}`, "",
       ...section.paragraphs.flatMap((paragraph) => [`${paragraph.text} ${reference(paragraph.sourceIds)}`, ""]),
+      ...(section.image ? [`![${section.image.alt}](${absoluteUrl(section.image.src)})`, "", section.image.caption, stationPhotoCredit(section.image), ""] : []),
+      ...(section.comparison ? [section.comparison.title, "", `| 구분 | ${section.comparison.columns.join(" | ")} |`, `|---|${section.comparison.columns.map(() => "---").join("|")}|`, ...section.comparison.rows.map((row) => `| ${row.label} | ${row.values.join(" | ")} |`), "", ...section.comparison.rows.map((row) => `${row.label}: ${row.note ?? ""} ${reference(row.sourceIds)}`), ""] : []),
+      ...(section.visual ? [`![${section.visual.alt}](${absoluteUrl(section.visual.src)})`, "", `${section.visual.caption} ${reference([section.visual.sourceId])} · [${section.visual.license.name}](${section.visual.license.url})`, ""] : []),
       ...(section.figure ? [section.figure.title, "", ...section.figure.descriptions.map((text) => `- ${text}`), "", `${section.figure.caption} ${reference(section.figure.sourceIds)}`, ""] : []),
       ...(section.scope ? [`알 수 있는 것: ${section.scope.known}`, `알 수 없는 것: ${section.scope.unknown}`, ""] : []),
     ]),
+    ...(article.timelines?.flatMap((timeline) => [
+      `## ${timeline.title}`, "",
+      ...timeline.items.slice().sort((a, b) => a.date.localeCompare(b.date)).flatMap((item) => [`### ${item.date} · ${item.org} · ${item.doc}`, "", ...(item.summary ? [item.summary, ""] : []), `[원문](${item.url})`, ""]),
+    ]) ?? []),
     ...(article.transfers?.length ? ["## 어디서 내리면 빠른가", "", "표의 시간은 자료 기준일의 경로별 참고값입니다. 실제 이동 시간은 보행 속도와 혼잡에 따라 달라집니다.", "", "| 타고 있는 열차 | 갈아탈 노선·방면 | 내릴 칸(호차-문) | 참고 시간 | 기준일·출처 |", "|---|---|---|---|---|", ...article.transfers.map((transfer) => {
       const source = article.sources.find((item) => item.id === transfer.sourceId)!;
       const formationSource = transfer.formation ? article.sources.find((item) => item.id === transfer.formation!.sourceId)! : undefined;
