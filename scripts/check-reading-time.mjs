@@ -4,7 +4,7 @@ import { jamsil } from "../src/content/stations/jamsil.ts";
 import { sadang } from "../src/content/stations/sadang.ts";
 import { konkukUniv } from "../src/content/stations/konkuk-univ.ts";
 
-const empty = { ...jamsil, question: "", answer: "", crossSection: { ...jamsil.crossSection, caption: "" }, stats: [], pin: { ...jamsil.pin, text: "" }, transfers: [], qna: [], comparison: undefined, pullQuote: undefined };
+const empty = { ...jamsil, question: "", answer: "", body: [], series: undefined, crossSection: { ...jamsil.crossSection, caption: "" }, stats: [], pin: { ...jamsil.pin, text: "" }, transfers: [], qna: [], comparison: undefined, pullQuote: undefined };
 assert.equal(readingMinutes(empty), 1);
 assert.equal(readingMinutes({ ...empty, answer: "가".repeat(500) }), 1);
 assert.equal(readingMinutes({ ...empty, answer: "가".repeat(501) }), 2);

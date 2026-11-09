@@ -1,3 +1,6 @@
+import { jongno3RitualMemory } from "./articles/jongno3-ritual-memory";
+import { wangsimniCulturalSpaces } from "./articles/wangsimni-cultural-spaces";
+import { dongjakLandscapeMemory } from "./articles/dongjak-landscape-memory";
 import { articleGuideSourceIds, validateArticleGuide } from "../lib/article-guide";
 import type { Source, StationSection, StationSign, LineId, Transfer, ReelCover, Station, Timeline, Comparison } from "./types";
 import type { StationPhoto } from "./station-photos";
@@ -20,6 +23,10 @@ import { ddpHistoryWalk } from "./articles/ddp-history-walk";
 import { jongno3MusicHeritage } from "./articles/jongno3-music-heritage";
 import { gongdeokConnections } from "./articles/gongdeok-connections";
 import { gunjaMorningCrowding } from "./articles/gunja-morning-crowding";
+import { gimpoAviationCulture } from "./articles/gimpo-aviation-culture";
+import { isuMarketCinema } from "./articles/isu-market-cinema";
+import { gongdeokHyochangMemory } from "./articles/gongdeok-hyochang-memory";
+import { guriCommunityCulture } from "./articles/guri-community-culture";
 
 export type ArticleFigure = {
   kind: "seongsu-current" | "seongsu-history";
@@ -52,7 +59,7 @@ export type MagazineArticle = {
 };
 
 // 검증된 편만 등록한다. 릴스 게시 여부는 기사 발행 조건이 아니다.
-export const articles: MagazineArticle[] = [guriEscalator, expressTerminal, seongsuBranch, dongmyoWeekend, gimpoPlanChange, isuGuideTimes, hongdaeTransfer, dongjakExpress, gimpoExtensionStatus, ichonMuseumNeighborhood, seoulStationConnections, sindorimCulturalSpaces, wangsimniNeighborhood, gangnamConnections, ddpHistoryWalk, jongno3MusicHeritage, gongdeokConnections, gunjaMorningCrowding];
+export const articles: MagazineArticle[] = [jongno3RitualMemory, wangsimniCulturalSpaces, dongjakLandscapeMemory, guriEscalator, expressTerminal, seongsuBranch, dongmyoWeekend, gimpoPlanChange, isuGuideTimes, hongdaeTransfer, dongjakExpress, gimpoExtensionStatus, ichonMuseumNeighborhood, seoulStationConnections, sindorimCulturalSpaces, wangsimniNeighborhood, gangnamConnections, ddpHistoryWalk, jongno3MusicHeritage, gongdeokConnections, gunjaMorningCrowding, gimpoAviationCulture, isuMarketCinema, gongdeokHyochangMemory, guriCommunityCulture];
 
 for (const article of articles) {
   validateArticleGuide(article);

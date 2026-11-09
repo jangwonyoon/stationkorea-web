@@ -15,8 +15,9 @@ for (const width of [undefined, NaN, Infinity, 0, -1]) {
 for (const [requested, generated] of [[88, 96], [181, 384], [400, 640], [2000, 1080], [2048, 1080]]) {
   assert.equal(imageLoader({ src: imageSources[0], width: requested }), imageUrl(imageSources[0], generated));
 }
-assert.equal(imageLoader({ src: imageSources[1], width: 90 }), imageUrl(imageSources[1], 96));
-assert.equal(imageLoader({ src: imageSources[1], width: 400 }), imageUrl(imageSources[1], 180));
+const reelSource = "/images/station/jamsil-reel.jpg";
+assert.equal(imageLoader({ src: reelSource, width: 90 }), imageUrl(reelSource, 96));
+assert.equal(imageLoader({ src: reelSource, width: 400 }), imageUrl(reelSource, 180));
 assert.throws(() => imageUrl(imageSources[0], 181));
 for (const src of ["/images/about/rail.jpg", "/images/about/street.jpg", "/images/about/space.jpg"]) {
   assert.equal(widthsFor(src).at(-1), 2048);

@@ -4,6 +4,10 @@ export const imageWidths = [...imageSizes, ...deviceSizes];
 const stationImageWidths = imageWidths.filter((width) => width <= 1080);
 const comparisonImageWidths = [...imageWidths.filter((width) => width < 1000), 1000];
 export const imageSources = [
+  "/images/station/jongno3-jongmyo-photo.jpg",
+  "/images/station/jongno3-tapgol-photo.jpg",
+  "/images/station/dongjak-bridge-photo.jpg",
+  "/images/station/dongjak-cemetery-photo.jpg",
   ...["jamsil", "konkuk-univ", "sadang"].flatMap((station) =>
     ["section", "reel"].map((kind) => `/images/station/${station}-${kind}.jpg`),
   ),
@@ -12,6 +16,7 @@ export const imageSources = [
   ...["ichon-museum-neighborhood","seoul-station-connections","sindorim-cultural-spaces","wangsimni-neighborhood","gangnam-connections","ddp-history-walk","jongno3-music-heritage","gongdeok-connections","gunja-morning-crowding"].map((slug) => `/images/station/${slug}-photo.jpg`),
   ...["sindorim-dcube", "sindorim-dorimcheon"].map((slug) => `/images/station/${slug}-photo.jpg`),
   ...["ddp-igansu", "ddp-stadium-2004", "ddp-market-fabrics"].map((slug) => `/images/station/${slug}-photo.jpg`),
+  ...["kukkiwon-main-gate-20260818", "three-martyrs-jjw-20160924", "kim-koo-museum-derpaul-20220601", "market-gate-jjw-20250524", "guri-art-hall-asfreeas-20220912"].map((slug) => `/images/station/${slug}.jpg`),
   ...["rail", "street", "space", "network", "change-day", "change-evening"].map((name) => `/images/about/${name}.jpg`),
 ];
 
