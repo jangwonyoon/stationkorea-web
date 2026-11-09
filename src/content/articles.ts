@@ -1,3 +1,4 @@
+import { dongjakLandscapeMemory } from "./articles/dongjak-landscape-memory";
 import { articleGuideSourceIds, validateArticleGuide } from "../lib/article-guide";
 import type { Source, StationSection, StationSign, LineId, Transfer, ReelCover, Station, Timeline, Comparison } from "./types";
 import type { StationPhoto } from "./station-photos";
@@ -52,7 +53,7 @@ export type MagazineArticle = {
 };
 
 // 검증된 편만 등록한다. 릴스 게시 여부는 기사 발행 조건이 아니다.
-export const articles: MagazineArticle[] = [guriEscalator, expressTerminal, seongsuBranch, dongmyoWeekend, gimpoPlanChange, isuGuideTimes, hongdaeTransfer, dongjakExpress, gimpoExtensionStatus, ichonMuseumNeighborhood, seoulStationConnections, sindorimCulturalSpaces, wangsimniNeighborhood, gangnamConnections, ddpHistoryWalk, jongno3MusicHeritage, gongdeokConnections, gunjaMorningCrowding];
+export const articles: MagazineArticle[] = [dongjakLandscapeMemory, guriEscalator, expressTerminal, seongsuBranch, dongmyoWeekend, gimpoPlanChange, isuGuideTimes, hongdaeTransfer, dongjakExpress, gimpoExtensionStatus, ichonMuseumNeighborhood, seoulStationConnections, sindorimCulturalSpaces, wangsimniNeighborhood, gangnamConnections, ddpHistoryWalk, jongno3MusicHeritage, gongdeokConnections, gunjaMorningCrowding];
 
 for (const article of articles) {
   validateArticleGuide(article);
