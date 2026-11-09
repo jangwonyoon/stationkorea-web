@@ -1,0 +1,48 @@
+name: Close completed issues on develop
+
+on:
+  push:
+    branches: [develop]
+
+permissions:
+  contents: read
+  pull-requests: read
+  issues: write
+
+jobs:
+  close-issues:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8
+        with:
+          script: |
+            if (context.ref !== 'refs/heads/develop') return;
+            const prs = await github.paginate(github.rest.repos.listPullRequestsAssociatedWithCommit, {
+              ...context.repo, commit_sha: context.sha, per_page: 100,
+            });
+            const numbers = new Set();
+            for (const pr of prs) {
+              if (!pr.merged_at || pr.base.ref !== 'develop' || pr.merge_commit_sha !== context.sha) continue;
+              let fence = null;
+              for (const line of (pr.body ?? '').replace(/<!--[\s\S]*?(?:-->|$)/g, '').split(/\r?\n/)) {
+                const marker = /^ {0,3}(`{3,}|~{3,})(.*)$/.exec(line);
+                if (marker) {
+                  if (!fence) fence = marker[1];
+                  else if (marker[1][0] === fence[0] && marker[1].length >= fence.length && !marker[2].trim()) fence = null;
+                  continue;
+                }
+                if (fence) continue;
+                // shortcut: same-repository closing directives on their own line; expand only if the PR convention changes.
+                const match = /^ {0,3}(?:[-*] +)?(?:close[sd]?|fix(?:e[sd])?|resolve[sd]?)(?:\s+|:\s*)#([1-9]\d*)\s*$/i.exec(line);
+                if (match) numbers.add(Number(match[1]));
+              }
+            }
+            for (const issue_number of numbers) {
+              if (!Number.isSafeInteger(issue_number)) continue;
+              const params = { ...context.repo, issue_number };
+              const { data: issue } = await github.rest.issues.get(params);
+              if (issue.pull_request || issue.state === 'closed') continue;
+              await github.rest.issues.update({ ...params, state: 'closed', state_reason: 'completed' });
+              core.info(`Closed #${issue_number} after merge into develop.`);
+            }
