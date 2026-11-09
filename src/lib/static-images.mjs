@@ -4,6 +4,8 @@ export const imageWidths = [...imageSizes, ...deviceSizes];
 const stationImageWidths = imageWidths.filter((width) => width <= 1080);
 const comparisonImageWidths = [...imageWidths.filter((width) => width < 1000), 1000];
 export const imageSources = [
+  "/images/station/jongno3-jongmyo-photo.jpg",
+  "/images/station/jongno3-tapgol-photo.jpg",
   "/images/station/dongjak-bridge-photo.jpg",
   "/images/station/dongjak-cemetery-photo.jpg",
   ...["jamsil", "konkuk-univ", "sadang"].flatMap((station) =>
